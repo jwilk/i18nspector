@@ -1,0 +1,609 @@
+[aa]
+# Afar
+
+[ab]
+# Abkhazian
+
+[ae]
+# Avestan
+
+[af]
+# Afrikaans
+
+[ak]
+# Akan
+
+[am]
+# Amharic
+
+[an]
+# Aragonese
+
+[ar]
+# Arabic
+
+[as]
+# Assamese
+
+[av]
+# Avaric
+
+[ay]
+# Aymara
+
+[az]
+# Azerbaijani
+
+[ba]
+# Bashkir
+
+[be]
+# Byelorussian
+
+[bg]
+# Bulgarian
+plural-forms = nplurals=2; plural=n != 1;
+
+[bh]
+# Bihari
+
+[bi]
+# Bislama
+
+[bm]
+# Bambara
+
+[bn]
+# Bengali
+
+[bo]
+# Tibetan
+
+[br]
+# Breton
+
+[bs]
+# Bosnian
+
+[ca]
+# Catalan
+
+[ce]
+# Chechen
+
+[ch]
+# Chamorro
+
+[co]
+# Corsican
+
+[cr]
+# Cree
+
+[cs]
+# Czech
+plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+
+[cu]
+# Old Church Slavonic
+
+[cv]
+# Chuvash
+
+[cy]
+# Welsh
+
+[da]
+# Danish
+plural-forms = nplurals=2; plural=n != 1;
+
+[de]
+# German
+plural-forms = nplurals=2; plural=n != 1;
+
+[dv]
+# Divehi
+
+[dz]
+# Dzongkha
+
+[ee]
+# Ewe
+
+[el]
+# Greek
+plural-forms = nplurals=2; plural=n != 1;
+
+[en]
+# English
+plural-forms = nplurals=2; plural=n != 1;
+
+[eo]
+# Esperanto
+plural-forms = nplurals=2; plural=n != 1;
+
+[es]
+# Spanish
+plural-forms = nplurals=2; plural=n != 1;
+
+[et]
+# Estonian
+plural-forms = nplurals=2; plural=n != 1;
+
+[eu]
+# Basque
+
+[fa]
+# Persian
+
+[ff]
+# Fulah
+
+[fi]
+# Finnish
+plural-forms = nplurals=2; plural=n != 1;
+
+[eu]
+# Basque
+
+[fa]
+# Persian
+
+[ff]
+# Fulah
+
+[fi]
+# Finnish
+plural-forms = nplurals=2; plural=n != 1;
+
+[fj]
+# Fiji
+
+[fo]
+# Faroese
+plural-forms = nplurals=2; plural=n != 1;
+
+[fr]
+# French
+plural-forms = nplurals=2; plural=n > 1;
+
+[fy]
+# Frisian
+
+[ga]
+# Irish
+plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
+
+[gd]
+# Scots Gaelic
+
+[gl]
+# Galician
+
+[gn]
+# Guarani
+
+[gu]
+# Gujarati
+
+[gv]
+# Manx
+
+[ha]
+# Hausa
+
+[he]
+# Hebrew
+plural-forms = nplurals=2; plural=n != 1;
+
+[hi]
+# Hindi
+
+[ho]
+# Hiri Motu
+
+[hr]
+# Croatian
+plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+[ht]
+# Haitian
+
+[hu]
+# Hungarian
+plural-forms = nplurals=2; plural=n != 1;
+
+[hy]
+# Armenian
+
+[hz]
+# Herero
+
+[ia]
+# Interlingua
+
+[id]
+# Indonesian
+
+[ie]
+# Interlingue
+
+[ig]
+# Igbo
+
+[ii]
+# Sichuan Yi
+
+[ik]
+# Inupiak
+
+[io]
+# Ido
+
+[is]
+# Icelandic
+
+[it]
+# Italian
+plural-forms = nplurals=2; plural=n != 1;
+
+[iu]
+# Inuktitut
+
+[ja]
+# Japanese
+plural-forms = nplurals=1; plural=0;
+
+[jv]
+# Javanese
+
+[ka]
+# Georgian
+
+[kg]
+# Kongo
+
+[ki]
+# Kikuyu
+
+[kj]
+# Kuanyama
+
+[kk]
+# Kazakh
+
+[kl]
+# Greenlandic
+
+[km]
+# Khmer
+
+[kn]
+# Kannada
+
+[ko]
+# Korean
+plural-forms = nplurals=1; plural=0;
+
+[kr]
+# Kanuri
+
+[ks]
+# Kashmiri
+
+[ku]
+# Kurdish
+
+[kv]
+# Komi
+
+[kw]
+# Cornish
+
+[ky]
+# Kirghiz
+
+[la]
+# Latin
+
+[lb]
+# Luxembourgish
+
+[lg]
+# Ganda
+
+[li]
+# Limburgan
+
+[ln]
+# Lingala
+
+[lo]
+# Lao
+
+[lt]
+# Lithuanian
+plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+[lu]
+# Luba-Katanga
+
+[lv]
+# Latvian
+plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;
+
+[mg]
+# Malagasy
+
+[mh]
+# Marshallese
+
+[mi]
+# Maori
+
+[mk]
+# Macedonian
+
+[ml]
+# Malayalam
+
+[mn]
+# Mongolian
+
+[mo]
+# Moldavian
+
+[mr]
+# Marathi
+
+[ms]
+# Malay
+
+[mt]
+# Maltese
+
+[my]
+# Burmese
+
+[na]
+# Nauru
+
+[nb]
+# Norwegian Bokmål
+plural-forms = nplurals=2; plural=n != 1;
+
+[nd]
+# North Ndebele
+
+[ne]
+# Nepali
+
+[ng]
+# Ndonga
+
+[nl]
+# Dutch
+plural-forms = nplurals=2; plural=n != 1;
+
+[nn]
+# Norwegian Nynorsk
+plural-forms = nplurals=2; plural=n != 1;
+
+[no]
+# Norwegian
+plural-forms = nplurals=2; plural=n != 1;
+deprecated = no nb
+
+[nr]
+# South Ndebele
+
+[nv]
+# Navajo
+
+[oc]
+# Occitan
+
+[oj]
+# Ojibwa
+
+[om]
+# Oromo
+
+[or]
+# Oriya
+
+[os]
+# Ossetian
+
+[pa]
+# Punjabi
+
+[pi]
+# Pali
+
+[pl]
+# Polish
+plural-forms = nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2
+
+[ps]
+# Pushto
+
+[pt]
+# Portuguese
+plural-forms = nplurals=2; plural=n != 1;
+
+[pt_BR]
+# Brazilian
+plural-forms = nplurals=2; plural=n > 1;
+
+[qu]
+# Quechua
+
+[rm]
+# Rhaeto-Romance
+
+[rn]
+# Rundi
+
+[ro]
+# Romanian
+plural-forms = nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;
+
+[ru]
+# Russian
+plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+[rw]
+# Kinyarwanda
+
+[sa]
+# Sanskrit
+
+[sc]
+# Sardinian
+
+[sd]
+# Sindhi
+
+[se]
+# Northern Sami
+
+[sg]
+# Sango
+
+[sh]
+# Serbo-Croatian
+
+[si]
+# Sinhala
+
+[sk]
+# Slovak
+plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+
+[sl]
+# Slovenian
+plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
+
+[sm]
+# Samoan
+
+[sn]
+# Shona
+
+[so]
+# Somali
+
+[sq]
+# Albanian
+
+[sr]
+# Serbian
+plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+[ss]
+# Swati
+
+[st]
+# Southern Sotho
+
+[su]
+# Sundanese
+
+[sv]
+# Swedish
+plural-forms = nplurals=2; plural=n != 1;
+
+[sw]
+# Swahili
+
+[ta]
+# Tamil
+
+[te]
+# Telugu
+
+[tg]
+# Tajik
+
+[th]
+# Thai
+
+[ti]
+# Tigrinya
+
+[tk]
+# Turkmen
+
+[tl]
+# Tagalog
+
+[tn]
+# Tswana
+
+[to]
+# Tonga
+
+[tr]
+# Turkish
+plural-forms = nplurals=2; plural=n != 1;
+
+[ts]
+# Tsonga
+
+[tt]
+# Tatar
+
+[tw]
+# Twi
+
+[ty]
+# Tahitian
+
+[ug]
+# Uighur
+
+[uk]
+# Ukrainian
+
+[ur]
+# Urdu
+
+[uz]
+# Uzbek
+
+[ve]
+# Venda
+
+[vi]
+# Vietnamese
+plural-forms = nplurals=1; plural=0;
+
+[vo]
+# Volapuk
+
+[wa]
+# Walloon
+
+[wo]
+# Wolof
+
+[xh]
+# Xhosa
+
+[yi]
+# Yiddish
+
+[yo]
+# Yoruba
+
+[za]
+# Zhuang
+
+[zh]
+# Chinese
+
+[zu]
+# Zulu
+
+# vim:ft=dosini
