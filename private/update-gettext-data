@@ -1,0 +1,68 @@
+#!/usr/bin/python3
+
+# Copyright © 2012 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import os
+import re
+import sys
+import urllib.request
+
+basedir = os.path.join(
+    os.path.dirname(__file__),
+    os.pardir,
+)
+sys.path[:0] = [basedir]
+
+from lib import ling
+
+def strip_plural_forms(s):
+    # Remove superfluous parentheses around the plural formula:
+    return re.sub(r'\bplural=\((.*?)\);$', r'plural=\1;', s)
+
+def main():
+    url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
+    regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
+    datadir = os.path.join(basedir, 'data')
+    ld = ling.LingData(datadir)
+    gettext_languages = set()
+    dirty = False
+    with urllib.request.urlopen(url) as file:
+        for line in file:
+            line = line.decode('ASCII').rstrip()
+            match = regexp.match(line)
+            if match is None:
+                continue
+            language, gettext_plural_forms = match.groups()
+            gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
+            try:
+                our_plural_forms = ld.get_plural_forms(language)
+            except LookupError:
+                our_plural_forms = None
+            if our_plural_forms != gettext_plural_forms:
+                ld._set_plural_forms(language, gettext_plural_forms)
+                dirty = True
+    if dirty:
+        ld._save()
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et
