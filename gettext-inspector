@@ -23,6 +23,7 @@
 import argparse
 import itertools
 import os
+import sys
 
 import polib
 
@@ -39,9 +40,16 @@ class Checker(object):
             print('N:', message, *extra)
 
     def tag(self, tag, *extra):
-        print('E: {path}: \x1b[31m{tag}\x1b[0m'.format(
+        if sys.stdout.isatty():
+            color_on = '\x1b[31m'
+            color_off = '\x1b[0m'
+        else:
+            color_on = color_off = ''
+        print('E: {path}: {on}{tag}{off}'.format(
             path=self.path,
-            tag=tag
+            tag=tag,
+            on=color_on,
+            off=color_off,
         ), *extra)
 
     def check(self):
