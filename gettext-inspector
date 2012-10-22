@@ -114,7 +114,7 @@ class Checker(object):
             self.tag('unable-to-determine-language')
             return
         self.debug('language = {!r}'.format(language))
-        if meta_language is None:
+        if not meta_language:
             self.tag('no-language-header', 'Language:', language)
         return language
 
