@@ -47,9 +47,14 @@ class Checker(object):
     def check(self):
         self.debug('path = {!r}'.format(self.path))
         extension = os.path.splitext(self.path)[-1]
+        template = False
         if extension == '.po':
             constructor = polib.pofile
             self.debug('filetype = .po')
+        elif extension == '.pot':
+            constructor = polib.pofile
+            self.debug('filetype = .po')
+            template = True
         elif extension == '.mo':
             constructor = polib.mofile
             self.debug('filetype = .mo')
@@ -57,7 +62,10 @@ class Checker(object):
             self.tag('unknown-file-type')
             return
         file = constructor(self.path)
-        language = self.check_language(file)
+        if template:
+            language = None
+        else:
+            language = self.check_language(file)
 
     def check_language(self, file):
         language = self.options.language
