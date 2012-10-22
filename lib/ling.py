@@ -29,6 +29,18 @@ class LingData(object):
         cp.read(path, encoding='UTF-8')
         self._path = path
         self._cp = cp
+        self._name_to_code = {}
+        for language, section in self._cp.items():
+            if language == 'DEFAULT':
+                continue
+            name = section['name']
+            self._name_to_code[name] = language
+
+    def get_language_for_name(self, name):
+        try:
+            return self._name_to_code[name]
+        except KeyError:
+            raise LookupError(name)
 
     def get_primary_languages(self):
         return list(self._cp)
