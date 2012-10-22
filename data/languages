@@ -143,19 +143,6 @@ name = Fulah
 name = Finnish
 plural-forms = nplurals=2; plural=n != 1;
 
-[eu]
-name = Basque
-
-[fa]
-name = Persian
-
-[ff]
-name = Fulah
-
-[fi]
-name = Finnish
-plural-forms = nplurals=2; plural=n != 1;
-
 [fj]
 name = Fiji
 
