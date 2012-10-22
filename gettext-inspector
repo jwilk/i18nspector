@@ -1,0 +1,125 @@
+#!/usr/bin/python3
+
+# Copyright © 2012 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import argparse
+import itertools
+import os
+
+import polib
+
+from lib import ling
+
+class Checker(object):
+
+    def __init__(self, path, *, options):
+        self.path = path
+        self.options = options
+
+    def debug(self, message, *extra):
+        if self.options.debug:
+            print('N:', message, *extra)
+
+    def tag(self, tag, *extra):
+        print('E: {path}: \x1b[31m{tag}\x1b[0m'.format(
+            path=self.path,
+            tag=tag
+        ), *extra)
+
+    def check(self):
+        self.debug('path = {!r}'.format(self.path))
+        extension = os.path.splitext(self.path)[-1]
+        if extension == '.po':
+            constructor = polib.pofile
+            self.debug('filetype = .po')
+        elif extension == '.mo':
+            constructor = polib.mofile
+            self.debug('filetype = .mo')
+        else:
+            self.tag('unknown-file-type')
+            return
+        file = constructor(self.path)
+        language = self.check_language(file)
+
+    def check_language(self, file):
+        language = self.options.language
+        ld = self.options.ld
+        language_source = 'command-line'
+        if language is None:
+            path_components = os.path.normpath(self.path).split('/')
+            try:
+                i = path_components.index('LC_MESSAGES')
+            except ValueError:
+                i = 0
+            if i > 0:
+                language = path_components[i - 1]
+                language_source = 'pathname'
+            del path_components
+        meta_language = file.metadata.get('Language')
+        self.debug('meta-language = {!r}'.format(meta_language))
+        if meta_language:
+            if language is None:
+                language = meta_language
+                language_source = 'Language header'
+            elif language != meta_language:
+                self.tag('language-disparity', language, '({})'.format(language_source), '!=', meta_language, '(Language header)')
+        poedit_language = file.metadata.get('X-Poedit-Language')
+        self.debug('poedit-language = {!r}'.format(poedit_language))
+        if poedit_language:
+            try:
+                poedit_language = ld.get_language_for_name(poedit_language)
+                self.debug('poedit-language = {!r}'.format(poedit_language))
+            except LookupError:
+                self.tag('unknown-poedit-language', poedit_language)
+            else:
+                if language is None:
+                    language = poedit_language
+                elif language != poedit_language:
+                    self.tag('language-disparity', language, '({})'.format(language_source), '!=', poedit_language, '(X-Poedit-Language header)')
+        if language is None:
+            self.tag('unable-to-determine-language')
+            return
+        self.debug('language = {!r}'.format(language))
+        if meta_language is None:
+            self.tag('no-language-header', 'Language:', language)
+        return language
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--language', metavar='<lang>')
+    ap.add_argument('--debug', action='store_true')
+    ap.add_argument('files', metavar='<file>', nargs='+')
+    options = ap.parse_args()
+    files = options.files
+    del options.files
+    datadir = os.path.join(
+        os.path.dirname(__file__),
+        'data'
+    )
+    options.ld = ling.LingData(datadir)
+    for filename in files:
+        checker = Checker(filename, options=options)
+        checker.check()
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et
