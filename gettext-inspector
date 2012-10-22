@@ -63,7 +63,7 @@ class Checker(object):
             constructor = polib.pofile
             self.debug('filetype = .po')
             template = True
-        elif extension == '.mo':
+        elif extension in ('.mo', '.gmo'):
             constructor = polib.mofile
             self.debug('filetype = .mo')
         else:
