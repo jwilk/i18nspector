@@ -41,7 +41,7 @@ def main():
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
     regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
     datadir = os.path.join(basedir, 'data')
-    ld = ling.LingData(datadir)
+    linginfo = ling.LingInfo(datadir)
     gettext_languages = set()
     dirty = False
     with urllib.request.urlopen(url) as file:
@@ -54,17 +54,17 @@ def main():
             gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
             print('checking {lang} ...'.format(lang=language), end=' ', file=sys.stderr)
             try:
-                our_plural_forms = ld.get_plural_forms(language)
+                our_plural_forms = linginfo.get_plural_forms(language)
             except LookupError:
                 our_plural_forms = None
             if our_plural_forms != gettext_plural_forms:
-                ld._set_plural_forms(language, gettext_plural_forms)
+                linginfo._set_plural_forms(language, gettext_plural_forms)
                 dirty = True
                 print('updated', file=sys.stderr)
             else:
                 print('ok', file=sys.stderr)
     if dirty:
-        ld._save()
+        linginfo._save()
 
 if __name__ == '__main__':
     main()
