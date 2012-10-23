@@ -25,13 +25,13 @@ class LingInfo(object):
 
     def __init__(self, datadir):
         path = os.path.join(datadir, 'languages')
-        cp = configparser.ConfigParser(interpolation=None)
+        cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
         self._path = path
         self._cp = cp
         self._name_to_code = {}
         for language, section in self._cp.items():
-            if language == 'DEFAULT':
+            if not language:
                 continue
             name = section['name']
             self._name_to_code[name] = language
