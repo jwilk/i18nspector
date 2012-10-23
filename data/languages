@@ -380,7 +380,7 @@ plural-forms = nplurals=2; plural=n != 1;
 [no]
 name = Norwegian
 plural-forms = nplurals=2; plural=n != 1;
-deprecated = no nb
+deprecated = nb nn
 
 [nr]
 name = South Ndebele
