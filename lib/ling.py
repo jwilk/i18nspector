@@ -21,7 +21,7 @@
 import configparser
 import os
 
-class LingData(object):
+class LingInfo(object):
 
     def __init__(self, datadir):
         path = os.path.join(datadir, 'languages')

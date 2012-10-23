@@ -70,7 +70,7 @@ class Checker(object):
 
     def check_language(self, file):
         language = self.options.language
-        ld = self.options.ld
+        linginfo = self.options.linginfo
         language_source = 'command-line'
         if language is None:
             path_components = os.path.normpath(self.path).split('/')
@@ -94,7 +94,7 @@ class Checker(object):
         self.debug('poedit-language = {!r}'.format(poedit_language))
         if poedit_language:
             try:
-                poedit_language = ld.get_language_for_name(poedit_language)
+                poedit_language = linginfo.get_language_for_name(poedit_language)
                 self.debug('poedit-language = {!r}'.format(poedit_language))
             except LookupError:
                 self.tag('unknown-poedit-language', poedit_language)
@@ -133,7 +133,7 @@ def main():
         os.path.dirname(__file__),
         'data'
     )
-    options.ld = ling.LingData(datadir)
+    options.linginfo = ling.LingInfo(datadir)
     options.taginfo = tags.TagInfo(datadir)
     for filename in files:
         checker = Checker(filename, options=options)
