@@ -52,11 +52,4 @@ class LingInfo(object):
     def get_plural_forms(self, language):
         return self._cp[language]['plural-forms']
 
-    def _set_plural_forms(self, language, s):
-        self._cp[language]['plural-forms'] = s
-
-    def _save(self):
-        with open(self._path, 'wt', encoding='UTF-8') as file:
-            self._cp.write(file)
-
 # vim:ts=4 sw=4 et

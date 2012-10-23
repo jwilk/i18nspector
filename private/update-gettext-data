@@ -43,7 +43,7 @@ def main():
     datadir = os.path.join(basedir, 'data')
     linginfo = ling.LingInfo(datadir)
     gettext_languages = set()
-    dirty = False
+    okay = set()
     with urllib.request.urlopen(url) as file:
         for line in file:
             line = line.decode('ASCII').rstrip()
@@ -52,19 +52,20 @@ def main():
                 continue
             language, gettext_plural_forms = match.groups()
             gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
-            print('checking {lang} ...'.format(lang=language), end=' ', file=sys.stderr)
             try:
                 our_plural_forms = linginfo.get_plural_forms(language)
             except LookupError:
                 our_plural_forms = None
             if our_plural_forms != gettext_plural_forms:
-                linginfo._set_plural_forms(language, gettext_plural_forms)
-                dirty = True
-                print('updated', file=sys.stderr)
+                print('[{}]'.format(language))
+                if our_plural_forms != None:
+                    print('# plural-forms = ' + our_plural_forms)
+                print('plural-forms = ' + gettext_plural_forms)
+                print()
             else:
-                print('ok', file=sys.stderr)
-    if dirty:
-        linginfo._save()
+                okay.add(language)
+    n_okay = len(okay)
+    print('# No changes required for {} languages'.format(n_okay))
 
 if __name__ == '__main__':
     main()
