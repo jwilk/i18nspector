@@ -162,6 +162,9 @@ class TagInfo(object):
             kwargs['name'] = tagname
             self._tags[tagname] = Tag(**kwargs)
 
+    def __contains__(self, tagname):
+        return tagname in self._tags
+
     def __getitem__(self, tagname):
         return self._tags[tagname]
 

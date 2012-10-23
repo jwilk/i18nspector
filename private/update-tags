@@ -1,0 +1,68 @@
+#!/usr/bin/python3
+
+# Copyright © 2012 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import ast
+import os
+import sys
+
+basedir = os.path.join(
+    os.path.dirname(__file__),
+    os.pardir,
+)
+sys.path[:0] = [basedir]
+
+from lib import tags
+
+def extract_tagnames(node):
+    for child in ast.iter_child_nodes(node):
+        for t in extract_tagnames(child):
+            yield t
+    if (
+        isinstance(node, ast.Call) and
+        isinstance(node.func, ast.Attribute) and
+        node.func.attr == 'tag' and
+        node.args and
+        isinstance(node.args[0], ast.Str)
+    ):
+        yield node.args[0].s
+
+def main():
+    datadir = os.path.join(basedir, 'data')
+    taginfo = tags.TagInfo(datadir)
+    source_path = os.path.join(basedir, 'gettext-inspector')
+    with open(source_path, 'rt', encoding='UTF-8') as file:
+        source = file.read()
+        node = ast.parse(source, filename=source_path)
+        tagnames = set(extract_tagnames(node))
+        del source, node
+    for tagname in sorted(tagnames):
+        if tagname in taginfo:
+            continue
+        print('[{tag}]'.format(tag=tagname))
+        print('severity = wishlist')
+        print('certainty = wild-guess')
+        print()
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et
