@@ -118,7 +118,17 @@ class Checker(object):
             self.tag('no-language-header', 'Language:', language)
         return language
 
+def require_python(*version):
+    if sys.version_info < version:
+        prog = argparse.ArgumentParser().prog
+        print('{prog}: error: Python >= {ver} is required'.format(
+            prog=prog,
+            ver='.'.join(map(str, version))
+        ))
+        sys.exit(1)
+
 def main():
+    require_python(3, 2)
     ap = argparse.ArgumentParser()
     ap.add_argument('--language', metavar='<lang>')
     ap.add_argument('--debug', action='store_true')
