@@ -42,7 +42,6 @@ def main():
     regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
     datadir = os.path.join(basedir, 'data')
     linginfo = ling.LingInfo(datadir)
-    gettext_languages = set()
     okay = set()
     with urllib.request.urlopen(url) as file:
         for line in file:
