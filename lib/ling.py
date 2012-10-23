@@ -25,7 +25,7 @@ class LingData(object):
 
     def __init__(self, datadir):
         path = os.path.join(datadir, 'languages')
-        cp = configparser.RawConfigParser()
+        cp = configparser.ConfigParser(interpolation=None)
         cp.read(path, encoding='UTF-8')
         self._path = path
         self._cp = cp
