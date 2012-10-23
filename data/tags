@@ -2,7 +2,15 @@
 severity = normal
 certainty = possible
 
+[no-content-transfer-encoding-header]
+severity = pedantic
+certainty = certain
+
 [no-language-header]
+severity = pedantic
+certainty = certain
+
+[no-mime-version-header]
 severity = pedantic
 certainty = certain
 
@@ -17,5 +25,13 @@ certainty = wild-guess
 [unknown-poedit-language]
 severity = minor
 certainty = wild-guess
+
+[wrong-content-transfer-encoding]
+severity = normal
+certainty = certain
+
+[wrong-mime-version]
+severity = normal
+certainty = certain
 
 # vim:ft=dosini

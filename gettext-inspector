@@ -67,6 +67,7 @@ class Checker(object):
             language = None
         else:
             language = self.check_language(file)
+        self.check_mime(file)
 
     def check_language(self, file):
         language = self.options.language
@@ -110,6 +111,20 @@ class Checker(object):
         if not meta_language:
             self.tag('no-language-header', 'Language:', language)
         return language
+
+    def check_mime(self, file):
+        mime_version = file.metadata.get('MIME-Version')
+        if mime_version is not None:
+            if mime_version != '1.0':
+                self.tag('wrong-mime-version', mime_version, '=>', '1.0')
+        else:
+            self.tag('no-mime-version-header', 'MIME-Version: 1.0')
+        cte = file.metadata.get('Content-Transfer-Encoding')
+        if cte is not None:
+            if cte != '8bit':
+                self.tag('wrong-content-transfer-encoding', cte, '=>', '8bit')
+        else:
+            self.tag('no-content-transfer-encoding-header', 'Content-Transfer-Encoding: 8bit')
 
 def require_python(*version):
     if sys.version_info < version:
