@@ -63,7 +63,7 @@ def main():
         else:
             print('ok', file=sys.stderr)
         sys.stderr.flush()
-    for key, values in metadata.items():
+    for key, values in sorted(metadata.items()):
         print('{key!r}:'.format(key=key))
         for value, n in values.most_common():
             path = test_cases[key, value]
