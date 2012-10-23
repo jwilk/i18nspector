@@ -145,9 +145,10 @@ def main():
     files = options.files
     del options.files
     datadir = os.path.join(
-        os.path.dirname(__file__),
-        'data'
+        os.path.dirname(os.path.realpath(__file__)),
+        'data', ''
     )
+    os.stat(datadir)
     options.linginfo = ling.LingInfo(datadir)
     options.taginfo = tags.TagInfo(datadir)
     for filename in files:
