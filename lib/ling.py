@@ -21,6 +21,8 @@
 import configparser
 import os
 
+from . import misc
+
 class LingInfo(object):
 
     def __init__(self, datadir):
@@ -30,6 +32,8 @@ class LingInfo(object):
         self._path = path
         self._cp = cp
         self._name_to_code = {}
+        if not misc.is_sorted(cp):
+            raise configparser.ParsingError('sections are not sorted')
         for language, section in self._cp.items():
             if not language:
                 continue

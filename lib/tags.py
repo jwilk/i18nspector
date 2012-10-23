@@ -22,6 +22,8 @@ import functools
 import os
 import configparser
 
+from . import misc
+
 @functools.total_ordering
 class OrderedObject(object):
 
@@ -150,6 +152,8 @@ class TagInfo(object):
         path = os.path.join(datadir, 'tags')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
+        if not misc.is_sorted(cp):
+            raise configparser.ParsingError('sections are not sorted')
         self._tags = {}
         for tagname, section in cp.items():
             if not tagname:
