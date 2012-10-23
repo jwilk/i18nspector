@@ -1,0 +1,21 @@
+[language-disparity]
+severity = normal
+certainty = possible
+
+[no-language-header]
+severity = pedantic
+certainty = certain
+
+[unable-to-determine-language]
+severity = normal
+certainty = wild-guess
+
+[unknown-file-type]
+severity = normal
+certainty = wild-guess
+
+[unknown-poedit-language]
+severity = minor
+certainty = wild-guess
+
+# vim:ft=dosini

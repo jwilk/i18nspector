@@ -28,6 +28,7 @@ import sys
 import polib
 
 from lib import ling
+from lib import tags
 
 class Checker(object):
 
@@ -39,18 +40,10 @@ class Checker(object):
         if self.options.debug:
             print('N:', message, *extra)
 
-    def tag(self, tag, *extra):
-        if sys.stdout.isatty():
-            color_on = '\x1b[31m'
-            color_off = '\x1b[0m'
-        else:
-            color_on = color_off = ''
-        print('E: {path}: {on}{tag}{off}'.format(
-            path=self.path,
-            tag=tag,
-            on=color_on,
-            off=color_off,
-        ), *extra)
+    def tag(self, tagname, *extra):
+        tag = self.options.taginfo[tagname]
+        s = tag.format(self.path, *extra, color=sys.stdout.isatty())
+        print(s)
 
     def check(self):
         self.debug('path = {!r}'.format(self.path))
@@ -141,6 +134,7 @@ def main():
         'data'
     )
     options.ld = ling.LingData(datadir)
+    options.taginfo = tags.TagInfo(datadir)
     for filename in files:
         checker = Checker(filename, options=options)
         checker.check()
