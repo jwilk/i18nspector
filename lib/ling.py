@@ -29,7 +29,6 @@ class LingInfo(object):
         path = os.path.join(datadir, 'languages')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        self._path = path
         self._cp = cp
         self._name_to_code = {}
         if not misc.is_sorted(cp):
