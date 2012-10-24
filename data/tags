@@ -6,6 +6,10 @@ certainty = possible
 severity = pedantic
 certainty = certain
 
+[no-content-type-header]
+severity = important
+certainty = certain
+
 [no-language-header]
 severity = pedantic
 certainty = certain
@@ -29,6 +33,10 @@ certainty = wild-guess
 [wrong-content-transfer-encoding]
 severity = normal
 certainty = certain
+
+[wrong-content-type]
+severity = important
+certainty = possible
 
 [wrong-mime-version]
 severity = normal

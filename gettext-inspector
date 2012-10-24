@@ -23,6 +23,7 @@
 import argparse
 import itertools
 import os
+import re
 import sys
 
 import polib
@@ -125,6 +126,18 @@ class Checker(object):
                 self.tag('wrong-content-transfer-encoding', cte, '=>', '8bit')
         else:
             self.tag('no-content-transfer-encoding-header', 'Content-Transfer-Encoding: 8bit')
+        ct = file.metadata.get('Content-Type')
+        encoding = None
+        if ct is not None:
+            match = re.match('^text/plain; charset=([^\s;]+)$', ct)
+            if match:
+                encoding = match.group(1)
+                # TODO: Check if it's a valid and portable encoding.
+            else:
+                self.tag('wrong-content-type', ct, '=>', 'text/plain; charset=<encoding>')
+        else:
+            self.tag('no-content-type-header', 'Content-Type: text/plain; charset=<encoding>')
+        return encoding
 
 def require_python(*version):
     if sys.version_info < version:
