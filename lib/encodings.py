@@ -28,7 +28,20 @@ class EncodingInfo(object):
         path = os.path.join(datadir, 'encodings')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        self.portable_encodings = frozenset(cp['portable-encodings'])
+        gpe = self.gettext_portable_encodings = set()
+        ppe = self.python_portable_encodings = set()
+        for encoding, extra in cp['portable-encodings'].items():
+            if extra == '':
+                ''.encode(encoding)
+                ppe.add(encoding)
+            elif extra == 'not-python':
+                pass
+            else:
+                raise ValueError
+            gpe.add(encoding)
+        assert ppe.issubset(gpe)
+        self.python_portable_encodings = set(ppe)
+        self.gettext_portable_encodings = set(gpe)
         self._extra_aliases = dict(
             (key.lower().replace('-', '_'), value.lower().replace('-', '_'))
             for key, value in cp['extra-aliases'].items()

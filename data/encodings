@@ -1,6 +1,7 @@
 [portable-encodings]
 # PO files should use only character encodings that are supported by both GNU
-# libc and GNU libiconv. This section lists all of them.
+# libc and GNU libiconv. This section lists all of them. Unfortunately, some of
+# these encodings are not supported by Python. These are marked as "not-python".
 ASCII =
 ISO-8859-1 =
 ISO-8859-2 =
@@ -16,7 +17,7 @@ ISO-8859-14 =
 ISO-8859-15 =
 KOI8-R =
 KOI8-U =
-KOI8-T =
+KOI8-T = not-python
 CP850 =
 CP866 =
 CP874 =
@@ -34,7 +35,7 @@ CP1257 =
 GB2312 =
 EUC-JP =
 EUC-KR =
-EUC-TW =
+EUC-TW = not-python
 BIG5 =
 BIG5-HKSCS =
 GBK =
@@ -42,8 +43,8 @@ GB18030 =
 SHIFT_JIS =
 JOHAB =
 TIS-620 =
-VISCII =
-GEORGIAN-PS =
+VISCII = not-python
+GEORGIAN-PS = not-python
 UTF-8 =
 
 [extra-aliases]
