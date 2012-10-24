@@ -160,9 +160,14 @@ def require_python(*version):
         ))
         sys.exit(1)
 
+def init_polib():
+    # Do not allow broken/missing encoding declarations, unless the file is
+    # ASCII-only:
+    polib.default_encoding = 'ASCII'
+
 def main():
     require_python(3, 2)
-    polib.default_encoding = 'ASCII'
+    init_polib()
     ap = argparse.ArgumentParser()
     ap.add_argument('--language', metavar='<lang>')
     ap.add_argument('--debug', action='store_true')
