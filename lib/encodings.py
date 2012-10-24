@@ -29,12 +29,15 @@ class EncodingInfo(object):
         path = os.path.join(datadir, 'encodings')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        self._portable_encodings = penc = {}
+        self._portable_encodings = e2c = {}
+        self._codec_to_encoding = c2e = {}
         for encoding, extra in cp['portable-encodings'].items():
-            penc[encoding] = False
+            e2c[encoding] = None
             if extra == '':
-                ''.encode(encoding)
-                penc[encoding] = True
+                codec = codecs.lookup(encoding)
+                e2c[encoding] = codec
+                c2e.setdefault(codec, encoding)
+                assert self.propose_portable_encoding(encoding) is not None
             elif extra == 'not-python':
                 pass
             else:
@@ -49,19 +52,20 @@ class EncodingInfo(object):
         if encoding.startswith('iso_'):
             encoding = 'iso-' + encoding[4:]
         if python:
-            return self._portable_encodings.get(encoding, False)
+            return self._portable_encodings.get(encoding, None) is not None
         else:
             return encoding in self._portable_encodings
 
     def propose_portable_encoding(self, encoding, python=True):
+        # Note that the "python" argument is never used.
+        # Only encodings supported by Python are proposed.
         try:
-            new_encoding = codecs.lookup(encoding).name
+            codec = codecs.lookup(encoding)
+            new_encoding = self._codec_to_encoding[codec]
         except LookupError:
             return
-        if new_encoding.startswith('iso8859'):
-            new_encoding = 'iso-' + new_encoding[3:]
-        if self.is_portable_encoding(new_encoding, python=python):
-            return new_encoding
+        assert self.is_portable_encoding(new_encoding, python=True)
+        return new_encoding
 
     def install_extra_aliases(self):
         for key, value in self._extra_aliases.items():
