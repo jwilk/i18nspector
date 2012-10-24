@@ -63,7 +63,19 @@ class Checker(object):
         else:
             self.tag('unknown-file-type')
             return
-        file = constructor(self.path)
+        broken_encoding = False
+        try:
+            file = constructor(self.path)
+        except UnicodeDecodeError as exc:
+            file = constructor(self.path, encoding='ISO-8859-1')
+            broken_encoding = exc
+        if broken_encoding:
+            self.tag('broken-encoding',
+                repr(broken_encoding.object)[1:],
+                'cannot be decoded as',
+                broken_encoding.encoding.upper(),
+            )
+            broken_encoding = True
         if template:
             language = None
         else:
@@ -150,6 +162,7 @@ def require_python(*version):
 
 def main():
     require_python(3, 2)
+    polib.default_encoding = 'ASCII'
     ap = argparse.ArgumentParser()
     ap.add_argument('--language', metavar='<lang>')
     ap.add_argument('--debug', action='store_true')

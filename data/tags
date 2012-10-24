@@ -1,3 +1,7 @@
+[broken-encoding]
+severity = serious
+certainty = possible
+
 [language-disparity]
 severity = normal
 certainty = possible
