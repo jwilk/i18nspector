@@ -30,6 +30,7 @@ import polib
 
 from lib import ling
 from lib import tags
+from lib import encodings
 
 class Checker(object):
 
@@ -182,6 +183,8 @@ def main():
     os.stat(datadir)
     options.linginfo = ling.LingInfo(datadir)
     options.taginfo = tags.TagInfo(datadir)
+    options.encinfo = encinfo = encodings.EncodingInfo(datadir)
+    encinfo.install_extra_aliases()
     for filename in files:
         checker = Checker(filename, options=options)
         checker.check()
