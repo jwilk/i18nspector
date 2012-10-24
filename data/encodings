@@ -3,6 +3,8 @@
 # libc and GNU libiconv. This section lists all of them. Unfortunately, some of
 # these encodings are not supported by Python. These are marked as "not-python".
 ASCII =
+US-ASCII =
+ANSI_X3.4-1968 =
 ISO-8859-1 =
 ISO-8859-2 =
 ISO-8859-3 =

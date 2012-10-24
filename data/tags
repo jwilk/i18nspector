@@ -22,9 +22,17 @@ certainty = certain
 severity = pedantic
 certainty = certain
 
+[non-portable-encoding]
+severity = important
+certainty = certain
+
 [unable-to-determine-language]
 severity = normal
 certainty = wild-guess
+
+[unknown-encoding]
+severity = important
+certainty = possible
 
 [unknown-file-type]
 severity = normal

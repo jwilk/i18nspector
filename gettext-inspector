@@ -145,7 +145,21 @@ class Checker(object):
             match = re.match('^text/plain; charset=([^\s;]+)$', ct)
             if match:
                 encoding = match.group(1)
-                # TODO: Check if it's a valid and portable encoding.
+                try:
+                    ''.encode(encoding)
+                except LookupError:
+                    self.tag('unknown-encoding', encoding)
+                    encoding = None
+                else:
+                    encinfo = self.options.encinfo
+                    if encinfo.is_portable_encoding(encoding):
+                        pass
+                    else:
+                        new_encoding = encinfo.propose_portable_encoding(encoding)
+                        if new_encoding is not None:
+                            self.tag('non-portable-encoding', encoding, '=>', new_encoding)
+                        else:
+                            self.tag('non-portable-encoding', encoding)
             else:
                 self.tag('wrong-content-type', ct, '=>', 'text/plain; charset=<encoding>')
         else:
