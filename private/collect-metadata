@@ -28,7 +28,13 @@ import sys
 
 import polib
 
+def init_polib():
+    # Happily decode any file, even when encoding declaration is broken or
+    # missing.
+    polib.default_encoding = 'ISO-8859-1'
+
 def main():
+    init_polib()
     ap = argparse.ArgumentParser()
     ap.add_argument('files', metavar='<file>', nargs='*')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
