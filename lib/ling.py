@@ -26,6 +26,16 @@ from . import misc
 class LingInfo(object):
 
     def __init__(self, datadir):
+        # ISO language/country codes:
+        path = os.path.join(datadir, 'iso-codes')
+        cp = configparser.ConfigParser(interpolation=None, default_section='')
+        cp.read(path, encoding='UTF-8')
+        self._iso_639 = cp['iso-639']
+        misc.check_sorted(self._iso_639)
+        iso_3166 = cp['iso-3166']
+        misc.check_sorted(iso_3166)
+        self._iso_3166 = frozenset(cc.upper() for cc in iso_3166.keys())
+        # Hand-edited linguistic data:
         path = os.path.join(datadir, 'languages')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
@@ -37,6 +47,16 @@ class LingInfo(object):
                 continue
             name = section['name']
             self._name_to_code[name] = language
+
+    def lookup_language_code(self, language):
+        try:
+            return self._iso_639[language] or language
+        except LookupError:
+            return
+
+    def lookup_country_code(self, cc):
+        if cc in self._iso_3166:
+            return cc
 
     def get_language_for_name(self, name):
         try:
