@@ -29,10 +29,10 @@ class LingInfo(object):
         path = os.path.join(datadir, 'languages')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        self._cp = cp
+        self._primary_languages = cp
         self._name_to_code = {}
         misc.check_sorted(cp)
-        for language, section in self._cp.items():
+        for language, section in cp.items():
             if not language:
                 continue
             name = section['name']
@@ -48,6 +48,6 @@ class LingInfo(object):
         return list(self._cp)
 
     def get_plural_forms(self, language):
-        return self._cp[language]['plural-forms']
+        return self._primary_languages[language]['plural-forms']
 
 # vim:ts=4 sw=4 et
