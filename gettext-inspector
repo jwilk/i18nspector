@@ -67,6 +67,12 @@ class Checker(object):
         broken_encoding = False
         try:
             file = constructor(self.path)
+        except IOError as exc:
+            message = str(exc)
+            if message.startswith('Invalid mo '):
+                self.tag('invalid-mo-file')
+                return
+            raise
         except UnicodeDecodeError as exc:
             file = constructor(self.path, encoding='ISO-8859-1')
             broken_encoding = exc

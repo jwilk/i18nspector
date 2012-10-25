@@ -2,6 +2,10 @@
 severity = serious
 certainty = possible
 
+[invalid-mo-file]
+severity = serious
+certainty = certain
+
 [language-disparity]
 severity = normal
 certainty = possible
