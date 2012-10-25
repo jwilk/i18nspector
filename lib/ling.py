@@ -30,8 +30,15 @@ class LingInfo(object):
         path = os.path.join(datadir, 'iso-codes')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        self._iso_639 = cp['iso-639']
-        misc.check_sorted(self._iso_639)
+        iso_639 = cp['iso-639']
+        misc.check_sorted(iso_639)
+        self._iso_639 = {}
+        for lll, ll in iso_639.items():
+            if ll:
+                self._iso_639[ll] = ll
+                self._iso_639[lll] = ll
+            else:
+                self._iso_639[lll] = lll
         iso_3166 = cp['iso-3166']
         misc.check_sorted(iso_3166)
         self._iso_3166 = frozenset(cc.upper() for cc in iso_3166.keys())
@@ -49,10 +56,7 @@ class LingInfo(object):
             self._name_to_code[name] = language
 
     def lookup_language_code(self, language):
-        try:
-            return self._iso_639[language] or language
-        except LookupError:
-            return
+        return self._iso_639.get(language)
 
     def lookup_country_code(self, cc):
         if cc in self._iso_3166:

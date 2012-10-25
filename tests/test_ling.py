@@ -35,12 +35,16 @@ L = lib.ling.LingInfo(datadir)
 
 class test_lookup_language_code:
 
-    def test_found_3(self):
+    def test_found_3_to_3(self):
         lang = L.lookup_language_code('grc')
         assert_equal(lang, 'grc')
 
-    def test_found_2(self):
+    def test_found_3_to_2(self):
         lang = L.lookup_language_code('ell')
+        assert_equal(lang, 'el')
+
+    def test_found_2_to_2(self):
+        lang = L.lookup_language_code('el')
         assert_equal(lang, 'el')
 
     def test_not_found(self):
