@@ -23,6 +23,9 @@ import lib.ling
 
 from nose.tools import (
     assert_equal,
+    assert_in,
+    assert_not_in,
+    assert_raises,
     assert_true,
 )
 
@@ -60,5 +63,35 @@ class test_lookup_country_code:
     def test_not_found(self):
         cc = L.lookup_country_code('RG')
         assert_true(cc is None)
+
+class test_get_language_for_name:
+
+    def test_found(self):
+        lang = L.get_language_for_name('Greek')
+        assert_equal(lang, 'el')
+
+    def test_not_found(self):
+        with assert_raises(LookupError):
+            lang = L.get_language_for_name('Terrx')
+
+class test_get_primary_languages:
+
+    def test_found(self):
+        langs = L.get_primary_languages()
+        assert_in('el', langs)
+
+    def test_not_found(self):
+        langs = L.get_primary_languages()
+        assert_not_in('ry', langs)
+
+    def test_iso_639(self):
+        for lang in L.get_primary_languages():
+            if '_' in lang:
+                ll, cc = lang.split('_')
+            else:
+                ll = lang
+                cc = None
+            assert_equal(ll, L.lookup_language_code(ll))
+            assert_equal(cc, L.lookup_country_code(cc))
 
 # vim:ts=4 sw=4 et
