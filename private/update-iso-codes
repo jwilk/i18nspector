@@ -44,6 +44,11 @@ def main():
         lll = element.get('iso_639_2T_code')
         if lll is None:
             raise ValueError
+        if lll == 'qaa-qtz':
+            # Not a real language code.
+            continue
+        if len(lll) != 3:
+            raise ValueError('len({!r}) != 3'.format(lll))
         ll = element.get('iso_639_1_code') or ''
         iso_639[lll] = ll
     print('[iso-639]')
