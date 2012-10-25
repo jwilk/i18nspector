@@ -27,6 +27,8 @@ import xml.etree.cElementTree as etree
 
 iso_codes_dir = '/usr/share/xml/iso-codes/';
 
+language_blacklist = {'mis', 'mul', 'und', 'zxx', 'qaa-qtz'}
+
 def main():
     basedir = os.path.join(
         os.path.dirname(__file__),
@@ -44,8 +46,8 @@ def main():
         lll = element.get('iso_639_2T_code')
         if lll is None:
             raise ValueError
-        if lll == 'qaa-qtz':
-            # Not a real language code.
+        if lll in language_blacklist:
+            # It's not a real language, so skip.
             continue
         if len(lll) != 3:
             raise ValueError('len({!r}) != 3'.format(lll))
