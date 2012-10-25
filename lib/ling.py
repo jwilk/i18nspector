@@ -72,6 +72,10 @@ class LingInfo(object):
         return list(self._primary_languages)
 
     def get_plural_forms(self, language):
-        return self._primary_languages[language]['plural-forms']
+        try:
+            section = self._primary_languages[language]
+        except KeyError:
+            raise LookupError(language)
+        return section.get('plural-forms')
 
 # vim:ts=4 sw=4 et

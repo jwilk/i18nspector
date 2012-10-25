@@ -94,4 +94,18 @@ class test_get_primary_languages:
             assert_equal(ll, L.lookup_language_code(ll))
             assert_equal(cc, L.lookup_country_code(cc))
 
+class test_get_plural_forms:
+
+    def test_found(self):
+        pf = L.get_plural_forms('el')
+        assert_equal(pf, 'nplurals=2; plural=n != 1;')
+
+    def test_not_known(self):
+        pf = L.get_plural_forms('la')
+        assert_true(pf is None)
+
+    def test_not_found(self):
+        with assert_raises(LookupError):
+            L.get_plural_forms('ry')
+
 # vim:ts=4 sw=4 et
