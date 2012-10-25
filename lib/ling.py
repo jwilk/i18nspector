@@ -31,8 +31,7 @@ class LingInfo(object):
         cp.read(path, encoding='UTF-8')
         self._cp = cp
         self._name_to_code = {}
-        if not misc.is_sorted(cp):
-            raise configparser.ParsingError('sections are not sorted')
+        misc.check_sorted(cp)
         for language, section in self._cp.items():
             if not language:
                 continue

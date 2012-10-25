@@ -152,8 +152,7 @@ class TagInfo(object):
         path = os.path.join(datadir, 'tags')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        if not misc.is_sorted(cp):
-            raise configparser.ParsingError('sections are not sorted')
+        misc.check_sorted(cp)
         self._tags = {}
         for tagname, section in cp.items():
             if not tagname:

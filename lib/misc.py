@@ -24,4 +24,11 @@ def is_sorted(iterable):
     lst2 = sorted(lst1)
     return lst1 == lst2
 
+class DataIntegrityError(Exception):
+    pass
+
+def check_sorted(iterable, exception=DataIntegrityError):
+    if not is_sorted(iterable):
+        raise exception()
+
 # vim:ts=4 sw=4 et
