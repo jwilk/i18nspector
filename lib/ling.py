@@ -39,7 +39,7 @@ class LingInfo(object):
         path = os.path.join(datadir, 'languages')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        self._primary_languages = cp
+        self._primary_languages = {name: sect for name, sect in cp.items() if sect.name}
         self._name_to_code = {}
         misc.check_sorted(cp)
         for language, section in cp.items():
