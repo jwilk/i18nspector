@@ -35,7 +35,7 @@ def main():
         os.pardir,
     )
     path = os.path.join(basedir, 'data', 'iso-codes')
-    sys.stdout = open(path, 'wt', encoding='UTF-8')
+    sys.stdout = open(path + '.tmp', 'wt', encoding='UTF-8')
     print('# This file has been generated automatically. Do not edit.')
     print('# Last update: {today}'.format(today=datetime.date.today()))
     print()
@@ -70,6 +70,8 @@ def main():
         print('{} ='.format(cc))
     print()
     print('# vi''m:ft=dosini')
+    sys.stdout.close()
+    os.rename(path + '.tmp', path)
 
 if __name__ == '__main__':
     main()
