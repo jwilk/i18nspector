@@ -65,7 +65,7 @@ class LingInfo(object):
             raise LookupError(name)
 
     def get_primary_languages(self):
-        return list(self._cp)
+        return list(self._primary_languages)
 
     def get_plural_forms(self, language):
         return self._primary_languages[language]['plural-forms']
