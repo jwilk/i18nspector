@@ -2,6 +2,18 @@
 severity = serious
 certainty = possible
 
+[invalid-content-transfer-encoding]
+severity = normal
+certainty = certain
+
+[invalid-content-type]
+severity = important
+certainty = possible
+
+[invalid-mime-version]
+severity = normal
+certainty = certain
+
 [invalid-mo-file]
 severity = serious
 certainty = certain
@@ -45,17 +57,5 @@ certainty = wild-guess
 [unknown-poedit-language]
 severity = minor
 certainty = wild-guess
-
-[wrong-content-transfer-encoding]
-severity = normal
-certainty = certain
-
-[wrong-content-type]
-severity = important
-certainty = possible
-
-[wrong-mime-version]
-severity = normal
-certainty = certain
 
 # vim:ft=dosini
