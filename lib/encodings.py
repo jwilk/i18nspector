@@ -30,13 +30,13 @@ class EncodingInfo(object):
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
         self._portable_encodings = e2c = {}
-        self._codec_to_encoding = c2e = {}
+        self._pycodec_to_encoding = c2e = {}
         for encoding, extra in cp['portable-encodings'].items():
             e2c[encoding] = None
             if extra == '':
-                codec = codecs.lookup(encoding)
-                e2c[encoding] = codec
-                c2e.setdefault(codec, encoding)
+                pycodec = codecs.lookup(encoding)
+                e2c[encoding] = pycodec
+                c2e.setdefault(pycodec.name, encoding)
                 assert self.propose_portable_encoding(encoding) is not None
             elif extra == 'not-python':
                 pass
@@ -60,8 +60,8 @@ class EncodingInfo(object):
         # Note that the "python" argument is never used.
         # Only encodings supported by Python are proposed.
         try:
-            codec = codecs.lookup(encoding)
-            new_encoding = self._codec_to_encoding[codec]
+            pycodec = codecs.lookup(encoding)
+            new_encoding = self._pycodec_to_encoding[pycodec.name]
         except LookupError:
             return
         assert self.is_portable_encoding(new_encoding, python=True)
