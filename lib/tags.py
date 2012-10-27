@@ -93,6 +93,8 @@ certainties = OrderedGroup('Certainty',
 class Tag(object):
 
     def __init__(self, **kwargs):
+        self.description = None
+        self.references = []
         for k, v in kwargs.items():
             try:
                 getattr(self, '_set_' + k)(v)
@@ -108,6 +110,13 @@ class Tag(object):
 
     def _set_certainty(self, value):
         self.certainty = certainties[value]
+
+    def _set_description(self, value):
+        value = '\n'.join(s.strip() for s in value.splitlines() if s and not s.isspace())
+        self.description = value
+
+    def _set_references(self, value):
+        self.references += (s.strip() for s in value.splitlines() if s and not s.isspace())
 
     def get_colors(self):
         prio = self.get_priority()
@@ -170,6 +179,9 @@ class TagInfo(object):
 
     def __contains__(self, tagname):
         return tagname in self._tags
+
+    def __iter__(self):
+        return (tag for _, tag in sorted(self._tags.items()))
 
     def __getitem__(self, tagname):
         return self._tags[tagname]

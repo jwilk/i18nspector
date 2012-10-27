@@ -1,0 +1,19 @@
+=================
+gettext-inspector
+=================
+
+-----------------------------------------
+tool for checking gettext POT/PO/MO files
+-----------------------------------------
+
+:Manual section: 1
+
+Usage
+-----
+**gettext-inspector** [--language `<lang>`] [--debug] `<file>` [`<file>` …]
+
+Tags
+----
+{tags}
+
+.. vim:ft=rst

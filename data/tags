@@ -1,61 +1,131 @@
 [broken-encoding]
 severity = serious
 certainty = possible
+description =
+ Header and messages contained by this file couldn't be decoded to Unicode.
+ The usual cause of this is incorrect or missing encoding declaration.
+ .
+ Note that in the absence of encoding declaration, gettext-inspector assumes
+ ASCII encoding.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://tools.ietf.org/html/rfc2045#section-5
 
 [invalid-content-transfer-encoding]
 severity = normal
 certainty = certain
+description =
+ Value of the Content-Transfer-Encoding field is invalid. It should be
+ ``8bit``.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://tools.ietf.org/html/rfc2045#section-6.1
 
 [invalid-content-type]
 severity = important
 certainty = possible
+description =
+ Value of the Content-Type field should is invalid. It should be in the form
+ ``text/plain; charset=``\ `encoding`.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://tools.ietf.org/html/rfc2045#section-5
 
 [invalid-mime-version]
 severity = normal
 certainty = certain
+description =
+ Value of the MIME-Version field is invalid. It should be ``1.0``.
+references =
+ http://tools.ietf.org/html/rfc2045#section-4
 
 [invalid-mo-file]
 severity = serious
 certainty = certain
+description =
+ This file couldn't be parsed a MO file.
 
 [language-disparity]
 severity = normal
 certainty = possible
+description =
+ Language of this file has been declared in multiple places, but the
+ declarations don't match.
 
 [no-content-transfer-encoding-header]
 severity = pedantic
 certainty = certain
+description =
+ The Content-Transfer-Encoding field doesn't exist. It should be set to
+ ``8bit``.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://tools.ietf.org/html/rfc2045#section-6.1
 
 [no-content-type-header]
 severity = important
 certainty = certain
+description =
+ The Content-Type field doesn't exist. It should be set to
+ ``text/plain; charset=``\ `encoding`.
+ .
+ Note that in the absence of encoding declaration, gettext-inspector assumes
+ ASCII encoding.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://tools.ietf.org/html/rfc2045#section-5
 
 [no-language-header]
 severity = pedantic
 certainty = certain
+description =
+ The Language field doesn't exist.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [no-mime-version-header]
 severity = pedantic
 certainty = certain
+description =
+ The MIME-Version field does't exist. It should be to set to ``1.0``.
+references =
+ http://tools.ietf.org/html/rfc2045#section-4
 
 [non-portable-encoding]
 severity = important
 certainty = certain
+description =
+ This file uses an encoding that is not widely supported by software.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [unable-to-determine-language]
 severity = normal
 certainty = wild-guess
+description =
+ gettext-inspector was unable to determine language of this file.
+ Absense of this infomation will prevent it from performing further checks.
 
 [unknown-encoding]
 severity = important
 certainty = possible
+description =
+ This file declares an encoding that couldn't be recognized by gettext-inspector.
+ It might be a typo.
+ Absense of encoding infomation will prevent it from performing further checks.
 
 [unknown-file-type]
 severity = normal
 certainty = wild-guess
+description =
+ File format of this file couldn't be recognized.
+ It might be a bug in gettext-inspector.
 
 [unknown-poedit-language]
 severity = minor
 certainty = wild-guess
+description =
+ Language declared in X-Poedit-Language couldn't be recognized.
+ It might be a bug in gettext-inspector.
 
 # vim:ft=dosini
