@@ -42,10 +42,10 @@ class EncodingInfo(object):
                 pass
             else:
                 raise ValueError
-        self._extra_aliases = dict(
-            (key.lower().replace('-', '_'), value.lower().replace('-', '_'))
+        self._extra_aliases = {
+            key.lower().replace('-', '_'): value.lower().replace('-', '_')
             for key, value in cp['extra-aliases'].items()
-        )
+        }
 
     def is_portable_encoding(self, encoding, python=True):
         encoding = encoding.lower()
