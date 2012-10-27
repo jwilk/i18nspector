@@ -20,8 +20,18 @@
 
 import configparser
 import os
+import unicodedata
 
 from . import misc
+
+def _munch_language_name(s):
+    # Normalize whitespace:
+    s = ' '.join(s.split())
+    # Normalize capitalization:
+    s = s.lower()
+    # Strip accent marks etc.:
+    s = unicodedata.normalize('NFKC', s).encode('ASCII', 'ignore').decode()
+    return s
 
 class LingInfo(object):
 
@@ -53,7 +63,7 @@ class LingInfo(object):
             if not language:
                 continue
             for name in section['names'].splitlines():
-                name = name.strip()
+                name = _munch_language_name(name)
                 if name:
                     self._name_to_code[name] = language
         # Check if primary languages have full ISO 639-1 coverage:
@@ -72,8 +82,9 @@ class LingInfo(object):
             return cc
 
     def get_language_for_name(self, name):
+        _name = _munch_language_name(name)
         try:
-            return self._name_to_code[name]
+            return self._name_to_code[_name]
         except KeyError:
             raise LookupError(name)
 
