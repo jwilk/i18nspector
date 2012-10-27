@@ -14,6 +14,6 @@ Usage
 
 Tags
 ----
-{tags}
+.. include:: tags.txt
 
 .. vim:ft=rst

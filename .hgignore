@@ -2,4 +2,4 @@ syntax: glob
 
 __pycache__/
 doc/gettext-inspector.1
-doc/gettext-inspector.txt
+doc/tags.txt

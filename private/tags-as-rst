@@ -20,9 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import argparse
-import functools
-import io
 import os
 import sys
 
@@ -34,7 +31,7 @@ sys.path[:0] = [basedir]
 
 from lib import tags
 
-def output_tags_rst(taginfo, print=print):
+def output_tags_rst(taginfo):
     for tag in taginfo:
         tagname = tag.name
         print(tagname)
@@ -51,17 +48,9 @@ def output_tags_rst(taginfo, print=print):
         print()
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--template', metavar='<template>', required=True)
-    options = ap.parse_args()
     datadir = os.path.join(basedir, 'data')
     taginfo = tags.TagInfo(datadir)
-    with open(options.template) as file:
-        template = file.read()
-    sio = io.StringIO()
-    sio_print = functools.partial(print, file=sio)
-    output_tags_rst(taginfo, print=sio_print)
-    print(template.format(tags=sio.getvalue()))
+    output_tags_rst(taginfo)
 
 if __name__ == '__main__':
     main()
