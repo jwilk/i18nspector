@@ -54,6 +54,13 @@ class LingInfo(object):
                 continue
             name = section['name']
             self._name_to_code[name] = language
+        # Check if primary languages have full ISO 639-1 coverage:
+        for lll, ll in iso_639.items():
+            if ll:
+                try:
+                    self._primary_languages[ll]
+                except LookupError:
+                    raise misc.DataIntegrityError
 
     def lookup_language_code(self, language):
         return self._iso_639.get(language)
