@@ -70,6 +70,10 @@ class test_get_language_for_name:
         lang = L.get_language_for_name('Greek')
         assert_equal(lang, 'el')
 
+    def test_found_multi(self):
+        lang = L.get_language_for_name('Old Church Slavonic')
+        assert_equal(lang, 'cu')
+
     def test_not_found(self):
         with assert_raises(LookupError):
             lang = L.get_language_for_name('Terrx')

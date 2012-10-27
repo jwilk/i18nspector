@@ -52,8 +52,10 @@ class LingInfo(object):
         for language, section in cp.items():
             if not language:
                 continue
-            name = section['name']
-            self._name_to_code[name] = language
+            for name in section['names'].splitlines():
+                name = name.strip()
+                if name:
+                    self._name_to_code[name] = language
         # Check if primary languages have full ISO 639-1 coverage:
         for lll, ll in iso_639.items():
             if ll:

@@ -5,600 +5,654 @@
 # - languages for which real-world PO files exist.
 
 [aa]
-name = Afar
+names = Afar
 
 [ab]
-name = Abkhazian
+names = Abkhazian
 
 [ae]
-name = Avestan
+names = Avestan
 
 [af]
-name = Afrikaans
+names = Afrikaans
 
 [ak]
-name = Akan
+names = Akan
 
 [am]
-name = Amharic
+names = Amharic
 
 [an]
-name = Aragonese
+names = Aragonese
 
 [ar]
-name = Arabic
+names = Arabic
 
 [as]
-name = Assamese
+names = Assamese
 
 [av]
-name = Avaric
+names = Avaric
 
 [ay]
-name = Aymara
+names = Aymara
 
 [az]
-name = Azerbaijani
+names = Azerbaijani
 
 [ba]
-name = Bashkir
+names = Bashkir
 
 [be]
-name = Belarusian
+names = Belarusian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [bg]
-name = Bulgarian
+names = Bulgarian
 plural-forms = nplurals=2; plural=n != 1;
 
 [bh]
-name = Bihari
+names = Bihari
 
 [bi]
-name = Bislama
+names = Bislama
 
 [bm]
-name = Bambara
+names = Bambara
 
 [bn]
-name = Bengali
+names = Bengali
 
 [bo]
-name = Tibetan
+names = Tibetan
 
 [br]
-name = Breton
+names = Breton
 
 [bs]
-name = Bosnian
+names = Bosnian
 
 [ca]
-name = Catalan; Valencian
+names =
+ Catalan
+ Valencian
 
 [ce]
-name = Chechen
+names = Chechen
 
 [ch]
-name = Chamorro
+names = Chamorro
 
 [co]
-name = Corsican
+names = Corsican
 
 [cr]
-name = Cree
+names = Cree
 
 [cs]
-name = Czech
+names = Czech
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
 
 [cu]
-name = Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+names =
+ Church Slavic
+ Church Slavonic
+ Old Bulgarian
+ Old Church Slavonic
+ Old Slavonic
 
 [cv]
-name = Chuvash
+names = Chuvash
 
 [cy]
-name = Welsh
+names = Welsh
 
 [da]
-name = Danish
+names = Danish
 plural-forms = nplurals=2; plural=n != 1;
 
 [de]
-name = German
+names = German
 plural-forms = nplurals=2; plural=n != 1;
 
 [dv]
-name = Divehi; Dhivehi; Maldivian
+names =
+ Dhivehi
+ Divehi
+ Maldivian
 
 [dz]
-name = Dzongkha
+names = Dzongkha
 
 [ee]
-name = Ewe
+names = Ewe
 
 [el]
-name = Greek
+names = Greek
 plural-forms = nplurals=2; plural=n != 1;
 
 [en]
-name = English
+names = English
 plural-forms = nplurals=2; plural=n != 1;
 
 [eo]
-name = Esperanto
+names = Esperanto
 plural-forms = nplurals=2; plural=n != 1;
 
 [es]
-name = Spanish
+names = Spanish
 plural-forms = nplurals=2; plural=n != 1;
 
 [et]
-name = Estonian
+names = Estonian
 plural-forms = nplurals=2; plural=n != 1;
 
 [eu]
-name = Basque
+names = Basque
 
 [fa]
-name = Persian
+names = Persian
 
 [ff]
-name = Fulah
+names = Fulah
 
 [fi]
-name = Finnish
+names = Finnish
 plural-forms = nplurals=2; plural=n != 1;
 
 [fj]
-name = Fijian
+names = Fijian
 
 [fo]
-name = Faroese
+names = Faroese
 plural-forms = nplurals=2; plural=n != 1;
 
 [fr]
-name = French
+names = French
 plural-forms = nplurals=2; plural=n > 1;
 
 [fy]
-name = Frisian; Western Frisian
+names =
+ Frisian
+ Western Frisian
 
 [ga]
-name = Irish
+names = Irish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
 
 [gd]
-name = Gaelic; Scottish Gaelic
+names =
+ Gaelic
+ Scottish Gaelic
 
 [gl]
-name = Galician
+names = Galician
 
 [gn]
-name = Guarani
+names = Guarani
 
 [gu]
-name = Gujarati
+names = Gujarati
 
 [gv]
-name = Manx
+names = Manx
 
 [ha]
-name = Hausa
+names = Hausa
 
 [he]
-name = Hebrew
+names = Hebrew
 plural-forms = nplurals=2; plural=n != 1;
 
 [hi]
-name = Hindi
+names = Hindi
 
 [ho]
-name = Hiri Motu
+names = Hiri Motu
 
 [hr]
-name = Croatian
+names = Croatian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ht]
-name = Haitian; Haitian Creole
+names =
+ Haitian
+ Haitian Creole
 
 [hu]
-name = Hungarian
+names = Hungarian
 plural-forms = nplurals=2; plural=n != 1;
 
 [hy]
-name = Armenian
+names = Armenian
 
 [hz]
-name = Herero
+names = Herero
 
 [ia]
-name = Interlingua
+names = Interlingua
 
 [id]
-name = Indonesian
+names = Indonesian
 
 [ie]
-name = Interlingue; Occidental
+names =
+ Interlingue
+ Occidental
 
 [ig]
-name = Igbo
+names = Igbo
 
 [ii]
-name = Sichuan Yi; Nuosu
+names =
+ Nuosu
+ Sichuan Yi
 
 [ik]
-name = Inupiaq
+names = Inupiaq
 
 [io]
-name = Ido
+names = Ido
 
 [is]
-name = Icelandic
+names = Icelandic
 
 [it]
-name = Italian
+names = Italian
 plural-forms = nplurals=2; plural=n != 1;
 
 [iu]
-name = Inuktitut
+names = Inuktitut
 
 [ja]
-name = Japanese
+names = Japanese
 plural-forms = nplurals=1; plural=0;
 
 [jv]
-name = Javanese
+names = Javanese
 
 [ka]
-name = Georgian
+names = Georgian
 
 [kg]
-name = Kongo
+names = Kongo
 
 [ki]
-name = Kikuyu; Gikuyu
+names =
+ Gikuyu
+ Kikuyu 
 
 [kj]
-name = Kuanyama; Kwanyama
+names =
+ Kuanyama
+ Kwanyama
 
 [kk]
-name = Kazakh
+names = Kazakh
 
 [kl]
-name = Kalaallisut; Greenlandic
+names =
+ Greenlandic
+ Kalaallisut
 
 [km]
-name = Khmer; Central Khmer
+names =
+ Central Khmer
+ Khmer 
 
 [kn]
-name = Kannada
+names = Kannada
 
 [ko]
-name = Korean
+names = Korean
 plural-forms = nplurals=1; plural=0;
 
 [kr]
-name = Kanuri
+names = Kanuri
 
 [ks]
-name = Kashmiri
+names = Kashmiri
 
 [ku]
-name = Kurdish
+names = Kurdish
 
 [kv]
-name = Komi
+names = Komi
 
 [kw]
-name = Cornish
+names = Cornish
 
 [ky]
-name = Kirghiz; Kyrgyz
+names =
+ Kirghiz
+ Kyrgyz
 
 [la]
-name = Latin
+names = Latin
 
 [lb]
-name = Luxembourgish; Letzeburgesch
+names =
+ Letzeburgesch
+ Luxembourgish
 
 [lg]
-name = Ganda
+names = Ganda
 
 [li]
-name = Limburgan
+names = Limburgan
 
 [ln]
-name = Lingala
+names = Lingala
 
 [lo]
-name = Lao
+names = Lao
 
 [lt]
-name = Lithuanian
+names = Lithuanian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [lu]
-name = Luba-Katanga
+names = Luba-Katanga
 
 [lv]
-name = Latvian
+names = Latvian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;
 
 [mg]
-name = Malagasy
+names = Malagasy
 
 [mh]
-name = Marshallese
+names = Marshallese
 
 [mi]
-name = Maori
+names = Maori
 
 [mk]
-name = Macedonian
+names = Macedonian
 
 [ml]
-name = Malayalam
+names = Malayalam
 
 [mn]
-name = Mongolian
+names = Mongolian
 
 [mo]
-name = Moldavian; Moldovan
+names =
+ Moldavian
+ Moldovan
 
 [mr]
-name = Marathi
+names = Marathi
 
 [ms]
-name = Malay
+names = Malay
 
 [mt]
-name = Maltese
+names = Maltese
 
 [my]
-name = Burmese
+names = Burmese
 
 [na]
-name = Nauru
+names = Nauru
 
 [nb]
-name = Norwegian Bokmål
+names = Norwegian Bokmål
 plural-forms = nplurals=2; plural=n != 1;
 
 [nd]
-name = North Ndebele
+names = North Ndebele
 
 [ne]
-name = Nepali
+names = Nepali
 
 [ng]
-name = Ndonga
+names = Ndonga
 
 [nl]
-name = Dutch; Flemish
+names =
+ Dutch
+ Flemish
 plural-forms = nplurals=2; plural=n != 1;
 
 [nn]
-name = Norwegian Nynorsk
+names = Norwegian Nynorsk
 plural-forms = nplurals=2; plural=n != 1;
 
 [no]
-name = Norwegian
+names = Norwegian
 plural-forms = nplurals=2; plural=n != 1;
 deprecated = nb nn
 
 [nr]
-name = South Ndebele
+names = South Ndebele
 
 [nv]
-name = Navajo; Navaho
+names =
+ Navaho
+ Navajo
 
 [ny]
-name = Chichewa; Nyanja
+names =
+ Chichewa
+ Nyanja
 
 [oc]
-name = Occitan
+names = Occitan
 
 [oj]
-name = Ojibwa
+names = Ojibwa
 
 [om]
-name = Oromo
+names = Oromo
 
 [or]
-name = Oriya
+names = Oriya
 
 [os]
-name = Ossetian; Ossetic
+names =
+ Ossetian 
+ Ossetic
 
 [pa]
-name = Panjabi; Punjabi
+names =
+ Panjabi
+ Punjabi
 
 [pi]
-name = Pali
+names = Pali
 
 [pl]
-name = Polish
+names = Polish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ps]
-name = Pushto; Pashto
+names =
+ Pashto
+ Pushto
 
 [pt]
-name = Portuguese
+names = Portuguese
 plural-forms = nplurals=2; plural=n != 1;
 
 [pt_BR]
-name = Brazilian
+names = Brazilian
 plural-forms = nplurals=2; plural=n > 1;
 
 [qu]
-name = Quechua
+names = Quechua
 
 [rm]
-name = Rhaeto-Romance; Romansh
+names =
+ Rhaeto-Romance
+ Romansh
 
 [rn]
-name = Rundi
+names = Rundi
 
 [ro]
-name = Romanian
+names = Romanian
 plural-forms = nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;
 
 [ru]
-name = Russian
+names = Russian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [rw]
-name = Kinyarwanda
+names = Kinyarwanda
 
 [sa]
-name = Sanskrit
+names = Sanskrit
 
 [sc]
-name = Sardinian
+names = Sardinian
 
 [sd]
-name = Sindhi
+names = Sindhi
 
 [se]
-name = Northern Sami
+names = Northern Sami
 
 [sg]
-name = Sango
+names = Sango
 
 [si]
-name = Sinhala; Sinhalese
+names =
+ Sinhala
+ Sinhalese
 
 [sk]
-name = Slovak
+names = Slovak
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
 
 [sl]
-name = Slovenian
+names = Slovenian
 plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
 
 [sm]
-name = Samoan
+names = Samoan
 
 [sn]
-name = Shona
+names = Shona
 
 [so]
-name = Somali
+names = Somali
 
 [sq]
-name = Albanian
+names = Albanian
 
 [sr]
-name = Serbian
+names = Serbian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ss]
-name = Swati
+names = Swati
 
 [st]
-name = Southern Sotho
+names = Southern Sotho
 
 [su]
-name = Sundanese
+names = Sundanese
 
 [sv]
-name = Swedish
+names = Swedish
 plural-forms = nplurals=2; plural=n != 1;
 
 [sw]
-name = Swahili
+names = Swahili
 
 [ta]
-name = Tamil
+names = Tamil
 
 [te]
-name = Telugu
+names = Telugu
 
 [tg]
-name = Tajik
+names = Tajik
 
 [th]
-name = Thai
+names = Thai
 
 [ti]
-name = Tigrinya
+names = Tigrinya
 
 [tk]
-name = Turkmen
+names = Turkmen
 
 [tl]
-name = Tagalog
+names = Tagalog
 
 [tn]
-name = Tswana
+names = Tswana
 
 [to]
-name = Tonga
+names = Tonga
 
 [tr]
-name = Turkish
+names = Turkish
 plural-forms = nplurals=2; plural=n != 1;
 
 [ts]
-name = Tsonga
+names = Tsonga
 
 [tt]
-name = Tatar
+names = Tatar
 
 [tw]
-name = Twi
+names = Twi
 
 [ty]
-name = Tahitian
+names = Tahitian
 
 [ug]
-name = Uighur; Uyghur
+names =
+ Uighur
+ Uyghur
 
 [uk]
-name = Ukrainian
+names = Ukrainian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ur]
-name = Urdu
+names = Urdu
 
 [uz]
-name = Uzbek
+names = Uzbek
 
 [ve]
-name = Venda
+names = Venda
 
 [vi]
-name = Vietnamese
+names = Vietnamese
 plural-forms = nplurals=1; plural=0;
 
 [vo]
-name = Volapük
+names = Volapük
 
 [wa]
-name = Walloon
+names = Walloon
 
 [wo]
-name = Wolof
+names = Wolof
 
 [xh]
-name = Xhosa
+names = Xhosa
 
 [yi]
-name = Yiddish
+names = Yiddish
 
 [yo]
-name = Yoruba
+names = Yoruba
 
 [za]
-name = Zhuang; Chuang
+names =
+ Chuang
+ Zhuang
 
 [zh]
-name = Chinese
+names = Chinese
 
 [zu]
-name = Zulu
+names = Zulu
 
 # vim:ft=dosini
