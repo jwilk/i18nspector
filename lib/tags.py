@@ -94,7 +94,10 @@ class Tag(object):
 
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
-            getattr(self, '_set_' + k)(v)
+            try:
+                getattr(self, '_set_' + k)(v)
+            except AttributeError:
+                raise KeyError(k)
         self.name, self.severity, self.certainty
 
     def _set_name(self, value):
@@ -159,7 +162,11 @@ class TagInfo(object):
                 continue
             kwargs = dict(section.items())
             kwargs['name'] = tagname
-            self._tags[tagname] = Tag(**kwargs)
+            try:
+                self._tags[tagname] = Tag(**kwargs)
+            except KeyError as exc:
+                [key] = exc.args
+                raise misc.DataIntegrityError('unknown field: {!r}'.format(key))
 
     def __contains__(self, tagname):
         return tagname in self._tags
