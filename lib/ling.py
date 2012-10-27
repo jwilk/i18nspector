@@ -65,6 +65,8 @@ class LingInfo(object):
             for name in section['names'].splitlines():
                 name = _munch_language_name(name)
                 if name:
+                    if name in self._name_to_code:
+                        raise misc.DataIntegrityError
                     self._name_to_code[name] = language
         # Check if primary languages have full ISO 639-1 coverage:
         for lll, ll in iso_639.items():
