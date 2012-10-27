@@ -28,9 +28,9 @@ import sys
 
 import polib
 
+from lib import encodings
 from lib import ling
 from lib import tags
-from lib import encodings
 
 class Checker(object):
 
