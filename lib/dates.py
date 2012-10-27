@@ -49,4 +49,8 @@ def fix_date_format(s):
 def parse_date(s):
     return datetime.datetime.strptime(s, '%Y-%m-%d %H:%M%z')
 
+now = datetime.datetime.now()
+now = now.replace(tzinfo=datetime.timezone.utc)
+gettext_epoch = datetime.datetime(1995, 7, 2, tzinfo=datetime.timezone.utc)
+
 # vim:ts=4 sw=4 et

@@ -29,6 +29,7 @@ import sys
 import polib
 
 from lib import encodings
+from lib import dates
 from lib import ling
 from lib import tags
 
@@ -88,6 +89,7 @@ class Checker(object):
         else:
             language = self.check_language(file)
         self.check_mime(file)
+        self.check_dates(file)
 
     def check_language(self, file):
         language = self.options.language
@@ -172,6 +174,24 @@ class Checker(object):
         else:
             self.tag('no-content-type-header', 'Content-Type: text/plain; charset=<encoding>')
         return encoding
+
+    def check_dates(self, file):
+        for field in 'POT-Creation-Date', 'PO-Revision-Date':
+            date = file.metadata.get(field)
+            if not date:
+                self.tag('no-date-field', field)
+                continue
+            fixed_date = dates.fix_date_format(date)
+            if fixed_date is None:
+                self.tag('invalid-date', field + ':', date)
+                continue
+            elif date != fixed_date:
+                self.tag('invalid-date', field + ':', date, '=>', fixed_date)
+            stamp = dates.parse_date(fixed_date)
+            if stamp > dates.now:
+                self.tag('date-from-future', date)
+            if stamp < dates.gettext_epoch:
+                self.tag('ancient-date', field + ':', date)
 
 def require_python(*version):
     if sys.version_info < version:

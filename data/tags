@@ -1,3 +1,12 @@
+[ancient-date]
+severity = normal
+certainty = certain
+description =
+ The date refers to the time before the first GNU gettext release. As such,
+ it's extremely unlikely to be correct.
+references = 
+ http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
+
 [broken-encoding]
 severity = serious
 certainty = possible
@@ -10,6 +19,12 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
+
+[date-from-future]
+severity = normal
+certainty = certain
+description =
+ The date refers to the future. As such, it's extremely unlikely to be correct.
 
 [invalid-content-transfer-encoding]
 severity = normal
@@ -30,6 +45,15 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
+
+[invalid-date]
+severity = normal
+certainty = certain
+description =
+ The date is invalid or in an invalid format. The format should be
+ ``YYYY-MM-DD hh:mm+ZZzz``, e.g. ``2011-11-05 10:14+0100``.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [invalid-mime-version]
 severity = normal
@@ -74,6 +98,14 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
+
+[no-date-field]
+severity = minor
+certainty = certain
+description =
+ The date field doesn't exist.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [no-language-header]
 severity = pedantic
