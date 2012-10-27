@@ -114,6 +114,7 @@ class Checker(object):
         poedit_language = file.metadata.get('X-Poedit-Language')
         self.debug('poedit-language = {!r}'.format(poedit_language))
         if poedit_language:
+            # FIXME: This should take also X-Poedit-Country into account.
             try:
                 poedit_language = linginfo.get_language_for_name(poedit_language)
                 self.debug('poedit-language = {!r}'.format(poedit_language))
