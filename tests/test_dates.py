@@ -81,7 +81,6 @@ class test_parse_date:
         assert_equal(str(d), '2003-09-08 21:26:00+02:00')
 
 def test_constants():
-
     d = P('2008-04-03 16:06+0300')
     assert_less(d, lib.dates.now)
     assert_less(lib.dates.gettext_epoch, d)
