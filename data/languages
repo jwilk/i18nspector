@@ -44,7 +44,7 @@ name = Azerbaijani
 name = Bashkir
 
 [be]
-name = Byelorussian
+name = Belarusian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [bg]
@@ -73,7 +73,7 @@ name = Breton
 name = Bosnian
 
 [ca]
-name = Catalan
+name = Catalan; Valencian
 
 [ce]
 name = Chechen
@@ -92,7 +92,7 @@ name = Czech
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
 
 [cu]
-name = Old Church Slavonic
+name = Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
 
 [cv]
 name = Chuvash
@@ -109,7 +109,7 @@ name = German
 plural-forms = nplurals=2; plural=n != 1;
 
 [dv]
-name = Divehi
+name = Divehi; Dhivehi; Maldivian
 
 [dz]
 name = Dzongkha
@@ -151,7 +151,7 @@ name = Finnish
 plural-forms = nplurals=2; plural=n != 1;
 
 [fj]
-name = Fiji
+name = Fijian
 
 [fo]
 name = Faroese
@@ -162,14 +162,14 @@ name = French
 plural-forms = nplurals=2; plural=n > 1;
 
 [fy]
-name = Frisian
+name = Frisian; Western Frisian
 
 [ga]
 name = Irish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
 
 [gd]
-name = Scots Gaelic
+name = Gaelic; Scottish Gaelic
 
 [gl]
 name = Galician
@@ -201,7 +201,7 @@ name = Croatian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ht]
-name = Haitian
+name = Haitian; Haitian Creole
 
 [hu]
 name = Hungarian
@@ -220,16 +220,16 @@ name = Interlingua
 name = Indonesian
 
 [ie]
-name = Interlingue
+name = Interlingue; Occidental
 
 [ig]
 name = Igbo
 
 [ii]
-name = Sichuan Yi
+name = Sichuan Yi; Nuosu
 
 [ik]
-name = Inupiak
+name = Inupiaq
 
 [io]
 name = Ido
@@ -258,19 +258,19 @@ name = Georgian
 name = Kongo
 
 [ki]
-name = Kikuyu
+name = Kikuyu; Gikuyu
 
 [kj]
-name = Kuanyama
+name = Kuanyama; Kwanyama
 
 [kk]
 name = Kazakh
 
 [kl]
-name = Greenlandic
+name = Kalaallisut; Greenlandic
 
 [km]
-name = Khmer
+name = Khmer; Central Khmer
 
 [kn]
 name = Kannada
@@ -295,13 +295,13 @@ name = Komi
 name = Cornish
 
 [ky]
-name = Kirghiz
+name = Kirghiz; Kyrgyz
 
 [la]
 name = Latin
 
 [lb]
-name = Luxembourgish
+name = Luxembourgish; Letzeburgesch
 
 [lg]
 name = Ganda
@@ -345,7 +345,7 @@ name = Malayalam
 name = Mongolian
 
 [mo]
-name = Moldavian
+name = Moldavian; Moldovan
 
 [mr]
 name = Marathi
@@ -376,7 +376,7 @@ name = Nepali
 name = Ndonga
 
 [nl]
-name = Dutch
+name = Dutch; Flemish
 plural-forms = nplurals=2; plural=n != 1;
 
 [nn]
@@ -392,7 +392,10 @@ deprecated = nb nn
 name = South Ndebele
 
 [nv]
-name = Navajo
+name = Navajo; Navaho
+
+[ny]
+name = Chichewa; Nyanja
 
 [oc]
 name = Occitan
@@ -407,10 +410,10 @@ name = Oromo
 name = Oriya
 
 [os]
-name = Ossetian
+name = Ossetian; Ossetic
 
 [pa]
-name = Punjabi
+name = Panjabi; Punjabi
 
 [pi]
 name = Pali
@@ -420,7 +423,7 @@ name = Polish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ps]
-name = Pushto
+name = Pushto; Pashto
 
 [pt]
 name = Portuguese
@@ -434,7 +437,7 @@ plural-forms = nplurals=2; plural=n > 1;
 name = Quechua
 
 [rm]
-name = Rhaeto-Romance
+name = Rhaeto-Romance; Romansh
 
 [rn]
 name = Rundi
@@ -466,7 +469,7 @@ name = Northern Sami
 name = Sango
 
 [si]
-name = Sinhala
+name = Sinhala; Sinhalese
 
 [sk]
 name = Slovak
@@ -552,7 +555,7 @@ name = Twi
 name = Tahitian
 
 [ug]
-name = Uighur
+name = Uighur; Uyghur
 
 [uk]
 name = Ukrainian
@@ -572,7 +575,7 @@ name = Vietnamese
 plural-forms = nplurals=1; plural=0;
 
 [vo]
-name = Volapuk
+name = Volapük
 
 [wa]
 name = Walloon
@@ -590,7 +593,7 @@ name = Yiddish
 name = Yoruba
 
 [za]
-name = Zhuang
+name = Zhuang; Chuang
 
 [zh]
 name = Chinese
