@@ -33,6 +33,99 @@ def _munch_language_name(s):
     s = unicodedata.normalize('NFKC', s).encode('ASCII', 'ignore').decode()
     return s
 
+class FixingLanguageCodesFailed(Exception):
+    pass
+
+class FixingLanguageEncodingFailed(Exception):
+    pass
+
+class Language(object):
+
+    def __init__(self, parent, language_code, country_code=None, encoding=None, modifier=None):
+        self._parent = parent
+        self.language_code = language_code
+        if self.language_code is None:
+            raise ValueError('language_code must not be None')
+        self.country_code = country_code
+        self.encoding = None
+        if encoding is not None:
+            self.encoding = encoding.upper()
+        self.modifier = modifier
+
+    def fix_codes(self):
+        fixed = None
+        ll = self.language_code
+        ll = self._parent.lookup_language_code(ll)
+        if ll is None:
+            # TODO: Try to guess correct language code.
+            raise FixingLanguageCodesFailed()
+        elif ll != self.language_code:
+            fixed = True
+        cc = self.country_code
+        if cc is not None:
+            cc = self._parent.lookup_country_code(cc)
+            if cc is None:
+                # TODO: Try to guess correct country code.
+                raise FixingLanguageCodesFailed()
+            elif cc != self.country_code:
+                # This shouldn't really happen, but better safe than sorry.
+                raise ValueError
+            # TODO: ll_CC could be still incorrect, even when both ll and CC are
+            # correct.
+        self.language_code = ll
+        self.country_code = cc
+        return fixed
+
+    def get_default_country_code(self):
+        # TODO
+        return
+
+    def remove_default_country_code(self):
+        cc = self.country_code
+        if cc is None:
+            return
+        cc = self._parent.lookup_country_code(cc)
+        if cc is None:
+            return
+        if cc != self.country_code:
+            # This shouldn't really happen, but better safe than sorry.
+            raise ValueError
+        default_cc = self.get_default_country_code()
+        if cc == default_cc:
+            self.country_code = None
+            return True
+
+    def fix_encoding(self):
+        # TODO
+        if self.encoding is None:
+            return
+        raise FixingLanguageEncodingFailed()
+
+    def remove_encoding(self):
+        if self.encoding == None:
+            return
+        self.encoding = None
+        return True
+
+    def remove_nonlinguistic_modifier(self):
+        if self.modifier in {'quot', 'boldquot', 'euro'}:
+            self.modifier = None
+            return True
+        return
+
+    def __str__(self):
+        s = self.language_code
+        if self.country_code is not None:
+            s += '_' + self.country_code
+        if self.encoding is not None:
+            s += '.' + self.encoding
+        if self.modifier is not None:
+            s += '@' + self.modifier
+        return s
+
+    def __repr__(self):
+        return '<Language {}>'.format(self)
+
 class LingInfo(object):
 
     def __init__(self, datadir):

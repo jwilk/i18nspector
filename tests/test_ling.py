@@ -21,6 +21,7 @@
 import os
 import lib.ling
 
+import nose
 from nose.tools import (
     assert_equal,
     assert_in,
@@ -34,7 +35,98 @@ basedir = os.path.join(
     os.pardir,
 )
 datadir = os.path.join(basedir, 'data')
+T = lib.ling.Language
 L = lib.ling.LingInfo(datadir)
+
+class test_language_objects:
+
+    # fix_codes(): grc(_GR) -> grc(_GR)
+
+    def test_fix_codes_3c_to_3c(self):
+        lang = T(L, 'grc', 'GR')
+        assert_equal(lang.language_code, 'grc')
+        assert_equal(lang.country_code, 'GR')
+        assert_true(lang.fix_codes() is None)
+        assert_equal(lang.language_code, 'grc')
+        assert_equal(lang.country_code, 'GR')
+
+    def test_fix_codes_3_to_3(self):
+        lang = T(L, 'grc')
+        assert_equal(lang.language_code, 'grc')
+        assert_equal(lang.country_code, None)
+        assert_true(lang.fix_codes() is None)
+        assert_equal(lang.language_code, 'grc')
+        assert_equal(lang.country_code, None)
+
+    # fix_codes(): el(l)_GR -> el_GR
+
+    def test_fix_codes_2c_to_2c(self):
+        lang = T(L, 'el', 'GR')
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, 'GR')
+        assert_true(lang.fix_codes() is None)
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, 'GR')
+
+    def test_fix_codes_3c_to_2c(self):
+        lang = T(L, 'ell', 'GR')
+        assert_equal(lang.language_code, 'ell')
+        assert_equal(lang.country_code, 'GR')
+        assert_true(lang.fix_codes() is True)
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, 'GR')
+
+    # fix_codes(): el(l) -> el
+
+    def test_fix_codes_2_to_2(self):
+        lang = T(L, 'el')
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, None)
+        assert_true(lang.fix_codes() is None)
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, None)
+
+    def test_fix_codes_3_to_2(self):
+        lang = T(L, 'ell')
+        assert_equal(lang.language_code, 'ell')
+        assert_equal(lang.country_code, None)
+        assert_true(lang.fix_codes() is True)
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, None)
+
+    # *_default_conuntry_code(): el_GR -> el
+
+    def test_default_country_code(self):
+        # FIXME: This test currently doesn't pass.
+        raise nose.SkipTest
+        lang = T(L, 'el')
+        cc = lang.get_default_country_code()
+        assert_equal(cc, 'GR')
+
+    def test_remove_default_country_code(self):
+        # FIXME: This test currently doesn't pass.
+        raise nose.SkipTest
+        lang = T(L, 'el', 'GR')
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.country_code, 'GR')
+        lang.remove_default_country_code()
+        assert_equal(lang.language_code, 'el')
+        assert_true(lang.language_code is None)
+
+    # *_default_conuntry_code(): en_US -> en_US
+
+    def test_no_default_country_code(self):
+        lang = T(L, 'en')
+        cc = lang.get_default_country_code()
+        assert_true(cc is None)
+
+    def test_no_remove_default_country_code(self):
+        lang = T(L, 'en', 'US')
+        assert_equal(lang.language_code, 'en')
+        assert_equal(lang.country_code, 'US')
+        lang.remove_default_country_code()
+        assert_equal(lang.language_code, 'en')
+        assert_equal(lang.country_code, 'US')
 
 class test_lookup_language_code:
 
