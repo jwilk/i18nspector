@@ -1,0 +1,39 @@
+Verify that we can recognize all the languages Poedit supports:
+https://raw.github.com/vslavik/poedit/master/src/isocodes.cpp
+
+Gather information about languages with principal territory:
+http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msginit.c#n505
+
+Complain about incorrect locale codes:
+ * al -> sq
+ * cn -> zh
+ * cz -> cs
+ * dk -> da
+ * en_UK -> en_GB
+ * gr -> el
+ * in -> id
+ * no -> nb
+ * sh_BA -> bs_BA
+ * sh_HR -> hr_HR
+ * sh_RS -> sr_RS
+ * sr_CS -> sr
+ * sr_YU -> sr
+
+Validate ``Project-Id-Version``.
+
+Validate ``Report-Msgid-Bugs-To``.
+
+Validate ``Last-Translator``.
+
+Guess language from ``Language-Team``.
+
+Validate ``Plural-Forms``.
+
+Check for unknown headers that don't begin with ``X-``.
+
+Check for encodings that couldn't support all the language's characters (e.g.
+ISO-8859-1 for Polish).
+
+Figure out what to do with encodings supported by iconv but not by Python.
+
+.. vim:ft=rst
