@@ -79,8 +79,8 @@ class Checker(object):
             broken_encoding = exc
         if broken_encoding:
             self.tag('broken-encoding',
-                repr(broken_encoding.object)[1:],
-                'cannot be decoded as',
+                tags.safestr(repr(broken_encoding.object)[1:]),
+                tags.safestr('cannot be decoded as'),
                 broken_encoding.encoding.upper(),
             )
             broken_encoding = True
@@ -112,7 +112,11 @@ class Checker(object):
                 language = meta_language
                 language_source = 'Language header'
             elif language != meta_language:
-                self.tag('language-disparity', language, '({})'.format(language_source), '!=', meta_language, '(Language header)')
+                self.tag('language-disparity',
+                    language, tags.safestr('({})'.format(language_source)),
+                    '!=',
+                    meta_language, tags.safestr('(Language header)')
+                )
         poedit_language = file.metadata.get('X-Poedit-Language')
         self.debug('poedit-language = {!r}'.format(poedit_language))
         if poedit_language:
@@ -126,13 +130,17 @@ class Checker(object):
                 if language is None:
                     language = poedit_language
                 elif language != poedit_language:
-                    self.tag('language-disparity', language, '({})'.format(language_source), '!=', poedit_language, '(X-Poedit-Language header)')
+                    self.tag('language-disparity',
+                        language, tags.safestr('({})'.format(language_source)),
+                        '!=',
+                        poedit_language, tags.safestr('(X-Poedit-Language header)')
+                    )
         if language is None:
             self.tag('unable-to-determine-language')
             return
         self.debug('language = {!r}'.format(language))
         if not meta_language:
-            self.tag('no-language-header', 'Language:', language)
+            self.tag('no-language-header', tags.safestr('Language:'), language)
         return language
 
     def check_mime(self, file):
@@ -141,13 +149,13 @@ class Checker(object):
             if mime_version != '1.0':
                 self.tag('invalid-mime-version', mime_version, '=>', '1.0')
         else:
-            self.tag('no-mime-version-header', 'MIME-Version: 1.0')
+            self.tag('no-mime-version-header', tags.safestr('MIME-Version: 1.0'))
         cte = file.metadata.get('Content-Transfer-Encoding')
         if cte is not None:
             if cte != '8bit':
                 self.tag('invalid-content-transfer-encoding', cte, '=>', '8bit')
         else:
-            self.tag('no-content-transfer-encoding-header', 'Content-Transfer-Encoding: 8bit')
+            self.tag('no-content-transfer-encoding-header', tags.safestr('Content-Transfer-Encoding: 8bit'))
         ct = file.metadata.get('Content-Type')
         encoding = None
         if ct is not None:
@@ -172,7 +180,7 @@ class Checker(object):
             else:
                 self.tag('invalid-content-type', ct, '=>', 'text/plain; charset=<encoding>')
         else:
-            self.tag('no-content-type-header', 'Content-Type: text/plain; charset=<encoding>')
+            self.tag('no-content-type-header', tags.safestr('Content-Type: text/plain; charset=<encoding>'))
         return encoding
 
     def check_dates(self, file):
@@ -183,15 +191,15 @@ class Checker(object):
                 continue
             fixed_date = dates.fix_date_format(date)
             if fixed_date is None:
-                self.tag('invalid-date', field + ':', date)
+                self.tag('invalid-date', tags.safestr(field + ':'), date)
                 continue
             elif date != fixed_date:
-                self.tag('invalid-date', field + ':', date, '=>', fixed_date)
+                self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
             stamp = dates.parse_date(fixed_date)
             if stamp > dates.now:
                 self.tag('date-from-future', date)
             if stamp < dates.gettext_epoch:
-                self.tag('ancient-date', field + ':', date)
+                self.tag('ancient-date', tags.safestr(field + ':'), date)
 
 def require_python(*version):
     if sys.version_info < version:

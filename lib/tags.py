@@ -21,6 +21,7 @@
 import configparser
 import functools
 import os
+import re
 
 from . import misc
 
@@ -90,6 +91,20 @@ certainties = OrderedGroup('Certainty',
     'certain',
 )
 
+_is_safe = re.compile('^[A-Za-z0-9_.!<>=-]+$').match
+
+class safestr(str):
+    pass
+
+def _escape(s):
+    if isinstance(s, safestr):
+        return s
+    s = str(s)
+    if _is_safe(s):
+        return s
+    else:
+        return repr(s)
+
 class Tag(object):
 
     def __init__(self, **kwargs):
@@ -155,7 +170,7 @@ class Tag(object):
             off=color_off,
         )
         if extra:
-            s += ' ' + ' '.join(map(str, extra))
+            s += ' ' + ' '.join(map(_escape, extra))
         return s
 
 class TagInfo(object):
