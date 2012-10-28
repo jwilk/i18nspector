@@ -27,7 +27,7 @@ description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
 [invalid-content-transfer-encoding]
-severity = normal
+severity = pedantic
 certainty = certain
 description =
  Value of the Content-Transfer-Encoding field is invalid. It should be
@@ -56,7 +56,7 @@ references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [invalid-mime-version]
-severity = normal
+severity = pedantic
 certainty = certain
 description =
  Value of the MIME-Version field is invalid. It should be ``1.0``.
