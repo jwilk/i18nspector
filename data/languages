@@ -10,6 +10,17 @@ names = Afar
 [ab]
 names = Abkhazian
 
+[ace]
+names = Achinese
+
+[ach]
+names = Acoli
+
+[ady]
+names =
+ Adyghe
+ Adygei
+
 [ae]
 names = Avestan
 
@@ -25,11 +36,21 @@ names = Amharic
 [an]
 names = Aragonese
 
+[ang]
+names = Old English
+
 [ar]
 names = Arabic
 
 [as]
 names = Assamese
+
+[ast]
+names =
+ Asturian
+ Bable
+ Leonese
+ Asturleonese
 
 [av]
 names = Avaric
@@ -43,9 +64,15 @@ names = Azerbaijani
 [ba]
 names = Bashkir
 
+[bal]
+names = Baluchi
+
 [be]
 names = Belarusian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+[bem]
+names = Bemba
 
 [bg]
 names = Bulgarian
@@ -53,6 +80,9 @@ plural-forms = nplurals=2; plural=n != 1;
 
 [bh]
 names = Bihari
+
+[bho]
+names = Bhojpuri
 
 [bi]
 names = Bislama
@@ -72,6 +102,11 @@ names = Breton
 [bs]
 names = Bosnian
 
+[byn]
+names =
+ Blin
+ Bilin
+
 [ca]
 names =
  Catalan
@@ -80,18 +115,32 @@ names =
 [ce]
 names = Chechen
 
+[ceb]
+names = Cebuano
+
 [ch]
 names = Chamorro
 
 [co]
 names = Corsican
 
+[cpf]
+names = creoles and pidgins, French-based
+
 [cr]
 names = Cree
+
+[crh]
+names =
+ Crimean Tatar
+ Crimean Turkish
 
 [cs]
 names = Czech
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+
+[csb]
+names = Kashubian
 
 [cu]
 names =
@@ -114,6 +163,9 @@ plural-forms = nplurals=2; plural=n != 1;
 [de]
 names = German
 plural-forms = nplurals=2; plural=n != 1;
+
+[doi]
+names = Dogri
 
 [dv]
 names =
@@ -160,6 +212,11 @@ names = Fulah
 names = Finnish
 plural-forms = nplurals=2; plural=n != 1;
 
+[fil]
+names =
+ Filipino
+ Pilipino
+
 [fj]
 names = Fijian
 
@@ -171,6 +228,9 @@ plural-forms = nplurals=2; plural=n != 1;
 names = French
 plural-forms = nplurals=2; plural=n > 1;
 
+[fur]
+names = Friulian
+
 [fy]
 names =
  Frisian
@@ -180,10 +240,16 @@ names =
 names = Irish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
 
+[gaa]
+names = Ga
+
 [gd]
 names =
  Gaelic
  Scottish Gaelic
+
+[gez]
+names = Geez
 
 [gl]
 names = Galician
@@ -199,6 +265,9 @@ names = Manx
 
 [ha]
 names = Hausa
+
+[haw]
+names = Hawaiian
 
 [he]
 names = Hebrew
@@ -251,6 +320,9 @@ names =
 [ik]
 names = Inupiaq
 
+[ilo]
+names = Iloko
+
 [io]
 names = Ido
 
@@ -268,11 +340,17 @@ names = Inuktitut
 names = Japanese
 plural-forms = nplurals=1; plural=0;
 
+[jbo]
+names = Lojban
+
 [jv]
 names = Javanese
 
 [ka]
 names = Georgian
+
+[kab]
+names = Kabyle
 
 [kg]
 names = Kongo
@@ -306,6 +384,12 @@ names = Kannada
 [ko]
 names = Korean
 plural-forms = nplurals=1; plural=0;
+
+[kok]
+names = Konkani
+
+[kos]
+names = Kosraean
 
 [kr]
 names = Kanuri
@@ -358,6 +442,9 @@ names = Luba-Katanga
 names = Latvian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;
 
+[mai]
+names = Maithili
+
 [mg]
 names = Malagasy
 
@@ -376,6 +463,9 @@ names = Malayalam
 [mn]
 names = Mongolian
 
+[mni]
+names = Manipuri
+
 [mo]
 names =
  Moldavian
@@ -390,11 +480,20 @@ names = Malay
 [mt]
 names = Maltese
 
+[mus]
+names = Creek
+
 [my]
 names = Burmese
 
 [na]
 names = Nauru
+
+[nah]
+names = Nahuatl
+
+[nap]
+names = Neapolitan
 
 [nb]
 names = Norwegian Bokmål
@@ -402,6 +501,11 @@ plural-forms = nplurals=2; plural=n != 1;
 
 [nd]
 names = North Ndebele
+
+[nds]
+names =
+ Low German
+ Low Saxon
 
 [ne]
 names = Nepali
@@ -427,6 +531,12 @@ deprecated = nb nn
 [nr]
 names = South Ndebele
 
+[nso]
+names =
+ Pedi
+ Sepedi
+ Northern Sotho
+
 [nv]
 names =
  Navaho
@@ -435,6 +545,7 @@ names =
 [ny]
 names =
  Chichewa
+ Chewa
  Nyanja
 
 [oc]
@@ -458,6 +569,9 @@ names =
 names =
  Panjabi
  Punjabi
+
+[pap]
+names = Papiamento
 
 [pi]
 names = Pali
@@ -504,8 +618,14 @@ names = Kinyarwanda
 [sa]
 names = Sanskrit
 
+[sat]
+names = Santali
+
 [sc]
 names = Sardinian
+
+[sco]
+names = Scots
 
 [sd]
 names = Sindhi
@@ -515,6 +635,9 @@ names = Northern Sami
 
 [sg]
 names = Sango
+
+[shn]
+names = Shan
 
 [si]
 names =
@@ -537,6 +660,9 @@ names = Shona
 
 [so]
 names = Somali
+
+[son]
+names = Songhai
 
 [sq]
 names = Albanian
@@ -567,6 +693,9 @@ names = Tamil
 [te]
 names = Telugu
 
+[tet]
+names = Tetum
+
 [tg]
 names = Tajik
 
@@ -576,17 +705,28 @@ names = Thai
 [ti]
 names = Tigrinya
 
+[tig]
+names = Tigre
+
 [tk]
 names = Turkmen
 
 [tl]
 names = Tagalog
 
+[tlh]
+names =
+ Klingon
+ tlhIngan-Hol
+
 [tn]
 names = Tswana
 
 [to]
 names = Tonga
+
+[tpi]
+names = Tok Pisin
 
 [tr]
 names = Turkish
@@ -598,11 +738,17 @@ names = Tsonga
 [tt]
 names = Tatar
 
+[tvl]
+names = Tuvalu
+
 [tw]
 names = Twi
 
 [ty]
 names = Tahitian
+
+[tyv]
+names = Tuvinian
 
 [ug]
 names =
@@ -631,6 +777,11 @@ names = Volapük
 
 [wa]
 names = Walloon
+
+[wal]
+names =
+ Wolaitta
+ Wolaytta
 
 [wo]
 names = Wolof
