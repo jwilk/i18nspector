@@ -1,0 +1,73 @@
+#!/usr/bin/python3
+
+# Copyright © 2012 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import argparse
+import os
+import xml.etree.cElementTree as etree
+
+iso_codes_dir = '/usr/share/xml/iso-codes/';
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('languages', metavar='<lang>', nargs='+')
+    options = ap.parse_args()
+    languages = set(options.languages)
+    basedir = os.path.join(
+        os.path.dirname(__file__),
+        os.pardir,
+    )
+    for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639.xml')):
+        if element.tag != 'iso_639_entry':
+            continue
+        ll = element.get('iso_639_1_code')
+        lll_b = element.get('iso_639_2B_code')
+        lll_t = element.get('iso_639_2T_code')
+        requested = None
+        for lang in ll, lll_b, lll_t:
+            if lang in languages:
+                assert lang is not None
+                requested = lang
+                languages.remove(lang)
+        if requested is None:
+            continue
+        lang = ll or lll_t
+        if lang is None:
+            raise ValueError
+        names = [
+            s.strip()
+            for s in element.get('name').split(';')
+        ]
+        print('[{}]'.format(requested))
+        if lang != requested:
+            print('# XXX mapping {} => {}'.format(requested, lang))
+        if len(names) == 1:
+            print('names =', *names)
+        else:
+            print('names =')
+            for name in names:
+                print('', name)
+        print()
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et
