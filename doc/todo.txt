@@ -29,8 +29,6 @@ Guess language from ``Language-Team``.
 
 Validate ``Plural-Forms``.
 
-Check for unknown headers that don't begin with ``X-``.
-
 Check for encodings that couldn't support all the language's characters (e.g.
 ISO-8859-1 for Polish).
 

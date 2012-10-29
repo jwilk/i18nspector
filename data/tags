@@ -153,6 +153,13 @@ description =
  File format of this file couldn't be recognized.
  It might be a bug in gettext-inspector.
 
+[unknown-header-field]
+severity = minor
+certainty = wild-guess
+description =
+ The header field name is unknown to gettext-inspector.
+ It might be a typo.
+
 [unknown-poedit-language]
 severity = minor
 certainty = wild-guess

@@ -32,6 +32,7 @@ from lib import encodings
 from lib import dates
 from lib import ling
 from lib import tags
+from lib import gettext
 
 class Checker(object):
 
@@ -90,6 +91,7 @@ class Checker(object):
             language = self.check_language(file)
         self.check_mime(file)
         self.check_dates(file)
+        self.check_headers(file)
 
     def check_language(self, file):
         language = self.options.language
@@ -201,6 +203,13 @@ class Checker(object):
             if stamp < dates.gettext_epoch:
                 self.tag('ancient-date', tags.safestr(field + ':'), date)
 
+    def check_headers(self, file):
+        for key in sorted(file.metadata):
+            if key.startswith('X-'):
+                continue
+            if key not in self.options.gettextinfo.po_header_fields:
+                self.tag('unknown-header-field', key)
+
 def require_python(*version):
     if sys.version_info < version:
         prog = argparse.ArgumentParser().prog
@@ -233,6 +242,7 @@ def main():
     options.linginfo = ling.LingInfo(datadir)
     options.taginfo = tags.TagInfo(datadir)
     options.encinfo = encinfo = encodings.EncodingInfo(datadir)
+    options.gettextinfo = gettext.GettextInfo(datadir)
     encinfo.install_extra_aliases()
     for filename in files:
         checker = Checker(filename, options=options)
