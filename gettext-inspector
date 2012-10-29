@@ -28,11 +28,11 @@ import sys
 
 import polib
 
-from lib import encodings
 from lib import dates
+from lib import encodings
+from lib import gettext
 from lib import ling
 from lib import tags
-from lib import gettext
 
 class Checker(object):
 
