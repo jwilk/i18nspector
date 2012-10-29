@@ -239,10 +239,10 @@ def main():
         'data', ''
     )
     os.stat(datadir)
-    options.linginfo = ling.LingInfo(datadir)
-    options.taginfo = tags.TagInfo(datadir)
     options.encinfo = encinfo = encodings.EncodingInfo(datadir)
     options.gettextinfo = gettext.GettextInfo(datadir)
+    options.linginfo = ling.LingInfo(datadir)
+    options.taginfo = tags.TagInfo(datadir)
     encinfo.install_extra_aliases()
     for filename in files:
         checker = Checker(filename, options=options)
