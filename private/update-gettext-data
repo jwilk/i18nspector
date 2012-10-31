@@ -38,10 +38,11 @@ def strip_plural_forms(s):
     return re.sub(r'\bplural=\((.*?)\);$', r'plural=\1;', s)
 
 def main():
-    url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
     regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
     datadir = os.path.join(basedir, 'data')
     linginfo = ling.LingInfo(datadir)
+    # ---------
+    url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
     okay = set()
     with urllib.request.urlopen(url) as file:
         for line in file:
