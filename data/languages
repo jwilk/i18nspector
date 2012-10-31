@@ -12,6 +12,7 @@ names = Abkhazian
 
 [ace]
 names = Achinese
+principal-territory = ID
 
 [ach]
 names = Acoli
@@ -26,24 +27,30 @@ names = Avestan
 
 [af]
 names = Afrikaans
+principal-territory = ZA
 
 [ak]
 names = Akan
+principal-territory = GH
 
 [am]
 names = Amharic
+principal-territory = ET
 
 [an]
 names = Aragonese
+principal-territory = ES
 
 [ang]
 names = Old English
+principal-territory = GB
 
 [ar]
 names = Arabic
 
 [as]
 names = Assamese
+principal-territory = IN
 
 [ast]
 names =
@@ -51,15 +58,18 @@ names =
  Bable
  Leonese
  Asturleonese
+principal-territory = ES
 
 [av]
 names = Avaric
+principal-territory = RU
 
 [ay]
 names = Aymara
 
 [az]
 names = Azerbaijani
+principal-territory = AZ
 
 [ba]
 names = Bashkir
@@ -70,37 +80,46 @@ names = Baluchi
 [be]
 names = Belarusian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = BY
 
 [bem]
 names = Bemba
+principal-territory = ZM
 
 [bg]
 names = Bulgarian
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = BG
 
 [bh]
 names = Bihari
 
 [bho]
 names = Bhojpuri
+principal-territory = IN
 
 [bi]
 names = Bislama
 
 [bm]
 names = Bambara
+principal-territory = ML
 
 [bn]
 names = Bengali
+principal-territory = IN
 
 [bo]
 names = Tibetan
+principal-territory = CN
 
 [br]
 names = Breton
+principal-territory = FR
 
 [bs]
 names = Bosnian
+principal-territory = BA
 
 [byn]
 names =
@@ -111,24 +130,29 @@ names =
 names =
  Catalan
  Valencian
+principal-territory = ES
 
 [ce]
 names = Chechen
+principal-territory = RU
 
 [ceb]
 names = Cebuano
+principal-territory = PH
 
 [ch]
 names = Chamorro
 
 [co]
 names = Corsican
+principal-territory = FR
 
 [cpf]
 names = creoles and pidgins, French-based
 
 [cr]
 names = Cree
+principal-territory = CA
 
 [crh]
 names =
@@ -138,9 +162,11 @@ names =
 [cs]
 names = Czech
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+principal-territory = CZ
 
 [csb]
 names = Kashubian
+principal-territory = PL
 
 [cu]
 names =
@@ -155,33 +181,41 @@ names = Chuvash
 
 [cy]
 names = Welsh
+principal-territory = GB
 
 [da]
 names = Danish
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = DK
 
 [de]
 names = German
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = DE
 
 [doi]
 names = Dogri
+principal-territory = IN
 
 [dv]
 names =
  Dhivehi
  Divehi
  Maldivian
+principal-territory = MV
 
 [dz]
 names = Dzongkha
+principal-territory = BT
 
 [ee]
 names = Ewe
+principal-territory = GH
 
 [el]
 names = Greek
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = GR
 
 [en]
 names = English
@@ -194,16 +228,19 @@ plural-forms = nplurals=2; plural=n != 1;
 [es]
 names = Spanish
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = ES
 
 [et]
 names = Estonian
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = EE
 
 [eu]
 names = Basque
 
 [fa]
 names = Persian
+principal-territory = IR
 
 [ff]
 names = Fulah
@@ -211,34 +248,42 @@ names = Fulah
 [fi]
 names = Finnish
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = FI
 
 [fil]
 names =
  Filipino
  Pilipino
+principal-territory = PH
 
 [fj]
 names = Fijian
+principal-territory = FJ
 
 [fo]
 names = Faroese
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = FO
 
 [fr]
 names = French
 plural-forms = nplurals=2; plural=n > 1;
+principal-territory = FR
 
 [fur]
 names = Friulian
+principal-territory = IT
 
 [fy]
 names =
  Frisian
  Western Frisian
+principal-territory = NL
 
 [ga]
 names = Irish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
+principal-territory = IE
 
 [gaa]
 names = Ga
@@ -247,6 +292,7 @@ names = Ga
 names =
  Gaelic
  Scottish Gaelic
+principal-territory = GB
 
 [gez]
 names = Geez
@@ -259,6 +305,7 @@ names = Guarani
 
 [gu]
 names = Gujarati
+principal-territory = IN
 
 [gv]
 names = Manx
@@ -272,9 +319,11 @@ names = Hawaiian
 [he]
 names = Hebrew
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = IL
 
 [hi]
 names = Hindi
+principal-territory = IN
 
 [ho]
 names = Hiri Motu
@@ -282,18 +331,22 @@ names = Hiri Motu
 [hr]
 names = Croatian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = HR
 
 [ht]
 names =
  Haitian
  Haitian Creole
+principal-territory = HT
 
 [hu]
 names = Hungarian
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = HU
 
 [hy]
 names = Armenian
+principal-territory = AM
 
 [hz]
 names = Herero
@@ -303,6 +356,7 @@ names = Interlingua
 
 [id]
 names = Indonesian
+principal-territory = ID
 
 [ie]
 names =
@@ -311,27 +365,32 @@ names =
 
 [ig]
 names = Igbo
+principal-territory = NG
 
 [ii]
 names =
  Nuosu
  Sichuan Yi
+principal-territory = CN
 
 [ik]
 names = Inupiaq
 
 [ilo]
 names = Iloko
+principal-territory = PH
 
 [io]
 names = Ido
 
 [is]
 names = Icelandic
+principal-territory = IS
 
 [it]
 names = Italian
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = IT
 
 [iu]
 names = Inuktitut
@@ -339,21 +398,26 @@ names = Inuktitut
 [ja]
 names = Japanese
 plural-forms = nplurals=1; plural=0;
+principal-territory = JP
 
 [jbo]
 names = Lojban
 
 [jv]
 names = Javanese
+principal-territory = ID
 
 [ka]
 names = Georgian
+principal-territory = GE
 
 [kab]
 names = Kabyle
+principal-territory = DZ
 
 [kg]
 names = Kongo
+principal-territory = CD
 
 [ki]
 names =
@@ -367,32 +431,39 @@ names =
 
 [kk]
 names = Kazakh
+principal-territory = KZ
 
 [kl]
 names =
  Greenlandic
  Kalaallisut
+principal-territory = GL
 
 [km]
 names =
  Central Khmer
  Khmer 
+principal-territory = KH
 
 [kn]
 names = Kannada
+principal-territory = IN
 
 [ko]
 names = Korean
 plural-forms = nplurals=1; plural=0;
+principal-territory = KR
 
 [kok]
 names = Konkani
+principal-territory = IN
 
 [kos]
 names = Kosraean
 
 [kr]
 names = Kanuri
+principal-territory = NG
 
 [ks]
 names = Kashmiri
@@ -421,32 +492,40 @@ names =
 
 [lg]
 names = Ganda
+principal-territory = UG
 
 [li]
 names = Limburgan
+principal-territory = BE
 
 [ln]
 names = Lingala
 
 [lo]
 names = Lao
+principal-territory = LA
 
 [lt]
 names = Lithuanian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = LT
 
 [lu]
 names = Luba-Katanga
+principal-territory = CD
 
 [lv]
 names = Latvian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;
+principal-territory = LV
 
 [mai]
 names = Maithili
+principal-territory = IN
 
 [mg]
 names = Malagasy
+principal-territory = MG
 
 [mh]
 names =
@@ -455,18 +534,23 @@ names =
 
 [mi]
 names = Maori
+principal-territory = NZ
 
 [mk]
 names = Macedonian
+principal-territory = MK
 
 [ml]
 names = Malayalam
+principal-territory = IN
 
 [mn]
 names = Mongolian
+principal-territory = MN
 
 [mni]
 names = Manipuri
+principal-territory = IN
 
 [mo]
 names =
@@ -475,31 +559,39 @@ names =
 
 [mr]
 names = Marathi
+principal-territory = IN
 
 [ms]
 names = Malay
+principal-territory = MY
 
 [mt]
 names = Maltese
+principal-territory = MT
 
 [mus]
 names = Creek
 
 [my]
 names = Burmese
+principal-territory = MM
 
 [na]
 names = Nauru
+principal-territory = NR
 
 [nah]
 names = Nahuatl
+principal-territory = MX
 
 [nap]
 names = Neapolitan
+principal-territory = IT
 
 [nb]
 names = Norwegian Bokmål
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = NO
 
 [nd]
 names = North Ndebele
@@ -508,9 +600,11 @@ names = North Ndebele
 names =
  Low German
  Low Saxon
+principal-territory = DE
 
 [ne]
 names = Nepali
+principal-territory = NP
 
 [ng]
 names = Ndonga
@@ -520,24 +614,29 @@ names =
  Dutch
  Flemish
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = NL
 
 [nn]
 names = Norwegian Nynorsk
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = NO
 
 [no]
 names = Norwegian
 plural-forms = nplurals=2; plural=n != 1;
 deprecated = nb nn
+principal-territory = NO
 
 [nr]
 names = South Ndebele
+principal-territory = ZA
 
 [nso]
 names =
  Pedi
  Sepedi
  Northern Sotho
+principal-territory = ZA
 
 [nv]
 names =
@@ -552,15 +651,18 @@ names =
 
 [oc]
 names = Occitan
+principal-territory = FR
 
 [oj]
 names = Ojibwa
+principal-territory = CA
 
 [om]
 names = Oromo
 
 [or]
 names = Oriya
+principal-territory = IN
 
 [os]
 names =
@@ -571,6 +673,7 @@ names =
 names =
  Panjabi
  Punjabi
+principal-territory = IN
 
 [pap]
 names = Papiamento
@@ -581,15 +684,18 @@ names = Pali
 [pl]
 names = Polish
 plural-forms = nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = PL
 
 [ps]
 names =
  Pashto
  Pushto
+principal-territory = AF
 
 [pt]
 names = Portuguese
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = PT
 
 [pt_BR]
 names = Brazilian
@@ -602,29 +708,36 @@ names = Quechua
 names =
  Rhaeto-Romance
  Romansh
+principal-territory = CH
 
 [rn]
 names = Rundi
+principal-territory = BI
 
 [ro]
 names = Romanian
 plural-forms = nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;
+principal-territory = RO
 
 [ru]
 names = Russian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = RU
 
 [rw]
 names = Kinyarwanda
 
 [sa]
 names = Sanskrit
+principal-territory = IN
 
 [sat]
 names = Santali
+principal-territory = IN
 
 [sc]
 names = Sardinian
+principal-territory = IT
 
 [sco]
 names = Scots
@@ -639,22 +752,27 @@ names = Northern Sami
 names =
  Sango
  Sangro
+principal-territory = CF
 
 [shn]
 names = Shan
+principal-territory = MM
 
 [si]
 names =
  Sinhala
  Sinhalese
+principal-territory = LK
 
 [sk]
 names = Slovak
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+principal-territory = SK
 
 [sl]
 names = Slovenian
 plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
+principal-territory = SI
 
 [sm]
 names = Samoan
@@ -664,16 +782,19 @@ names = Shona
 
 [so]
 names = Somali
+principal-territory = SO
 
 [son]
 names = Songhai
 
 [sq]
 names = Albanian
+principal-territory = AL
 
 [sr]
 names = Serbian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = RS
 
 [ss]
 names =
@@ -691,6 +812,7 @@ names = Sundanese
 [sv]
 names = Swedish
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = SE
 
 [sw]
 names = Swahili
@@ -700,15 +822,19 @@ names = Tamil
 
 [te]
 names = Telugu
+principal-territory = IN
 
 [tet]
 names = Tetum
+principal-territory = ID
 
 [tg]
 names = Tajik
+principal-territory = TJ
 
 [th]
 names = Thai
+principal-territory = TH
 
 [ti]
 names = Tigrinya
@@ -718,9 +844,11 @@ names = Tigre
 
 [tk]
 names = Turkmen
+principal-territory = TM
 
 [tl]
 names = Tagalog
+principal-territory = PH
 
 [tlh]
 names =
@@ -734,6 +862,7 @@ names =
 
 [to]
 names = Tonga
+principal-territory = TO
 
 [tpi]
 names = Tok Pisin
@@ -741,6 +870,7 @@ names = Tok Pisin
 [tr]
 names = Turkish
 plural-forms = nplurals=2; plural=n != 1;
+principal-territory = TR
 
 [ts]
 names = Tsonga
@@ -764,34 +894,42 @@ names = Tuvinian
 names =
  Uighur
  Uyghur
+principal-territory = CN
 
 [uk]
 names = Ukrainian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+principal-territory = UA
 
 [ur]
 names = Urdu
+principal-territory = PK
 
 [uz]
 names = Uzbek
+principal-territory = UZ
 
 [ve]
 names = Venda
+principal-territory = ZA
 
 [vi]
 names = Vietnamese
 plural-forms = nplurals=1; plural=0;
+principal-territory = VN
 
 [vo]
 names = Volapük
 
 [wa]
 names = Walloon
+principal-territory = BE
 
 [wal]
 names =
  Wolaitta
  Wolaytta
+principal-territory = ET
 
 [wo]
 names = Wolof

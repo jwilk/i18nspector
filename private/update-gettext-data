@@ -65,7 +65,48 @@ def main():
             else:
                 okay.add(language)
     n_okay = len(okay)
-    print('# No changes required for {} languages'.format(n_okay))
+    print('# No plural-forms changes required for {} languages'.format(n_okay))
+    print()
+    # ---------
+    url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/msginit.c'
+    okay = set() 
+    with urllib.request.urlopen(url) as file:
+        contents = file.read()
+    match = re.compile(br'locales_with_principal_territory\s*\[\]\s*=\s*[{](.*?)[}]', re.DOTALL).search(contents)
+    if match is None:
+        raise ValueError
+    contents = match.group(1)
+    contents = re.compile(br'/[*].*?[*]/', re.DOTALL).sub(b'', contents)
+    contents = contents.decode('ASCII')
+    data = {}
+    for item in re.findall('"(\w+)"', contents):
+        language, gettext_cc = item.split('_')
+        data[language] = gettext_cc
+        try:
+            our_cc = linginfo.get_principal_territory(language)
+        except LookupError:
+            continue
+        if our_cc != gettext_cc:
+            print('[{}]'.format(language))
+            if our_cc is not None:
+                print('# WAS: principal-territory =', our_cc)
+            if linginfo.lookup_country_code(gettext_cc) is None:
+                print('# BAD: principal-territory =', gettext_cc)
+            else:
+                print('principal-territory =', gettext_cc)
+            print()
+        else:
+            okay.add(language)
+    for language in linginfo.get_primary_languages():
+        cc = linginfo.get_principal_territory(language)
+        if cc is None:
+            continue
+        if language not in data:
+            print('# WAS: [{}]'.format(language))
+            print('# WAS: principal-territory =', cc)
+            print()
+    n_okay = len(okay)
+    print('# No principal-territory changes required for {} languages'.format(n_okay))
 
 if __name__ == '__main__':
     main()

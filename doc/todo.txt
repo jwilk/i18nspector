@@ -1,5 +1,4 @@
-Gather information about languages with principal territory:
-http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msginit.c#n505
+Use information about languages with principal territory.
 
 Complain about incorrect locale codes:
  * al -> sq
