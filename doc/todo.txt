@@ -1,6 +1,3 @@
-Verify that we can recognize all the languages Poedit supports:
-https://raw.github.com/vslavik/poedit/master/src/isocodes.cpp
-
 Gather information about languages with principal territory:
 http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msginit.c#n505
 
@@ -33,5 +30,9 @@ Check for encodings that couldn't support all the language's characters (e.g.
 ISO-8859-1 for Polish).
 
 Figure out what to do with encodings supported by iconv but not by Python.
+
+Fix support for ``X-Poedit-Language: (Afan) Oromo``.
+
+Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
 .. vim:ft=rst
