@@ -30,7 +30,7 @@ def _munch_language_name(s):
     # Normalize capitalization:
     s = s.lower()
     # Strip accent marks etc.:
-    s = unicodedata.normalize('NFKC', s).encode('ASCII', 'ignore').decode()
+    s = unicodedata.normalize('NFD', s).encode('ASCII', 'ignore').decode()
     return s
 
 class FixingLanguageCodesFailed(Exception):
