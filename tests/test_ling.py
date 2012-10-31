@@ -170,6 +170,18 @@ class test_get_language_for_name:
         lang = L.get_language_for_name('Norwegian Bokmål')
         assert_equal(lang, 'nb')
 
+    def test_found_semicolon(self):
+        lang = L.get_language_for_name('Chichewa; Nyanja')
+        assert_equal(lang, 'ny')
+
+    def test_found_comma(self):
+        lang = L.get_language_for_name('Ndebele, South')
+        assert_equal(lang, 'nr')
+
+    def test_found_comma_as_semicolon(self):
+        lang = L.get_language_for_name('Pashto, Pushto')
+        assert_equal(lang, 'ps')
+
     def test_not_found(self):
         with assert_raises(LookupError):
             lang = L.get_language_for_name('Nadsat')

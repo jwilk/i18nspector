@@ -181,7 +181,28 @@ class LingInfo(object):
         try:
             return self._name_to_code[_name]
         except KeyError:
-            raise LookupError(name)
+            pass
+        if ';' in _name:
+            for subname in _name.split(';'):
+                subname = subname.strip()
+                try:
+                    return self._name_to_code[subname]
+                except LookupError:
+                    pass
+        if ',' in _name:
+            subname = ' '.join(map(str.strip, _name.split(',', 1)[::-1]))
+            try: 
+                return self._name_to_code[subname]
+            except LookupError:
+                pass
+            results = set()
+            for subname in _name.split(','):
+                subname = subname.strip()
+                result = self._name_to_code.get(subname)
+                results.add(result)
+            if len(results) == 1:
+                return results.pop()
+        raise LookupError(name)
 
     def get_primary_languages(self):
         return list(self._primary_languages)
