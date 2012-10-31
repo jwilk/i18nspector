@@ -449,7 +449,9 @@ names = Maithili
 names = Malagasy
 
 [mh]
-names = Marshallese
+names =
+ Marshall
+ Marshallese
 
 [mi]
 names = Maori
@@ -634,7 +636,9 @@ names = Sindhi
 names = Northern Sami
 
 [sg]
-names = Sango
+names =
+ Sango
+ Sangro
 
 [shn]
 names = Shan
@@ -672,10 +676,14 @@ names = Serbian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
 [ss]
-names = Swati
+names =
+ Swati
+ Siswati
 
 [st]
-names = Southern Sotho
+names =
+ Sesotho
+ Southern Sotho
 
 [su]
 names = Sundanese
@@ -720,7 +728,9 @@ names =
  tlhIngan-Hol
 
 [tn]
-names = Tswana
+names =
+ Setswana
+ Tswana
 
 [to]
 names = Tonga
