@@ -74,6 +74,24 @@ class Checker(object):
             if message.startswith('Invalid mo '):
                 self.tag('invalid-mo-file')
                 return
+            elif message.startswith('Syntax error in po file '):
+                message = message[24:]
+                message_parts = []
+                if message.startswith(self.path + ' '):
+                    message = message[len(self.path)+1:]
+                match = re.match(r'^\(line ([0-9]+)\)(?:: (.+))?$', message)
+                if match is not None:
+                    lineno_part = 'line {}'.format(match.group(1))
+                    message = match.group(2)
+                    if message is not None:
+                        lineno_part += ':'
+                        if re.match(r'^[a-z]+( [a-z]+)*$', message):
+                            message = tags.safestr(message)
+                    message_parts += [tags.safestr(lineno_part)]
+                if message is not None:
+                    message_parts += [message]
+                self.tag('syntax-error-in-po-file', *message_parts)
+                return
             raise
         except UnicodeDecodeError as exc:
             file = constructor(self.path, encoding='ISO-8859-1')
