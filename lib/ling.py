@@ -214,4 +214,11 @@ class LingInfo(object):
             raise LookupError(language)
         return section.get('plural-forms')
 
+    def get_principal_territory(self, language):
+        try:
+            section = self._primary_languages[language]
+        except KeyError:
+            raise LookupError(language)
+        return section.get('principal-territory')
+
 # vim:ts=4 sw=4 et

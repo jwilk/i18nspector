@@ -220,4 +220,18 @@ class test_get_plural_forms:
         with assert_raises(LookupError):
             L.get_plural_forms('ry')
 
+class test_get_principal_territory:
+
+    def test_found_2(self):
+        cc = L.get_principal_territory('el')
+        assert_equal(cc, 'GR')
+
+    def test_found_3(self):
+        cc = L.get_principal_territory('ang')
+        assert_equal(cc, 'GB')
+
+    def test_not_found(self):
+        cc = L.get_principal_territory('en')
+        assert_true(cc is None)
+
 # vim:ts=4 sw=4 et
