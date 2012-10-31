@@ -41,12 +41,12 @@ class FixingLanguageEncodingFailed(Exception):
 
 class Language(object):
 
-    def __init__(self, parent, language_code, country_code=None, encoding=None, modifier=None):
+    def __init__(self, parent, language_code, territory_code=None, encoding=None, modifier=None):
         self._parent = parent
         self.language_code = language_code
         if self.language_code is None:
             raise ValueError('language_code must not be None')
-        self.country_code = country_code
+        self.territory_code = territory_code
         self.encoding = None
         if encoding is not None:
             self.encoding = encoding.upper()
@@ -61,38 +61,38 @@ class Language(object):
             raise FixingLanguageCodesFailed()
         elif ll != self.language_code:
             fixed = True
-        cc = self.country_code
+        cc = self.territory_code
         if cc is not None:
-            cc = self._parent.lookup_country_code(cc)
+            cc = self._parent.lookup_territory_code(cc)
             if cc is None:
-                # TODO: Try to guess correct country code.
+                # TODO: Try to guess correct territory code.
                 raise FixingLanguageCodesFailed()
-            elif cc != self.country_code:
+            elif cc != self.territory_code:
                 # This shouldn't really happen, but better safe than sorry.
                 raise ValueError
             # TODO: ll_CC could be still incorrect, even when both ll and CC are
             # correct.
         self.language_code = ll
-        self.country_code = cc
+        self.territory_code = cc
         return fixed
 
-    def get_default_country_code(self):
+    def get_default_territory_code(self):
         # TODO
         return
 
-    def remove_default_country_code(self):
-        cc = self.country_code
+    def remove_default_territory_code(self):
+        cc = self.territory_code
         if cc is None:
             return
-        cc = self._parent.lookup_country_code(cc)
+        cc = self._parent.lookup_territory_code(cc)
         if cc is None:
             return
-        if cc != self.country_code:
+        if cc != self.territory_code:
             # This shouldn't really happen, but better safe than sorry.
             raise ValueError
-        default_cc = self.get_default_country_code()
+        default_cc = self.get_default_territory_code()
         if cc == default_cc:
-            self.country_code = None
+            self.territory_code = None
             return True
 
     def fix_encoding(self):
@@ -115,8 +115,8 @@ class Language(object):
 
     def __str__(self):
         s = self.language_code
-        if self.country_code is not None:
-            s += '_' + self.country_code
+        if self.territory_code is not None:
+            s += '_' + self.territory_code
         if self.encoding is not None:
             s += '.' + self.encoding
         if self.modifier is not None:
@@ -129,7 +129,7 @@ class Language(object):
 class LingInfo(object):
 
     def __init__(self, datadir):
-        # ISO language/country codes:
+        # ISO language/territory codes:
         path = os.path.join(datadir, 'iso-codes')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
@@ -172,7 +172,7 @@ class LingInfo(object):
     def lookup_language_code(self, language):
         return self._iso_639.get(language)
 
-    def lookup_country_code(self, cc):
+    def lookup_territory_code(self, cc):
         if cc in self._iso_3166:
             return cc
 

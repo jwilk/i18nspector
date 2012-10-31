@@ -90,7 +90,7 @@ def main():
             print('[{}]'.format(language))
             if our_cc is not None:
                 print('# WAS: principal-territory =', our_cc)
-            if linginfo.lookup_country_code(gettext_cc) is None:
+            if linginfo.lookup_territory_code(gettext_cc) is None:
                 print('# BAD: principal-territory =', gettext_cc)
             else:
                 print('principal-territory =', gettext_cc)
