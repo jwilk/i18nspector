@@ -1,4 +1,4 @@
-rst2man = $(or $(shell which rst2man) $(shell which rst2man.py))
+rst2man = $(or $(shell which rst2man),rst2man.py)
 
 .PHONY: all
 all: gettext-inspector.1
