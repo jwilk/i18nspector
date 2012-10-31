@@ -167,12 +167,12 @@ class test_get_language_for_name:
         assert_equal(lang, 'cu')
 
     def test_found_as_ascii(self):
-        lang = L.get_language_for_name('Norwegian Nynorsk')
-        assert_equal(lang, 'nn')
+        lang = L.get_language_for_name('Norwegian Bokmål')
+        assert_equal(lang, 'nb')
 
     def test_not_found(self):
         with assert_raises(LookupError):
-            lang = L.get_language_for_name('Terrx')
+            lang = L.get_language_for_name('Nadsat')
 
 class test_get_primary_languages:
 
