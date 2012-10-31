@@ -136,7 +136,7 @@ severity = serious
 certainty = possible
 description =
  This file couldn't be parsed a PO file.
- This some rare cases this is due to incorrect or missing encoding declaration.
+ In some rare cases this is due to incorrect or missing encoding declaration.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
