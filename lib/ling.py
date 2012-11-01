@@ -76,11 +76,18 @@ class Language(object):
         self.territory_code = cc
         return fixed
 
-    def get_default_territory_code(self):
-        # TODO
-        return
+    def get_principal_territory_code(self):
+        ll = self.language_code
+        assert ll is not None
+        ll = self._parent.lookup_language_code(ll)
+        if ll is None:
+            return
+        try:
+            return self._parent.get_principal_territory(ll)
+        except LookupError:
+            return
 
-    def remove_default_territory_code(self):
+    def remove_principal_territory_code(self):
         cc = self.territory_code
         if cc is None:
             return
@@ -90,7 +97,7 @@ class Language(object):
         if cc != self.territory_code:
             # This shouldn't really happen, but better safe than sorry.
             raise ValueError
-        default_cc = self.get_default_territory_code()
+        default_cc = self.get_principal_territory_code()
         if cc == default_cc:
             self.territory_code = None
             return True

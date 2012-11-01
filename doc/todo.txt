@@ -1,4 +1,4 @@
-Use information about languages with principal territory.
+Use Language() objects in the checker.
 
 Complain about incorrect locale codes:
  * al -> sq

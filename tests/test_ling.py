@@ -94,37 +94,33 @@ class test_language_objects:
         assert_equal(lang.language_code, 'el')
         assert_equal(lang.territory_code, None)
 
-    # *_default_conuntry_code(): el_GR -> el
+    # *_principal_territory_code(): el_GR -> el
 
-    def test_default_territory_code(self):
-        # FIXME: This test currently doesn't pass.
-        raise nose.SkipTest
+    def test_principal_territory_code(self):
         lang = T(L, 'el')
-        cc = lang.get_default_territory_code()
+        cc = lang.get_principal_territory_code()
         assert_equal(cc, 'GR')
 
-    def test_remove_default_territory_code(self):
-        # FIXME: This test currently doesn't pass.
-        raise nose.SkipTest
+    def test_remove_principal_territory(self):
         lang = T(L, 'el', 'GR')
         assert_equal(lang.language_code, 'el')
         assert_equal(lang.territory_code, 'GR')
-        lang.remove_default_territory_code()
+        lang.remove_principal_territory_code()
         assert_equal(lang.language_code, 'el')
-        assert_true(lang.language_code is None)
+        assert_true(lang.territory_code is None)
 
-    # *_default_conuntry_code(): en_US -> en_US
+    # *_principal_territory_code(): en_US -> en_US
 
-    def test_no_default_territory_code(self):
+    def test_no_principal_territory_code(self):
         lang = T(L, 'en')
-        cc = lang.get_default_territory_code()
+        cc = lang.get_principal_territory_code()
         assert_true(cc is None)
 
-    def test_no_remove_default_territory_code(self):
+    def test_no_remove_principal_territory_code(self):
         lang = T(L, 'en', 'US')
         assert_equal(lang.language_code, 'en')
         assert_equal(lang.territory_code, 'US')
-        lang.remove_default_territory_code()
+        lang.remove_principal_territory_code()
         assert_equal(lang.language_code, 'en')
         assert_equal(lang.territory_code, 'US')
 
