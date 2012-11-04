@@ -51,6 +51,10 @@ class Checker(object):
 
     def check(self):
         self.debug('path = {!r}'.format(self.path))
+        # If a file passed to polib doesn't exist, it will “helpfully” treat it
+        # as PO/MO file _contents_. This is definitely not what we want. To
+        # prevent such disaster, fail early if the file doesn't exit.
+        os.stat(self.path)
         extension = os.path.splitext(self.path)[-1]
         template = False
         if extension == '.po':
