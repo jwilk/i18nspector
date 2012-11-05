@@ -1,6 +1,6 @@
 [X] ancient-date
 [X] broken-encoding
-[ ] date-from-future
+[X] date-from-future
 [ ] invalid-content-transfer-encoding
 [ ] invalid-content-type
 [ ] invalid-date
