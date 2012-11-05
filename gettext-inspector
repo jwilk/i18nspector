@@ -77,6 +77,10 @@ class Checker(object):
             except UnicodeDecodeError as exc:
                 broken_encoding = exc
                 file = constructor(self.path, encoding='ISO-8859-1')
+                # FIXME: Because of http://bugs.debian.org/692283, using
+                # ISO-8859-1 can trigger spurious syntax errors. A custom
+                # encoding that can never produce U+0085 NEXT LINE would be
+                # more robust.
         except IOError as exc:
             message = str(exc)
             if message.startswith('Invalid mo '):
