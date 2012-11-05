@@ -12,10 +12,10 @@
 [X] no-date-header-field
 [ ] no-language-header-field
 [X] no-mime-version-header-field
-[ ] non-portable-encoding
+[X] non-portable-encoding
 [X] syntax-error-in-po-file
 [ ] unable-to-determine-language
-[ ] unknown-encoding
+[X] unknown-encoding
 [ ] unknown-file-type
 [ ] unknown-header-field
 [ ] unknown-poedit-language
