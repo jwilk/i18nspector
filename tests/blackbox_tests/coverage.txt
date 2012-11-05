@@ -7,11 +7,11 @@
 [X] invalid-mime-version
 [ ] invalid-mo-file
 [ ] language-disparity
-[ ] no-content-transfer-encoding-header
-[ ] no-content-type-header
+[X] no-content-transfer-encoding-header
+[X] no-content-type-header
 [ ] no-date-field
 [ ] no-language-header
-[ ] no-mime-version-header
+[X] no-mime-version-header
 [ ] non-portable-encoding
 [ ] syntax-error-in-po-file
 [ ] unable-to-determine-language
