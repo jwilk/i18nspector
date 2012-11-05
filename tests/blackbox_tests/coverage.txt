@@ -1,10 +1,10 @@
 [X] ancient-date
 [X] broken-encoding
 [X] date-from-future
-[ ] invalid-content-transfer-encoding
-[ ] invalid-content-type
+[X] invalid-content-transfer-encoding
+[X] invalid-content-type
 [ ] invalid-date
-[ ] invalid-mime-version
+[X] invalid-mime-version
 [ ] invalid-mo-file
 [ ] language-disparity
 [ ] no-content-transfer-encoding-header
