@@ -74,22 +74,22 @@ def _get_coverage(path):
                 break
             yield match.group(3)
 
-def get_po_filenames():
+def _get_test_filenames():
     for root, dirnames, filenames in os.walk(here):
         for filename in filenames:
-            if not filename.endswith(('.po', '.pop')):
+            if not filename.endswith(('.mo', '.po', '.pop')):
                 # .pop is a special extension to trigger unknown-file-type
                 continue
             yield os.path.join(root, filename)
 
 def test():
-    for filename in get_po_filenames():
+    for filename in _get_test_filenames():
         path = os.path.relpath(filename, start=here)
         yield _test, path
 
 def get_coverage():
     coverage = set()
-    for filename in get_po_filenames():
+    for filename in _get_test_filenames():
         for tag in _get_coverage(filename):
             coverage.add(tag)
     return coverage
