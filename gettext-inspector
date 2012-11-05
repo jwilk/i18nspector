@@ -271,9 +271,18 @@ def main():
     os.stat(datadir)
     options.encinfo = encinfo = encodings.EncodingInfo(datadir)
     options.gettextinfo = gettext.GettextInfo(datadir)
-    options.linginfo = ling.LingInfo(datadir)
+    options.linginfo = linginfo = ling.LingInfo(datadir)
     options.taginfo = tags.TagInfo(datadir)
     encinfo.install_extra_aliases()
+    if options.language is not None:
+        language = linginfo.parse_language(options.language)
+        try:
+            language.fix_codes()
+        except ling.FixingLanguageCodesFailed:
+            ap.error('invalid language')
+        language.remove_encoding()
+        language.remove_nonlinguistic_modifier()
+        options.language = str(language)
     for filename in files:
         checker = Checker(filename, options=options)
         checker.check()
