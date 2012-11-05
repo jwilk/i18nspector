@@ -67,7 +67,6 @@ def _test(path):
     assert_list_equal(stdout, expected)
 
 def test():
-    wildcard = os.path.join(here, '*.po')
     for root, dirnames, filenames in os.walk(here):
         for filename in filenames:
             if not filename.endswith('.po'):
