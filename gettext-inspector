@@ -210,7 +210,7 @@ class Checker(object):
     def check_dates(self, file):
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             date = file.metadata.get(field)
-            if not date:
+            if date is None:
                 self.tag('no-date-header-field', field)
                 continue
             fixed_date = dates.fix_date_format(date)
