@@ -10,11 +10,11 @@
 [X] no-content-transfer-encoding-header-field
 [X] no-content-type-header-field
 [X] no-date-header-field
-[ ] no-language-header-field
+[X] no-language-header-field
 [X] no-mime-version-header-field
 [X] non-portable-encoding
 [X] syntax-error-in-po-file
-[ ] unable-to-determine-language
+[X] unable-to-determine-language
 [X] unknown-encoding
 [X] unknown-file-type
 [ ] unknown-header-field
