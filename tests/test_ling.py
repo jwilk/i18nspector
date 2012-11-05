@@ -182,6 +182,43 @@ class test_get_language_for_name:
         with assert_raises(LookupError):
             lang = L.get_language_for_name('Nadsat')
 
+class test_parse_language:
+
+    def test_ll(self):
+        lang = L.parse_language('el')
+        assert_equal(lang.language_code, 'el')
+        assert_true(lang.territory_code is None)
+        assert_true(lang.encoding is None)
+        assert_true(lang.modifier is None)
+
+    def test_lll(self):
+        lang = L.parse_language('ell')
+        assert_equal(lang.language_code, 'ell')
+        assert_true(lang.territory_code is None)
+        assert_true(lang.encoding is None)
+        assert_true(lang.modifier is None)
+
+    def test_ll_cc(self):
+        lang = L.parse_language('el_GR')
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.territory_code, 'GR')
+        assert_true(lang.encoding is None)
+        assert_true(lang.modifier is None)
+
+    def test_ll_cc_enc(self):
+        lang = L.parse_language('el_GR.UTF-8')
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.territory_code, 'GR')
+        assert_equal(lang.encoding, 'UTF-8')
+        assert_true(lang.modifier is None)
+
+    def test_ll_cc_modifier(self):
+        lang = L.parse_language('en_US@quot')
+        assert_equal(lang.language_code, 'en')
+        assert_equal(lang.territory_code, 'US')
+        assert_true(lang.encoding is None)
+        assert_equal(lang.modifier, 'quot')
+
 class test_get_primary_languages:
 
     def test_found(self):

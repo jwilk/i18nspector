@@ -20,6 +20,7 @@
 
 import configparser
 import os
+import re
 import unicodedata
 
 from . import misc
@@ -210,6 +211,19 @@ class LingInfo(object):
             if len(results) == 1:
                 return results.pop()
         raise LookupError(name)
+
+    _language_regexp = re.compile(r'''
+    ^       ( [a-z]{2,} )
+    (?:  _  ( [A-Z]{2,} ) )?
+    (?: [.] ( [a-zA-Z0-9+-]+ ) )?
+    (?:  @  ( [a-z]+) )?
+    $''', re.VERBOSE)
+
+    def parse_language(self, s):
+        match = self._language_regexp.match(s)
+        if match is None:
+            raise ValueError
+        return Language(self, *match.groups())
 
     def get_primary_languages(self):
         return list(self._primary_languages)
