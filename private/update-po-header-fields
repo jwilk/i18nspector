@@ -28,7 +28,7 @@ def main():
     po = po.decode('ASCII').splitlines()
     headers = {
         'Plural-Forms', # xgettext on /dev/null wouldn't generate this one
-        'Generated-By', # pygettext-specifict
+        'Generated-By', # pygettext-specific
     }
     for line in po:
         if line.startswith('"'):
