@@ -28,7 +28,7 @@ from nose.tools import (
 
 here = os.path.dirname(__file__)
 
-parse_tags = re.compile('# ([A-Z]): ([\w-]+.*)').match
+parse_tags = re.compile('# ([A-Z]): (([\w-]+).*)').match
 
 class fuzzy_str(str):
 
@@ -66,12 +66,31 @@ def _test(path):
     stdout = stdout.decode('ASCII').splitlines()
     assert_list_equal(stdout, expected)
 
-def test():
+def _get_coverage(path):
+    with open(path, 'rt', encoding='ASCII', errors='ignore') as file:
+        for line in file:
+            match = parse_tags(line)
+            if not match:
+                break
+            yield match.group(3)
+
+def get_po_filenames():
     for root, dirnames, filenames in os.walk(here):
         for filename in filenames:
             if not filename.endswith('.po'):
                 continue
-            path = os.path.relpath(os.path.join(root, filename), start=here)
-            yield _test, path
+            yield os.path.join(root, filename)
+
+def test():
+    for filename in get_po_filenames():
+        path = os.path.relpath(filename, start=here)
+        yield _test, path
+
+def get_coverage():
+    coverage = set()
+    for filename in get_po_filenames():
+        for tag in _get_coverage(filename):
+            coverage.add(tag)
+    return coverage
 
 # vim:ts=4 sw=4 et

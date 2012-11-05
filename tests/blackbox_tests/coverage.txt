@@ -1,0 +1,21 @@
+[X] ancient-date
+[X] broken-encoding
+[ ] date-from-future
+[ ] invalid-content-transfer-encoding
+[ ] invalid-content-type
+[ ] invalid-date
+[ ] invalid-mime-version
+[ ] invalid-mo-file
+[ ] language-disparity
+[ ] no-content-transfer-encoding-header
+[ ] no-content-type-header
+[ ] no-date-field
+[ ] no-language-header
+[ ] no-mime-version-header
+[ ] non-portable-encoding
+[ ] syntax-error-in-po-file
+[ ] unable-to-determine-language
+[ ] unknown-encoding
+[ ] unknown-file-type
+[ ] unknown-header-field
+[ ] unknown-poedit-language
