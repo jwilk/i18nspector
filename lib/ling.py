@@ -53,6 +53,35 @@ class Language(object):
             self.encoding = encoding.upper()
         self.modifier = modifier
 
+    def _get_tuple(self):
+        return (
+            self._parent,
+            self.language_code,
+            self.territory_code,
+            self.encoding,
+            self.modifier
+        )
+
+    def clone(self):
+        return Language(*self._get_tuple())
+
+    def __eq__(self, other):
+        if not isinstance(other, Language):
+            return NotImplemented
+        return self._get_tuple() == other._get_tuple()
+
+    def __ne__(self, other):
+        return not self == other
+
+    def is_almost_equal(self, other):
+        if not isinstance(other, Language):
+            raise TypeError
+        self_clone = self.clone()
+        self_clone.remove_principal_territory_code()
+        other_clone = other.clone()
+        other_clone.remove_principal_territory_code()
+        return self_clone == other_clone
+
     def fix_codes(self):
         fixed = None
         ll = self.language_code

@@ -24,7 +24,9 @@ import lib.ling
 import nose
 from nose.tools import (
     assert_equal,
+    assert_false,
     assert_in,
+    assert_not_equal,
     assert_not_in,
     assert_raises,
     assert_true,
@@ -123,6 +125,32 @@ class test_language_objects:
         lang.remove_principal_territory_code()
         assert_equal(lang.language_code, 'en')
         assert_equal(lang.territory_code, 'US')
+
+    # ==, !=, is_almost_equal()
+
+    def test_eq(self):
+        l1 = T(L, 'el', 'GR')
+        l2 = T(L, 'el', 'GR')
+        assert_equal(l1, l2)
+        assert_equal(l2, l1)
+
+    def test_ne(self):
+        l1 = T(L, 'el')
+        l2 = T(L, 'el', 'GR')
+        assert_not_equal(l1, l2)
+        assert_not_equal(l2, l1)
+
+    def test_almost_equal(self):
+        l1 = T(L, 'el')
+        l2 = T(L, 'el', 'GR')
+        assert_true(l1.is_almost_equal(l2))
+        assert_true(l2.is_almost_equal(l1))
+
+    def test_not_almost_equal(self):
+        l1 = T(L, 'el', 'GR')
+        l2 = T(L, 'grc', 'GR')
+        assert_false(l1.is_almost_equal(l2))
+        assert_false(l2.is_almost_equal(l1))
 
 class test_lookup_language_code:
 
