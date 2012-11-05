@@ -34,10 +34,16 @@ def _munch_language_name(s):
     s = unicodedata.normalize('NFD', s).encode('ASCII', 'ignore').decode()
     return s
 
-class FixingLanguageCodesFailed(Exception):
+class LanguageError(ValueError):
     pass
 
-class FixingLanguageEncodingFailed(Exception):
+class LanguageSyntaxError(LanguageError):
+    pass
+
+class FixingLanguageCodesFailed(LanguageError):
+    pass
+
+class FixingLanguageEncodingFailed(LanguageError):
     pass
 
 class Language(object):
@@ -251,7 +257,7 @@ class LingInfo(object):
     def parse_language(self, s):
         match = self._language_regexp.match(s)
         if match is None:
-            raise ValueError
+            raise LanguageSyntaxError
         return Language(self, *match.groups())
 
     def get_primary_languages(self):

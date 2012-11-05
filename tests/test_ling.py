@@ -247,6 +247,10 @@ class test_parse_language:
         assert_true(lang.encoding is None)
         assert_equal(lang.modifier, 'quot')
 
+    def test_syntax_error(self):
+        with assert_raises(lib.ling.LanguageSyntaxError):
+            L.parse_language('GR')
+
 class test_get_primary_languages:
 
     def test_found(self):
