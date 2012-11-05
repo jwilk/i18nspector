@@ -100,7 +100,9 @@ def _escape(s):
     if isinstance(s, safestr):
         return s
     s = str(s)
-    if _is_safe(s):
+    if s == '':
+        return '(empty string)'
+    elif _is_safe(s):
         return s
     else:
         return repr(s)
