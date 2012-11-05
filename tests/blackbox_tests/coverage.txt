@@ -16,6 +16,6 @@
 [X] syntax-error-in-po-file
 [ ] unable-to-determine-language
 [X] unknown-encoding
-[ ] unknown-file-type
+[X] unknown-file-type
 [ ] unknown-header-field
 [ ] unknown-poedit-language

@@ -77,7 +77,8 @@ def _get_coverage(path):
 def get_po_filenames():
     for root, dirnames, filenames in os.walk(here):
         for filename in filenames:
-            if not filename.endswith('.po'):
+            if not filename.endswith(('.po', '.pop')):
+                # .pop is a special extension to trigger unknown-file-type
                 continue
             yield os.path.join(root, filename)
 
