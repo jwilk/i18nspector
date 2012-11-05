@@ -6,7 +6,7 @@
 [X] invalid-date
 [X] invalid-mime-version
 [X] invalid-mo-file
-[ ] language-disparity
+[X] language-disparity
 [X] no-content-transfer-encoding-header-field
 [X] no-content-type-header-field
 [X] no-date-header-field
