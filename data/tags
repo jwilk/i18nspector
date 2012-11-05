@@ -76,21 +76,21 @@ description =
  Language of this file has been declared in multiple places, but the
  declarations don't match.
 
-[no-content-transfer-encoding-header]
+[no-content-transfer-encoding-header-field]
 severity = pedantic
 certainty = certain
 description =
- The Content-Transfer-Encoding field doesn't exist. It should be set to
+ The Content-Transfer-Encoding header field doesn't exist. It should be set to
  ``8bit``.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-6.1
 
-[no-content-type-header]
+[no-content-type-header-field]
 severity = important
 certainty = certain
 description =
- The Content-Type field doesn't exist. It should be set to
+ The Content-Type header field doesn't exist. It should be set to
  ``text/plain; charset=``\ `encoding`.
  .
  Note that in the absence of encoding declaration, gettext-inspector assumes
@@ -99,15 +99,15 @@ references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
 
-[no-date-field]
+[no-date-header-field]
 severity = minor
 certainty = certain
 description =
- The date field doesn't exist.
+ The date header field doesn't exist.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
-[no-language-header]
+[no-language-header-field]
 severity = pedantic
 certainty = certain
 description =
@@ -115,11 +115,11 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
-[no-mime-version-header]
+[no-mime-version-header-field]
 severity = pedantic
 certainty = certain
 description =
- The MIME-Version field does't exist. It should be to set to ``1.0``.
+ The MIME-Version header field does't exist. It should be to set to ``1.0``.
 references =
  http://tools.ietf.org/html/rfc2045#section-4
 

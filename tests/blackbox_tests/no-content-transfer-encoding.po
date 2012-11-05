@@ -1,4 +1,4 @@
-# P: no-content-transfer-encoding-header Content-Transfer-Encoding: 8bit
+# P: no-content-transfer-encoding-header-field Content-Transfer-Encoding: 8bit
 
 msgid ""
 msgstr ""

@@ -164,7 +164,7 @@ class Checker(object):
             return
         self.debug('language = {!r}'.format(language))
         if not meta_language:
-            self.tag('no-language-header', tags.safestr('Language:'), language)
+            self.tag('no-language-header-field', tags.safestr('Language:'), language)
         return language
 
     def check_mime(self, file):
@@ -173,13 +173,13 @@ class Checker(object):
             if mime_version != '1.0':
                 self.tag('invalid-mime-version', mime_version, '=>', '1.0')
         else:
-            self.tag('no-mime-version-header', tags.safestr('MIME-Version: 1.0'))
+            self.tag('no-mime-version-header-field', tags.safestr('MIME-Version: 1.0'))
         cte = file.metadata.get('Content-Transfer-Encoding')
         if cte is not None:
             if cte != '8bit':
                 self.tag('invalid-content-transfer-encoding', cte, '=>', '8bit')
         else:
-            self.tag('no-content-transfer-encoding-header', tags.safestr('Content-Transfer-Encoding: 8bit'))
+            self.tag('no-content-transfer-encoding-header-field', tags.safestr('Content-Transfer-Encoding: 8bit'))
         ct = file.metadata.get('Content-Type')
         encoding = None
         if ct is not None:
@@ -204,14 +204,14 @@ class Checker(object):
             else:
                 self.tag('invalid-content-type', ct, '=>', 'text/plain; charset=<encoding>')
         else:
-            self.tag('no-content-type-header', tags.safestr('Content-Type: text/plain; charset=<encoding>'))
+            self.tag('no-content-type-header-field', tags.safestr('Content-Type: text/plain; charset=<encoding>'))
         return encoding
 
     def check_dates(self, file):
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             date = file.metadata.get(field)
             if not date:
-                self.tag('no-date-field', field)
+                self.tag('no-date-header-field', field)
                 continue
             fixed_date = dates.fix_date_format(date)
             if fixed_date is None:

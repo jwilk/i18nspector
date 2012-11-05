@@ -1,4 +1,4 @@
-# P: no-mime-version-header MIME-Version: 1.0
+# P: no-mime-version-header-field MIME-Version: 1.0
 
 msgid ""
 msgstr ""
