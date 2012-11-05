@@ -69,7 +69,7 @@ def main():
     print()
     # ---------
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/msginit.c'
-    okay = set() 
+    okay = set()
     with urllib.request.urlopen(url) as file:
         contents = file.read()
     match = re.compile(br'locales_with_principal_territory\s*\[\]\s*=\s*[{](.*?)[}]', re.DOTALL).search(contents)

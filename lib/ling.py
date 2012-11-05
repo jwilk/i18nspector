@@ -198,7 +198,7 @@ class LingInfo(object):
                     pass
         if ',' in _name:
             subname = ' '.join(map(str.strip, _name.split(',', 1)[::-1]))
-            try: 
+            try:
                 return self._name_to_code[subname]
             except LookupError:
                 pass
