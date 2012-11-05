@@ -20,6 +20,7 @@
 
 import os
 import re
+import shlex
 import subprocess as ipc
 
 from nose.tools import (
@@ -51,18 +52,23 @@ class fuzzy_str(str):
 def _test(path):
     path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
     expected = []
+    prog = os.path.join(here, os.pardir, os.pardir, 'gettext-inspector')
+    commandline = [prog]
     with open(path, 'rt', encoding='ASCII', errors='ignore') as file:
         for line in file:
             match = parse_tags(line)
             if not match:
+                if line.startswith('# --'):
+                    commandline += shlex.split(line[2:])
+                    continue
                 break
             expected += [fuzzy_str('{code}: {path}: {tag}'.format(
                 code=match.group(1),
                 path=path,
                 tag=match.group(2)
             ))]
-    prog = os.path.join(here, os.pardir, os.pardir, 'gettext-inspector')
-    stdout = ipc.check_output([prog, path])
+    commandline += [path]
+    stdout = ipc.check_output(commandline)
     stdout = stdout.decode('ASCII').splitlines()
     assert_list_equal(stdout, expected)
 
