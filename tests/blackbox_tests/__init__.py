@@ -30,6 +30,24 @@ here = os.path.dirname(__file__)
 
 parse_tags = re.compile('# ([A-Z]): ([\w-]+.*)').match
 
+class fuzzy_str(str):
+
+    _ellipsis = '<...>'
+    _split = re.compile('({})'.format(re.escape(_ellipsis))).split
+
+    def __init__(self, s):
+        regexp = ''.join(
+            '.*' if chunk == self._ellipsis else re.escape(chunk)
+            for chunk in self._split(s)
+        )
+        self._regexp = re.compile('^{}$'.format(regexp))
+
+    def __eq__(self, other):
+        if isinstance(other, str):
+            return self._regexp.match(other)
+        else:
+            return NotImplemented
+
 def _test(path):
     path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
     expected = []
@@ -38,11 +56,11 @@ def _test(path):
             match = parse_tags(line)
             if not match:
                 break
-            expected += ['{code}: {path}: {tag}'.format(
+            expected += [fuzzy_str('{code}: {path}: {tag}'.format(
                 code=match.group(1),
                 path=path,
                 tag=match.group(2)
-            )]
+            ))]
     prog = os.path.join(here, os.pardir, os.pardir, 'gettext-inspector')
     stdout = ipc.check_output([prog, path])
     stdout = stdout.decode('ASCII').splitlines()
