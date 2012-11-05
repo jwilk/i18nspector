@@ -263,8 +263,12 @@ class test_get_principal_territory:
         cc = L.get_principal_territory('ang')
         assert_equal(cc, 'GB')
 
-    def test_not_found(self):
+    def test_not_known(self):
         cc = L.get_principal_territory('en')
         assert_true(cc is None)
+
+    def test_not_found(self):
+        with assert_raises(LookupError):
+            cc = L.get_principal_territory('ry')
 
 # vim:ts=4 sw=4 et
