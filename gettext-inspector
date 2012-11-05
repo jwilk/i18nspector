@@ -166,6 +166,8 @@ class Checker(object):
                         poedit_language, tags.safestr('(X-Poedit-Language header)')
                     )
         if language is None:
+            self.tag('no-language-header-field')
+            assert not meta_language
             self.tag('unable-to-determine-language')
             return
         self.debug('language = {!r}'.format(language))
