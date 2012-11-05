@@ -14,6 +14,7 @@ Complain about incorrect locale codes:
  * sh_RS -> sr_RS
  * sr_CS -> sr
  * sr_YU -> sr
+ * uk_UK -> uk_UA
 
 Validate ``Project-Id-Version``.
 
