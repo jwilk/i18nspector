@@ -3,13 +3,13 @@
 [X] date-from-future
 [X] invalid-content-transfer-encoding
 [X] invalid-content-type
-[ ] invalid-date
+[X] invalid-date
 [X] invalid-mime-version
 [ ] invalid-mo-file
 [ ] language-disparity
 [X] no-content-transfer-encoding-header-field
 [X] no-content-type-header-field
-[ ] no-date-header-field
+[X] no-date-header-field
 [ ] no-language-header-field
 [X] no-mime-version-header-field
 [ ] non-portable-encoding
