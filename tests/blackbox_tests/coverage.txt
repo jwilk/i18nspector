@@ -17,5 +17,5 @@
 [X] unable-to-determine-language
 [X] unknown-encoding
 [X] unknown-file-type
-[ ] unknown-header-field
+[X] unknown-header-field
 [ ] unknown-poedit-language
