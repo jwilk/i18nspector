@@ -72,7 +72,11 @@ class Checker(object):
             return
         broken_encoding = False
         try:
-            file = constructor(self.path)
+            try:
+                file = constructor(self.path)
+            except UnicodeDecodeError as exc:
+                broken_encoding = exc
+                file = constructor(self.path, encoding='ISO-8859-1')
         except IOError as exc:
             message = str(exc)
             if message.startswith('Invalid mo '):
@@ -97,16 +101,14 @@ class Checker(object):
                 self.tag('syntax-error-in-po-file', *message_parts)
                 return
             raise
-        except UnicodeDecodeError as exc:
-            file = constructor(self.path, encoding='ISO-8859-1')
-            broken_encoding = exc
-        if broken_encoding:
-            self.tag('broken-encoding',
-                tags.safestr(repr(broken_encoding.object)[1:]),
-                tags.safestr('cannot be decoded as'),
-                broken_encoding.encoding.upper(),
-            )
-            broken_encoding = True
+        finally:
+            if broken_encoding:
+                self.tag('broken-encoding',
+                    tags.safestr(repr(broken_encoding.object)[1:]),
+                    tags.safestr('cannot be decoded as'),
+                    broken_encoding.encoding.upper(),
+                )
+                broken_encoding = True
         if template:
             language = None
         else:
