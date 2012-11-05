@@ -221,7 +221,7 @@ class Checker(object):
                 self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
             stamp = dates.parse_date(fixed_date)
             if stamp > dates.now:
-                self.tag('date-from-future', date)
+                self.tag('date-from-future', tags.safestr(field + ':'), date)
             if stamp < dates.gettext_epoch:
                 self.tag('ancient-date', tags.safestr(field + ':'), date)
 
