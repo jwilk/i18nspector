@@ -74,14 +74,14 @@ class Checker(object):
             self.tag('os-error', tags.safestr(exc.strerror))
             return
         extension = os.path.splitext(self.path)[-1]
-        template = False
+        is_template = False
         if extension == '.po':
             constructor = polib.pofile
             self.debug('filetype = .po')
         elif extension == '.pot':
             constructor = polib.pofile
             self.debug('filetype = .po')
-            template = True
+            is_template = True
         elif extension in ('.mo', '.gmo'):
             constructor = polib.mofile
             self.debug('filetype = .mo')
@@ -134,15 +134,16 @@ class Checker(object):
                     broken_encoding.encoding.upper(),
                 )
                 broken_encoding = True
-        if template:
-            language = None
-        else:
-            language = self.check_language(file)
-        self.check_mime(file)
-        self.check_dates(file)
+        language = self.check_language(file, is_template=is_template)
+        self.check_mime(file, is_template=is_template)
+        self.check_dates(file, is_template=is_template)
         self.check_headers(file)
 
-    def check_language(self, file):
+    def check_language(self, file, *, is_template):
+        if is_template:
+            if not 'Language' in file.metadata:
+                self.tag('no-language-header-field')
+            return
         language = self.options.language
         linginfo = self.options.linginfo
         language_source = 'command-line'
@@ -196,7 +197,7 @@ class Checker(object):
             self.tag('no-language-header-field', tags.safestr('Language:'), language)
         return language
 
-    def check_mime(self, file):
+    def check_mime(self, file, *, is_template):
         mime_version = file.metadata.get('MIME-Version')
         if mime_version is not None:
             if mime_version != '1.0':
@@ -218,7 +219,10 @@ class Checker(object):
                 try:
                     ''.encode(encoding)
                 except LookupError:
-                    self.tag('unknown-encoding', encoding)
+                    if is_template and (encoding == 'CHARSET'):
+                        pass
+                    else:
+                        self.tag('unknown-encoding', encoding)
                     encoding = None
                 else:
                     encinfo = self.options.encinfo
@@ -236,11 +240,13 @@ class Checker(object):
             self.tag('no-content-type-header-field', tags.safestr('Content-Type: text/plain; charset=<encoding>'))
         return encoding
 
-    def check_dates(self, file):
+    def check_dates(self, file, *, is_template):
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             date = file.metadata.get(field)
             if date is None:
                 self.tag('no-date-header-field', field)
+                continue
+            elif is_template and field.startswith('PO-') and (date == 'YEAR-MO-DA HO:MI+ZONE'):
                 continue
             fixed_date = dates.fix_date_format(date)
             if fixed_date is None:

@@ -39,6 +39,4 @@ Document the security model.
 
 Parse /etc/os-release instead of checking /etc/debian-version existence.
 
-Improve support for POT files.
-
 .. vim:ft=rst
