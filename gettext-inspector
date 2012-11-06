@@ -265,7 +265,7 @@ def main():
     require_python(3, 2)
     init_polib()
     ap = argparse.ArgumentParser()
-    ap.add_argument('--language', metavar='<lang>')
+    ap.add_argument('-l', '--language', metavar='<lang>')
     ap.add_argument('--debug', action='store_true')
     ap.add_argument('files', metavar='<file>', nargs='+')
     options = ap.parse_args()
