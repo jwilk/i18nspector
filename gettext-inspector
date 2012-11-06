@@ -37,9 +37,26 @@ from lib import gettext
 from lib import ling
 from lib import tags
 
+class EnvironmentNotPatched(RuntimeError):
+    pass
+
 class Checker(object):
 
+    _patched_environment = False
+
+    @classmethod
+    def patch_environment(cls, encinfo):
+        # Install extra encoding aliases, that are not known to Python, but
+        # occur in real-world PO/MO files:
+        encinfo.install_extra_aliases()
+        # Do not allow broken/missing encoding declarations, unless the file is
+        # ASCII-only:
+        polib.default_encoding = 'ASCII'
+        cls._patched_environment = True
+
     def __init__(self, path, *, options):
+        if not self._patched_environment:
+            raise EnvironmentNotPatched
         self.path = path
         self.fake_path = path
         if options.fake_root is not None:
@@ -276,10 +293,6 @@ def require_python(*version):
         ))
         sys.exit(1)
 
-def init_polib():
-    # Do not allow broken/missing encoding declarations, unless the file is
-    # ASCII-only:
-    polib.default_encoding = 'ASCII'
 
 def check_file(filename, *, options):
     checker = Checker(filename, options=options)
@@ -333,7 +346,6 @@ def check_deb(filename, *, options):
 
 def main():
     require_python(3, 2)
-    init_polib()
     is_debian = os.path.exists('/etc/debian_version')
     ap = argparse.ArgumentParser()
     ap.add_argument('-l', '--language', metavar='<lang>')
@@ -352,7 +364,6 @@ def main():
     options.gettextinfo = gettext.GettextInfo(datadir)
     options.linginfo = linginfo = ling.LingInfo(datadir)
     options.taginfo = tags.TagInfo(datadir)
-    encinfo.install_extra_aliases()
     if options.language is not None:
         try:
             language = linginfo.parse_language(options.language)
@@ -366,6 +377,7 @@ def main():
         options.language = str(language)
     options.ignore_tags = set()
     options.fake_root = None
+    Checker.patch_environment(encinfo)
     for filename in files:
         if options.debian:
             try:
