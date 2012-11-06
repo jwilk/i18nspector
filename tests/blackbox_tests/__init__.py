@@ -50,13 +50,22 @@ def parse_etag(contents, path, multi_line=False):
     t = ETag(match.group(1), path, match.group(2))
     return t
 
-def etags_from_docstring(obj, path):
-    docstring = inspect.getdoc(obj) or ''
+def etags_from_tagstring(obj, path):
+    try:
+        docstring = obj.tagstring
+    except AttributeError:
+        return
     for line in docstring.splitlines():
         line = line.lstrip()
         t = parse_etag(line, path)
         if t is not None:
             yield t
+
+def tagstring(s):
+    def update(x):
+        x.tagstring = s
+        return x
+    return update
 
 # ----------------------------------------
 
@@ -130,7 +139,7 @@ def get_coverage_for_file(path):
             yield etag.tag
 
 def get_coverage_for_function(fn):
-    for etag in etags_from_docstring(fn, ''):
+    for etag in etags_from_tagstring(fn, ''):
         yield etag.tag
 
 def _get_test_filenames():
@@ -146,22 +155,22 @@ def test_file():
         path = os.path.relpath(filename, start=here)
         yield _test_file, path
 
+@tagstring('''
+# E: os-error No such file or directory
+''')
 def test_os_error_no_such_file():
-    '''
-    # E: os-error No such file or directory
-    '''
     tmpdir = tempfile.mkdtemp()
     try:
         path = os.path.join(tmpdir, 'nonexistent.po')
-        expected = etags_from_docstring(this(), path)
+        expected = etags_from_tagstring(this(), path)
         assert_emit_tags(path, expected)
     finally:
         os.rmdir(tmpdir)
 
+@tagstring('''
+# E: os-error Permission denied
+''')
 def test_os_error_permission_denied():
-    '''
-    # E: os-error Permission denied
-    '''
     tmpdir = tempfile.mkdtemp()
     try:
         path = os.path.join(tmpdir, 'denied.po')
@@ -169,7 +178,7 @@ def test_os_error_permission_denied():
             pass
         try:
             os.chmod(path, 0)
-            expected = etags_from_docstring(this(), path)
+            expected = etags_from_tagstring(this(), path)
             assert_emit_tags(path, expected)
         finally:
             os.remove(path)
