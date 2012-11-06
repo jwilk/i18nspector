@@ -286,6 +286,8 @@ def main():
             language = linginfo.parse_language(options.language)
             language.fix_codes()
         except ling.LanguageError:
+            if options.debug:
+                raise
             ap.error('invalid language')
         language.remove_encoding()
         language.remove_nonlinguistic_modifier()
