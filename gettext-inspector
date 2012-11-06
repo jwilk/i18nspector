@@ -54,7 +54,11 @@ class Checker(object):
         # If a file passed to polib doesn't exist, it will “helpfully” treat it
         # as PO/MO file _contents_. This is definitely not what we want. To
         # prevent such disaster, fail early if the file doesn't exit.
-        os.stat(self.path)
+        try:
+            os.stat(self.path)
+        except EnvironmentError as exc:
+            self.tag('os-error', tags.safestr(exc.strerror))
+            return
         extension = os.path.splitext(self.path)[-1]
         template = False
         if extension == '.po':
@@ -83,7 +87,10 @@ class Checker(object):
                 # more robust.
         except IOError as exc:
             message = str(exc)
-            if message.startswith('Invalid mo '):
+            if exc.errno is not None:
+                self.tag('os-error', tags.safestr(exc.strerror))
+                return
+            elif message.startswith('Invalid mo '):
                 self.tag('invalid-mo-file')
                 return
             elif message.startswith('Syntax error in po file '):
