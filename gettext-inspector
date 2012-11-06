@@ -293,7 +293,6 @@ def require_python(*version):
         ))
         sys.exit(1)
 
-
 def check_file(filename, *, options):
     checker = Checker(filename, options=options)
     checker.check()
