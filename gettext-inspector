@@ -288,15 +288,26 @@ def check_deb(filename, *, options):
     tmpdir = tempfile.mkdtemp()
     ignore_tags = set(options.ignore_tags)
     ignore_tags.add('unknown-file-type')
-    options = copy_options(options,
-        ignore_tags=ignore_tags,
-        fake_root=(os.path.join(tmpdir, ''), os.path.join(filename, '')),
-    )
     try:
-        ipc.check_call(['dpkg-deb', '-x', filename, tmpdir])
-        control_dir = os.path.join(tmpdir, 'DEBIAN')
-        os.mkdir(control_dir)
-        ipc.check_call(['dpkg-deb', '-e', filename, control_dir])
+        if filename.endswith('.deb'):
+            ipc.check_call(['dpkg-deb', '-x', filename, tmpdir])
+            control_dir = os.path.join(tmpdir, 'DEBIAN')
+            os.mkdir(control_dir)
+            ipc.check_call(['dpkg-deb', '-e', filename, control_dir])
+            real_root = os.path.join(tmpdir, '')
+        elif filename.endswith('.dsc'):
+            real_root = os.path.join(tmpdir, 's', '')
+            with open(os.devnull) as bitbucket:
+                ipc.check_call(
+                    ['dpkg-source', '--no-copy', '--no-check', '-x', filename, real_root],
+                    stdout=bitbucket # dpkg-source would be noisy without this...
+                )
+        else:
+            raise ValueError
+        options = copy_options(options,
+            ignore_tags=ignore_tags,
+            fake_root=(real_root, os.path.join(filename, ''))
+        )
         for root, dirs, files in os.walk(tmpdir):
             for path in files:
                 path = os.path.join(root, path)
@@ -343,7 +354,7 @@ def main():
     options.ignore_tags = set()
     options.fake_root = None
     for filename in files:
-        if options.debian and filename.endswith('.deb'):
+        if options.debian and filename.endswith(('.deb', '.dsc')):
             check_deb(filename, options=options)
         else:
             check_file(filename, options=options)
