@@ -165,9 +165,9 @@ def test_os_error_permission_denied():
     tmpdir = tempfile.mkdtemp()
     try:
         path = os.path.join(tmpdir, 'denied.po')
+        with open(path, 'wb'):
+            pass
         try:
-            with open(path, 'wb'):
-                pass
             os.chmod(path, 0)
             expected = etags_from_docstring(this(), path)
             assert_emit_tags(path, expected)
