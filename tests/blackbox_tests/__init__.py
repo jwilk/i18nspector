@@ -23,6 +23,7 @@ import os
 import re
 import shlex
 import subprocess as ipc
+import tempfile
 
 from nose.tools import (
     assert_list_equal,
@@ -144,6 +145,36 @@ def test_file():
     for filename in _get_test_filenames():
         path = os.path.relpath(filename, start=here)
         yield _test_file, path
+
+def test_os_error_no_such_file():
+    '''
+    # E: os-error No such file or directory
+    '''
+    tmpdir = tempfile.mkdtemp()
+    try:
+        path = os.path.join(tmpdir, 'nonexistent.po')
+        expected = etags_from_docstring(this(), path)
+        assert_emit_tags(path, expected)
+    finally:
+        os.rmdir(tmpdir)
+
+def test_os_error_permission_denied():
+    '''
+    # E: os-error Permission denied
+    '''
+    tmpdir = tempfile.mkdtemp()
+    try:
+        path = os.path.join(tmpdir, 'denied.po')
+        try:
+            with open(path, 'wb'):
+                pass
+            os.chmod(path, 0)
+            expected = etags_from_docstring(this(), path)
+            assert_emit_tags(path, expected)
+        finally:
+            os.remove(path)
+    finally:
+        os.rmdir(tmpdir)
 
 def get_coverage():
     coverage = set()

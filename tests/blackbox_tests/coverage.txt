@@ -13,7 +13,7 @@
 [X] no-language-header-field
 [X] no-mime-version-header-field
 [X] non-portable-encoding
-[ ] os-error
+[X] os-error
 [X] syntax-error-in-po-file
 [X] unable-to-determine-language
 [X] unknown-encoding
