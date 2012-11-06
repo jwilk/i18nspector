@@ -284,26 +284,33 @@ def copy_options(options, **update):
     kwargs.update(update)
     return argparse.Namespace(**kwargs)
 
+class UnsupportedFileType(ValueError):
+    pass
+
 def check_deb(filename, *, options):
+    if filename.endswith('.deb'):
+        binary = True
+    elif filename.endswith('.dsc'):
+        binary = False
+    else:
+        raise UnsupportedFileType
     tmpdir = tempfile.mkdtemp()
     ignore_tags = set(options.ignore_tags)
     ignore_tags.add('unknown-file-type')
     try:
-        if filename.endswith('.deb'):
+        if binary:
             ipc.check_call(['dpkg-deb', '-x', filename, tmpdir])
             control_dir = os.path.join(tmpdir, 'DEBIAN')
             os.mkdir(control_dir)
             ipc.check_call(['dpkg-deb', '-e', filename, control_dir])
             real_root = os.path.join(tmpdir, '')
-        elif filename.endswith('.dsc'):
+        else:
             real_root = os.path.join(tmpdir, 's', '')
             with open(os.devnull) as bitbucket:
                 ipc.check_call(
                     ['dpkg-source', '--no-copy', '--no-check', '-x', filename, real_root],
                     stdout=bitbucket # dpkg-source would be noisy without this...
                 )
-        else:
-            raise ValueError
         options = copy_options(options,
             ignore_tags=ignore_tags,
             fake_root=(real_root, os.path.join(filename, ''))
@@ -354,10 +361,14 @@ def main():
     options.ignore_tags = set()
     options.fake_root = None
     for filename in files:
-        if options.debian and filename.endswith(('.deb', '.dsc')):
-            check_deb(filename, options=options)
-        else:
-            check_file(filename, options=options)
+        if options.debian:
+            try:
+                check_deb(filename, options=options)
+            except UnsupportedFileType:
+                pass
+            else:
+                continue
+        check_file(filename, options=options)
 
 if __name__ == '__main__':
     main()
