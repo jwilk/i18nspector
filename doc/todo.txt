@@ -37,6 +37,8 @@ Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
 Document the security model.
 
-Allow running g-i on Debian packages (both .deb and .dsc).
+Allow running g-i on Debian source packages.
+
+Parse /etc/os-release instead of checking /etc/debian-version existence.
 
 .. vim:ft=rst

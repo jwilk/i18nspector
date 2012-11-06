@@ -24,7 +24,10 @@ import argparse
 import itertools
 import os
 import re
+import shutil
+import subprocess as ipc
 import sys
+import tempfile
 
 import polib
 
@@ -38,6 +41,15 @@ class Checker(object):
 
     def __init__(self, path, *, options):
         self.path = path
+        self.fake_path = path
+        if options.fake_root is not None:
+            (real_root, fake_root) = options.fake_root
+            if not real_root.endswith(os.sep):
+                raise ValueError
+            if not fake_root.endswith(os.sep):
+                raise ValueError
+            if path.startswith(real_root):
+                self.fake_path = fake_root + path[len(real_root):]
         self.options = options
 
     def debug(self, message, *extra):
@@ -45,8 +57,10 @@ class Checker(object):
             print('N:', message, *extra)
 
     def tag(self, tagname, *extra):
+        if tagname in self.options.ignore_tags:
+            return
         tag = self.options.taginfo[tagname]
-        s = tag.format(self.path, *extra, color=sys.stdout.isatty())
+        s = tag.format(self.fake_path, *extra, color=sys.stdout.isatty())
         print(s)
 
     def check(self):
@@ -261,11 +275,45 @@ def init_polib():
     # ASCII-only:
     polib.default_encoding = 'ASCII'
 
+def check_file(filename, *, options):
+    checker = Checker(filename, options=options)
+    checker.check()
+
+def copy_options(options, **update):
+    kwargs = vars(options)
+    kwargs.update(update)
+    return argparse.Namespace(**kwargs)
+
+def check_deb(filename, *, options):
+    tmpdir = tempfile.mkdtemp()
+    ignore_tags = set(options.ignore_tags)
+    ignore_tags.add('unknown-file-type')
+    options = copy_options(options,
+        ignore_tags=ignore_tags,
+        fake_root=(os.path.join(tmpdir, ''), os.path.join(filename, '')),
+    )
+    try:
+        ipc.check_call(['dpkg-deb', '-x', filename, tmpdir])
+        control_dir = os.path.join(tmpdir, 'DEBIAN')
+        os.mkdir(control_dir)
+        ipc.check_call(['dpkg-deb', '-e', filename, control_dir])
+        for root, dirs, files in os.walk(tmpdir):
+            for path in files:
+                path = os.path.join(root, path)
+                if os.path.islink(path):
+                    continue
+                if os.path.isfile(path):
+                    check_file(path, options=options)
+    finally:
+        shutil.rmtree(tmpdir)
+
 def main():
     require_python(3, 2)
     init_polib()
+    is_debian = os.path.exists('/etc/debian_version')
     ap = argparse.ArgumentParser()
     ap.add_argument('-l', '--language', metavar='<lang>')
+    ap.add_argument('--debian', action='store_true', default=is_debian)
     ap.add_argument('--debug', action='store_true')
     ap.add_argument('files', metavar='<file>', nargs='+')
     options = ap.parse_args()
@@ -292,9 +340,13 @@ def main():
         language.remove_encoding()
         language.remove_nonlinguistic_modifier()
         options.language = str(language)
+    options.ignore_tags = set()
+    options.fake_root = None
     for filename in files:
-        checker = Checker(filename, options=options)
-        checker.check()
+        if options.debian and filename.endswith('.deb'):
+            check_deb(filename, options=options)
+        else:
+            check_file(filename, options=options)
 
 if __name__ == '__main__':
     main()
