@@ -18,6 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import functools
+import warnings
+
 def is_sorted(iterable):
     # It's not very efficient, but should be enough for our purposes.
     lst1 = list(iterable)
@@ -30,5 +33,24 @@ class DataIntegrityError(Exception):
 def check_sorted(iterable, exception=DataIntegrityError):
     if not is_sorted(iterable):
         raise exception()
+
+class NotOverriddenWarning(UserWarning):
+    pass
+
+def not_overridden(f):
+    '''
+    Raise warning (NotOverriddenWarning) if the decorated method was not
+    overridden in a subclass, or called directly.
+    '''
+    @functools.wraps(f)
+    def new_f(self, *args, **kwargs):
+        cls = type(self)
+        warnings.warn(
+            '%s.%s.%s() is not overridden' % (cls.__module__, cls.__name__, f.__name__),
+            category=NotOverriddenWarning,
+            stacklevel=2
+        )
+        return f(self, *args, **kwargs)
+    return new_f
 
 # vim:ts=4 sw=4 et
