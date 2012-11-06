@@ -35,9 +35,6 @@ Fix support for ``X-Poedit-Language: (Afan) Oromo``.
 
 Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
-Do not follow symlinks by default. This should facilitate running g-i on
-(semi-)unstrusted input.
-
 Document the security model.
 
 Allow running g-i on Debian packages (both .deb and .dsc).
