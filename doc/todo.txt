@@ -1,5 +1,3 @@
-Use Language() objects in the checker.
-
 Complain about incorrect locale codes:
  * al -> sq
  * cn -> zh

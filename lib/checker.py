@@ -24,6 +24,7 @@ import re
 import polib
 
 from lib import dates
+from lib import ling
 from lib import misc
 from lib import tags
 
@@ -159,10 +160,38 @@ class Checker(object):
                 i = 0
             if i > 0:
                 language = path_components[i - 1]
-                language_source = 'pathname'
-            del path_components
-        meta_language = file.metadata.get('Language')
+                try:
+                    language = linginfo.parse_language(language)
+                    language.fix_codes()
+                    language.remove_encoding()
+                    language.remove_nonlinguistic_modifier()
+                except ling.LanguageError:
+                    # It's not our job to report possible errors in _pathnames_.
+                    language = None
+                else:
+                    language_source = 'pathname'
+            del path_components, i
+        meta_language = orig_meta_language = file.metadata.get('Language')
         self.debug('meta-language = {!r}'.format(meta_language))
+        if meta_language:
+            try:
+                meta_language = linginfo.parse_language(meta_language)
+            except ling.LanguageError:
+                meta_language = None
+                self.tag('invalid-language', orig_meta_language)
+        if meta_language:
+            if meta_language.remove_encoding():
+                self.tag('encoding-in-language-header-field', orig_meta_language)
+                prev_meta_language = str(meta_language)
+            if meta_language.remove_nonlinguistic_modifier():
+                self.tag('language-variant-does-not-affect-translation', orig_meta_language)
+                prev_meta_language = str(meta_language)
+            try:
+                if meta_language.fix_codes():
+                    self.tag('invalid-language', orig_meta_language, '=>', meta_language)
+            except ling.LanguageError:
+                self.tag('invalid-language', orig_meta_language)
+                meta_language = None
         if meta_language:
             if language is None:
                 language = meta_language
@@ -183,21 +212,23 @@ class Checker(object):
             except LookupError:
                 self.tag('unknown-poedit-language', poedit_language)
             else:
+                poedit_language = linginfo.parse_language(poedit_language)
                 if language is None:
                     language = poedit_language
-                elif language != poedit_language:
+                    language_source = 'X-Poedit-Language header field'
+                elif language.language_code != poedit_language.language_code:
                     self.tag('language-disparity',
                         language, tags.safestr('({})'.format(language_source)),
                         '!=',
                         poedit_language, tags.safestr('(X-Poedit-Language header field)')
                     )
         if language is None:
-            self.tag('no-language-header-field')
-            assert not meta_language
+            if not orig_meta_language:
+                self.tag('no-language-header-field')
             self.tag('unable-to-determine-language')
             return
         self.debug('language = {!r}'.format(language))
-        if not meta_language:
+        if not orig_meta_language:
             self.tag('no-language-header-field', tags.safestr('Language:'), language)
         return language
 

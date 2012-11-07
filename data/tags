@@ -26,6 +26,15 @@ certainty = certain
 description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
+[encoding-in-language-header-field]
+severity = minor
+certainty = certain
+description =
+ The language header field contains encoding declaration. Such information
+ shouldn't be included in this field.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [invalid-content-transfer-encoding]
 severity = pedantic
 certainty = certain
@@ -55,6 +64,15 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
+[invalid-language]
+severity = important
+certainty = possible
+description =
+ The language header field couldn't be parsed, or it contains an unknown
+ language.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [invalid-mime-version]
 severity = pedantic
 certainty = certain
@@ -75,6 +93,15 @@ certainty = possible
 description =
  Language of this file has been declared in multiple places, but the
  declarations don't match.
+
+[language-variant-does-not-affect-translation]
+severity = minor
+certainty = possible
+description =
+ The Language field contains a variant designator that is not relevent for the
+ message translation. 
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [no-content-transfer-encoding-header-field]
 severity = pedantic

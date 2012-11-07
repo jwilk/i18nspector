@@ -1,12 +1,15 @@
 [X] ancient-date
 [X] broken-encoding
 [X] date-from-future
+[X] encoding-in-language-header-field
 [X] invalid-content-transfer-encoding
 [X] invalid-content-type
 [X] invalid-date
+[X] invalid-language
 [X] invalid-mime-version
 [X] invalid-mo-file
 [X] language-disparity
+[X] language-variant-does-not-affect-translation
 [X] no-content-transfer-encoding-header-field
 [X] no-content-type-header-field
 [X] no-date-header-field

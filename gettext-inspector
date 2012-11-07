@@ -135,7 +135,7 @@ def main():
             ap.error('invalid language')
         language.remove_encoding()
         language.remove_nonlinguistic_modifier()
-        options.language = str(language)
+        options.language = language
     options.ignore_tags = set()
     options.fake_root = None
     Checker.patch_environment(encinfo)
