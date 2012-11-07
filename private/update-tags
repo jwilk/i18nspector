@@ -48,7 +48,7 @@ def extract_tagnames(node):
 def main():
     datadir = os.path.join(basedir, 'data')
     taginfo = tags.TagInfo(datadir)
-    source_path = os.path.join(basedir, 'gettext-inspector')
+    source_path = os.path.join(basedir, 'lib', 'checker.py')
     with open(source_path, 'rt', encoding='UTF-8') as file:
         source = file.read()
         node = ast.parse(source, filename=source_path)
