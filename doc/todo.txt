@@ -37,4 +37,7 @@ Document the security model.
 
 Parse /etc/os-release instead of checking /etc/debian-version existence.
 
+Make some LingInfo methods private: ``get_plural_forms()``,
+``get_principal_territory()``, ``lookup_*_code()``.
+
 .. vim:ft=rst
