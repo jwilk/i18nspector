@@ -151,7 +151,7 @@ class Language(object):
         return True
 
     def remove_nonlinguistic_modifier(self):
-        if self.modifier in {'quot', 'boldquot', 'euro'}:
+        if self.modifier == 'euro':
             self.modifier = None
             return True
         return
