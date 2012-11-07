@@ -44,8 +44,6 @@ def main():
         if element.tag != 'iso_639_entry':
             continue
         lll = element.get('iso_639_2T_code')
-        if lll is None:
-            raise ValueError
         if lll in language_blacklist:
             # It's not a real language, so skip.
             continue
@@ -54,8 +52,6 @@ def main():
         ll = element.get('iso_639_1_code') or ''
         iso_639[lll] = ll
         lll_b = element.get('iso_639_2B_code')
-        if lll_b is None:
-            raise ValueError
         if len(lll_b) != 3:
             raise ValueError('len({!r}) != 3'.format(lll_b))
         if lll_b != lll:
