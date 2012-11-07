@@ -53,6 +53,13 @@ def main():
             raise ValueError('len({!r}) != 3'.format(lll))
         ll = element.get('iso_639_1_code') or ''
         iso_639[lll] = ll
+        lll_b = element.get('iso_639_2B_code')
+        if lll_b is None:
+            raise ValueError
+        if len(lll_b) != 3:
+            raise ValueError('len({!r}) != 3'.format(lll_b))
+        if lll_b != lll:
+            iso_639[lll_b] = ll or lll
     print('[iso-639]')
     for ll, lll in sorted(iso_639.items()):
         print('{} = {}'.format(ll, lll).rstrip())

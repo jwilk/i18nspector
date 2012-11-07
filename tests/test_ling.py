@@ -96,6 +96,14 @@ class test_language_objects:
         assert_equal(lang.language_code, 'el')
         assert_equal(lang.territory_code, None)
 
+    def test_fix_codes_3b_to_2(self):
+        lang = T(L, 'gre')
+        assert_equal(lang.language_code, 'gre')
+        assert_equal(lang.territory_code, None)
+        assert_true(lang.fix_codes() is True)
+        assert_equal(lang.language_code, 'el')
+        assert_equal(lang.territory_code, None)
+
     # *_principal_territory_code(): el_GR -> el
 
     def test_principal_territory_code(self):
@@ -167,7 +175,7 @@ class test_lookup_language_code:
         assert_equal(lang, 'el')
 
     def test_not_found(self):
-        lang = L.lookup_language_code('gre')
+        lang = L.lookup_language_code('grk')
         assert_true(lang is None)
 
 class test_lookup_territory_code:
