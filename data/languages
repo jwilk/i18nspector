@@ -868,7 +868,9 @@ principal-territory = TO
 names = Tok Pisin
 
 [tr]
-names = Turkish
+names =
+ Turkish
+ Türkçe
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = TR
 
