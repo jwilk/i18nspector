@@ -220,22 +220,23 @@ class LingInfo(object):
             return cc
 
     def get_language_for_name(self, name):
+        parse = self.parse_language
         _name = _munch_language_name(name)
         try:
-            return self._name_to_code[_name]
+            return parse(self._name_to_code[_name])
         except KeyError:
             pass
         if ';' in _name:
             for subname in _name.split(';'):
                 subname = subname.strip()
                 try:
-                    return self._name_to_code[subname]
+                    return parse(self._name_to_code[subname])
                 except LookupError:
                     pass
         if ',' in _name:
             subname = ' '.join(map(str.strip, _name.split(',', 1)[::-1]))
             try:
-                return self._name_to_code[subname]
+                return parse(self._name_to_code[subname])
             except LookupError:
                 pass
             results = set()
@@ -244,7 +245,7 @@ class LingInfo(object):
                 result = self._name_to_code.get(subname)
                 results.add(result)
             if len(results) == 1:
-                return results.pop()
+                return parse(results.pop())
         raise LookupError(name)
 
     _language_regexp = re.compile(r'''

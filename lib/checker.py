@@ -181,8 +181,6 @@ class Checker(object):
                     new_meta_language = linginfo.get_language_for_name(meta_language)
                 except LookupError:
                     new_meta_language = None
-                else:
-                    new_meta_language = linginfo.parse_language(new_meta_language)
                 if new_meta_language:
                     self.tag('invalid-language', orig_meta_language, '=>', new_meta_language)
                 else:
@@ -221,7 +219,6 @@ class Checker(object):
             except LookupError:
                 self.tag('unknown-poedit-language', poedit_language)
             else:
-                poedit_language = linginfo.parse_language(poedit_language)
                 if language is None:
                     language = poedit_language
                     language_source = 'X-Poedit-Language header field'

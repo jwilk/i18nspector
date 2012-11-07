@@ -190,33 +190,32 @@ class test_lookup_territory_code:
 
 class test_get_language_for_name:
 
+    def _test(self, name, expected):
+        lang = L.get_language_for_name(name)
+        assert_true(isinstance(lang, T))
+        assert_equal(str(lang), expected)
+
     def test_found(self):
-        lang = L.get_language_for_name('Greek')
-        assert_equal(lang, 'el')
+        self._test('Greek', 'el')
 
     def test_found_multi(self):
-        lang = L.get_language_for_name('Old Church Slavonic')
-        assert_equal(lang, 'cu')
+        self._test('Old Church Slavonic', 'cu')
 
     def test_found_as_ascii(self):
-        lang = L.get_language_for_name('Norwegian Bokmål')
-        assert_equal(lang, 'nb')
+        self._test('Norwegian Bokmål', 'nb')
 
     def test_found_semicolon(self):
-        lang = L.get_language_for_name('Chichewa; Nyanja')
-        assert_equal(lang, 'ny')
+        self._test('Chichewa; Nyanja', 'ny')
 
     def test_found_comma(self):
-        lang = L.get_language_for_name('Ndebele, South')
-        assert_equal(lang, 'nr')
+        self._test('Ndebele, South', 'nr')
 
     def test_found_comma_as_semicolon(self):
-        lang = L.get_language_for_name('Pashto, Pushto')
-        assert_equal(lang, 'ps')
+        self._test('Pashto, Pushto', 'ps')
 
     def test_not_found(self):
         with assert_raises(LookupError):
-            lang = L.get_language_for_name('Nadsat')
+            self._test('Nadsat', None)
 
 class test_parse_language:
 
