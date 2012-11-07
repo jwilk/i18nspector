@@ -177,8 +177,17 @@ class Checker(object):
             try:
                 meta_language = linginfo.parse_language(meta_language)
             except ling.LanguageError:
-                meta_language = None
-                self.tag('invalid-language', orig_meta_language)
+                try:
+                    new_meta_language = linginfo.get_language_for_name(meta_language)
+                except LookupError:
+                    new_meta_language = None
+                else:
+                    new_meta_language = linginfo.parse_language(new_meta_language)
+                if new_meta_language:
+                    self.tag('invalid-language', orig_meta_language, '=>', new_meta_language)
+                else:
+                    self.tag('invalid-language', orig_meta_language)
+                meta_language = new_meta_language
         if meta_language:
             if meta_language.remove_encoding():
                 self.tag('encoding-in-language-header-field', orig_meta_language)
