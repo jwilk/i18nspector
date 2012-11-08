@@ -7,6 +7,15 @@ description =
 references = 
  http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
+[boilerplate-in-project-id-version]
+severity = minor
+certainty = certain
+description =
+ The Project-Id-Version field contains xgettext boilerplate.
+ It should contain the name and the version of the package.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [broken-encoding]
 severity = serious
 certainty = possible
@@ -149,6 +158,33 @@ description =
  The MIME-Version header field does't exist. It should be to set to ``1.0``.
 references =
  http://tools.ietf.org/html/rfc2045#section-4
+
+[no-package-name-in-project-id-version]
+severity = minor
+certainty = possible
+description =
+ The Project-Id-Version header field doesn't appear to contain any name.
+ It should contain both the name and the version of the package.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
+[no-project-id-version-header-field]
+severity = minor
+certainty = certain
+description =
+ The Project-Id-Version header does not exist.
+ It should contain the name and the version of the package.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
+[no-version-in-project-id-version]
+severity = pedantic
+certainty = possible
+description =
+ The Project-Id-Version header field doesn't appear to contain any version.
+ It should contain both the name and the version of the package.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [non-portable-encoding]
 severity = important

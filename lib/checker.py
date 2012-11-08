@@ -142,6 +142,7 @@ class Checker(object):
         language = self.check_language(file, is_template=is_template)
         self.check_mime(file, is_template=is_template)
         self.check_dates(file, is_template=is_template)
+        self.check_project(file)
         self.check_headers(file)
 
     def check_language(self, file, *, is_template):
@@ -300,6 +301,18 @@ class Checker(object):
                 self.tag('date-from-future', tags.safestr(field + ':'), date)
             if stamp < dates.gettext_epoch:
                 self.tag('ancient-date', tags.safestr(field + ':'), date)
+
+    def check_project(self, file):
+        project_id_version = file.metadata.get('Project-Id-Version')
+        if project_id_version is None:
+            self.tag('no-project-id-version-header-field')
+        elif project_id_version == 'PACKAGE VERSION':
+            self.tag('boilerplate-in-project-id-version', project_id_version)
+        else:
+            if not re.search(r'[A-Za-z]', project_id_version):
+                self.tag('no-package-name-in-project-id-version', project_id_version)
+            if not re.search(r'[0-9]', project_id_version):
+                self.tag('no-version-in-project-id-version', project_id_version)
 
     def check_headers(self, file):
         for key in sorted(file.metadata):
