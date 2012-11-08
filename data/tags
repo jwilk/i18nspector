@@ -16,6 +16,16 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
+[boilerplate-in-report-msgid-bugs-to]
+severity = normal
+certainty = certain
+description =
+ The Report-Msgid-Bugs-To header field contains xgettext boilerplate.
+ It should contain an email address or URL where one can report bugs in the
+ untranslated strings.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [broken-encoding]
 severity = serious
 certainty = possible
@@ -96,6 +106,15 @@ certainty = certain
 description =
  This file couldn't be parsed a MO file.
 
+[invalid-report-msgid-bugs-to]
+severity = normal
+certainty = possible
+description =
+ The Report-Msgid-Bugs-To header field could neither be parsed as an e-mail nor
+ as a URL.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [language-disparity]
 severity = normal
 certainty = possible
@@ -174,6 +193,16 @@ certainty = certain
 description =
  The Project-Id-Version header does not exist.
  It should contain the name and the version of the package.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
+[no-report-msgid-bugs-to-header-field]
+severity = normal
+certainty = certain
+description =
+ The Report-Msgid-Bugs-To header field contains xgettext boilerplate.
+ It should contain an email address or URL where one can report bugs in the
+ untranslated strings.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 

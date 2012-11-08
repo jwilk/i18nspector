@@ -15,8 +15,6 @@ Complain about incorrect locale codes:
  * sr_YU -> sr
  * uk_UK -> uk_UA
 
-Validate ``Report-Msgid-Bugs-To``.
-
 Validate ``Last-Translator``.
 
 Guess language from ``Language-Team``.

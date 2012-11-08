@@ -18,8 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import email.utils
 import os
 import re
+import urllib.parse
 
 import polib
 
@@ -326,6 +328,17 @@ class Checker(object):
                 self.tag('no-package-name-in-project-id-version', project_id_version)
             if not re.search(r'[0-9]', project_id_version):
                 self.tag('no-version-in-project-id-version', project_id_version)
+        report_msgid_bugs_to = file.metadata.get('Report-Msgid-Bugs-To')
+        if not report_msgid_bugs_to:
+            self.tag('no-report-msgid-bugs-to-header-field')
+        else:
+            real_name, email_address  = email.utils.parseaddr(report_msgid_bugs_to)
+            if '@' not in email_address:
+                uri = urllib.parse.urlparse(report_msgid_bugs_to)
+                if uri.scheme == '':
+                    self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
+            elif email_address == 'EMAIL@ADDRESS':
+                self.tag('boilerplate-in-report-msgid-bugs-to', report_msgid_bugs_to)
 
     def check_headers(self, file):
         for key in sorted(file.metadata):
