@@ -19,6 +19,7 @@
 # SOFTWARE.
 
 import functools
+import shlex
 import warnings
 
 def is_sorted(iterable):
@@ -52,5 +53,39 @@ def not_overridden(f):
         )
         return f(self, *args, **kwargs)
     return new_f
+
+class OSRelease(object):
+
+    '''
+    /etc/os-release parser
+
+    File format documentation:
+    http://www.freedesktop.org/software/systemd/man/os-release.html
+    '''
+
+    def __init__(self, path='/etc/os-release'):
+        self._id = None
+        self._id_like = ()
+        with open(path, 'rt', encoding='UTF-8') as file:
+            for line in file:
+                self._parse_line(line)
+
+    def _parse_line(self, line):
+        try:
+            name, value = line.split('=', 1)
+        except ValueError:
+            return
+        [value] = shlex.split(value)
+        if name == 'ID':
+            self._id = value
+        elif name == 'ID_LIKE':
+            self._id_like = frozenset(value.split())
+
+    def is_like(self, ident):
+        if ident is None:
+            raise TypeError('ident must not be None')
+        if self._id == ident:
+            return True
+        return ident in self._id_like
 
 # vim:ts=4 sw=4 et

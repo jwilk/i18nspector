@@ -31,6 +31,7 @@ from lib import checker
 from lib import encodings
 from lib import gettext
 from lib import ling
+from lib import misc
 from lib import tags
 
 def require_python(*version):
@@ -107,10 +108,10 @@ def check_deb(filename, *, options):
 
 def main():
     require_python(3, 2)
-    is_debian = os.path.exists('/etc/debian_version')
+    is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser()
     ap.add_argument('-l', '--language', metavar='<lang>')
-    ap.add_argument('--debian', action='store_true', default=is_debian)
+    ap.add_argument('--debian', action='store_true', default=is_like_debian)
     ap.add_argument('--debug', action='store_true')
     ap.add_argument('files', metavar='<file>', nargs='+')
     options = ap.parse_args()
