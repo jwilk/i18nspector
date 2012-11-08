@@ -30,7 +30,8 @@ references =
 severity = serious
 certainty = possible
 description =
- Header and messages contained by this file couldn't be decoded to Unicode.
+ Header fields and messages contained by this file couldn't be decoded to
+ Unicode.
  The usual cause of this is incorrect or missing encoding declaration.
  .
  Note that in the absence of encoding declaration, gettext-inspector assumes
@@ -191,7 +192,7 @@ references =
 severity = minor
 certainty = certain
 description =
- The Project-Id-Version header does not exist.
+ The Project-Id-Version header field does not exist.
  It should contain the name and the version of the package.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
