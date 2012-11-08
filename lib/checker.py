@@ -172,6 +172,19 @@ class Checker(object):
                 else:
                     language_source = 'pathname'
             del path_components, i
+        if language is None and self.path.endswith('.po'):
+            language, ext = os.path.splitext(os.path.basename(self.path))
+            assert ext == '.po'
+            try:
+                language = linginfo.parse_language(language)
+                language.fix_codes()
+                language.remove_encoding()
+                language.remove_nonlinguistic_modifier()
+            except ling.LanguageError:
+                # It's not our job to report possible errors in _pathnames_.
+                language = None
+            else:
+                language_source = 'pathname'
         meta_language = orig_meta_language = file.metadata.get('Language')
         self.debug('meta-language = {!r}'.format(meta_language))
         if meta_language:
