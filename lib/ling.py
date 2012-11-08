@@ -176,7 +176,7 @@ class LingInfo(object):
         path = os.path.join(datadir, 'iso-codes')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
         cp.read(path, encoding='UTF-8')
-        iso_639 = cp['iso-639']
+        iso_639 = cp['language-codes']
         misc.check_sorted(iso_639)
         self._iso_639 = {}
         for lll, ll in iso_639.items():
@@ -185,7 +185,7 @@ class LingInfo(object):
                 self._iso_639[lll] = ll
             else:
                 self._iso_639[lll] = lll
-        iso_3166 = cp['iso-3166']
+        iso_3166 = cp['territory-codes']
         misc.check_sorted(iso_3166)
         self._iso_3166 = frozenset(cc.upper() for cc in iso_3166.keys())
         # Hand-edited linguistic data:

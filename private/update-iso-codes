@@ -39,6 +39,15 @@ def main():
     print('# This file has been generated automatically. Do not edit.')
     print('# Last update: {today}'.format(today=datetime.date.today()))
     print()
+    generate_iso_639()
+    generate_iso_3166()
+    sys.stdout.close()
+    os.rename(path + '.tmp', path)
+
+def generate_iso_639():
+    # =======================
+    # ISO 639: language codes
+    # =======================
     iso_639 = {}
     for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639.xml')):
         if element.tag != 'iso_639_entry':
@@ -56,10 +65,15 @@ def main():
             raise ValueError('len({!r}) != 3'.format(lll_b))
         if lll_b != lll:
             iso_639[lll_b] = ll or lll
-    print('[iso-639]')
+    print('[language-codes]')
     for ll, lll in sorted(iso_639.items()):
         print('{} = {}'.format(ll, lll).rstrip())
     print()
+
+def generate_iso_3166():
+    # =========================
+    # ISO 3166: territory codes
+    # =========================
     iso_3166 = set()
     for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_3166.xml')):
         if element.tag != 'iso_3166_entry':
@@ -68,13 +82,11 @@ def main():
         if cc is None:
             raise ValueError
         iso_3166.add(cc)
-    print('[iso-3166]')
+    print('[territory-codes]')
     for cc in sorted(iso_3166):
         print('{} ='.format(cc))
     print()
     print('# vi''m:ft=dosini')
-    sys.stdout.close()
-    os.rename(path + '.tmp', path)
 
 if __name__ == '__main__':
     main()
