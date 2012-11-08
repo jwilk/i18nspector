@@ -73,9 +73,9 @@ class OSRelease(object):
     def _parse_line(self, line):
         try:
             name, value = line.split('=', 1)
+            [value] = shlex.split(value)
         except ValueError:
             return
-        [value] = shlex.split(value)
         if name == 'ID':
             self._id = value
         elif name == 'ID_LIKE':
