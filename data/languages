@@ -3,6 +3,8 @@
 # - languages that have a ISO 639-1 two-letter code;
 # - languages recognized by poedit;
 # - languages for which real-world PO files exist.
+# ISO 639-2 codes for collections of languages (see
+# <http://www.sil.org/iso639-3/scope.asp#C>) should normally not be added here.
 
 [aa]
 names = Afar
@@ -146,9 +148,6 @@ names = Chamorro
 [co]
 names = Corsican
 principal-territory = FR
-
-[cpf]
-names = creoles and pidgins, French-based
 
 [cr]
 names = Cree
@@ -552,11 +551,6 @@ principal-territory = MN
 names = Manipuri
 principal-territory = IN
 
-[mo]
-names =
- Moldavian
- Moldovan
-
 [mr]
 names = Marathi
 principal-territory = IN
@@ -579,10 +573,6 @@ principal-territory = MM
 [na]
 names = Nauru
 principal-territory = NR
-
-[nah]
-names = Nahuatl
-principal-territory = MX
 
 [nap]
 names = Neapolitan
@@ -719,6 +709,12 @@ names = Romanian
 plural-forms = nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;
 principal-territory = RO
 
+[ro_MD]
+names =
+ Moldavian
+ Moldovan
+plural-forms = nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;
+
 [ru]
 names = Russian
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
@@ -783,9 +779,6 @@ names = Shona
 [so]
 names = Somali
 principal-territory = SO
-
-[son]
-names = Songhai
 
 [sq]
 names = Albanian

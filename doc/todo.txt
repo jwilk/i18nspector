@@ -6,6 +6,7 @@ Complain about incorrect locale codes:
  * en_UK -> en_GB
  * gr -> el
  * in -> id
+ * mo -> ro_MD
  * no -> nb
  * sh_BA -> bs_BA
  * sh_HR -> hr_HR

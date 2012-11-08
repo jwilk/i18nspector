@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import collections
 import datetime
 import os
 import sys
@@ -27,7 +28,8 @@ import xml.etree.cElementTree as etree
 
 iso_codes_dir = '/usr/share/xml/iso-codes/';
 
-language_blacklist = {'mis', 'mul', 'und', 'zxx', 'qaa-qtz'}
+class Panic(ValueError):
+    pass
 
 def main():
     basedir = os.path.join(
@@ -48,26 +50,80 @@ def generate_iso_639():
     # =======================
     # ISO 639: language codes
     # =======================
+    l2b_to_2t = {}
     iso_639 = {}
     for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639.xml')):
         if element.tag != 'iso_639_entry':
             continue
-        lll = element.get('iso_639_2T_code')
-        if lll in language_blacklist:
-            # It's not a real language, so skip.
+        l2b = element.get('iso_639_2B_code')
+        l2t = element.get('iso_639_2T_code')
+        if l2b == l2t == 'qaa-qtz':
             continue
-        if len(lll) != 3:
-            raise ValueError('len({!r}) != 3'.format(lll))
-        ll = element.get('iso_639_1_code') or ''
-        iso_639[lll] = ll
-        lll_b = element.get('iso_639_2B_code')
-        if len(lll_b) != 3:
-            raise ValueError('len({!r}) != 3'.format(lll_b))
-        if lll_b != lll:
-            iso_639[lll_b] = ll or lll
+        for l in l2b, l2t:
+            if len(l) != 3:
+                raise Panic('len({!r}) != 3'.format(l))
+        if l2b != l2t:
+            l2b_to_2t[l2b] = l2t
+    iso_639 = collections.defaultdict(lambda: [None])
+    for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639_3.xml')):
+        if element.tag != 'iso_639_3_entry':
+            continue
+        code = element.get('id')
+        if len(code) != 3:
+            raise Panic('len({!r}) != 3'.format(code))
+        code1 = element.get('part1_code')
+        code2 = element.get('part2_code')
+        if code2 is None:
+            # We're not insted in languages that are not in 639-2 (yet?).
+            continue
+        if code2 != code:
+            raise Panic('{!r} != {!r}'.format(code, code2))
+        scope = element.get('scope')
+        if scope in {'S', 'L'}:
+            # Not a real language, ignore.
+            continue
+        elif scope == 'C':
+            # We're not interested in collective languages (yet?).
+            if code1 is None:
+                continue
+        elif scope in {'M', 'I'}:
+            pass
+        else:
+            raise Panic('unknown scope: {!r}'.format(scope))
+        status = element.get('status')
+        if status == 'Active':
+            major = True
+        elif status == 'Retired':
+            continue
+        else:
+            raise Panic('unknown status: {!r}'.format(status))
+        reference_name = element.get('reference_name')
+        datum = iso_639[reference_name]
+        if code in l2b_to_2t:
+            datum += [code]
+        else:
+            if datum[0] is not None:
+                raise Panic
+            if code1 is not None:
+                if code1.endswith('(deprecated)'):
+                    code1 = None
+            if code1 is not None:
+                if len(code1) == 2:
+                    datum[0] = code1
+                    datum += [code]
+                else:
+                    raise Panic('len({!r}) != 2'.format(code1))
+            else:
+                datum[0] = code
     print('[language-codes]')
-    for ll, lll in sorted(iso_639.items()):
-        print('{} = {}'.format(ll, lll).rstrip())
+    iso_639_rev = {}
+    for code, *aliases in iso_639.values():
+        for alias in aliases:
+            iso_639_rev[alias] = code
+        if not aliases:
+            iso_639_rev[code] = ''
+    for alias, code in sorted(iso_639_rev.items()):
+        print('{} = {}'.format(alias, code).rstrip())
     print()
 
 def generate_iso_3166():
