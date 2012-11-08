@@ -145,7 +145,7 @@ def get_coverage_for_function(fn):
 def _get_test_filenames():
     for root, dirnames, filenames in os.walk(here):
         for filename in filenames:
-            if not filename.endswith(('.mo', '.po', '.pop')):
+            if not filename.endswith(('.mo', '.po', '.pot', '.pop')):
                 # .pop is a special extension to trigger unknown-file-type
                 continue
             yield os.path.join(root, filename)
