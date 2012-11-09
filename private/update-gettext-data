@@ -51,11 +51,9 @@ def main():
             if match is None:
                 continue
             language, gettext_plural_forms = match.groups()
+            language = linginfo.parse_language(language)
             gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
-            try:
-                our_plural_forms = linginfo.get_plural_forms(language)
-            except LookupError:
-                our_plural_forms = None
+            our_plural_forms = language.get_plural_forms()
             if our_plural_forms != gettext_plural_forms:
                 print('[{}]'.format(language))
                 if our_plural_forms != None:
@@ -63,7 +61,7 @@ def main():
                 print('plural-forms = ' + gettext_plural_forms)
                 print()
             else:
-                okay.add(language)
+                okay.add(str(language))
     n_okay = len(okay)
     print('# No plural-forms changes required for {} languages'.format(n_okay))
     print()
@@ -79,13 +77,13 @@ def main():
     contents = re.compile(br'/[*].*?[*]/', re.DOTALL).sub(b'', contents)
     contents = contents.decode('ASCII')
     data = {}
+    primary_languages = set(linginfo.get_primary_languages())
     for item in re.findall('"(\w+)"', contents):
         language, gettext_cc = item.split('_')
-        data[language] = gettext_cc
-        try:
-            our_cc = linginfo.get_principal_territory(language)
-        except LookupError:
+        if language not in primary_languages:
             continue
+        data[language] = gettext_cc
+        our_cc = linginfo.parse_language(language).get_principal_territory_code()
         if our_cc != gettext_cc:
             print('[{}]'.format(language))
             if our_cc is not None:
@@ -97,8 +95,10 @@ def main():
             print()
         else:
             okay.add(language)
-    for language in linginfo.get_primary_languages():
-        cc = linginfo.get_principal_territory(language)
+    for language in sorted(primary_languages):
+        if '_' in language:
+            continue
+        cc = linginfo.parse_language(language).get_principal_territory_code()
         if cc is None:
             continue
         if language not in data:
