@@ -161,11 +161,17 @@ names =
 
 [cs]
 names = Czech
+characters =
+ á č ď é ě í ň ó ř š ť ú ů ý ž
+ Á Č Ď É Ě Í Ň Ó Ř Š Ť Ú Ů Ý Ž
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
 principal-territory = CZ
 
 [csb]
 names = Kashubian
+characters =
+ ą ã é ë ł ń ò ó ô ù ż
+ Ą Ã É Ë Ł Ń Ò Ó Ô Ù Ż
 principal-territory = PL
 
 [cu]
@@ -674,6 +680,9 @@ names = Pali
 
 [pl]
 names = Polish
+characters =
+ ą ć ę ó ł ń ó ś ż ź
+ Ą Ć Ę Ó Ł Ń Ó Ś Ż Ź
 plural-forms = nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = PL
 
@@ -763,6 +772,9 @@ principal-territory = LK
 
 [sk]
 names = Slovak
+characters =
+ á ä č ď ž é í ĺ ľ ň ó ô ŕ š ť ú ý ž
+ Á Ä Č Ď Ž É Í Ĺ Ľ Ň Ó Ô Ŕ Š Ť Ú Ý Ž
 plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
 principal-territory = SK
 
