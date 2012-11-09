@@ -127,7 +127,7 @@ description =
 severity = minor
 certainty = possible
 description =
- The Language field contains a variant designator that is not relevent for the
+ The Language field contains a variant designator that is not relevant for the
  message translation. 
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
@@ -228,8 +228,8 @@ references =
 severity = serious
 certainty = certain
 description =
- An input/output error or another operating system error occured while checking
- this file.
+ An input/output error or another operating system error occurred while
+ checking this file.
 
 [syntax-error-in-plural-forms]
 severity = important
@@ -255,7 +255,7 @@ severity = normal
 certainty = wild-guess
 description =
  gettext-inspector was unable to determine language of this file.
- Absense of this infomation will prevent it from performing further checks.
+ Absence of this information will prevent it from performing further checks.
 
 [unknown-encoding]
 severity = important
@@ -263,7 +263,7 @@ certainty = possible
 description =
  This file declares an encoding that couldn't be recognized by gettext-inspector.
  It might be a typo.
- Absense of encoding infomation will prevent it from performing further checks.
+ Absence of encoding information will prevent it from performing further checks.
 
 [unknown-file-type]
 severity = normal
