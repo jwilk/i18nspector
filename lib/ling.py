@@ -270,7 +270,7 @@ class LingInfo(object):
         return Language(self, *match.groups())
 
     def get_primary_languages(self):
-        return list(self._primary_languages)
+        return iter(self._primary_languages)
 
     def _get_plural_forms(self, language):
         try:
