@@ -613,8 +613,8 @@ principal-territory = NO
 
 [no]
 names = Norwegian
+macrolanguage = nb nn
 plural-forms = nplurals=2; plural=n != 1;
-deprecated = nb nn
 principal-territory = NO
 
 [nr]
