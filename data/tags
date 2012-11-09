@@ -70,7 +70,7 @@ severity = important
 certainty = possible
 description =
  Value of the Content-Type field should is invalid. It should be in the form
- ``text/plain; charset=``\ `encoding`.
+ ``text/plain; charset=``\ *encoding*.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
@@ -147,7 +147,7 @@ severity = important
 certainty = certain
 description =
  The Content-Type header field doesn't exist. It should be set to
- ``text/plain; charset=``\ `encoding`.
+ ``text/plain; charset=``\ *encoding*.
  .
  Note that in the absence of encoding declaration, gettext-inspector assumes
  ASCII encoding.
@@ -236,7 +236,7 @@ severity = important
 certainty = possible
 description =
  Value of the Plural-Forms header field could not be parsed.
- It should be in the form ``nplurals=<n>; plural=<expression>``.
+ It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Plural-forms
 
