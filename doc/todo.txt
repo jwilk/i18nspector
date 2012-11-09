@@ -32,7 +32,6 @@ Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
 Document the security model.
 
-Make some LingInfo methods private: ``get_principal_territory()``,
-``lookup_*_code()``.
+Make some LingInfo methods private: ``lookup_*_code()``.
 
 .. vim:ft=rst

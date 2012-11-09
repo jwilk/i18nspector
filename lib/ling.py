@@ -119,7 +119,7 @@ class Language(object):
         if ll is None:
             return
         try:
-            return self._parent.get_principal_territory(ll)
+            return self._parent._get_principal_territory_code(ll)
         except LookupError:
             return
 
@@ -279,7 +279,7 @@ class LingInfo(object):
             return
         return section.get('plural-forms')
 
-    def get_principal_territory(self, language):
+    def _get_principal_territory_code(self, language):
         try:
             section = self._primary_languages[language]
         except KeyError:

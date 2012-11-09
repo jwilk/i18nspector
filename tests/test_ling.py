@@ -104,36 +104,6 @@ class test_language_objects:
         assert_equal(lang.language_code, 'el')
         assert_equal(lang.territory_code, None)
 
-    # *_principal_territory_code(): el_GR -> el
-
-    def test_principal_territory_code(self):
-        lang = T(L, 'el')
-        cc = lang.get_principal_territory_code()
-        assert_equal(cc, 'GR')
-
-    def test_remove_principal_territory(self):
-        lang = T(L, 'el', 'GR')
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, 'GR')
-        lang.remove_principal_territory_code()
-        assert_equal(lang.language_code, 'el')
-        assert_true(lang.territory_code is None)
-
-    # *_principal_territory_code(): en_US -> en_US
-
-    def test_no_principal_territory_code(self):
-        lang = T(L, 'en')
-        cc = lang.get_principal_territory_code()
-        assert_true(cc is None)
-
-    def test_no_remove_principal_territory_code(self):
-        lang = T(L, 'en', 'US')
-        assert_equal(lang.language_code, 'en')
-        assert_equal(lang.territory_code, 'US')
-        lang.remove_principal_territory_code()
-        assert_equal(lang.language_code, 'en')
-        assert_equal(lang.territory_code, 'US')
-
     # ==, !=, is_almost_equal()
 
     def test_eq(self):
@@ -302,22 +272,53 @@ class test_get_plural_forms:
     def test_not_found(self):
         assert_true(self._get('ry') is None)
 
-class test_get_principal_territory:
+class test_principal_territory:
 
     def test_found_2(self):
-        cc = L.get_principal_territory('el')
+        # el -> el_GR
+        lang = L.parse_language('el')
+        cc = lang.get_principal_territory_code()
         assert_equal(cc, 'GR')
 
+    def test_remove_2(self):
+        # el_GR -> el
+        lang = L.parse_language('el_GR')
+        assert_equal(str(lang), 'el_GR')
+        rc = lang.remove_principal_territory_code()
+        assert_true(rc is True)
+        assert_equal(str(lang), 'el')
+
     def test_found_3(self):
-        cc = L.get_principal_territory('ang')
+        # ang -> ang_GB
+        lang = L.parse_language('ang')
+        cc = lang.get_principal_territory_code()
         assert_equal(cc, 'GB')
 
-    def test_not_known(self):
-        cc = L.get_principal_territory('en')
+    def test_remove_3(self):
+        # ang_GB -> ang
+        lang = L.parse_language('ang_GB')
+        assert_equal(str(lang), 'ang_GB')
+        rc = lang.remove_principal_territory_code()
+        assert_true(rc is True)
+        assert_equal(str(lang), 'ang')
+
+    def test_no_principal_territory_code(self):
+        # en -/-> en_US
+        lang = L.parse_language('en')
+        cc = lang.get_principal_territory_code()
         assert_true(cc is None)
 
+    def test_no_remove_principal_territory_code(self):
+        # en_US -/-> en
+        lang = L.parse_language('en_US')
+        assert_equal(str(lang), 'en_US')
+        rc = lang.remove_principal_territory_code()
+        assert_true(rc is None)
+        assert_equal(str(lang), 'en_US')
+
     def test_not_found(self):
-        with assert_raises(LookupError):
-            cc = L.get_principal_territory('ry')
+        lang = L.parse_language('ry')
+        cc = lang.get_principal_territory_code()
+        assert_equal(cc, None)
 
 # vim:ts=4 sw=4 et
