@@ -19,7 +19,7 @@ Validate ``Last-Translator``.
 
 Guess language from ``Language-Team``.
 
-Validate ``Plural-Forms``.
+Improve ``Plural-Forms`` support.
 
 Check for encodings that couldn't support all the language's characters (e.g.
 ISO-8859-1 for Polish).
@@ -32,7 +32,7 @@ Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
 Document the security model.
 
-Make some LingInfo methods private: ``get_plural_forms()``,
-``get_principal_territory()``, ``lookup_*_code()``.
+Make some LingInfo methods private: ``get_principal_territory()``,
+``lookup_*_code()``.
 
 .. vim:ft=rst

@@ -280,17 +280,27 @@ class test_get_primary_languages:
 
 class test_get_plural_forms:
 
-    def test_found(self):
-        pf = L.get_plural_forms('el')
-        assert_equal(pf, 'nplurals=2; plural=n != 1;')
+    def _get(self, lang):
+        lang = L.parse_language(lang)
+        return lang.get_plural_forms()
+
+    def test_found_ll(self):
+        assert_equal(
+            self._get('el'),
+            'nplurals=2; plural=n != 1;'
+        )
+
+    def test_found_ll_cc(self):
+        assert_equal(
+            self._get('el_GR'),
+            'nplurals=2; plural=n != 1;'
+        )
 
     def test_not_known(self):
-        pf = L.get_plural_forms('la')
-        assert_true(pf is None)
+        assert_true(self._get('la') is None)
 
     def test_not_found(self):
-        with assert_raises(LookupError):
-            L.get_plural_forms('ry')
+        assert_true(self._get('ry') is None)
 
 class test_get_principal_territory:
 

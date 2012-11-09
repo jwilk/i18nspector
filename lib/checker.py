@@ -26,6 +26,7 @@ import urllib.parse
 import polib
 
 from lib import dates
+from lib import gettext
 from lib import ling
 from lib import misc
 from lib import tags
@@ -142,6 +143,7 @@ class Checker(object):
                 )
                 broken_encoding = True
         language = self.check_language(file, is_template=is_template)
+        self.check_plurals(file, is_template=is_template, language=language)
         self.check_mime(file, is_template=is_template)
         self.check_dates(file, is_template=is_template)
         self.check_project(file)
@@ -253,6 +255,24 @@ class Checker(object):
         if not orig_meta_language:
             self.tag('no-language-header-field', tags.safestr('Language:'), language)
         return language
+
+    def check_plurals(self, file, *, is_template, language):
+        correct_plural_forms = None
+        if language is not None:
+            correct_plural_forms = language.get_plural_forms()
+        if correct_plural_forms is not None:
+            assert gettext.parse_plural_forms(correct_plural_forms)
+        plural_forms = file.metadata.get('Plural-Forms')
+        if plural_forms is None:
+            # TODO: Check if it's needed.
+            return
+        if is_template:
+            # TODO: Check if it's needed.
+            return
+        try:
+            (n, expr) = gettext.parse_plural_forms(plural_forms)
+        except gettext.PluralFormsSyntaxError:
+            self.tag('syntax-error-in-plural-forms', plural_forms, '=>', correct_plural_forms or 'nplurals=<n>; plural=<expression>')
 
     def check_mime(self, file, *, is_template):
         mime_version = file.metadata.get('MIME-Version')

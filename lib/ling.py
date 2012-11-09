@@ -156,6 +156,14 @@ class Language(object):
             return True
         return
 
+    def get_plural_forms(self):
+        result = None
+        if self.territory_code is not None:
+            result = self._parent._get_plural_forms('{}_{}'.format(self.language_code, self.territory_code))
+        if result is None:
+            result = self._parent._get_plural_forms(self.language_code)
+        return result
+
     def __str__(self):
         s = self.language_code
         if self.territory_code is not None:
@@ -264,11 +272,11 @@ class LingInfo(object):
     def get_primary_languages(self):
         return list(self._primary_languages)
 
-    def get_plural_forms(self, language):
+    def _get_plural_forms(self, language):
         try:
             section = self._primary_languages[language]
         except KeyError:
-            raise LookupError(language)
+            return
         return section.get('plural-forms')
 
     def get_principal_territory(self, language):

@@ -231,6 +231,15 @@ description =
  An input/output error or another operating system error occured while checking
  this file.
 
+[syntax-error-in-plural-forms]
+severity = important
+certainty = possible
+description =
+ Value of the Plural-Forms header field could not be parsed.
+ It should be in the form ``nplurals=<n>; plural=<expression>``.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Plural-forms
+
 [syntax-error-in-po-file]
 severity = serious
 certainty = possible
