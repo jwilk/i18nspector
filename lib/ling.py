@@ -114,8 +114,7 @@ class Language(object):
 
     def get_principal_territory_code(self):
         ll = self.language_code
-        if ll is None:
-            return
+        assert ll is not None
         return self._parent._get_principal_territory_code(ll)
 
     def remove_principal_territory_code(self):
