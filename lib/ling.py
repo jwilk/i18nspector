@@ -164,7 +164,7 @@ class Language(object):
             result = self._parent._get_plural_forms(self.language_code)
         return result
 
-    def unrepresentable_characters(self, encoding):
+    def get_unrepresentable_characters(self, encoding):
         characters = None
         if self.territory_code is not None:
             code = '{}_{}'.format(self.language_code, self.territory_code)

@@ -325,47 +325,47 @@ class test_unrepresentable_characters:
 
     def test_ll_bad(self):
         lang = L.parse_language('pl')
-        result = lang.unrepresentable_characters('ISO-8859-1')
+        result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_not_equal(result, [])
 
     def test_ll_ok(self):
         lang = L.parse_language('pl')
-        result = lang.unrepresentable_characters('ISO-8859-2')
+        result = lang.get_unrepresentable_characters('ISO-8859-2')
         assert_equal(result, [])
 
     def test_ll_cc_bad(self):
         lang = L.parse_language('pl_PL')
-        result = lang.unrepresentable_characters('ISO-8859-1')
+        result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_not_equal(result, [])
 
     def test_ll_cc_ok(self):
         lang = L.parse_language('pl_PL')
-        result = lang.unrepresentable_characters('ISO-8859-2')
+        result = lang.get_unrepresentable_characters('ISO-8859-2')
         assert_equal(result, [])
 
     def test_ll_mod_bad(self):
         lang = L.parse_language('en@quot')
-        result = lang.unrepresentable_characters('ISO-8859-1')
+        result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_not_equal(result, [])
 
     def test_ll_mod_ok(self):
         lang = L.parse_language('en@quot')
-        result = lang.unrepresentable_characters('UTF-8')
+        result = lang.get_unrepresentable_characters('UTF-8')
         assert_equal(result, [])
 
     def test_ll_cc_mod_bad(self):
         lang = L.parse_language('en_US@quot')
-        result = lang.unrepresentable_characters('ISO-8859-1')
+        result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_not_equal(result, [])
 
     def test_ll_cc_mod_ok(self):
         lang = L.parse_language('en_US@quot')
-        result = lang.unrepresentable_characters('UTF-8')
+        result = lang.get_unrepresentable_characters('UTF-8')
         assert_equal(result, [])
 
     def test_ll_not_found(self):
         lang = L.parse_language('ry')
-        result = lang.unrepresentable_characters('ISO-8859-1')
+        result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_true(result is None)
 
 # vim:ts=4 sw=4 et
