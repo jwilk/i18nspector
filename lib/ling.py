@@ -114,8 +114,6 @@ class Language(object):
 
     def get_principal_territory_code(self):
         ll = self.language_code
-        assert ll is not None
-        ll = self._parent.lookup_language_code(ll)
         if ll is None:
             return
         try:
@@ -127,12 +125,6 @@ class Language(object):
         cc = self.territory_code
         if cc is None:
             return
-        cc = self._parent.lookup_territory_code(cc)
-        if cc is None:
-            return
-        if cc != self.territory_code:
-            # This shouldn't really happen, but better safe than sorry.
-            raise ValueError
         default_cc = self.get_principal_territory_code()
         if cc == default_cc:
             self.territory_code = None
