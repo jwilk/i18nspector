@@ -23,6 +23,8 @@ import configparser
 import encodings.aliases
 import os
 
+from lib import misc
+
 class EncodingInfo(object):
 
     def __init__(self, datadir):
@@ -41,7 +43,7 @@ class EncodingInfo(object):
             elif extra == 'not-python':
                 pass
             else:
-                raise ValueError
+                raise misc.DataIntegrityError
         self._extra_aliases = {
             key.lower().replace('-', '_'): value.lower().replace('-', '_')
             for key, value in cp['extra-aliases'].items()
