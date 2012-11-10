@@ -39,6 +39,9 @@ class test_is_portable_encoding:
     def test_found(self):
         assert_true(E.is_portable_encoding('ISO-8859-2'))
 
+    def test_found_(self):
+        assert_true(E.is_portable_encoding('ISO_8859-2'))
+
     def test_found_nonpython(self):
         assert_false(E.is_portable_encoding('KOI8-T'))
         assert_true(E.is_portable_encoding('KOI8-T', python=False))
