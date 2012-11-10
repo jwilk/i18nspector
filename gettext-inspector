@@ -32,6 +32,14 @@ import subprocess as ipc
 import sys
 import tempfile
 
+basedir = ''
+if not basedir:
+    basedir = os.path.dirname(
+        os.path.realpath(__file__)
+    )
+os.stat(basedir)
+sys.path[:0] = [basedir]
+
 from lib import checker
 from lib import encodings
 from lib import gettext
@@ -129,7 +137,7 @@ def main():
     files = options.files
     del options.files
     datadir = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)),
+        basedir,
         'data', ''
     )
     os.stat(datadir)
