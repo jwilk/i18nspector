@@ -40,69 +40,34 @@ datadir = os.path.join(basedir, 'data')
 T = lib.ling.Language
 L = lib.ling.LingInfo(datadir)
 
-class test_language_objects:
+class test_fix_codes:
 
-    # fix_codes(): grc(_GR) -> grc(_GR)
-
-    def test_fix_codes_3c_to_3c(self):
-        lang = T(L, 'grc', 'GR')
-        assert_equal(lang.language_code, 'grc')
-        assert_equal(lang.territory_code, 'GR')
-        assert_true(lang.fix_codes() is None)
-        assert_equal(lang.language_code, 'grc')
-        assert_equal(lang.territory_code, 'GR')
-
-    def test_fix_codes_3_to_3(self):
-        lang = T(L, 'grc')
-        assert_equal(lang.language_code, 'grc')
-        assert_equal(lang.territory_code, None)
-        assert_true(lang.fix_codes() is None)
-        assert_equal(lang.language_code, 'grc')
-        assert_equal(lang.territory_code, None)
-
-    # fix_codes(): el(l)_GR -> el_GR
-
-    def test_fix_codes_2c_to_2c(self):
-        lang = T(L, 'el', 'GR')
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, 'GR')
-        assert_true(lang.fix_codes() is None)
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, 'GR')
-
-    def test_fix_codes_3c_to_2c(self):
-        lang = T(L, 'ell', 'GR')
-        assert_equal(lang.language_code, 'ell')
-        assert_equal(lang.territory_code, 'GR')
-        assert_true(lang.fix_codes() is True)
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, 'GR')
-
-    # fix_codes(): el(l) -> el
+    def _test(self, l1, l2):
+        lang = L.parse_language(l1)
+        assert_equal(str(lang), l1)
+        if l1 == l2:
+            assert_true(lang.fix_codes() is None)
+        else:
+            assert_true(lang.fix_codes() is True)
+        assert_equal(str(lang), l2)
 
     def test_fix_codes_2_to_2(self):
-        lang = T(L, 'el')
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, None)
-        assert_true(lang.fix_codes() is None)
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, None)
+        self._test('grc', 'grc')
+        self._test('grc_GR', 'grc_GR')
 
-    def test_fix_codes_3_to_2(self):
-        lang = T(L, 'ell')
-        assert_equal(lang.language_code, 'ell')
-        assert_equal(lang.territory_code, None)
-        assert_true(lang.fix_codes() is True)
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, None)
+    def test_fix_codes_1_to_1(self):
+        self._test('el', 'el')
+        self._test('el_GR', 'el_GR')
 
-    def test_fix_codes_3b_to_2(self):
-        lang = T(L, 'gre')
-        assert_equal(lang.language_code, 'gre')
-        assert_equal(lang.territory_code, None)
-        assert_true(lang.fix_codes() is True)
-        assert_equal(lang.language_code, 'el')
-        assert_equal(lang.territory_code, None)
+    def test_fix_codes_2t_to_1(self):
+        self._test('ell', 'el')
+        self._test('ell_GR', 'el_GR')
+
+    def test_fix_codes_2b_to_1(self):
+        self._test('gre', 'el')
+        self._test('gre_GR', 'el_GR')
+
+class test_language_equality:
 
     # ==, !=, is_almost_equal()
 
