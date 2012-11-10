@@ -19,15 +19,36 @@
 # SOFTWARE.
 
 import datetime
+import os
 
 import lib.gettext
 
 from nose.tools import (
     assert_equal,
+    assert_false,
+    assert_greater,
     assert_less,
     assert_raises,
     assert_true,
 )
+
+basedir = os.path.join(
+    os.path.dirname(__file__),
+    os.pardir,
+)
+datadir = os.path.join(basedir, 'data')
+G = lib.gettext.GettextInfo(datadir)
+
+class test_gettext_info:
+
+    def test_nonempty(self):
+        # XXX Update this number after editing data/po-header-fields:
+        expected = 12
+        assert_equal(len(G.po_header_fields), expected)
+
+    def test_no_x(self):
+        for field in G.po_header_fields:
+            assert_false(field.startswith('X-'))
 
 F = lib.gettext.fix_date_format
 P = lib.gettext.parse_date
