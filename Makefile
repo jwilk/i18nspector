@@ -40,7 +40,9 @@ install:
 	install -d -m755 $(DESTDIR)$(bindir)
 	sed -e "s#^basedir = .*#basedir = '$(basedir)/'#" $(gi) > $(DESTDIR)$(bindir)/$(gi)
 	# library:
-	( cd lib && find -type f ! -name '*.py[co]' ) | xargs -t -I {} install -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
+	( cd lib && find -type f ! -name '*.py[co]' ) \
+	| sed -e 's#^[.]/##' \
+	| xargs -t -I {} install -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
 	# data:
 	install -d -m755 $(DESTDIR)$(datadir)
 	install -m 644 data/* $(DESTDIR)$(datadir)
