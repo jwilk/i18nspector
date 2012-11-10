@@ -164,6 +164,23 @@ class Language(object):
             result = self._parent._get_plural_forms(self.language_code)
         return result
 
+    def unrepresentable_characters(self, encoding):
+        characters = None
+        if self.territory_code is not None:
+            code = '{}_{}'.format(self.language_code, self.territory_code)
+            characters = self._parent._get_characters(code, self.modifier)
+        if characters is None:
+            characters = self._parent._get_characters(self.language_code, self.modifier)
+        if characters is None:
+            return
+        result = []
+        for character in characters:
+            try:
+                character.encode(encoding)
+            except UnicodeError:
+                result += [character]
+        return result
+
     def __str__(self):
         s = self.language_code
         if self.territory_code is not None:
@@ -285,5 +302,18 @@ class LingInfo(object):
         except KeyError:
             raise LookupError(language)
         return section.get('principal-territory')
+
+    def _get_characters(self, language, modifier=None):
+        try:
+            section = self._primary_languages[language]
+        except KeyError:
+            return
+        section_name = 'characters'
+        if modifier is not None:
+            section_name += '@{}'.format(modifier)
+        result = section.get(section_name)
+        if result is None:
+            return
+        return result.split()
 
 # vim:ts=4 sw=4 et
