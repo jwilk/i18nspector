@@ -27,9 +27,10 @@ from nose.tools import (
     assert_equal,
     assert_false,
     assert_greater,
+    assert_is,
+    assert_is_instance,
     assert_less,
     assert_raises,
-    assert_true,
 )
 
 basedir = os.path.join(
@@ -56,7 +57,7 @@ P = lib.gettext.parse_date
 class test_fix_date_format:
 
     def test_boilerplace(self):
-        assert_true(F('YEAR-MO-DA HO:MI+ZONE') is None)
+        assert_is(F('YEAR-MO-DA HO:MI+ZONE'), None)
 
     def test_okay(self):
         d = '2010-10-13 01:27+0200'
@@ -81,13 +82,13 @@ class test_fix_date_format:
         )
 
     def test_nonnumeric_tz(self):
-        assert_true(F('2004-04-20 13:24+CEST') is None)
+        assert_is(F('2004-04-20 13:24+CEST'), None)
 
     def test_only_date(self):
-        assert_true(F('2008-01-09') is None)
+        assert_is(F('2008-01-09'), None)
 
     def test_nonexistent(self):
-        assert_true(F('2010-02-29 19:49+0200') is None)
+        assert_is(F('2010-02-29 19:49+0200'), None)
 
 class test_parse_date:
 
@@ -98,7 +99,7 @@ class test_parse_date:
     def test_existent(self):
         d = P('2003-09-08 21:26+0200')
         assert_equal(d.second, 0)
-        assert_true(isinstance(d, datetime.datetime))
+        assert_is_instance(d, datetime.datetime)
         assert_equal(str(d), '2003-09-08 21:26:00+02:00')
 
 def test_epoch():

@@ -24,6 +24,7 @@ import lib.encodings
 from nose.tools import (
     assert_equal,
     assert_false,
+    assert_is,
     assert_true,
 )
 
@@ -63,6 +64,6 @@ class test_propose_portable_encoding:
 
     def test_notfound(self):
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
-        assert_true(portable_encoding is None)
+        assert_is(portable_encoding, None)
 
 # vim:ts=4 sw=4 et
