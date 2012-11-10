@@ -113,6 +113,23 @@ class test_language_equality:
         with assert_raises(TypeError):
             l1.is_almost_equal(42)
 
+class test_remove_encoding:
+
+    def _test(self, l1, l2):
+        lang = L.parse_language(l1)
+        assert_equal(str(lang), l1)
+        if l1 == l2:
+            assert_true(lang.remove_encoding() is None)
+        else:
+            assert_true(lang.remove_encoding() is True)
+        assert_equal(str(lang), l2)
+
+    def test_without_encoding(self):
+        self._test('el', 'el')
+
+    def test_with_encoding(self):
+        self._test('el.UTF-8', 'el')
+
 class test_lookup_language_code:
 
     def test_found_3_to_3(self):
