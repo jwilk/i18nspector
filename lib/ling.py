@@ -127,12 +127,6 @@ class Language(object):
             self.territory_code = None
             return True
 
-    def fix_encoding(self):
-        # TODO
-        if self.encoding is None:
-            return
-        raise FixingLanguageEncodingFailed()
-
     def remove_encoding(self):
         if self.encoding == None:
             return
