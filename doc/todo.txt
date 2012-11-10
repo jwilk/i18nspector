@@ -21,8 +21,7 @@ Guess language from ``Language-Team``.
 
 Improve ``Plural-Forms`` support.
 
-Check for encodings that couldn't support all the language's characters (e.g.
-ISO-8859-1 for Polish).
+Add characters=… for more languages.
 
 Figure out what to do with encodings supported by iconv but not by Python.
 

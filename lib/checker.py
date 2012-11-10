@@ -144,7 +144,7 @@ class Checker(object):
                 broken_encoding = True
         language = self.check_language(file, is_template=is_template)
         self.check_plurals(file, is_template=is_template, language=language)
-        self.check_mime(file, is_template=is_template)
+        self.check_mime(file, is_template=is_template, language=language)
         self.check_dates(file, is_template=is_template)
         self.check_project(file)
         self.check_headers(file)
@@ -274,7 +274,7 @@ class Checker(object):
         except gettext.PluralFormsSyntaxError:
             self.tag('syntax-error-in-plural-forms', plural_forms, '=>', correct_plural_forms or 'nplurals=<n>; plural=<expression>')
 
-    def check_mime(self, file, *, is_template):
+    def check_mime(self, file, *, is_template, language):
         mime_version = file.metadata.get('MIME-Version')
         if mime_version is not None:
             if mime_version != '1.0':
@@ -311,6 +311,10 @@ class Checker(object):
                             self.tag('non-portable-encoding', encoding, '=>', new_encoding)
                         else:
                             self.tag('non-portable-encoding', encoding)
+                    if language is not None:
+                        unrepresentable_characters = language.get_unrepresentable_characters(encoding)
+                        if unrepresentable_characters:
+                            self.tag('unrepresentable-characters', encoding, *unrepresentable_characters)
             else:
                 self.tag('invalid-content-type', ct, '=>', 'text/plain; charset=<encoding>')
         else:

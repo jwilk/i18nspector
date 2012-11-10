@@ -286,4 +286,11 @@ description =
  Language declared in X-Poedit-Language couldn't be recognized.
  It might be a bug in gettext-inspector.
 
+[unrepresentable-characters]
+severity = serious
+certainty = possible
+description =
+ The declared encoding cannot represent all characters commonly used in this language.
+ This is a strong indication that the declared encoding is incorrect.
+
 # vim:ft=dosini
