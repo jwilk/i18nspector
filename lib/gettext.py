@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 import functools
 import os
 import re
@@ -119,5 +120,45 @@ def parse_plural_forms(s):
     n = int(match.group(1), 10)
     expr = parse_plural_expression(match.group(2))
     return (n, expr)
+
+# =====
+# Dates
+# =====
+
+class DateSyntaxError(Exception):
+    pass
+
+_parse_date = re.compile('''
+    ^ \s*
+    ( [0-9]{4}-[0-9]{2}-[0-9]{2} ) # YYYY-MM-DD
+    ( \s+ )
+    ( [0-9]{2}:[0-9]{2} ) # hh:mm
+    (?: : [0-9]{2} )? # ss
+    \s*
+    ( [+-] [0-9]{2} ) # ZZ
+    :?
+    ( [0-9]{2} ) # zz
+    \s* $
+''', re.VERBOSE).match
+
+def fix_date_format(s):
+    match = _parse_date(s)
+    if match is None:
+        return
+    s = ''.join(match.groups())
+    assert len(s) == 21
+    try:
+        parse_date(s)
+    except DateSyntaxError:
+        return
+    return s
+
+def parse_date(s):
+    try:
+        return datetime.datetime.strptime(s, '%Y-%m-%d %H:%M%z')
+    except ValueError as exc:
+        raise DateSyntaxError(exc)
+
+epoch = datetime.datetime(1995, 7, 2, tzinfo=datetime.timezone.utc)
 
 # vim:ts=4 sw=4 et

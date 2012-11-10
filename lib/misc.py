@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 import functools
 import shlex
 import warnings
@@ -87,5 +88,10 @@ class OSRelease(object):
         if self._id == ident:
             return True
         return ident in self._id_like
+
+def utc_now():
+    now = datetime.datetime.now()
+    now = now.replace(tzinfo=datetime.timezone.utc)
+    return now
 
 # vim:ts=4 sw=4 et

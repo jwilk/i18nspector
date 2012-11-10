@@ -25,7 +25,6 @@ import urllib.parse
 
 import polib
 
-from lib import dates
 from lib import gettext
 from lib import ling
 from lib import misc
@@ -320,16 +319,16 @@ class Checker(object):
                 continue
             elif is_template and field.startswith('PO-') and (date == 'YEAR-MO-DA HO:MI+ZONE'):
                 continue
-            fixed_date = dates.fix_date_format(date)
+            fixed_date = gettext.fix_date_format(date)
             if fixed_date is None:
                 self.tag('invalid-date', tags.safestr(field + ':'), date)
                 continue
             elif date != fixed_date:
                 self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
-            stamp = dates.parse_date(fixed_date)
-            if stamp > dates.now:
+            stamp = gettext.parse_date(fixed_date)
+            if stamp > misc.utc_now():
                 self.tag('date-from-future', tags.safestr(field + ':'), date)
-            if stamp < dates.gettext_epoch:
+            if stamp < gettext.epoch:
                 self.tag('ancient-date', tags.safestr(field + ':'), date)
 
     def check_project(self, file):

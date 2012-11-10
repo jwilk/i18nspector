@@ -20,7 +20,7 @@
 
 import datetime
 
-import lib.dates
+import lib.gettext
 
 from nose.tools import (
     assert_equal,
@@ -29,8 +29,8 @@ from nose.tools import (
     assert_true,
 )
 
-F = lib.dates.fix_date_format
-P = lib.dates.parse_date
+F = lib.gettext.fix_date_format
+P = lib.gettext.parse_date
 
 class test_fix_date_format:
 
@@ -71,7 +71,7 @@ class test_fix_date_format:
 class test_parse_date:
 
     def test_nonexistent(self):
-        with assert_raises(ValueError):
+        with assert_raises(lib.gettext.DateSyntaxError):
             P('2010-02-29 19:49+0200')
 
     def test_existent(self):
@@ -80,9 +80,8 @@ class test_parse_date:
         assert_true(isinstance(d, datetime.datetime))
         assert_equal(str(d), '2003-09-08 21:26:00+02:00')
 
-def test_constants():
+def test_epoch():
     d = P('2008-04-03 16:06+0300')
-    assert_less(d, lib.dates.now)
-    assert_less(lib.dates.gettext_epoch, d)
+    assert_less(lib.gettext.epoch, d)
 
 # vim:ts=4 sw=4 et
