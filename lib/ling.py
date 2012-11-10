@@ -151,18 +151,21 @@ class Language(object):
     def get_plural_forms(self):
         result = None
         if self.territory_code is not None:
-            result = self._parent._get_plural_forms('{}_{}'.format(self.language_code, self.territory_code))
+            code = self._simple_format()
+            result = self._parent._get_plural_forms(code)
         if result is None:
-            result = self._parent._get_plural_forms(self.language_code)
+            code = self._simple_format(territory=False)
+            result = self._parent._get_plural_forms(code)
         return result
 
     def get_unrepresentable_characters(self, encoding):
         characters = None
         if self.territory_code is not None:
-            code = '{}_{}'.format(self.language_code, self.territory_code)
+            code = self._simple_format()
             characters = self._parent._get_characters(code, self.modifier)
         if characters is None:
-            characters = self._parent._get_characters(self.language_code, self.modifier)
+            code = self._simple_format(territory=False)
+            characters = self._parent._get_characters(code, self.modifier)
         if characters is None:
             return
         result = []
@@ -172,6 +175,12 @@ class Language(object):
             except UnicodeError:
                 result += [character]
         return result
+
+    def _simple_format(self, territory=True):
+        s = self.language_code
+        if territory and self.territory_code is not None:
+            s += '_' + self.territory_code
+        return s
 
     def __str__(self):
         s = self.language_code
