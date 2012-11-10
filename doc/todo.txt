@@ -1,5 +1,3 @@
-Fix LC_ALL=C support.
-
 Improve the manual page.
 
 Add setup.py script.

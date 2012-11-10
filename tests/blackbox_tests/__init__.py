@@ -107,8 +107,9 @@ def assert_emit_tags(path, etags, *, options=()):
     commandline = [prog]
     commandline += options
     commandline += [path]
-    stdout = ipc.check_output(commandline)
-    stdout = stdout.decode('ASCII', 'replace').splitlines() # FIXME!
+    fixed_env = dict(os.environ, LC_ALL='C')
+    stdout = ipc.check_output(commandline, env=fixed_env)
+    stdout = stdout.decode('ASCII').splitlines()
     assert_list_equal(stdout, etags)
 
 def _test_file(path):

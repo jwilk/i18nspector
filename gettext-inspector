@@ -25,6 +25,7 @@ tool for checking gettext POT/PO/MO files
 '''
 
 import argparse
+import io
 import os
 import shutil
 import subprocess as ipc
@@ -46,6 +47,14 @@ def require_python(*version):
             ver='.'.join(map(str, version))
         ))
         sys.exit(1)
+
+def fix_stdout():
+    if sys.stdout.errors != 'strict':
+        return
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer,
+        encoding=sys.stdout.encoding,
+        errors='backslashreplace',
+    )
 
 class Checker(checker.Checker):
 
@@ -108,6 +117,7 @@ def check_deb(filename, *, options):
 
 def main():
     require_python(3, 2)
+    fix_stdout()
     is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser(description=__doc__.strip())
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this langauge')
