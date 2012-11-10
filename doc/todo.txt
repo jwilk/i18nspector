@@ -1,3 +1,9 @@
+Fix LC_ALL=C support.
+
+Improve the manual page.
+
+Add setup.py script.
+
 Complain about incorrect locale codes:
  * al -> sq
  * cn -> zh
