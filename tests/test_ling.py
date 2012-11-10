@@ -51,19 +51,19 @@ class test_fix_codes:
             assert_true(lang.fix_codes() is True)
         assert_equal(str(lang), l2)
 
-    def test_fix_codes_2_to_2(self):
+    def test_2_to_2(self):
         self._test('grc', 'grc')
         self._test('grc_GR', 'grc_GR')
 
-    def test_fix_codes_1_to_1(self):
+    def test_1_to_1(self):
         self._test('el', 'el')
         self._test('el_GR', 'el_GR')
 
-    def test_fix_codes_2t_to_1(self):
+    def test_2t_to_1(self):
         self._test('ell', 'el')
         self._test('ell_GR', 'el_GR')
 
-    def test_fix_codes_2b_to_1(self):
+    def test_2b_to_1(self):
         self._test('gre', 'el')
         self._test('gre_GR', 'el_GR')
 
