@@ -2,4 +2,42 @@ gettext-inspector (0.1) UNRELEASED; urgency=low
 
   * Initial release.
 
+  * Summary of tag changes:
+    + Added:
+      - ancient-date
+      - boilerplate-in-project-id-version
+      - boilerplate-in-report-msgid-bugs-to
+      - broken-encoding
+      - c1-control-characters
+      - date-from-future
+      - encoding-in-language-header-field
+      - invalid-content-transfer-encoding
+      - invalid-content-type
+      - invalid-date
+      - invalid-language
+      - invalid-mime-version
+      - invalid-mo-file
+      - invalid-report-msgid-bugs-to
+      - language-disparity
+      - language-variant-does-not-affect-translation
+      - no-content-transfer-encoding-header-field
+      - no-content-type-header-field
+      - no-date-header-field
+      - no-language-header-field
+      - no-mime-version-header-field
+      - no-package-name-in-project-id-version
+      - no-project-id-version-header-field
+      - no-report-msgid-bugs-to-header-field
+      - no-version-in-project-id-version
+      - non-portable-encoding
+      - os-error
+      - syntax-error-in-plural-forms
+      - syntax-error-in-po-file
+      - unable-to-determine-language
+      - unknown-encoding
+      - unknown-file-type
+      - unknown-header-field
+      - unknown-poedit-language
+      - unrepresentable-characters
+
  -- Jakub Wilk <jwilk@jwilk.net>  Sat, 10 Nov 2012 11:59:28 +0100
