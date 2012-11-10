@@ -130,6 +130,27 @@ class test_remove_encoding:
     def test_with_encoding(self):
         self._test('el.UTF-8', 'el')
 
+class test_remove_nonlinguistic_modifier:
+
+    def _test(self, l1, l2):
+        lang = L.parse_language(l1)
+        assert_equal(str(lang), l1)
+        if l1 == l2:
+            assert_true(lang.remove_nonlinguistic_modifier() is None)
+        else:
+            assert_true(lang.remove_nonlinguistic_modifier() is True)
+        assert_equal(str(lang), l2)
+
+    def test_quot(self):
+        self._test('en@quot', 'en@quot')
+        self._test('en@boldquot', 'en@boldquot')
+
+    def test_latin(self):
+        self._test('sr@latin', 'sr@latin')
+
+    def test_euro(self):
+        self._test('de_AT@euro', 'de_AT')
+
 class test_lookup_language_code:
 
     def test_found_3_to_3(self):
