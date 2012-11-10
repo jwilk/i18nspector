@@ -1,5 +1,3 @@
-Improve the manual page.
-
 Add setup.py script.
 
 Complain about incorrect locale codes:
