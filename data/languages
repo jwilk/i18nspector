@@ -225,6 +225,8 @@ principal-territory = GR
 
 [en]
 names = English
+characters@quot = ‘ ’
+characters@boldquot = ‘ ’
 plural-forms = nplurals=2; plural=n != 1;
 
 [eo]
