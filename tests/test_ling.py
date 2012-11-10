@@ -67,6 +67,10 @@ class test_fix_codes:
         self._test('gre', 'el')
         self._test('gre_GR', 'el_GR')
 
+    def test_not_found(self):
+        with assert_raises(lib.ling.FixingLanguageCodesFailed):
+            self._test('ry', '')
+
 class test_language_equality:
 
     # ==, !=, is_almost_equal()
