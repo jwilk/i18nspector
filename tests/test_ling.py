@@ -118,6 +118,11 @@ class test_language_objects:
         assert_not_equal(l1, l2)
         assert_not_equal(l2, l1)
 
+    def test_ne_other_type(self):
+        l1 = T(L, 'el')
+        assert_not_equal(l1, 42)
+        assert_not_equal(42, l1)
+
     def test_almost_equal(self):
         l1 = T(L, 'el')
         l2 = T(L, 'el', 'GR')
@@ -129,6 +134,11 @@ class test_language_objects:
         l2 = T(L, 'grc', 'GR')
         assert_false(l1.is_almost_equal(l2))
         assert_false(l2.is_almost_equal(l1))
+
+    def test_not_almost_equal_other_type(self):
+        l1 = T(L, 'el')
+        with assert_raises(TypeError):
+            l1.is_almost_equal(42)
 
 class test_lookup_language_code:
 
