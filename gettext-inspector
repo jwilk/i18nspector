@@ -47,6 +47,8 @@ from lib import ling
 from lib import misc
 from lib import tags
 
+__version__ = '0.1'
+
 def require_python(*version):
     if sys.version_info < version:
         prog = argparse.ArgumentParser().prog
@@ -128,6 +130,7 @@ def main():
     fix_stdout()
     is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser(description=__doc__.strip())
+    ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this langauge')
     debian_help = 'allow checking Debian packages' + (' (enabled by default)' if is_like_debian else '')
     ap.add_argument('--debian', action='store_true', default=is_like_debian, help=debian_help)
