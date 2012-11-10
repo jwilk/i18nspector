@@ -40,6 +40,13 @@ references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
 
+[c1-control-characters]
+severity = important
+certainty = possible
+description =
+ One of the messages appears to contain C1 control characters.
+ This is usually an indication of an encoding problem.
+
 [date-from-future]
 severity = normal
 certainty = certain

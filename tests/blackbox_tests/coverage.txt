@@ -2,6 +2,7 @@
 [X] boilerplate-in-project-id-version
 [X] boilerplate-in-report-msgid-bugs-to
 [X] broken-encoding
+[X] c1-control-characters
 [X] date-from-future
 [X] encoding-in-language-header-field
 [X] invalid-content-transfer-encoding

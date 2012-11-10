@@ -136,10 +136,13 @@ class Checker(object):
                 broken_encoding = True
         language = self.check_language(file, is_template=is_template)
         self.check_plurals(file, is_template=is_template, language=language)
-        self.check_mime(file, is_template=is_template, language=language)
+        encoding = self.check_mime(file, is_template=is_template, language=language)
+        if broken_encoding:
+            encoding = None
         self.check_dates(file, is_template=is_template)
         self.check_project(file)
         self.check_headers(file)
+        self.check_messages(file, encoding=encoding)
 
     def check_language(self, file, *, is_template):
         if is_template:
@@ -358,5 +361,14 @@ class Checker(object):
                 continue
             if key not in self.options.gettextinfo.po_header_fields:
                 self.tag('unknown-header-field', key)
+
+    def check_messages(self, file, *, encoding):
+        if encoding is None:
+            return
+        has_c1 = re.compile(r'[\x80-\x9f]').search
+        for message in file:
+            if has_c1(message.msgstr):
+                self.tag('c1-control-characters')
+                break
 
 # vim:ts=4 sw=4 et
