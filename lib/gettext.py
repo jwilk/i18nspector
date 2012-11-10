@@ -42,7 +42,7 @@ class GettextInfo(object):
 class PluralFormsSyntaxError(Exception):
     pass
 
-class PluralExpressionSyntaxError(Exception):
+class PluralExpressionSyntaxError(PluralFormsSyntaxError):
     pass
 
 _plural_exp_tokens = [
