@@ -12,8 +12,10 @@ Complain about incorrect locale codes:
  * sh_HR -> hr_HR
  * sh_RS -> sr_RS
  * sr_CS -> sr
+ * sr_SR -> sr_RS
  * sr_YU -> sr
  * uk_UK -> uk_UA
+ * vn -> vi
 
 Validate ``Last-Translator``.
 
