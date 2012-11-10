@@ -45,10 +45,6 @@ def require_python(*version):
 
 class Checker(checker.Checker):
 
-    def debug(self, message, *extra):
-        if self.options.debug:
-            print('N:', message, *extra)
-
     def tag(self, tagname, *extra):
         if tagname in self.options.ignore_tags:
             return
@@ -112,7 +108,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('-l', '--language', metavar='<lang>')
     ap.add_argument('--debian', action='store_true', default=is_like_debian)
-    ap.add_argument('--debug', action='store_true')
+    ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
     ap.add_argument('files', metavar='<file>', nargs='+')
     options = ap.parse_args()
     files = options.files
@@ -131,7 +127,7 @@ def main():
             language = linginfo.parse_language(options.language)
             language.fix_codes()
         except ling.LanguageError:
-            if options.debug:
+            if options.traceback:
                 raise
             ap.error('invalid language')
         language.remove_encoding()

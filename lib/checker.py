@@ -64,15 +64,10 @@ class Checker(object):
         self.options = options
 
     @misc.not_overridden
-    def debug(self, message, *extra):
-        return
-
-    @misc.not_overridden
     def tag(self, tagname, *extra):
         return
 
     def check(self):
-        self.debug('path = {!r}'.format(self.path))
         # If a file passed to polib doesn't exist, it will “helpfully” treat it
         # as PO/MO file _contents_. This is definitely not what we want. To
         # prevent such disaster, fail early if the file doesn't exit.
@@ -85,14 +80,11 @@ class Checker(object):
         is_template = False
         if extension == '.po':
             constructor = polib.pofile
-            self.debug('filetype = .po')
         elif extension == '.pot':
             constructor = polib.pofile
-            self.debug('filetype = .po')
             is_template = True
         elif extension in ('.mo', '.gmo'):
             constructor = polib.mofile
-            self.debug('filetype = .mo')
         else:
             self.tag('unknown-file-type')
             return
@@ -190,7 +182,6 @@ class Checker(object):
             else:
                 language_source = 'pathname'
         meta_language = orig_meta_language = file.metadata.get('Language')
-        self.debug('meta-language = {!r}'.format(meta_language))
         if meta_language:
             try:
                 meta_language = linginfo.parse_language(meta_language)
@@ -228,12 +219,10 @@ class Checker(object):
                     meta_language, tags.safestr('(Language header field)')
                 )
         poedit_language = file.metadata.get('X-Poedit-Language')
-        self.debug('poedit-language = {!r}'.format(poedit_language))
         if poedit_language:
             # FIXME: This should take also X-Poedit-Country into account.
             try:
                 poedit_language = linginfo.get_language_for_name(poedit_language)
-                self.debug('poedit-language = {!r}'.format(poedit_language))
             except LookupError:
                 self.tag('unknown-poedit-language', poedit_language)
             else:
@@ -251,7 +240,6 @@ class Checker(object):
                 self.tag('no-language-header-field')
             self.tag('unable-to-determine-language')
             return
-        self.debug('language = {!r}'.format(language))
         if not orig_meta_language:
             self.tag('no-language-header-field', tags.safestr('Language:'), language)
         return language
