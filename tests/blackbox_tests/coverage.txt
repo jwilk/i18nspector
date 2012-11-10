@@ -31,3 +31,4 @@
 [X] unknown-file-type
 [X] unknown-header-field
 [X] unknown-poedit-language
+[X] unrepresentable-characters
