@@ -116,10 +116,7 @@ class Language(object):
         ll = self.language_code
         if ll is None:
             return
-        try:
-            return self._parent._get_principal_territory_code(ll)
-        except LookupError:
-            return
+        return self._parent._get_principal_territory_code(ll)
 
     def remove_principal_territory_code(self):
         cc = self.territory_code
@@ -301,7 +298,7 @@ class LingInfo(object):
         try:
             section = self._primary_languages[language]
         except KeyError:
-            raise LookupError(language)
+            return
         return section.get('principal-territory')
 
     def _get_characters(self, language, modifier=None):
