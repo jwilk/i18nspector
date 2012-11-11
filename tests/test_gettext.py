@@ -51,6 +51,27 @@ class test_gettext_info:
         for field in G.po_header_fields:
             assert_false(field.startswith('X-'))
 
+class test_plurals:
+
+    _error = lib.gettext.PluralFormsSyntaxError
+
+    def _pf(self, s):
+        return lib.gettext.parse_plural_forms(s)
+
+    def _pe(self, s):
+        return lib.gettext.parse_plural_expression(s)
+
+    def test_plural_forms_nplurals_0(self):
+        with assert_raises(self._error):
+            self._pf('nplurals=0; plural=0;')
+
+    def test_plural_forms_nplurals_positive(self):
+        for i in 1, 2, 10, 42:
+            self._pf('nplurals={}; plural=0;'.format(i))
+
+    def test_plural_forms_missing_trailing_semicolon(self):
+        self._pf('nplurals=1; plural=0')
+
 F = lib.gettext.fix_date_format
 P = lib.gettext.parse_date
 
