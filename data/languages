@@ -290,7 +290,7 @@ principal-territory = NL
 
 [ga]
 names = Irish
-plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
+# plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
 principal-territory = IE
 
 [gaa]
@@ -782,7 +782,7 @@ principal-territory = SK
 
 [sl]
 names = Slovenian
-plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
+# plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
 principal-territory = SI
 
 [sm]
@@ -879,7 +879,7 @@ names = Tok Pisin
 names =
  Turkish
  Türkçe
-plural-forms = nplurals=2; plural=n != 1;
+# plural-forms = nplurals=2; plural=n != 1;
 principal-territory = TR
 
 [ts]
