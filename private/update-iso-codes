@@ -38,9 +38,11 @@ def main():
     )
     path = os.path.join(basedir, 'data', 'iso-codes')
     sys.stdout = open(path + '.tmp', 'wt', encoding='UTF-8')
-    print('# This file has been generated automatically. Do not edit.')
-    print('# Last update: {today}'.format(today=datetime.date.today()))
-    print()
+    print('''\
+# This file has been generated automatically by private/update-iso-codes.
+# Do not edit.
+# Last update: {today}
+'''.format(today=datetime.date.today()))
     generate_iso_639()
     generate_iso_3166()
     sys.stdout.close()
