@@ -40,6 +40,10 @@ def main():
     )
     path = os.path.join(basedir, 'data', 'po-header-fields')
     with open(path, 'wt', encoding='ASCII') as file:
+        print('''\
+# This file has been generated automatically by
+# private/update-po-header-fields. Do not edit.
+''', file=file)
         for header in sorted(headers):
             print(header, file=file)
 
