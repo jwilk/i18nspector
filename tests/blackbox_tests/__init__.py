@@ -23,6 +23,7 @@ import os
 import re
 import shlex
 import subprocess as ipc
+import sys
 import tempfile
 
 from nose.tools import (
@@ -104,7 +105,7 @@ class ETag(object):
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
     prog = os.path.join(here, os.pardir, os.pardir, 'gettext-inspector')
-    commandline = [prog]
+    commandline = [sys.executable, prog]
     commandline += options
     commandline += [path]
     fixed_env = dict(os.environ, LC_ALL='C')
