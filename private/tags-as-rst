@@ -32,6 +32,10 @@ sys.path[:0] = [basedir]
 from lib import tags
 
 def output_tags_rst(taginfo):
+    print('''\
+.. This file has been generated automatically by private/tags-as-rst.
+   Do not edit.
+''')
     for tag in taginfo:
         tagname = tag.name
         print(tagname)
