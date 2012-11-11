@@ -41,6 +41,10 @@ def main():
         'coverage.txt'
     )
     sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')
+    print('''\
+# This file has been generated automatically by private/update-coverage.
+# Do not edit.
+''')
     for tag in taginfo:
         check = 'X' if tag.name in coverage else ' '
         print('[{check}] {tag}'.format(check=check, tag=tag.name))

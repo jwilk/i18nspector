@@ -1,3 +1,6 @@
+# This file has been generated automatically by private/update-coverage.
+# Do not edit.
+
 [X] ancient-date
 [X] boilerplate-in-project-id-version
 [X] boilerplate-in-report-msgid-bugs-to
