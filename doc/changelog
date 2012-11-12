@@ -6,8 +6,10 @@ gettext-inspector (0.1.1) UNRELEASED; urgency=low
     comments where appropriate.
   * Add alphabet information for East Slavic languages (Belarusian, Russian,
     Ukrainian).
+  * Do not make KOI8-RU an alias for KOI8-R. They are in fact distinct
+    encodings.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 12 Nov 2012 15:41:40 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 12 Nov 2012 15:52:59 +0100
 
 gettext-inspector (0.1) unstable; urgency=low
 

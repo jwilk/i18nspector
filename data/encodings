@@ -52,6 +52,5 @@ UTF-8 =
 [extra-aliases]
 # This section lists aliases of encodings that are used by real-world PO files,
 # but that are not known to Python.
-KOI8-RU = KOI8-R
 
 # vim:ft=dosini
