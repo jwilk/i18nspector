@@ -37,8 +37,11 @@ def main():
     init_polib()
     ap = argparse.ArgumentParser()
     ap.add_argument('files', metavar='<file>', nargs='*')
+    ap.add_argument('-F', '--field', help='only this field')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
+    if options.field is not None:
+        options.field = options.field.lower()
     metadata = collections.defaultdict(collections.Counter)
     test_cases = {}
     files = options.files
@@ -61,6 +64,8 @@ def main():
             file = constructor(path)
             for k, v in file.metadata.items():
                 k = k.lower()
+                if not (options.field is None or k == options.field):
+                    continue
                 metadata[k][v] += 1
                 test_cases[k, v] = path
             file = None
