@@ -30,14 +30,21 @@ def iconv_encoding(encoding):
 
     # FIXME: This implementation is SLOW.
 
+    def popen(*args):
+        def set_lc_all_c():
+            os.environ['LC_ALL'] = 'C'
+        return ipc.Popen(args,
+            stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
+            preexec_fn=set_lc_all_c,
+        )
+
     def encode(input, errors='strict'):
         if len(input) == 0:
             return b'', 0
         if errors != 'strict':
             raise NotImplementedError
-        child = ipc.Popen(['iconv', '-s', '-f', 'UTF-8', '-t', encoding],
-            stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
-        )
+        fixed_env = dict(os.environ, LC_ALL='C')
+        child = popen('iconv', '-s', '-f', 'UTF-8', '-t', encoding)
         (stdout, stderr) = child.communicate(input.encode('UTF-8'))
         if stderr != b'':
             stderr = stderr.decode('ASCII', 'replace')
@@ -49,9 +56,7 @@ def iconv_encoding(encoding):
             return '', 0
         if errors != 'strict':
             raise NotImplementedError
-        child = ipc.Popen(['iconv', '-s', '-f', encoding, '-t', 'UTF-8'],
-            stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
-        )
+        child = popen('iconv', '-s', '-f', encoding, '-t', 'UTF-8')
         (stdout, stderr) = child.communicate(input)
         if stderr != b'':
             stderr = stderr.decode('ASCII', 'replace')
