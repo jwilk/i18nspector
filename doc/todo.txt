@@ -29,7 +29,12 @@ Improve ``Plural-Forms`` support.
 
 Add characters=… for more languages.
 
-Figure out what to do with encodings supported by iconv but not by Python.
+Implement Python codecs for the following encodings:
+- EUC-TW
+- GEORGIAN-PS
+- KOI8-RU
+- KOI8-T
+- VISCII
 
 Fix support for ``X-Poedit-Language: (Afan) Oromo``.
 
