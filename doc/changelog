@@ -4,8 +4,10 @@ gettext-inspector (0.1.1) UNRELEASED; urgency=low
   * Makefile: remove bogus shebang. Thanks to Paul Wise for the bug report.
   * Add “This file has been generated automatically by […]. Do not edit.”
     comments where appropriate.
+  * Add alphabet information for East Slavic languages (Belarusian, Russian,
+    Ukrainian).
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 12 Nov 2012 14:50:59 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 12 Nov 2012 15:41:40 +0100
 
 gettext-inspector (0.1) unstable; urgency=low
 

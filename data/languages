@@ -81,6 +81,12 @@ names = Baluchi
 
 [be]
 names = Belarusian
+characters =
+ а б в г д е ё ж з і й к л м н о п р с т у ў ф х ц ч ш ы ь э ю я
+ А Б В Г Д Е Ё Ж З І Й К Л М Н О П Р С Т У Ў Ф Х Ц Ч Ш Ы Ь Э Ю Я
+characters@latin =
+ ć č ł ń ś š ŭ ź ž
+ Ć Č Ł Ń Ś Š Ŭ Ź Ž
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = BY
 
@@ -729,6 +735,9 @@ plural-forms = nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20))
 
 [ru]
 names = Russian
+characters =
+ а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я
+ А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = RU
 
@@ -908,6 +917,9 @@ principal-territory = CN
 
 [uk]
 names = Ukrainian
+characters =
+ а б в г ґ д е є ж з и і ї й к л м н о п р с т у ф х ц ч ш щ ь ю я
+ А Б В Г Ґ Д Е Є Ж З И І Ї Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ь Ю Я
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = UA
 
