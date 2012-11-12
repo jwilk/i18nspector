@@ -29,13 +29,6 @@ Improve ``Plural-Forms`` support.
 
 Add characters=… for more languages.
 
-Implement Python codecs for the following encodings:
-- EUC-TW
-- GEORGIAN-PS
-- KOI8-RU
-- KOI8-T
-- VISCII
-
 Fix support for ``X-Poedit-Language: (Afan) Oromo``.
 
 Fix support for ``X-Poedit-Language: Serbian (Latin)``.

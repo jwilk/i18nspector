@@ -159,11 +159,23 @@ class Language(object):
         if characters is None:
             return
         result = []
+        try:
+            # iconv-based encodings have huge overhead per encode() call. To
+            # reduce number of such calls, optimize the common case of all
+            # characters being representable.
+            ''.join(characters).encode(encoding)
+        except UnicodeError:
+            pass
+        else:
+            return result
         for character in characters:
             try:
                 character.encode(encoding)
-            except UnicodeError:
+            except UnicodeError as exc:
                 result += [character]
+                if exc.reason.startswith('iconv:'):
+                    # Avoid further calls to iconv:
+                    break
         return result
 
     def _simple_format(self, territory=True):

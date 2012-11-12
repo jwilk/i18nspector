@@ -39,9 +39,9 @@ class Checker(object):
 
     @classmethod
     def patch_environment(cls, encinfo):
-        # Install extra encoding aliases, that are not known to Python, but
-        # occur in real-world PO/MO files:
-        encinfo.install_extra_aliases()
+        # Install extra encodings that used by real-world PO/MO files, but are
+        # not known to Python.
+        encinfo.install_extra_encodings()
         # Do not allow broken/missing encoding declarations, unless the file is
         # ASCII-only:
         polib.default_encoding = 'ASCII'

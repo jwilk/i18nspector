@@ -49,8 +49,9 @@ VISCII = not-python
 GEORGIAN-PS = not-python
 UTF-8 =
 
-[extra-aliases]
-# This section lists aliases of encodings that are used by real-world PO files,
-# but that are not known to Python.
+[extra-encodings]
+# This section lists encodings that are used by real-world PO/MO files, but
+# are not known to Python.
+KOI8-RU =
 
 # vim:ft=dosini
