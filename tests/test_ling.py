@@ -154,24 +154,6 @@ class test_remove_nonlinguistic_modifier:
     def test_euro(self):
         self._test('de_AT@euro', 'de_AT')
 
-class test_lookup_language_code:
-
-    def test_found_3_to_3(self):
-        lang = L.lookup_language_code('grc')
-        assert_equal(lang, 'grc')
-
-    def test_found_3_to_2(self):
-        lang = L.lookup_language_code('ell')
-        assert_equal(lang, 'el')
-
-    def test_found_2_to_2(self):
-        lang = L.lookup_language_code('el')
-        assert_equal(lang, 'el')
-
-    def test_not_found(self):
-        lang = L.lookup_language_code('grk')
-        assert_is_none(lang)
-
 class test_lookup_territory_code:
 
     def test_found(self):
@@ -263,14 +245,10 @@ class test_get_primary_languages:
         assert_not_in('ry', langs)
 
     def test_iso_639(self):
-        for lang in L.get_primary_languages():
-            if '_' in lang:
-                ll, cc = lang.split('_')
-            else:
-                ll = lang
-                cc = None
-            assert_equal(ll, L.lookup_language_code(ll))
-            assert_equal(cc, L.lookup_territory_code(cc))
+        for lang_str in L.get_primary_languages():
+            lang = L.parse_language(lang_str)
+            assert_is_none(lang.fix_codes())
+            assert_equal(str(lang), lang_str)
 
 class test_get_plural_forms:
 

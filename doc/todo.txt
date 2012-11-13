@@ -35,8 +35,6 @@ Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
 Document the security model.
 
-Make some LingInfo methods private: ``lookup_*_code()``.
-
 unreprestable-characters check should ignore ``@euro`` modifier.
 
 .. vim:ft=rst

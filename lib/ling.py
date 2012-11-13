@@ -91,7 +91,7 @@ class Language(object):
     def fix_codes(self):
         fixed = None
         ll = self.language_code
-        ll = self._parent.lookup_language_code(ll)
+        ll = self._parent._lookup_language_code(ll)
         if ll is None:
             # TODO: Try to guess correct language code.
             raise FixingLanguageCodesFailed()
@@ -240,7 +240,7 @@ class LingInfo(object):
                 except LookupError:
                     raise misc.DataIntegrityError
 
-    def lookup_language_code(self, language):
+    def _lookup_language_code(self, language):
         return self._iso_639.get(language)
 
     def lookup_territory_code(self, cc):
