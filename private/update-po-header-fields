@@ -21,19 +21,36 @@
 # SOFTWARE.
 
 import os
+import shutil
+import tempfile
 import subprocess as ipc
 
+xgettexts = {'xgettext', 'pygettext'}
+
 def main():
-    po = ipc.check_output(['xgettext', '-L', 'C', '--force-po', os.devnull, '-o', '-'])
-    po = po.decode('ASCII').splitlines()
-    headers = {
-        'Plural-Forms', # xgettext on /dev/null wouldn't generate this one
-        'Generated-By', # pygettext-specific
+    os.environ['LC_ALL'] = 'C'
+    tmpdir = tempfile.mkdtemp(prefix='gettext-inspector.private.')
+    xgettext_versions = {
+        ipc.check_output([xgettext, '--version']).splitlines()[0].decode('ASCII', 'replace')
+        for xgettext in xgettexts
     }
-    for line in po:
-        if line.startswith('"'):
-            header = line[1:].split(':', 1)[0]
-            headers.add(header)
+    try:
+        path = os.path.join(tmpdir, 'dummy.c')
+        with open(path, 'wt', encoding='ASCII') as file:
+            file.write('ngettext("1", "2");')
+        pos = {
+            ipc.check_output([xgettext, '-o', '-', path])
+            for xgettext in xgettexts
+        }
+    finally:
+        shutil.rmtree(tmpdir)
+    headers = set()
+    for po in pos:
+        po = po.decode('ASCII').splitlines()
+        for line in po:
+            if line.startswith('"'):
+                header = line[1:].split(':', 1)[0]
+                headers.add(header)
     basedir = os.path.join(
         os.path.dirname(__file__),
         os.pardir,
@@ -43,7 +60,12 @@ def main():
         print('''\
 # This file has been generated automatically by
 # private/update-po-header-fields. Do not edit.
+#
+# The following string extraction tools have been used:\
 ''', file=file)
+        for xgettext_version in sorted(xgettext_versions):
+            print('# * ' + xgettext_version, file=file)
+        print(file=file)
         for header in sorted(headers):
             print(header, file=file)
 
