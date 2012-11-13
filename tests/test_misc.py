@@ -18,6 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+import tempfile
 import warnings
 
 import lib.misc
@@ -87,5 +89,81 @@ class test_not_overriden:
             warnings.filterwarnings('error', category=lib.misc.NotOverriddenWarning)
             result = self.C().f(6, 7)
             assert_equal(result, 42)
+
+class test_os_release:
+
+    def _test(self, path, **like):
+        os_release = lib.misc.OSRelease(path=path)
+        for os, expected in like.items():
+            if expected:
+                assert_true(os_release.is_like(os))
+            else:
+                assert_false(os_release.is_like(os))
+
+    def _tmpfile(self, contents):
+        file = tempfile.NamedTemporaryFile(
+            prefix='gettext-inspector.os-release.',
+            mode='wt', encoding='ASCII'
+        )
+        file.write(contents)
+        file.flush()
+        return file
+
+    def test_nonexistent(self):
+        tmpdir = tempfile.mkdtemp()
+        try:
+            self._test(os.path.join(tmpdir, 'nonexistent'),
+               debian=False,
+               ubuntu=False,
+               pld=False,
+            )
+        finally:
+            os.rmdir(tmpdir)
+
+    def test_io_error(self):
+        with self._tmpfile('') as file:
+            os.chmod(file.name, 0)
+            with assert_raises(IOError):
+                self._test(file.name)
+
+    def test_syntax_error(self):
+        with self._tmpfile('ID="debian\n') as file:
+            self._test(file.name,
+                debian=False,
+                ubuntu=False,
+                pld=False,
+            )
+
+    def test_empty(self):
+        with self._tmpfile('') as file:
+            self._test(file.name,
+                debian=False,
+                ubuntu=False,
+                pld=False,
+            )
+
+    def test_debian(self):
+        with self._tmpfile('ID="debian"\n') as file:
+            self._test(file.name,
+                debian=True,
+                ubuntu=False,
+                pld=False,
+            )
+
+    def test_debian_derivative(self):
+        with self._tmpfile('ID="ubuntu"\nID_LIKE="debian"') as file:
+            self._test(file.name,
+                debian=True,
+                ubuntu=True,
+                pld=False,
+            )
+
+    def test_non_debian(self):
+        with self._tmpfile('ID="pld"\n') as file:
+            self._test(file.name,
+                debian=False,
+                ubuntu=False,
+                pld=True,
+            )
 
 # vim:ts=4 sw=4 et

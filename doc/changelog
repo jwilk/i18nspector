@@ -7,8 +7,9 @@ gettext-inspector (0.1.2) UNRELEASED; urgency=low
     - KOI8-T
     - VISCII
   * Don't fail if /etc/os-release doesn't exist.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 13 Nov 2012 11:40:00 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 13 Nov 2012 11:50:04 +0100
 
 gettext-inspector (0.1.1) unstable; urgency=low
 
