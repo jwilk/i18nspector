@@ -19,6 +19,7 @@
 # SOFTWARE.
 
 import datetime
+import errno
 import functools
 import shlex
 import warnings
@@ -67,7 +68,13 @@ class OSRelease(object):
     def __init__(self, path='/etc/os-release'):
         self._id = None
         self._id_like = ()
-        with open(path, 'rt', encoding='UTF-8') as file:
+        try:
+            file = open(path, 'rt', encoding='UTF-8')
+        except EnvironmentError as exc:
+            if exc.errno == errno.ENOENT:
+                return
+            raise
+        with file:
             for line in file:
                 self._parse_line(line)
 
