@@ -21,8 +21,6 @@ Complain about incorrect locale codes:
  * uk_UK -> uk_UA
  * vn -> vi
 
-Validate ``Last-Translator``.
-
 Guess language from ``Language-Team``.
 
 Improve ``Plural-Forms`` support.

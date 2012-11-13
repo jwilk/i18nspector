@@ -140,6 +140,7 @@ class Checker(object):
             encoding = None
         self.check_dates(file, is_template=is_template)
         self.check_project(file)
+        self.check_translator(file, is_template=is_template)
         self.check_headers(file)
         self.check_messages(file, encoding=encoding)
 
@@ -353,6 +354,18 @@ class Checker(object):
                     self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
             elif email_address == 'EMAIL@ADDRESS':
                 self.tag('boilerplate-in-report-msgid-bugs-to', report_msgid_bugs_to)
+
+    def check_translator(self, file, *, is_template):
+        translator = file.metadata.get('Last-Translator')
+        if translator is None:
+            self.tag('no-last-translator-header-field')
+        else:
+            real_name, email_address  = email.utils.parseaddr(translator)
+            if '@' not in email_address:
+                self.tag('invalid-last-translator', translator)
+            elif email_address == 'EMAIL@ADDRESS':
+                if not is_template:
+                    self.tag('boilerplate-in-last-translator', translator)
 
     def check_headers(self, file):
         for key in sorted(file.metadata):

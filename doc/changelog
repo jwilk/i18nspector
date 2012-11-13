@@ -1,5 +1,11 @@
 gettext-inspector (0.1.2) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - boilerplate-in-last-translator
+      - invalid-last-translator
+      - no-last-translator-header-field
+
   * Add support for the following encodings:
     - EUC-TW
     - GEORGIAN-PS
@@ -10,8 +16,9 @@ gettext-inspector (0.1.2) UNRELEASED; urgency=low
   * Improve the test suite.
   * Add alphabet information for South Slavic languages (Bosnian, Bulgarian,
     Croatian, Macedonian, Slovenian, Serbian).
+  * Validate the Last-Translator field.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 13 Nov 2012 16:51:10 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 13 Nov 2012 18:01:43 +0100
 
 gettext-inspector (0.1.1) unstable; urgency=low
 

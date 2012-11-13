@@ -7,6 +7,13 @@ description =
 references = 
  http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
+[boilerplate-in-last-translator]
+severity = normal
+certainty = certain
+description =
+ The Last-Translator header field contains xgettext boilerplate.
+ It should contain the last translator's name and email address.
+
 [boilerplate-in-project-id-version]
 severity = minor
 certainty = certain
@@ -100,6 +107,14 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
+[invalid-last-translator]
+severity = normal
+certainty = possible
+description =
+ The Last-Translator header field could neither be parsed as an e-mail.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [invalid-mime-version]
 severity = pedantic
 certainty = certain
@@ -175,6 +190,15 @@ severity = pedantic
 certainty = certain
 description =
  The Language field doesn't exist.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
+[no-last-translator-header-field]
+severity = normal
+certainty = certain
+description =
+ The Last-Translator header field doesn't exist.
+ It should contain the last translator's name and email address.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
