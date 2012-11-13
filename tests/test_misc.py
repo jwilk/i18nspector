@@ -28,9 +28,9 @@ import lib.misc
 from nose.tools import (
     assert_equal,
     assert_false,
-    assert_is,
-    assert_is_not_none,
     assert_is_instance,
+    assert_is_none,
+    assert_is_not_none,
     assert_raises,
     assert_true,
 )
@@ -85,7 +85,7 @@ class test_not_overriden:
                 raise message
         with warnings.catch_warnings():
             warnings.showwarning = show
-            assert_is(self.B().f(6, 7), None)
+            assert_is_none(self.B().f(6, 7))
 
     def test_overriden(self):
         with warnings.catch_warnings():

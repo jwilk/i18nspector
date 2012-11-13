@@ -27,8 +27,8 @@ from nose.tools import (
     assert_equal,
     assert_false,
     assert_greater,
-    assert_is,
     assert_is_instance,
+    assert_is_none,
     assert_less,
     assert_raises,
 )
@@ -78,7 +78,7 @@ P = lib.gettext.parse_date
 class test_fix_date_format:
 
     def test_boilerplace(self):
-        assert_is(F('YEAR-MO-DA HO:MI+ZONE'), None)
+        assert_is_none(F('YEAR-MO-DA HO:MI+ZONE'))
 
     def test_okay(self):
         d = '2010-10-13 01:27+0200'
@@ -103,13 +103,13 @@ class test_fix_date_format:
         )
 
     def test_nonnumeric_tz(self):
-        assert_is(F('2004-04-20 13:24+CEST'), None)
+        assert_is_none(F('2004-04-20 13:24+CEST'))
 
     def test_only_date(self):
-        assert_is(F('2008-01-09'), None)
+        assert_is_none(F('2008-01-09'))
 
     def test_nonexistent(self):
-        assert_is(F('2010-02-29 19:49+0200'), None)
+        assert_is_none(F('2010-02-29 19:49+0200'))
 
 class test_parse_date:
 

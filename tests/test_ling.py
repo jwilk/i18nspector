@@ -28,6 +28,7 @@ from nose.tools import (
     assert_in,
     assert_is,
     assert_is_instance,
+    assert_is_none,
     assert_not_equal,
     assert_not_in,
     assert_raises,
@@ -48,7 +49,7 @@ class test_fix_codes:
         lang = L.parse_language(l1)
         assert_equal(str(lang), l1)
         if l1 == l2:
-            assert_is(lang.fix_codes(), None)
+            assert_is_none(lang.fix_codes())
         else:
             assert_is(lang.fix_codes(), True)
         assert_equal(str(lang), l2)
@@ -121,7 +122,7 @@ class test_remove_encoding:
         lang = L.parse_language(l1)
         assert_equal(str(lang), l1)
         if l1 == l2:
-            assert_is(lang.remove_encoding(), None)
+            assert_is_none(lang.remove_encoding())
         else:
             assert_is(lang.remove_encoding(), True)
         assert_equal(str(lang), l2)
@@ -138,7 +139,7 @@ class test_remove_nonlinguistic_modifier:
         lang = L.parse_language(l1)
         assert_equal(str(lang), l1)
         if l1 == l2:
-            assert_is(lang.remove_nonlinguistic_modifier(), None)
+            assert_is_none(lang.remove_nonlinguistic_modifier())
         else:
             assert_is(lang.remove_nonlinguistic_modifier(), True)
         assert_equal(str(lang), l2)
@@ -169,7 +170,7 @@ class test_lookup_language_code:
 
     def test_not_found(self):
         lang = L.lookup_language_code('grk')
-        assert_is(lang, None)
+        assert_is_none(lang)
 
 class test_lookup_territory_code:
 
@@ -179,7 +180,7 @@ class test_lookup_territory_code:
 
     def test_not_found(self):
         cc = L.lookup_territory_code('RG')
-        assert_is(cc, None)
+        assert_is_none(cc)
 
 class test_get_language_for_name:
 
@@ -215,36 +216,36 @@ class test_parse_language:
     def test_ll(self):
         lang = L.parse_language('el')
         assert_equal(lang.language_code, 'el')
-        assert_is(lang.territory_code, None)
-        assert_is(lang.encoding, None)
-        assert_is(lang.modifier, None)
+        assert_is_none(lang.territory_code)
+        assert_is_none(lang.encoding)
+        assert_is_none(lang.modifier)
 
     def test_lll(self):
         lang = L.parse_language('ell')
         assert_equal(lang.language_code, 'ell')
-        assert_is(lang.territory_code, None)
-        assert_is(lang.encoding, None)
-        assert_is(lang.modifier, None)
+        assert_is_none(lang.territory_code)
+        assert_is_none(lang.encoding)
+        assert_is_none(lang.modifier)
 
     def test_ll_cc(self):
         lang = L.parse_language('el_GR')
         assert_equal(lang.language_code, 'el')
         assert_equal(lang.territory_code, 'GR')
-        assert_is(lang.encoding, None)
-        assert_is(lang.modifier, None)
+        assert_is_none(lang.encoding)
+        assert_is_none(lang.modifier)
 
     def test_ll_cc_enc(self):
         lang = L.parse_language('el_GR.UTF-8')
         assert_equal(lang.language_code, 'el')
         assert_equal(lang.territory_code, 'GR')
         assert_equal(lang.encoding, 'UTF-8')
-        assert_is(lang.modifier, None)
+        assert_is_none(lang.modifier)
 
     def test_ll_cc_modifier(self):
         lang = L.parse_language('en_US@quot')
         assert_equal(lang.language_code, 'en')
         assert_equal(lang.territory_code, 'US')
-        assert_is(lang.encoding, None)
+        assert_is_none(lang.encoding)
         assert_equal(lang.modifier, 'quot')
 
     def test_syntax_error(self):
@@ -290,10 +291,10 @@ class test_get_plural_forms:
         )
 
     def test_not_known(self):
-        assert_is(self._get('la'), None)
+        assert_is_none(self._get('la'))
 
     def test_not_found(self):
-        assert_is(self._get('ry'), None)
+        assert_is_none(self._get('ry'))
 
 class test_principal_territory:
 
@@ -329,14 +330,14 @@ class test_principal_territory:
         # en -/-> en_US
         lang = L.parse_language('en')
         cc = lang.get_principal_territory_code()
-        assert_is(cc, None)
+        assert_is_none(cc)
 
     def test_no_remove_principal_territory_code(self):
         # en_US -/-> en
         lang = L.parse_language('en_US')
         assert_equal(str(lang), 'en_US')
         rc = lang.remove_principal_territory_code()
-        assert_is(rc, None)
+        assert_is_none(rc)
         assert_equal(str(lang), 'en_US')
 
     def test_not_found(self):
@@ -389,6 +390,6 @@ class test_unrepresentable_characters:
     def test_ll_not_found(self):
         lang = L.parse_language('ry')
         result = lang.get_unrepresentable_characters('ISO-8859-1')
-        assert_is(result, None)
+        assert_is_none(result)
 
 # vim:ts=4 sw=4 et
