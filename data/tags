@@ -7,6 +7,16 @@ description =
 references = 
  http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
+[boilerplate-in-language-team]
+severity = minor
+certainty = certain
+description =
+ The Language-Team header field contains xgettext boilerplate.
+ It should contain English name of the language, and the email address or
+ homepage URL of the language team.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
 [boilerplate-in-last-translator]
 severity = normal
 certainty = certain
@@ -190,6 +200,16 @@ severity = pedantic
 certainty = certain
 description =
  The Language field doesn't exist.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+
+[no-language-team-header-field]
+severity = pedantic
+certainty = certain
+description =
+ The Language-Team header does not exists.
+ It should contain English name of the language, and the email address or
+ homepage URL of the language team.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 

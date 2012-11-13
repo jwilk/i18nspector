@@ -366,6 +366,18 @@ class Checker(object):
             elif email_address == 'EMAIL@ADDRESS':
                 if not is_template:
                     self.tag('boilerplate-in-last-translator', translator)
+        team = file.metadata.get('Language-Team')
+        if team is None:
+            self.tag('no-language-team-header-field')
+        else:
+            real_name, email_address = email.utils.parseaddr(team)
+            if '@' not in email_address:
+                # TODO: An URL is also allowed here.
+                # self.tag('invalid-language-team', translator)
+                pass
+            elif email_address == 'LL@li.org':
+                if not is_template:
+                    self.tag('boilerplate-in-language-team', team)
 
     def check_headers(self, file):
         for key in sorted(file.metadata):
