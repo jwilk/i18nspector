@@ -46,19 +46,24 @@ def main():
             if match is None:
                 continue
             poedit_ll, name = match.groups()
+            poedit_ll = linginfo.parse_language(poedit_ll)
             try:
                 gi_ll = linginfo.get_language_for_name(name)
             except LookupError:
                 gi_ll = None
             if gi_ll != poedit_ll:
                 print('[{}]'.format(poedit_ll))
-                if poedit_ll != linginfo.lookup_language_code(poedit_ll):
+                try:
+                    if poedit_ll.fix_codes():
+                        raise ling.LanguageError
+                except ling.LanguageError:
                     if gi_ll is None:
                         print('# Unknown language code')
                     else:
-                        print('# Unknown language code; should be: ' + gi_ll)
-                elif gi_ll is not None:
-                    print('# Not ' + gi_ll)
+                        print('# Unknown language code; should be: {}'.format(gi_ll))
+                else:
+                    if gi_ll is not None:
+                        print('# Not {}'.format(gi_ll))
                 print('names = ' + name)
                 print()
             else:
