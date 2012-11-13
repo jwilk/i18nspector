@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 import os
 import tempfile
 import warnings
@@ -28,6 +29,8 @@ from nose.tools import (
     assert_equal,
     assert_false,
     assert_is,
+    assert_is_not_none,
+    assert_is_instance,
     assert_raises,
     assert_true,
 )
@@ -165,5 +168,11 @@ class test_os_release:
                 ubuntu=False,
                 pld=True,
             )
+
+def test_utc_now():
+    now = lib.misc.utc_now()
+    assert_is_instance(now, datetime.datetime)
+    assert_is_not_none(now.tzinfo)
+    assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
 
 # vim:ts=4 sw=4 et
