@@ -360,7 +360,7 @@ class Checker(object):
         if translator is None:
             self.tag('no-last-translator-header-field')
         else:
-            real_name, email_address  = email.utils.parseaddr(translator)
+            real_name, email_address = email.utils.parseaddr(translator)
             if '@' not in email_address:
                 self.tag('invalid-last-translator', translator)
             elif email_address == 'EMAIL@ADDRESS':
