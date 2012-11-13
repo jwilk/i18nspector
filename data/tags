@@ -15,7 +15,7 @@ description =
  It should contain English name of the language, and the email address or
  homepage URL of the language team.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-last-translator]
 severity = normal
@@ -24,7 +24,7 @@ description =
  The Last-Translator header field contains xgettext boilerplate.
  It should contain the last translator's name and email address.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-project-id-version]
 severity = minor
@@ -33,7 +33,7 @@ description =
  The Project-Id-Version header field contains xgettext boilerplate.
  It should contain the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-report-msgid-bugs-to]
 severity = normal
@@ -43,7 +43,7 @@ description =
  It should contain an email address or URL where one can report bugs in the
  untranslated strings.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [broken-encoding]
 severity = serious
@@ -56,7 +56,7 @@ description =
  Note that in the absence of encoding declaration, gettext-inspector assumes
  ASCII encoding.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
 
 [c1-control-characters]
@@ -79,7 +79,7 @@ description =
  The language header field contains encoding declaration. Such information
  shouldn't be included in this field.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [invalid-content-transfer-encoding]
 severity = pedantic
@@ -88,7 +88,7 @@ description =
  Value of the Content-Transfer-Encoding header field is invalid.
  It should be ``8bit``.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-6.1
 
 [invalid-content-type]
@@ -98,7 +98,7 @@ description =
  Value of the Content-Type header field should is invalid.
  It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
 
 [invalid-date]
@@ -108,7 +108,7 @@ description =
  The date is invalid or in an invalid format. The format should be
  ``YYYY-MM-DD hh:mm+ZZzz``, e.g. ``2011-11-05 10:14+0100``.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [invalid-language]
 severity = important
@@ -117,7 +117,7 @@ description =
  The language header field couldn't be parsed, or it contains an unknown
  language.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [invalid-last-translator]
 severity = normal
@@ -125,7 +125,7 @@ certainty = possible
 description =
  The Last-Translator header field could neither be parsed as an e-mail.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [invalid-mime-version]
 severity = pedantic
@@ -148,7 +148,7 @@ description =
  The Report-Msgid-Bugs-To header field could neither be parsed as an e-mail nor
  as a URL.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [language-disparity]
 severity = normal
@@ -164,7 +164,7 @@ description =
  The Language header field contains a variant designator that is not relevant
  for the message translation.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-content-transfer-encoding-header-field]
 severity = pedantic
@@ -173,7 +173,7 @@ description =
  The Content-Transfer-Encoding header field doesn't exist. It should be set to
  ``8bit``.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-6.1
 
 [no-content-type-header-field]
@@ -186,7 +186,7 @@ description =
  Note that in the absence of encoding declaration, gettext-inspector assumes
  ASCII encoding.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
 
 [no-date-header-field]
@@ -195,7 +195,7 @@ certainty = certain
 description =
  The date header field doesn't exist.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-language-header-field]
 severity = pedantic
@@ -203,7 +203,7 @@ certainty = certain
 description =
  The Language header field doesn't exist.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-language-team-header-field]
 severity = pedantic
@@ -213,7 +213,7 @@ description =
  It should contain English name of the language, and the email address or
  homepage URL of the language team.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-last-translator-header-field]
 severity = normal
@@ -222,7 +222,7 @@ description =
  The Last-Translator header field doesn't exist.
  It should contain the last translator's name and email address.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-mime-version-header-field]
 severity = pedantic
@@ -239,7 +239,7 @@ description =
  The Project-Id-Version header field doesn't appear to contain any name.
  It should contain both the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-project-id-version-header-field]
 severity = minor
@@ -248,7 +248,7 @@ description =
  The Project-Id-Version header field does not exist.
  It should contain the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-report-msgid-bugs-to-header-field]
 severity = normal
@@ -258,7 +258,7 @@ description =
  It should contain an email address or URL where one can report bugs in the
  untranslated strings.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-version-in-project-id-version]
 severity = pedantic
@@ -267,7 +267,7 @@ description =
  The Project-Id-Version header field doesn't appear to contain any version.
  It should contain both the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [non-portable-encoding]
 severity = important
@@ -275,7 +275,7 @@ certainty = certain
 description =
  This file uses an encoding that is not widely supported by software.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [os-error]
 severity = serious
