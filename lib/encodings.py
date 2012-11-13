@@ -20,7 +20,6 @@
 
 import codecs
 import configparser
-import functools
 import os
 import subprocess as ipc
 
