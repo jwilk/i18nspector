@@ -2,7 +2,7 @@
 # Do not edit.
 
 [X] ancient-date
-[ ] boilerplate-in-last-translator
+[X] boilerplate-in-last-translator
 [X] boilerplate-in-project-id-version
 [X] boilerplate-in-report-msgid-bugs-to
 [X] broken-encoding
@@ -13,7 +13,7 @@
 [X] invalid-content-type
 [X] invalid-date
 [X] invalid-language
-[ ] invalid-last-translator
+[X] invalid-last-translator
 [X] invalid-mime-version
 [X] invalid-mo-file
 [X] invalid-report-msgid-bugs-to
@@ -23,7 +23,7 @@
 [X] no-content-type-header-field
 [X] no-date-header-field
 [X] no-language-header-field
-[ ] no-last-translator-header-field
+[X] no-last-translator-header-field
 [X] no-mime-version-header-field
 [X] no-package-name-in-project-id-version
 [X] no-project-id-version-header-field
