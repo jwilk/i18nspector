@@ -161,7 +161,7 @@ def test_file():
 # E: os-error No such file or directory
 ''')
 def test_os_error_no_such_file():
-    tmpdir = tempfile.mkdtemp()
+    tmpdir = tempfile.mkdtemp(prefix='gettext-inspector.tests.')
     try:
         path = os.path.join(tmpdir, 'nonexistent.po')
         expected = etags_from_tagstring(this(), path)
@@ -173,7 +173,7 @@ def test_os_error_no_such_file():
 # E: os-error Permission denied
 ''')
 def test_os_error_permission_denied():
-    tmpdir = tempfile.mkdtemp()
+    tmpdir = tempfile.mkdtemp(prefix='gettext-inspector.tests.')
     try:
         path = os.path.join(tmpdir, 'denied.po')
         with open(path, 'wb'):

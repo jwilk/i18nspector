@@ -105,7 +105,7 @@ class test_os_release:
 
     def _tmpfile(self, contents):
         file = tempfile.NamedTemporaryFile(
-            prefix='gettext-inspector.os-release.',
+            prefix='gettext-inspector.tests.',
             mode='wt', encoding='ASCII'
         )
         file.write(contents)
@@ -113,7 +113,7 @@ class test_os_release:
         return file
 
     def test_nonexistent(self):
-        tmpdir = tempfile.mkdtemp()
+        tmpdir = tempfile.mkdtemp(prefix='gettext-inspector.tests.')
         try:
             self._test(os.path.join(tmpdir, 'nonexistent'),
                debian=False,
