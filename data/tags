@@ -4,7 +4,7 @@ certainty = certain
 description =
  The date refers to the time before the first GNU gettext release. As such,
  it's extremely unlikely to be correct.
-references = 
+references =
  http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
 [boilerplate-in-language-team]
@@ -23,12 +23,14 @@ certainty = certain
 description =
  The Last-Translator header field contains xgettext boilerplate.
  It should contain the last translator's name and email address.
+references =
+ http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
 [boilerplate-in-project-id-version]
 severity = minor
 certainty = certain
 description =
- The Project-Id-Version field contains xgettext boilerplate.
+ The Project-Id-Version header field contains xgettext boilerplate.
  It should contain the name and the version of the package.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
@@ -83,8 +85,8 @@ references =
 severity = pedantic
 certainty = certain
 description =
- Value of the Content-Transfer-Encoding field is invalid. It should be
- ``8bit``.
+ Value of the Content-Transfer-Encoding header field is invalid.
+ It should be ``8bit``.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-6.1
@@ -93,8 +95,8 @@ references =
 severity = important
 certainty = possible
 description =
- Value of the Content-Type field should is invalid. It should be in the form
- ``text/plain; charset=``\ *encoding*.
+ Value of the Content-Type header field should is invalid.
+ It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
  http://tools.ietf.org/html/rfc2045#section-5
@@ -129,7 +131,7 @@ references =
 severity = pedantic
 certainty = certain
 description =
- Value of the MIME-Version field is invalid. It should be ``1.0``.
+ Value of the MIME-Version header field is invalid. It should be ``1.0``.
 references =
  http://tools.ietf.org/html/rfc2045#section-4
 
@@ -159,8 +161,8 @@ description =
 severity = minor
 certainty = possible
 description =
- The Language field contains a variant designator that is not relevant for the
- message translation. 
+ The Language header field contains a variant designator that is not relevant
+ for the message translation.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
@@ -199,7 +201,7 @@ references =
 severity = pedantic
 certainty = certain
 description =
- The Language field doesn't exist.
+ The Language header field doesn't exist.
 references =
  http://www.gnu.org/software/gettext/manual/gettext.html#Header-Entry
 
@@ -207,7 +209,7 @@ references =
 severity = pedantic
 certainty = certain
 description =
- The Language-Team header does not exists.
+ The Language-Team header field does not exists.
  It should contain English name of the language, and the email address or
  homepage URL of the language team.
 references =
