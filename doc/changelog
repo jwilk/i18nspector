@@ -8,8 +8,10 @@ gettext-inspector (0.1.2) UNRELEASED; urgency=low
     - VISCII
   * Don't fail if /etc/os-release doesn't exist.
   * Improve the test suite.
+  * Add alphabet information for South Slavic languages (Bosnian, Bulgarian,
+    Croatian, Macedonian, Slovenian, Serbian).
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 13 Nov 2012 11:50:04 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 13 Nov 2012 16:51:10 +0100
 
 gettext-inspector (0.1.1) unstable; urgency=low
 

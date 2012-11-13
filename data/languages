@@ -96,6 +96,9 @@ principal-territory = ZM
 
 [bg]
 names = Bulgarian
+characters =
+ а б в г д е ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ь ю я
+ А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ь Ю Я
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = BG
 
@@ -127,6 +130,9 @@ principal-territory = FR
 
 [bs]
 names = Bosnian
+characters =
+ đ ž ć č š
+ Đ Ž Ć Č Š
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = BA
 
@@ -344,6 +350,9 @@ names = Hiri Motu
 
 [hr]
 names = Croatian
+characters =
+ đ ž ć č š
+ Đ Ž Ć Č Š
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = HR
 
@@ -552,6 +561,9 @@ principal-territory = NZ
 
 [mk]
 names = Macedonian
+characters =
+ а б в г д ѓ е ж з ѕ и ј к л љ м н њ о п р с т ќ у ф х ц ч џ ш
+ А Б В Г Д Ѓ Е Ж З Ѕ И Ј К Л Љ М Н Њ О П Р С Т Ќ У Ф Х Ц Ч Џ Ш
 principal-territory = MK
 
 [ml]
@@ -791,6 +803,9 @@ principal-territory = SK
 
 [sl]
 names = Slovenian
+characters =
+ č š ž
+ Č Š Ž
 # plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
 principal-territory = SI
 
@@ -810,6 +825,12 @@ principal-territory = AL
 
 [sr]
 names = Serbian
+characters =
+ а б в г д ђ е ж з и ј к л љ м н њ о п р с т ћ у ф х ц ч џ ш
+ А Б В Г Д Ђ Е Ж З И Ј К Л Љ М Н Њ О П Р С Т Ћ У Ф Х Ц Ч Џ Ш
+characters@latin =
+ đ ž ć č š
+ Đ Ž Ć Č Š
 plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = RS
 
