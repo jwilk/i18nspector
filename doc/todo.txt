@@ -22,6 +22,7 @@ Complain about incorrect locale codes:
  * vn -> vi
 
 Guess language from ``Language-Team``.
+http://translationproject.org/team/
 
 Improve ``Plural-Forms`` support.
 
