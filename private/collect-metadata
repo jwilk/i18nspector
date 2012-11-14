@@ -24,6 +24,7 @@ import argparse
 import collections
 import itertools
 import os
+import re
 import sys
 
 import polib
@@ -33,11 +34,14 @@ def init_polib():
     # missing.
     polib.default_encoding = 'ISO-8859-1'
 
+is_sane_field_name = re.compile('^[a-z-]+$').match
+
 def main():
     init_polib()
     ap = argparse.ArgumentParser()
     ap.add_argument('files', metavar='<file>', nargs='*')
     ap.add_argument('-F', '--field', help='only this field')
+    ap.add_argument('--insane', action='store_true', help='allow insane field names')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
     if options.field is not None:
@@ -64,6 +68,8 @@ def main():
             file = constructor(path)
             for k, v in file.metadata.items():
                 k = k.lower()
+                if (not is_sane_field_name(k)) and (not options.insane):
+                    continue
                 if not (options.field is None or k == options.field):
                     continue
                 metadata[k][v] += 1
