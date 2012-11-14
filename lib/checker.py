@@ -375,7 +375,7 @@ class Checker(object):
                 # TODO: An URL is also allowed here.
                 # self.tag('invalid-language-team', translator)
                 pass
-            elif email_address == 'LL@li.org':
+            elif email_address in {'LL@li.org', 'EMAIL@ADDRESS'}:
                 if not is_template:
                     self.tag('boilerplate-in-language-team', team)
 
