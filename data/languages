@@ -211,6 +211,9 @@ principal-territory = DK
 
 [de]
 names = German
+characters =
+ ä ö ü ß
+ Ä Ö Ü
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = DE
 
@@ -304,6 +307,9 @@ principal-territory = IT
 names =
  Frisian
  Western Frisian
+characters =
+ â ê é ô û ú
+ Â Ê É Ô Û Ú
 principal-territory = NL
 
 [ga]
@@ -629,6 +635,9 @@ names = North Ndebele
 names =
  Low German
  Low Saxon
+characters =
+ ä ö ü ß
+ Ä Ö Ü
 principal-territory = DE
 
 [ne]
