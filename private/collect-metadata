@@ -36,12 +36,28 @@ def init_polib():
 
 is_sane_field_name = re.compile('^[a-z-]+$').match
 
+_extract_address = re.compile(r'''^(?:
+.*< ( [^<>]+@[^<>]+ ) >\s*  |
+( \S+@\S+ ) |
+.*< ( https?://[^<>]+ ) >\s* |
+.*[(] ( https?://[^()]+ ) [)]\s* |
+\s* (https?://\S+) \s*
+)$''', re.VERBOSE).match
+
+def extract_address(s):
+    match = _extract_address(s)
+    if match is None:
+        return
+    [result] = filter(None, match.groups())
+    return result
+
 def main():
     init_polib()
     ap = argparse.ArgumentParser()
     ap.add_argument('files', metavar='<file>', nargs='*')
     ap.add_argument('-F', '--field', help='only this field')
     ap.add_argument('--insane', action='store_true', help='allow insane field names')
+    ap.add_argument('--extract-addresses', action='store_true')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
     if options.field is not None:
@@ -72,6 +88,8 @@ def main():
                     continue
                 if not (options.field is None or k == options.field):
                     continue
+                if options.extract_addresses:
+                    v = extract_address(v)
                 metadata[k][v] += 1
                 test_cases[k, v] = path
             file = None
