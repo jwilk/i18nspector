@@ -203,6 +203,9 @@ principal-territory = GB
 
 [da]
 names = Danish
+characters =
+ æ ø å
+ Æ Ø Å
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = DK
 
@@ -282,6 +285,9 @@ principal-territory = FJ
 
 [fo]
 names = Faroese
+characters =
+ á ð í ó ú ý æ ø
+ Á Ð Í Ó Ú Ý Æ Ø
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = FO
 
@@ -408,6 +414,9 @@ names = Ido
 
 [is]
 names = Icelandic
+characters =
+ á ð é í ó ú ý þ æ ö
+ Á Ð É Í Ó Ú Ý Þ Æ Ö
 principal-territory = IS
 
 [it]
@@ -607,6 +616,9 @@ principal-territory = IT
 
 [nb]
 names = Norwegian Bokmål
+characters =
+ æ ø å
+ Æ Ø Å
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = NO
 
@@ -635,11 +647,17 @@ principal-territory = NL
 
 [nn]
 names = Norwegian Nynorsk
+characters =
+ æ ø å
+ Æ Ø Å
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = NO
 
 [no]
 names = Norwegian
+characters =
+ æ ø å
+ Æ Ø Å
 macrolanguage = nb nn
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = NO
@@ -849,6 +867,9 @@ names = Sundanese
 
 [sv]
 names = Swedish
+characters =
+ å ä ö
+ Å Ä Ö
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = SE
 
