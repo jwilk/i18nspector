@@ -157,6 +157,13 @@ description =
  Language of this file has been declared in multiple places, but the
  declarations don't match.
 
+[language-team-equal-to-last-translator]
+severity = minor
+certainty = possible
+description =
+ Language-Team and Last-Translator header fields contains the same e-mail
+ address.
+
 [language-variant-does-not-affect-translation]
 severity = minor
 certainty = possible

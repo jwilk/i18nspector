@@ -5,6 +5,7 @@ gettext-inspector (0.2) UNRELEASED; urgency=low
       - boilerplate-in-language-team
       - boilerplate-in-last-translator
       - invalid-last-translator
+      - language-team-equal-to-last-translator
       - no-language-team-header-field
       - no-last-translator-header-field
 
@@ -28,8 +29,10 @@ gettext-inspector (0.2) UNRELEASED; urgency=low
       Slovenian, Serbian).
   * Validate the Last-Translator field.
   * Validate the Language-Team header field.
+  * Check for Language-Team and Last-Translator header fields containing the
+    same e-mail address.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2012 16:50:20 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2012 23:58:38 +0100
 
 gettext-inspector (0.1.1) unstable; urgency=low
 

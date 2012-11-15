@@ -360,24 +360,32 @@ class Checker(object):
         if translator is None:
             self.tag('no-last-translator-header-field')
         else:
-            real_name, email_address = email.utils.parseaddr(translator)
-            if '@' not in email_address:
+            translator_name, translator_email = email.utils.parseaddr(translator)
+            if '@' not in translator_email:
                 self.tag('invalid-last-translator', translator)
-            elif email_address == 'EMAIL@ADDRESS':
+            elif translator_email == 'EMAIL@ADDRESS':
                 if not is_template:
                     self.tag('boilerplate-in-last-translator', translator)
         team = file.metadata.get('Language-Team')
         if team is None:
             self.tag('no-language-team-header-field')
         else:
-            real_name, email_address = email.utils.parseaddr(team)
-            if '@' not in email_address:
+            team_name, team_email = email.utils.parseaddr(team)
+            if '@' not in team_email:
                 # TODO: An URL is also allowed here.
                 # self.tag('invalid-language-team', translator)
                 pass
-            elif email_address in {'LL@li.org', 'EMAIL@ADDRESS'}:
+            elif team_email in {'LL@li.org', 'EMAIL@ADDRESS'}:
                 if not is_template:
                     self.tag('boilerplate-in-language-team', team)
+            else:
+                try:
+                    team_is_translator = team_email == translator_email
+                except NameError:
+                    pass
+                else:
+                    if team_is_translator:
+                        self.tag('language-team-equal-to-last-translator', team, translator)
 
     def check_headers(self, file):
         for key in sorted(file.metadata):
