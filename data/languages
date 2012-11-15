@@ -199,6 +199,9 @@ names = Chuvash
 
 [cy]
 names = Welsh
+characters =
+ â ê î ô û ŵ ŷ
+ Â Ê Î Ô Û Ŵ Ŷ
 principal-territory = GB
 
 [da]
@@ -314,6 +317,9 @@ principal-territory = NL
 
 [ga]
 names = Irish
+characters =
+ á é í ó ú
+ Á É Í Ó Ú
 # plural-forms = nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
 principal-territory = IE
 
@@ -324,6 +330,9 @@ names = Ga
 names =
  Gaelic
  Scottish Gaelic
+characters =
+ à è ì ò ù
+ À È Ì Ò Ù
 principal-territory = GB
 
 [gez]
