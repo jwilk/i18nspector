@@ -241,6 +241,9 @@ principal-territory = GH
 
 [el]
 names = Greek
+characters =
+ α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ ς τ υ φ χ ψ ω
+ Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ   Τ Υ Φ Χ Ψ Ω
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = GR
 

@@ -24,11 +24,12 @@ gettext-inspector (0.2) UNRELEASED; urgency=low
     - Albanian;
     - Armenian;
     - Baltic languages (Latvian, Lithuanian);
-    - Celtic languages (Welsh, Irish, Scottish Gaelic).
+    - Celtic languages (Welsh, Irish, Scottish Gaelic);
+    - Greek.
   * Validate the Last-Translator field.
   * Validate the Language-Team header field.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2012 16:44:23 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2012 16:50:20 +0100
 
 gettext-inspector (0.1.1) unstable; urgency=low
 
