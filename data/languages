@@ -848,6 +848,9 @@ principal-territory = SO
 
 [sq]
 names = Albanian
+characters =
+ ç ë
+ Ç Ë
 principal-territory = AL
 
 [sr]
