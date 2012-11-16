@@ -1,4 +1,4 @@
-gettext-inspector (0.2) UNRELEASED; urgency=low
+gettext-inspector (0.2) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -29,7 +29,7 @@ gettext-inspector (0.2) UNRELEASED; urgency=low
       Slovenian, Serbian).
   * Validate the Last-Translator and Language-Team header fields.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2012 23:58:38 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 16 Nov 2012 19:57:26 +0100
 
 gettext-inspector (0.1.1) unstable; urgency=low
 
