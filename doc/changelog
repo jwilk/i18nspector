@@ -27,10 +27,7 @@ gettext-inspector (0.2) UNRELEASED; urgency=low
       German, Norwegian, Swedish);
     - South Slavic languages (Bosnian, Bulgarian, Croatian, Macedonian,
       Slovenian, Serbian).
-  * Validate the Last-Translator field.
-  * Validate the Language-Team header field.
-  * Check for Language-Team and Last-Translator header fields containing the
-    same e-mail address.
+  * Validate the Last-Translator and Language-Team header fields.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2012 23:58:38 +0100
 
