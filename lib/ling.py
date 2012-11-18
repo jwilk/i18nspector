@@ -152,10 +152,10 @@ class Language(object):
         characters = None
         if self.territory_code is not None:
             code = self._simple_format()
-            characters = self._parent._get_characters(code, self.modifier)
+            characters = self._parent._get_characters(code, self.modifier, strict=False)
         if characters is None:
             code = self._simple_format(territory=False)
-            characters = self._parent._get_characters(code, self.modifier)
+            characters = self._parent._get_characters(code, self.modifier, strict=False)
         if characters is None:
             return
         result = []
@@ -306,7 +306,7 @@ class LingInfo(object):
             return
         return section.get('principal-territory')
 
-    def _get_characters(self, language, modifier=None):
+    def _get_characters(self, language, modifier=None, strict=True):
         try:
             section = self._primary_languages[language]
         except KeyError:
@@ -317,6 +317,16 @@ class LingInfo(object):
         result = section.get(section_name)
         if result is None:
             return
-        return result.split()
+        if strict:
+            return [
+                ch.strip('()')
+                for ch in result.split()
+            ]
+        else:
+            return [
+                ch
+                for ch in result.split()
+                if not (ch.startswith('(') and ch.endswith(')'))
+            ]
 
 # vim:ts=4 sw=4 et
