@@ -306,8 +306,8 @@ principal-territory = FO
 [fr]
 names = French
 characters =
- à â æ ç é è ê ë î ï ô œ ù û ü ÿ
- À Â Æ Ç É È Ê Ë Î Ï Ô Œ Ù Û Ü Ÿ
+ à â (æ) ç é è ê ë î ï ô (œ) ù û ü  ÿ
+ À Â (Æ) Ç É È Ê Ë Î Ï Ô (Œ) Ù Û Ü (Ÿ)
 plural-forms = nplurals=2; plural=n > 1;
 principal-territory = FR
 
