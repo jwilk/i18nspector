@@ -681,6 +681,9 @@ names = Ndonga
 names =
  Dutch
  Flemish
+characters =
+ ä ë ï (ĳ) ö ü
+ Ä Ë Ï (Ĳ) Ö Ü
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = NL
 
