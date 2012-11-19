@@ -60,6 +60,9 @@ names =
  Bable
  Leonese
  Asturleonese
+characters =
+ ñ
+ Ñ
 principal-territory = ES
 
 [av]
@@ -145,6 +148,9 @@ names =
 names =
  Catalan
  Valencian
+characters =
+ à é è í ï ó ò ú ü ç
+ À É È Í Ï Ó Ò Ú Ü Ç
 principal-territory = ES
 
 [ce]
@@ -160,6 +166,9 @@ names = Chamorro
 
 [co]
 names = Corsican
+characters =
+ à è ì ï ò ù ü
+ À È Ì Ï Ò Ù Ü
 principal-territory = FR
 
 [cr]
@@ -728,6 +737,9 @@ names =
 
 [oc]
 names = Occitan
+characters =
+ à á ç è é í ï ò ó ú ü
+ À Á Ç È É Í Ï Ò Ó Ú Ü
 principal-territory = FR
 
 [oj]
