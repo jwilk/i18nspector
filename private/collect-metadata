@@ -34,7 +34,7 @@ def init_polib():
     # missing.
     polib.default_encoding = 'ISO-8859-1'
 
-is_sane_field_name = re.compile('^[a-z-]+$').match
+is_sane_field_name = re.compile('^[a-zA-Z-]+$').match
 
 _extract_address = re.compile(r'''^(?:
 .*< ( [^<>]+@[^<>]+ ) >\s*  |
@@ -60,8 +60,6 @@ def main():
     ap.add_argument('--extract-addresses', action='store_true')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
-    if options.field is not None:
-        options.field = options.field.lower()
     metadata = collections.defaultdict(collections.Counter)
     test_cases = {}
     files = options.files
@@ -83,7 +81,6 @@ def main():
                 raise NotImplementedError(repr(extension))
             file = constructor(path)
             for k, v in file.metadata.items():
-                k = k.lower()
                 if (not is_sane_field_name(k)) and (not options.insane):
                     continue
                 if not (options.field is None or k == options.field):
