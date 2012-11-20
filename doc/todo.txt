@@ -38,6 +38,4 @@ unrepresentable-characters check should ignore ``@euro`` modifier.
 
 Detect duplicate header fields.
 
-Detect duplicate message-ids.
-
 .. vim:ft=rst
