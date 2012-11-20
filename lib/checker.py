@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import collections
 import email.utils
 import os
 import re
@@ -398,9 +399,17 @@ class Checker(object):
         if encoding is None:
             return
         has_c1 = re.compile(r'[\x80-\x9f]').search
+        msgid_counter = collections.Counter()
         for message in file:
             if has_c1(message.msgstr):
                 self.tag('c1-control-characters')
                 break
+            id_tuple = ()
+            msgid_counter[message.msgid, message.msgctxt] += 1
+            if msgid_counter[message.msgid, message.msgctxt] == 2:
+                if message.msgctxt is None:
+                    self.tag('duplicate-message-definition', message.msgid)
+                else:
+                    self.tag('duplicate-message-definition', message.msgid, tags.safestr('context:'), message.msgctxt)
 
 # vim:ts=4 sw=4 et

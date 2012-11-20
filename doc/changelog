@@ -1,11 +1,16 @@
 gettext-inspector (0.2.1) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - duplicate-message-definition
+
   * Add alphabet information for:
     - Dutch;
     - most widely spoken Romance languages (Spanish, French, Italian,
       Portuguese, Romanian).
+  * Check for duplicate message definitions.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 18 Nov 2012 15:38:58 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 19:51:24 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 

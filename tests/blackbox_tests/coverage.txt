@@ -9,6 +9,7 @@
 [X] broken-encoding
 [X] c1-control-characters
 [X] date-from-future
+[X] duplicate-message-definition
 [X] encoding-in-language-header-field
 [X] invalid-content-transfer-encoding
 [X] invalid-content-type

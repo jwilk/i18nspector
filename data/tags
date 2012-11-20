@@ -72,6 +72,12 @@ certainty = certain
 description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
+[duplicate-message-definition]
+severity = serious
+certainty = certain
+description =
+ This file contains multiple definitions of the same message.
+
 [encoding-in-language-header-field]
 severity = minor
 certainty = certain
