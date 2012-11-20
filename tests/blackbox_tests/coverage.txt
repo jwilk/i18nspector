@@ -20,7 +20,7 @@
 [X] invalid-mo-file
 [X] invalid-report-msgid-bugs-to
 [X] language-disparity
-[ ] language-team-equal-to-last-translator
+[X] language-team-equal-to-last-translator
 [X] language-variant-does-not-affect-translation
 [X] no-content-transfer-encoding-header-field
 [X] no-content-type-header-field
