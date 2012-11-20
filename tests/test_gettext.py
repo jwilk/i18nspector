@@ -77,7 +77,7 @@ P = lib.gettext.parse_date
 
 class test_fix_date_format:
 
-    def test_boilerplace(self):
+    def test_boilerplate(self):
         assert_is_none(F('YEAR-MO-DA HO:MI+ZONE'))
 
     def test_okay(self):
