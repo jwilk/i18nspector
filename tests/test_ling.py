@@ -245,10 +245,12 @@ class test_get_primary_languages:
         assert_not_in('ry', langs)
 
     def test_iso_639(self):
-        for lang_str in L.get_primary_languages():
+        def _test(lang_str):
             lang = L.parse_language(lang_str)
             assert_is_none(lang.fix_codes())
             assert_equal(str(lang), lang_str)
+        for lang_str in L.get_primary_languages():
+            yield _test, lang_str
 
 class test_get_plural_forms:
 
