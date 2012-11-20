@@ -299,9 +299,10 @@ class Checker(object):
         if ct is not None:
             match = re.match('^text/plain; charset=([^\s;]+)$', ct)
             if match:
+                encinfo = self.options.encinfo
                 encoding = match.group(1)
                 try:
-                    ''.encode(encoding)
+                    is_ascii_compatible = encinfo.is_ascii_compatible_encoding(encoding)
                 except LookupError:
                     if is_template and (encoding == 'CHARSET'):
                         pass
@@ -309,8 +310,9 @@ class Checker(object):
                         self.tag('unknown-encoding', encoding)
                     encoding = None
                 else:
-                    encinfo = self.options.encinfo
-                    if encinfo.is_portable_encoding(encoding):
+                    if not is_ascii_compatible:
+                        self.tag('non-ascii-compatible-encoding', encoding)
+                    elif encinfo.is_portable_encoding(encoding):
                         pass
                     else:
                         new_encoding = encinfo.propose_portable_encoding(encoding)

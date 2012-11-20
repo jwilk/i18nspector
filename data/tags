@@ -282,6 +282,12 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[non-ascii-compatible-encoding]
+severity = serious
+certainty = certain
+description =
+ This file uses an encoding that is not compatible with ASCII.
+
 [non-portable-encoding]
 severity = important
 certainty = certain
