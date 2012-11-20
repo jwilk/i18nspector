@@ -11,8 +11,9 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
   * Check for duplicate message definitions.
   * Work around a newline decoding bug in polib.
     http://bugs.debian.org/692283
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 20:12:13 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 20:15:38 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 
