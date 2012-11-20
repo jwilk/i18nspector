@@ -150,7 +150,7 @@ class EncodingInfo(object):
         except LookupError:
             return
         assert self.is_portable_encoding(new_encoding, python=True)
-        return new_encoding
+        return new_encoding.upper()
 
     def is_ascii_compatible_encoding(self, encoding):
         try:

@@ -56,11 +56,11 @@ class test_propose_portable_encoding:
     def test_identity(self):
         encoding = 'ISO-8859-2'
         portable_encoding = E.propose_portable_encoding(encoding)
-        assert_equal(portable_encoding, encoding.lower())
+        assert_equal(portable_encoding, encoding)
 
     def test_found(self):
         portable_encoding = E.propose_portable_encoding('ISO8859-2')
-        assert_equal(portable_encoding, 'iso-8859-2')
+        assert_equal(portable_encoding, 'ISO-8859-2')
 
     def test_notfound(self):
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
