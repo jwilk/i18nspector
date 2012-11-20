@@ -59,8 +59,12 @@ class test_propose_portable_encoding:
         assert_equal(portable_encoding, encoding)
 
     def test_found(self):
-        portable_encoding = E.propose_portable_encoding('ISO8859-2')
-        assert_equal(portable_encoding, 'ISO-8859-2')
+        def _test(encoding, expected_portable_encoding):
+            portable_encoding = E.propose_portable_encoding(encoding)
+            assert_equal(portable_encoding, expected_portable_encoding)
+        yield _test, 'ISO8859-2', 'ISO-8859-2'
+        yield _test, 'ISO_8859-2', 'ISO-8859-2'
+        yield _test, 'Windows-1250', 'CP1250'
 
     def test_notfound(self):
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
