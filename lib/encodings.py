@@ -163,8 +163,10 @@ class EncodingInfo(object):
 
     def _codec_search_function(self, encoding):
         if self._portable_encodings.get(encoding, False) is None:
+            # portable, but not supported by Python
             pass
         elif encoding in self._extra_encodings:
+            # non-portable, but used by real-world software
             pass
         else:
             return
