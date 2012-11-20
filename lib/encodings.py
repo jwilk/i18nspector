@@ -20,6 +20,7 @@
 
 import codecs
 import configparser
+import itertools
 import os
 import subprocess as ipc
 
@@ -89,6 +90,19 @@ def iconv_encoding(encoding):
 
 class EncodingInfo(object):
 
+    _interesting_ascii_bytes = bytes(itertools.chain([
+        0, # NUL
+        4, # EOT
+        7, # BEL
+        8, # BS
+        9, # HT
+        10, # LF
+        11, # VT
+        12, # FF
+        13, # CR
+    ], range(32, 127)))
+    _interesting_ascii_str = _interesting_ascii_bytes.decode()
+
     def __init__(self, datadir):
         path = os.path.join(datadir, 'encodings')
         cp = configparser.ConfigParser(interpolation=None, default_section='')
@@ -111,6 +125,13 @@ class EncodingInfo(object):
             for key, value in cp['extra-encodings'].items()
         }
 
+    def get_portable_encodings(self, python=True):
+        return (
+            encoding
+            for encoding, codec in self._portable_encodings.items()
+            if (not python) or (codec is not None)
+        )
+
     def is_portable_encoding(self, encoding, python=True):
         encoding = encoding.lower()
         if encoding.startswith('iso_'):
@@ -130,6 +151,15 @@ class EncodingInfo(object):
             return
         assert self.is_portable_encoding(new_encoding, python=True)
         return new_encoding
+
+    def is_ascii_compatible_encoding(self, encoding):
+        try:
+            return (
+                self._interesting_ascii_bytes.decode(encoding) ==
+                self._interesting_ascii_str
+            )
+        except UnicodeError:
+            return False
 
     def _codec_search_function(self, encoding):
         if self._portable_encodings.get(encoding, False) is None:

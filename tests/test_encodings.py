@@ -66,4 +66,12 @@ class test_propose_portable_encoding:
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
         assert_is_none(portable_encoding)
 
+def test_ascii_compatiblity():
+
+    def _test(encoding):
+        assert_true(E.is_ascii_compatible_encoding(encoding))
+
+    for encoding in E.get_portable_encodings():
+        yield _test, encoding
+
 # vim:ts=4 sw=4 et
