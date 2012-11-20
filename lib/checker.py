@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import codecs
 import collections
 import email.utils
 import os
@@ -34,6 +35,22 @@ from lib import tags
 class EnvironmentNotPatched(RuntimeError):
     pass
 
+class PolibCodecs(object):
+
+    # This class subsitutes the codecs module for polib, in order to work
+    # around a newline decoding bug:
+    # http://bugs.debian.org/692283
+
+    def __getattr__(self, attr):
+        return getattr(codecs, attr)
+
+    def open(self, path, mode, encoding):
+        if mode != 'rU':
+            raise NotImplementedError
+        with open(path, 'rb') as file:
+            for line in file:
+                yield line.decode(encoding)
+
 class Checker(object):
 
     _patched_environment = False
@@ -46,6 +63,8 @@ class Checker(object):
         # Do not allow broken/missing encoding declarations, unless the file is
         # ASCII-only:
         polib.default_encoding = 'ASCII'
+        # Work around a newline decoding bug:
+        polib.codecs = PolibCodecs()
         cls._patched_environment = True
 
     def __init__(self, path, *, options):
@@ -95,10 +114,6 @@ class Checker(object):
             except UnicodeDecodeError as exc:
                 broken_encoding = exc
                 file = constructor(self.path, encoding='ISO-8859-1')
-                # FIXME: Because of http://bugs.debian.org/692283, using
-                # ISO-8859-1 can trigger spurious syntax errors. A custom
-                # encoding that can never produce U+0085 NEXT LINE would be
-                # more robust.
         except IOError as exc:
             message = str(exc)
             if exc.errno is not None:

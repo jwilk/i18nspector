@@ -9,8 +9,10 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     - most widely spoken Romance languages (Spanish, French, Italian,
       Portuguese, Romanian).
   * Check for duplicate message definitions.
+  * Work around a newline decoding bug in polib.
+    http://bugs.debian.org/692283
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 19:53:55 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 20:12:13 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 
