@@ -38,4 +38,8 @@ unrepresentable-characters check should ignore ``@euro`` modifier.
 
 Detect duplicate header fields.
 
+Add tests for:
+ * Debian source packages
+ * Debian binary packages
+
 .. vim:ft=rst
