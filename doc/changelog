@@ -1,4 +1,4 @@
-gettext-inspector (0.2.1) UNRELEASED; urgency=low
+gettext-inspector (0.3) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -10,7 +10,7 @@ gettext-inspector (0.2.1) UNRELEASED; urgency=low
       Portuguese, Romanian).
   * Check for duplicate message definitions.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 19:51:24 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 19:53:55 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 
