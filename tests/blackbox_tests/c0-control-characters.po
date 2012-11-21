@@ -1,4 +1,4 @@
-# W: unusual-character-in-translation U+0019 control character: 'Sic fugiens, dux, zelotypos, quam Karus haberis\x19'
+# W: unusual-character-in-translation U+0019 control character EM: 'Sic fugiens, dux, zelotypos, quam Karus haberis\x19'
 
 msgid ""
 msgstr ""

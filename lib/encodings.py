@@ -126,6 +126,23 @@ class EncodingInfo(object):
             key.lower()
             for key, value in cp['extra-encodings'].items()
         }
+        path = os.path.join(datadir, 'control-characters')
+        cp = configparser.ConfigParser(interpolation=None, default_section='')
+        cp.read(path, encoding='UTF-8')
+        self._control_character_names = {}
+        for section in cp.values():
+            if not section.name:
+                continue
+            misc.check_sorted(section)
+            for code, name in section.items():
+                if len(code) != 2:
+                    raise misc.DataIntegrityError
+                code = chr(int(code, 16))
+                if unicodedata.category(code) != 'Cc':
+                    raise misc.DataIntegrityError
+                if name.upper() != name:
+                    raise misc.DataIntegrityError
+                self._control_character_names[code] = name
 
     def get_portable_encodings(self, python=True):
         return (
@@ -182,9 +199,9 @@ class EncodingInfo(object):
         try:
             return unicodedata.name(ch)
         except ValueError:
-            u = ord(ch)
-            if (u < 0x20) or (0x80 <= u < 0xa0):
-                return 'control character'
-            raise
+            name = self._control_character_names.get(ch)
+            if name is None:
+                raise
+            return 'control character ' + name
 
 # vim:ts=4 sw=4 et
