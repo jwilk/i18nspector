@@ -42,4 +42,6 @@ Add tests for:
  * Debian source packages
  * Debian binary packages
 
+Detect question marks in unusual places.
+
 .. vim:ft=rst
