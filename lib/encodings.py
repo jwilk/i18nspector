@@ -199,6 +199,8 @@ class EncodingInfo(object):
         try:
             return unicodedata.name(ch)
         except ValueError:
+            if unicodedata.category(ch) == 'Cn':
+                return 'non-character'
             name = self._control_character_names.get(ch)
             if name is None:
                 raise
