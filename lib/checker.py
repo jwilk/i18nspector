@@ -416,6 +416,10 @@ class Checker(object):
         if encoding is None:
             return
         has_c1 = re.compile(r'[\x80-\x9f]').search
+        find_c0 = re.compile(
+            r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # everything except TAB, LF, ESC
+            r'|\x1b(?!\[)' # ESC, except when followed by [
+        ).findall
         had_c1 = False
         had_c0 = False
         msgid_counter = collections.Counter()
@@ -424,16 +428,10 @@ class Checker(object):
                 self.tag('c1-control-characters', message.msgstr)
                 had_c1 = True
             if not had_c0:
-                c0_msgid = {
-                    ch for ch in message.msgid
-                    if ord(ch) < 0x20
-                }
-                c0_msgstr = {
-                    ch for ch in message.msgstr
-                    if ord(ch) < 0x20
-                }
+                c0_msgid = set(find_c0(message.msgid))
+                c0_msgstr = set(find_c0(message.msgstr))
                 c0_msgstr -= c0_msgid
-                c0_msgstr -= {'\n', '\t', '\x1b'}
+                c0_msgstr -= {'\n', '\t'}
                 if c0_msgstr:
                     self.tag('c0-control-characters', message.msgstr)
                     had_c0 = True

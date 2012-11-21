@@ -47,6 +47,4 @@ Check for U+FFFD (REPLACEMENT CHARACTER) in translations.
 Check for U+00BF (INVERTED QUESTION MARK) in translations for languages that
 don't use this punctuation character.
 
-Check for ISO 2022 escapes in translations.
-
 .. vim:ft=rst

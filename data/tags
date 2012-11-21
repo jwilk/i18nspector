@@ -65,7 +65,8 @@ certainty = possible
 description =
  One of the messages appears to contain C0 control characters that are not
  contained by the original message.
- This is usually an indication of an encoding problem.
+ This is usually an indication of an encoding problem (e.g. using ISO 2022
+ escape sequences).
 
 [c1-control-characters]
 severity = important
