@@ -100,6 +100,7 @@ class EncodingInfo(object):
         11, # VT
         12, # FF
         13, # CR
+        27, # ESC
     ], range(32, 127)))
     _interesting_ascii_str = _interesting_ascii_bytes.decode()
 
