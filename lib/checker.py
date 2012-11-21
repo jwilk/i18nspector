@@ -423,6 +423,7 @@ class Checker(object):
     def check_messages(self, file, *, encoding):
         if encoding is None:
             return
+        encinfo = self.options.encinfo
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
         for message in file:
@@ -430,7 +431,11 @@ class Checker(object):
             msgstr_uc = set(find_unusual_characters(message.msgstr))
             uc = msgstr_uc - msgid_uc - found_unusual_characters
             if uc:
-                self.tag('unusual-character-in-translation', message.msgstr)
+                names = ', '.join(
+                    'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                    for ch in sorted(uc)
+                )
+                self.tag('unusual-character-in-translation', tags.safestr(names + ':'), message.msgstr)
                 found_unusual_characters |= uc
             id_tuple = ()
             msgid_counter[message.msgid, message.msgctxt] += 1

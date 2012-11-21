@@ -23,6 +23,7 @@ import configparser
 import itertools
 import os
 import subprocess as ipc
+import unicodedata
 
 from lib import misc
 
@@ -176,5 +177,14 @@ class EncodingInfo(object):
 
     def install_extra_encodings(self):
         codecs.register(self._codec_search_function)
+
+    def get_character_name(self, ch):
+        try:
+            return unicodedata.name(ch)
+        except ValueError:
+            u = ord(ch)
+            if (u < 0x20) or (0x80 <= u < 0xa0):
+                return 'control character'
+            raise
 
 # vim:ts=4 sw=4 et
