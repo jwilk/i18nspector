@@ -42,9 +42,4 @@ Add tests for:
  * Debian source packages
  * Debian binary packages
 
-Check for U+FFFD (REPLACEMENT CHARACTER) in translations.
-
-Check for U+00BF (INVERTED QUESTION MARK) in translations for languages that
-don't use this punctuation character.
-
 .. vim:ft=rst

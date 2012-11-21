@@ -13,12 +13,15 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
       Portuguese, Romanian).
   * Check for duplicate message definitions.
   * Check for encodings incompatible with ASCII.
-  * Check for C0 control characters in translations.
+  * Check for more unusual characters in translations:
+    - C0 control characters;
+    - replacement character (U+FFFD);
+    - inverted question mark (U+00BF) directly after a letter.
   * Work around a newline decoding bug in polib.
     http://bugs.debian.org/692283
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Nov 2012 21:32:07 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Nov 2012 21:43:47 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 
