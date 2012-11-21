@@ -1,4 +1,5 @@
 # E: unrepresentable-characters ISO-8859-1 <...>
+# W: unusual-character-in-translation U+00BF INVERTED QUESTION MARK: '<...>'
 
 msgid ""
 msgstr ""
