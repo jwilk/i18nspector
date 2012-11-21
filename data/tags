@@ -59,6 +59,14 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
 
+[c0-control-characters]
+severity = important
+certainty = possible
+description =
+ One of the messages appears to contain C0 control characters that are not
+ contained by the original message.
+ This is usually an indication of an encoding problem.
+
 [c1-control-characters]
 severity = important
 certainty = possible

@@ -417,11 +417,26 @@ class Checker(object):
             return
         has_c1 = re.compile(r'[\x80-\x9f]').search
         had_c1 = False
+        had_c0 = False
         msgid_counter = collections.Counter()
         for message in file:
             if not had_c1 and has_c1(message.msgstr):
                 self.tag('c1-control-characters', message.msgstr)
                 had_c1 = True
+            if not had_c0:
+                c0_msgid = {
+                    ch for ch in message.msgid
+                    if ord(ch) < 0x20
+                }
+                c0_msgstr = {
+                    ch for ch in message.msgstr
+                    if ord(ch) < 0x20
+                }
+                c0_msgstr -= c0_msgid
+                c0_msgstr -= {'\n', '\t', '\x1b'}
+                if c0_msgstr:
+                    self.tag('c0-control-characters', message.msgstr)
+                    had_c0 = True
             id_tuple = ()
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:

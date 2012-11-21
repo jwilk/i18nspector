@@ -4,6 +4,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     + Added:
       - duplicate-message-definition
       - non-ascii-compatible-encoding
+      - c0-control-characters
 
   * Add alphabet information for:
     - Dutch;
@@ -11,11 +12,12 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
       Portuguese, Romanian).
   * Check for duplicate message definitions.
   * Check for encodings incompatible with ASCII.
+  * Check for C0 control characters in translations.
   * Work around a newline decoding bug in polib.
     http://bugs.debian.org/692283
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 20 Nov 2012 21:14:32 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Nov 2012 20:11:27 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 

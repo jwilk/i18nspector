@@ -7,6 +7,7 @@
 [X] boilerplate-in-project-id-version
 [X] boilerplate-in-report-msgid-bugs-to
 [X] broken-encoding
+[X] c0-control-characters
 [X] c1-control-characters
 [X] date-from-future
 [X] duplicate-message-definition
