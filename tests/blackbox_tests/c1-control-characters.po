@@ -1,4 +1,4 @@
-# W: c1-control-characters
+# W: c1-control-characters 'Sic fugiens, dux, zelotypos, quam Karus haberis\xe2\x80\xa6'
 
 msgid ""
 msgstr ""

@@ -416,11 +416,12 @@ class Checker(object):
         if encoding is None:
             return
         has_c1 = re.compile(r'[\x80-\x9f]').search
+        had_c1 = False
         msgid_counter = collections.Counter()
         for message in file:
-            if has_c1(message.msgstr):
-                self.tag('c1-control-characters')
-                break
+            if not had_c1 and has_c1(message.msgstr):
+                self.tag('c1-control-characters', message.msgstr)
+                had_c1 = True
             id_tuple = ()
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
