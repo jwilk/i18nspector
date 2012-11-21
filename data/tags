@@ -73,7 +73,8 @@ severity = important
 certainty = possible
 description =
  One of the messages appears to contain C1 control characters.
- This is usually an indication of an encoding problem.
+ This is usually an indication of an encoding problem (e.g. using UTF-8 despite
+ declaration of an 8-bit encoding.)
 
 [date-from-future]
 severity = normal
