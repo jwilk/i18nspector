@@ -51,6 +51,12 @@ class PolibCodecs(object):
             for line in file:
                 yield line.decode(encoding)
 
+find_unusual_characters = re.compile(
+    r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # C0 except TAB, LF, ESC
+    r'|\x1b(?!\[)' # ESC, except when followed by [
+    r'|[\x80-\x9f]' # C1
+).findall
+
 class Checker(object):
 
     _patched_environment = False
@@ -415,26 +421,15 @@ class Checker(object):
     def check_messages(self, file, *, encoding):
         if encoding is None:
             return
-        has_c1 = re.compile(r'[\x80-\x9f]').search
-        find_c0 = re.compile(
-            r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # everything except TAB, LF, ESC
-            r'|\x1b(?!\[)' # ESC, except when followed by [
-        ).findall
-        had_c1 = False
-        had_c0 = False
+        found_unusual_characters = set()
         msgid_counter = collections.Counter()
         for message in file:
-            if not had_c1 and has_c1(message.msgstr):
-                self.tag('c1-control-characters', message.msgstr)
-                had_c1 = True
-            if not had_c0:
-                c0_msgid = set(find_c0(message.msgid))
-                c0_msgstr = set(find_c0(message.msgstr))
-                c0_msgstr -= c0_msgid
-                c0_msgstr -= {'\n', '\t'}
-                if c0_msgstr:
-                    self.tag('c0-control-characters', message.msgstr)
-                    had_c0 = True
+            msgid_uc = set(find_unusual_characters(message.msgid))
+            msgstr_uc = set(find_unusual_characters(message.msgstr))
+            uc = msgstr_uc - msgid_uc - found_unusual_characters
+            if uc:
+                self.tag('unusual-character-in-translation', message.msgstr)
+                found_unusual_characters |= uc
             id_tuple = ()
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:

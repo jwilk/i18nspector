@@ -4,7 +4,8 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     + Added:
       - duplicate-message-definition
       - non-ascii-compatible-encoding
-      - c0-control-characters
+    + Renamed:
+      - unusual-character-in-translation (from c0-control-characters)
 
   * Add alphabet information for:
     - Dutch;
@@ -17,7 +18,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     http://bugs.debian.org/692283
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Nov 2012 20:11:27 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Nov 2012 21:32:07 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 

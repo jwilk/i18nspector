@@ -59,23 +59,6 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
 
-[c0-control-characters]
-severity = important
-certainty = possible
-description =
- One of the messages appears to contain C0 control characters that are not
- contained by the original message.
- This is usually an indication of an encoding problem (e.g. using ISO 2022
- escape sequences).
-
-[c1-control-characters]
-severity = important
-certainty = possible
-description =
- One of the messages appears to contain C1 control characters.
- This is usually an indication of an encoding problem (e.g. using UTF-8 despite
- declaration of an 8-bit encoding.)
-
 [date-from-future]
 severity = normal
 certainty = certain
@@ -374,5 +357,14 @@ certainty = possible
 description =
  The declared encoding cannot represent all characters commonly used in this language.
  This is a strong indication that the declared encoding is incorrect.
+
+[unusual-character-in-translation]
+severity = important
+certainty = possible
+description =
+ One of the translated messages contains an unusual character.
+ This is usually an indication of an encoding problem, such as:
+  * using ISO 2022 escape sequences, or
+  * using UTF-8 despite declaring an 8-bit encoding.
 
 # vim:ft=dosini
