@@ -36,12 +36,12 @@ Document the security model.
 
 unrepresentable-characters check should ignore ``@euro`` modifier.
 
-Detect duplicate header fields.
-
 Add tests for:
  * Debian source packages
  * Debian binary packages
 
 Detect question marks in unusual places.
+
+Make duplicate-header-field work for .mo files, too.
 
 .. vim:ft=rst

@@ -51,6 +51,23 @@ class PolibCodecs(object):
             for line in file:
                 yield line.decode(encoding)
 
+class MetadataDict(dict):
+
+    def __init__(self, *args, **kwargs):
+        dict.__init__(self, *args, **kwargs)
+        self.duplicates = {}
+
+    def __setitem__(self, key, value):
+        try:
+            orig_value = self[key]
+        except KeyError:
+            dict.__setitem__(self, key, value)
+        else:
+            try:
+                self.duplicates[key] += value
+            except KeyError:
+                self.duplicates[key] = [orig_value, value]
+
 find_unusual_characters = re.compile(
     r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # C0 except TAB, LF, ESC
     r'|\x1b(?!\[)' # ESC, except when followed by [
@@ -74,6 +91,14 @@ class Checker(object):
         polib.default_encoding = 'ASCII'
         # Work around a newline decoding bug:
         polib.codecs = PolibCodecs()
+        # Detect metadata duplicates:
+        orig_base_file_init = polib._BaseFile.__init__
+        def base_file_init(self, *args, **kwargs):
+            orig_base_file_init(self, *args, **kwargs)
+            assert type(self.metadata) is dict
+            assert len(self.metadata) == 0
+            self.metadata = MetadataDict()
+        polib._BaseFile.__init__ = base_file_init
         cls._patched_environment = True
 
     def __init__(self, path, *, options):
@@ -420,6 +445,13 @@ class Checker(object):
                 continue
             if key not in self.options.gettextinfo.po_header_fields:
                 self.tag('unknown-header-field', key)
+        try:
+            duplicates = file.metadata.duplicates
+        except AttributeError:
+            pass
+        else:
+            for key in sorted(duplicates):
+                self.tag('duplicate-header-field', key)
 
     def check_messages(self, file, *, encoding):
         if encoding is None:

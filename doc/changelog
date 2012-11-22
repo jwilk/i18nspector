@@ -2,6 +2,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
+      - duplicate-header-field
       - duplicate-message-definition
       - non-ascii-compatible-encoding
     + Renamed:
@@ -12,6 +13,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     - most widely spoken Romance languages (Spanish, French, Italian,
       Portuguese, Romanian).
   * Check for duplicate message definitions.
+  * Check for duplicate header fields.
   * Check for encodings incompatible with ASCII.
   * Check for more unusual characters in translations:
     - C0 control characters;
@@ -21,7 +23,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     http://bugs.debian.org/692283
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 21 Nov 2012 21:43:47 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 22 Nov 2012 19:27:20 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 

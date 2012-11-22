@@ -65,6 +65,12 @@ certainty = certain
 description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
+[duplicate-header-field]
+severity = serious
+certainty = certain
+description =
+ This file contains multiple header fields of the same name.
+
 [duplicate-message-definition]
 severity = serious
 certainty = certain
