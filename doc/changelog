@@ -12,6 +12,9 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     - Dutch;
     - Romance languages (Asturian, Catalan, Corsican, French, Italian,
       Occitan, Portuguese, Romanian, Spanish).
+  * Add national varieties of English and Chinese languages to the language
+    data file.
+  * Add “Brazilian Portuguese” as another name for pt_BR.
   * Check for duplicate message definitions.
   * Check for duplicate header fields.
   * Check for encodings incompatible with ASCII.
@@ -23,7 +26,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     http://bugs.debian.org/692283
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 22 Nov 2012 19:27:20 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 22 Nov 2012 23:47:24 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 
