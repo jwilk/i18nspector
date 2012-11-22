@@ -37,7 +37,7 @@ class EnvironmentNotPatched(RuntimeError):
 
 class PolibCodecs(object):
 
-    # This class subsitutes the codecs module for polib, in order to work
+    # This class substitutes the codecs module for polib, in order to work
     # around a newline decoding bug:
     # http://bugs.debian.org/692283
 
