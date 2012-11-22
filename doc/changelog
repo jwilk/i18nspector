@@ -10,8 +10,8 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
 
   * Add alphabet information for:
     - Dutch;
-    - most widely spoken Romance languages (Spanish, French, Italian,
-      Portuguese, Romanian).
+    - most widely spoken Romance languages (French, Italian, Portuguese,
+      Romanian, Spanish).
   * Check for duplicate message definitions.
   * Check for duplicate header fields.
   * Check for encodings incompatible with ASCII.
