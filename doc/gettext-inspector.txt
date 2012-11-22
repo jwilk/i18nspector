@@ -14,7 +14,7 @@ Usage
 
 Options
 -------
--v <lang>, --language <lang>
+-l <lang>, --language <lang>
    Assume this language. *<lang>* should be a 2- or 3-letter ISO 639 language
    code, possibly followed by underscore and a 2-letter ISO 3166 territory
    code.
