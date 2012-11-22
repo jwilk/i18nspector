@@ -1,4 +1,4 @@
-gettext-inspector (0.3) UNRELEASED; urgency=low
+gettext-inspector (0.3) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -26,7 +26,7 @@ gettext-inspector (0.3) UNRELEASED; urgency=low
     http://bugs.debian.org/692283
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 22 Nov 2012 23:47:24 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 22 Nov 2012 23:50:05 +0100
 
 gettext-inspector (0.2) unstable; urgency=low
 
