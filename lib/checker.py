@@ -470,7 +470,6 @@ class Checker(object):
                 )
                 self.tag('unusual-character-in-translation', tags.safestr(names + ':'), message.msgstr)
                 found_unusual_characters |= uc
-            id_tuple = ()
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 if message.msgctxt is None:
