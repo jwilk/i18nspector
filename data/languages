@@ -262,6 +262,18 @@ characters@quot = ‘ ’
 characters@boldquot = ‘ ’
 plural-forms = nplurals=2; plural=n != 1;
 
+[en_AU]
+names = Australian English
+
+[en_CA]
+names = Canadian English
+
+[en_GB]
+names = British English
+
+[en_US]
+names = American English
+
 [eo]
 names = Esperanto
 plural-forms = nplurals=2; plural=n != 1;
@@ -793,7 +805,9 @@ plural-forms = nplurals=2; plural=n != 1;
 principal-territory = PT
 
 [pt_BR]
-names = Brazilian
+names =
+ Brazilian
+ Brazilian Portuguese
 plural-forms = nplurals=2; plural=n > 1;
 
 [qu]
@@ -1077,6 +1091,15 @@ names =
 
 [zh]
 names = Chinese
+
+[zh_CN]
+names = Chinese (simplified)
+
+[zh_HK]
+names = Chinese (Hong Kong)
+
+[zh_TW]
+names = Chinese (traditional)
 
 [zu]
 names = Zulu

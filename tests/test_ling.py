@@ -270,6 +270,18 @@ class test_get_plural_forms:
             'nplurals=2; plural=n != 1;'
         )
 
+    def test_en_ca(self):
+        assert_equal(
+            self._get('en'),
+            self._get('en_CA'),
+        )
+
+    def test_pt_br(self):
+        assert_not_equal(
+            self._get('pt'),
+            self._get('pt_BR'),
+        )
+
     def test_not_known(self):
         assert_is_none(self._get('la'))
 
