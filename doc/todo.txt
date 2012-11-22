@@ -34,8 +34,6 @@ Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 
 Document the security model.
 
-unrepresentable-characters check should ignore ``@euro`` modifier.
-
 Add tests for:
  * Debian source packages
  * Debian binary packages
