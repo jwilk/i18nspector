@@ -32,6 +32,9 @@
 1e = RS
 1f = US
 
+[del]
+7f = DEL
+
 [c1]
 80 = PAD
 81 = HOP

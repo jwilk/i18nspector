@@ -71,6 +71,7 @@ class MetadataDict(dict):
 find_unusual_characters = re.compile(
     r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # C0 except TAB, LF, ESC
     r'|\x1b(?!\[)' # ESC, except when followed by [
+    r'|\x7f' # DEL
     r'|[\x80-\x9f]' # C1
      '|\ufffd' # REPLACEMENT CHARACTER
      '|[\ufffe\uffff]' # non-characters
