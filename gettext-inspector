@@ -100,9 +100,6 @@ def check_deb(filename, *, options):
     try:
         if binary:
             ipc.check_call(['dpkg-deb', '-x', filename, tmpdir])
-            control_dir = os.path.join(tmpdir, 'DEBIAN')
-            os.mkdir(control_dir)
-            ipc.check_call(['dpkg-deb', '-e', filename, control_dir])
             real_root = os.path.join(tmpdir, '')
         else:
             real_root = os.path.join(tmpdir, 's', '')

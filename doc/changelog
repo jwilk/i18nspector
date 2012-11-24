@@ -1,8 +1,9 @@
 gettext-inspector (0.3.1) UNRELEASED; urgency=low
 
-  * 
+  * Don't unpack control file directories of Debian binary packages; they
+    almost certainly don't contain any interesting files.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 23 Nov 2012 00:09:36 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 24 Nov 2012 18:41:05 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 
