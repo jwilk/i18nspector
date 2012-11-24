@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import curses.ascii
 import os
 import lib.encodings
 
@@ -25,6 +26,7 @@ from nose.tools import (
     assert_equal,
     assert_false,
     assert_is_none,
+    assert_not_in,
     assert_true,
 )
 
@@ -77,5 +79,47 @@ def test_ascii_compatiblity():
 
     for encoding in E.get_portable_encodings():
         yield _test, encoding
+
+class test_get_character_name:
+
+    def test_latin(self):
+        for i in range(ord('a'), ord('z')):
+            u = chr(i)
+            name = E.get_character_name(u)
+            assert_equal(name, 'LATIN SMALL LETTER ' + u.upper())
+            u = chr(i).upper()
+            name = E.get_character_name(u)
+            assert_equal(name, 'LATIN CAPITAL LETTER ' + u)
+
+    def test_c0(self):
+        for i, curses_name in zip(range(0, 0x20), curses.ascii.controlnames):
+            u = chr(i)
+            name = E.get_character_name(u)
+            expected_name = 'control character ' + curses_name
+            assert_equal(name, expected_name)
+
+    def test_del(self):
+        name = E.get_character_name('\x7F')
+        assert_equal(name, 'control character DEL')
+
+    def test_c1(self):
+        for i in range(0x80, 0xA0):
+            u = chr(i)
+            name = E.get_character_name(u)
+            assert_true(name.startswith('control character '))
+
+    def test_uniqueness(self):
+        names = set()
+        for i in range(0, 0x100):
+            u = chr(i)
+            name = E.get_character_name(u)
+            assert_not_in(name, names)
+            names.add(name)
+
+    def test_non_character(self):
+        name = E.get_character_name('\ufffe')
+        assert_equal(name, 'non-character')
+        name = E.get_character_name('\uffff')
+        assert_equal(name, 'non-character')
 
 # vim:ts=4 sw=4 et
