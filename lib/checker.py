@@ -319,10 +319,10 @@ class Checker(object):
         if correct_plural_forms is not None:
             plural_forms_hint = correct_plural_forms
         else:
-            correct_plurals_hint = 'nplurals=<n>; plural=<expression>'
+            plural_forms_hint = 'nplurals=<n>; plural=<expression>'
             if len(expected_nplurals) == 1:
                 [n] = expected_nplurals.keys()
-                correct_plurals_hint.replace('<n>', str(n))
+                plural_forms_hint.replace('<n>', str(n))
         if plural_forms is None:
             if expected_nplurals:
                 self.tag('no-plural-forms-header-field', 'Plural-Forms: ' + plural_forms_hint)
