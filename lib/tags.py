@@ -107,6 +107,11 @@ def _escape(s):
     else:
         return repr(s)
 
+def safe_format(template, *args, **kwargs):
+    args = [_escape(s) for s in args]
+    kwargs = {k: _escape(v) for k, v in kwargs.items()}
+    return safestr(template.format(*args, **kwargs))
+
 class Tag(object):
 
     def __init__(self, **kwargs):
