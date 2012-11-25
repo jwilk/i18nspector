@@ -309,7 +309,7 @@ description =
  Value of the Plural-Forms header field could not be parsed.
  It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
 references =
- http://www.gnu.org/software/gettext/manual/gettext.html#Plural-forms
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [syntax-error-in-po-file]
 severity = serious
