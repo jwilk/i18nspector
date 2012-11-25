@@ -11,6 +11,8 @@
 [X] duplicate-header-field
 [X] duplicate-message-definition
 [X] encoding-in-language-header-field
+[X] inconsistent-number-of-plural-forms
+[X] incorrect-number-of-plural-forms
 [X] invalid-content-transfer-encoding
 [X] invalid-content-type
 [X] invalid-date
@@ -30,6 +32,7 @@
 [X] no-last-translator-header-field
 [X] no-mime-version-header-field
 [X] no-package-name-in-project-id-version
+[X] no-plural-forms-header-field
 [X] no-project-id-version-header-field
 [X] no-report-msgid-bugs-to-header-field
 [X] no-version-in-project-id-version

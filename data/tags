@@ -86,6 +86,26 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[inconsistent-number-of-plural-forms]
+severity = serious
+certainty = certain
+description =
+ Number of plural forms in a message definition doesn't match number of plural
+ forms declared in another message definition.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ http://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
+
+[incorrect-number-of-plural-forms]
+severity = serious
+certainty = certain
+description =
+ Number of plural forms in a message definition doesn't match number of plural
+ forms declared in the header.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ http://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
+
 [invalid-content-transfer-encoding]
 severity = pedantic
 certainty = certain
@@ -252,6 +272,15 @@ description =
  It should contain both the name and the version of the package.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+
+[no-plural-forms-header-field]
+severity = serious
+certainty = certain
+description =
+ The Plural-Forms header field does not exist, even though some of the messages
+ use plural forms.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [no-project-id-version-header-field]
 severity = minor

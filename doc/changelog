@@ -1,9 +1,16 @@
 gettext-inspector (0.3.1) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - inconsistent-number-of-plural-forms
+      - incorrect-number-of-plural-forms
+      - no-plural-forms-header-field
+
   * Don't unpack control file directories of Debian binary packages; they
     almost certainly don't contain any interesting files.
   * Add DEL (U+007F) to the list of control characters.
   * Change the way message identifies are formatted in tag output.
+  * Perform more checks on Plural-Forms.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sun, 25 Nov 2012 23:42:09 +0100
 
