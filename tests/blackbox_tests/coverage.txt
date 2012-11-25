@@ -8,6 +8,7 @@
 [X] boilerplate-in-report-msgid-bugs-to
 [X] broken-encoding
 [X] date-from-future
+[X] duplicate-header-field
 [X] duplicate-message-definition
 [X] encoding-in-language-header-field
 [X] invalid-content-transfer-encoding
