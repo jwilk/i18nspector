@@ -473,9 +473,15 @@ class Checker(object):
                 found_unusual_characters |= uc
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
-                if message.msgctxt is None:
-                    self.tag('duplicate-message-definition', message.msgid)
-                else:
-                    self.tag('duplicate-message-definition', message.msgid, tags.safestr('context:'), message.msgctxt)
+                self.tag('duplicate-message-definition', message_repr(message))
+
+def message_repr(message, template='{}'):
+    subtemplate = 'msgid {id}'
+    kwargs = dict(id=message.msgid)
+    if message.msgctxt is not None:
+        subtemplate += ' msgctxt {ctxt}'
+        kwargs.update(ctxt=message.msgctxt)
+    template = template.format(subtemplate)
+    return tags.safe_format(template, **kwargs)
 
 # vim:ts=4 sw=4 et

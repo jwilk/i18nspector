@@ -1,4 +1,4 @@
-# E: duplicate-message-definition 'A quick brown fox jumps over the lazy dog.' context: rot13
+# E: duplicate-message-definition msgid 'A quick brown fox jumps over the lazy dog.' msgctxt rot13
 
 msgid ""
 msgstr ""
