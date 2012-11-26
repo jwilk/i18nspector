@@ -379,6 +379,15 @@ class test_unrepresentable_characters:
         result = lang.get_unrepresentable_characters('UTF-8')
         assert_equal(result, [])
 
+    def test_ll_optional(self):
+        # U+0178 (LATIN CAPITAL LETTER Y WITH DIAERESIS) is not representable
+        # in ISO-8859-1, but we normally turn a blind eye to this.
+        lang = L.parse_language('fr')
+        result = lang.get_unrepresentable_characters('ISO-8859-1')
+        assert_equal(result, [])
+        result = lang.get_unrepresentable_characters('ISO-8859-1', strict=True)
+        assert_not_equal(result, [])
+
     def test_ll_not_found(self):
         lang = L.parse_language('ry')
         result = lang.get_unrepresentable_characters('ISO-8859-1')

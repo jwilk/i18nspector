@@ -148,14 +148,14 @@ class Language(object):
             result = self._parent._get_plural_forms(code)
         return result
 
-    def get_unrepresentable_characters(self, encoding):
+    def get_unrepresentable_characters(self, encoding, strict=False):
         characters = None
         if self.territory_code is not None:
             code = self._simple_format()
-            characters = self._parent._get_characters(code, self.modifier, strict=False)
+            characters = self._parent._get_characters(code, self.modifier, strict=strict)
         if characters is None:
             code = self._simple_format(territory=False)
-            characters = self._parent._get_characters(code, self.modifier, strict=False)
+            characters = self._parent._get_characters(code, self.modifier, strict=strict)
         if characters is None:
             return
         result = []
