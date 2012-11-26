@@ -61,6 +61,28 @@ class test_plurals:
     def _pe(self, s):
         return lib.gettext.parse_plural_expression(s)
 
+    def test_plural_exp_c_operator(self):
+        self._pe('6 * 7')
+
+    def test_plural_exp_py_operator(self):
+        self._pe('6 && 7')
+
+    def test_plural_exp_conditional(self):
+        self._pe('6 ? 7 : 42')
+
+    def test_plural_exp_nested_conditional(self):
+        self._pe('(2 ? 3 : 7) ? 23 : 37')
+
+    def test_plural_exp_unbalanced_parentheses(self):
+        with assert_raises(self._error):
+            self._pe('(6 * 7')
+        with assert_raises(self._error):
+            self._pe('6 * 7)')
+
+    def test_plural_exp_junk_token(self):
+        with assert_raises(self._error):
+            self._pe('6 # 7')
+
     def test_plural_forms_nplurals_0(self):
         with assert_raises(self._error):
             self._pf('nplurals=0; plural=0;')
