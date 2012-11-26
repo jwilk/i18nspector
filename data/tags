@@ -332,7 +332,7 @@ description =
  checking this file.
 
 [syntax-error-in-plural-forms]
-severity = important
+severity = serious
 certainty = possible
 description =
  Value of the Plural-Forms header field could not be parsed.
