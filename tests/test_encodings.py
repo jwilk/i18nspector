@@ -72,13 +72,23 @@ class test_propose_portable_encoding:
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
         assert_is_none(portable_encoding)
 
-def test_ascii_compatiblity():
+class test_ascii_compatiblity:
 
-    def _test(encoding):
-        assert_true(E.is_ascii_compatible_encoding(encoding))
+    def test_portable(self):
 
-    for encoding in E.get_portable_encodings():
-        yield _test, encoding
+        def _test(encoding):
+            assert_true(E.is_ascii_compatible_encoding(encoding))
+
+        for encoding in E.get_portable_encodings():
+            yield _test, encoding
+
+    def test_incompatible(self):
+
+        def _test(encoding):
+            assert_false(E.is_ascii_compatible_encoding(encoding))
+
+        yield _test, 'UTF-7'
+        yield _test, 'UTF-16'
 
 class test_get_character_name:
 
