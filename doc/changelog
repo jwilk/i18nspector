@@ -12,8 +12,9 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Change the way message identifies are formatted in tag output.
   * Perform more checks on Plural-Forms.
   * Upgrade syntax-error-in-plural-forms severity to serious.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 26 Nov 2012 16:05:28 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 26 Nov 2012 16:16:13 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 
