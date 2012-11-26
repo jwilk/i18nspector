@@ -27,6 +27,7 @@ from nose.tools import (
     assert_false,
     assert_is_none,
     assert_not_in,
+    assert_raises,
     assert_true,
 )
 
@@ -131,5 +132,9 @@ class test_get_character_name:
         assert_equal(name, 'non-character')
         name = E.get_character_name('\uffff')
         assert_equal(name, 'non-character')
+
+    def test_lookup_error(self):
+        with assert_raises(ValueError):
+            E.get_character_name('\ue000')
 
 # vim:ts=4 sw=4 et
