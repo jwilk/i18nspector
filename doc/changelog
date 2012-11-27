@@ -21,9 +21,10 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Don't guess language from PO file name if it appears to contain an
     encoding declaration, as it's very likely that something else has been
     confused for the apparent encoding.
+  * Fix untrusted input sanitization.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 18:34:57 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 19:35:21 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 

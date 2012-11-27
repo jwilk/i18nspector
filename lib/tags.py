@@ -91,7 +91,7 @@ certainties = OrderedGroup('Certainty',
     'certain',
 )
 
-_is_safe = re.compile('^[A-Za-z0-9_.!<>=-]+$').match
+_is_safe = re.compile(r'\A[A-Za-z0-9_.!<>=-]+\Z').match
 
 class safestr(str):
     pass
