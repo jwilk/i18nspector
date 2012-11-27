@@ -38,17 +38,17 @@ basedir = os.path.join(
     os.pardir,
 )
 datadir = os.path.join(basedir, 'data')
-G = lib.gettext.GettextInfo(datadir)
+info = lib.gettext.GettextInfo(datadir)
 
 class test_gettext_info:
 
     def test_nonempty(self):
         # XXX Update this number after editing data/po-header-fields:
         expected = 12
-        assert_equal(len(G.po_header_fields), expected)
+        assert_equal(len(info.po_header_fields), expected)
 
     def test_no_x(self):
-        for field in G.po_header_fields:
+        for field in info.po_header_fields:
             assert_false(field.startswith('X-'))
 
 class test_plurals:
@@ -94,59 +94,67 @@ class test_plurals:
     def test_plural_forms_missing_trailing_semicolon(self):
         self._pf('nplurals=1; plural=0')
 
-F = lib.gettext.fix_date_format
-P = lib.gettext.parse_date
 
 class test_fix_date_format:
 
+    def _test(self, old, expected):
+        new = lib.gettext.fix_date_format(old)
+        if expected is None:
+            assert_is_none(new)
+        else:
+            assert_equal(new, expected)
+
+
     def test_boilerplate(self):
-        assert_is_none(F('YEAR-MO-DA HO:MI+ZONE'))
+        self._test('YEAR-MO-DA HO:MI+ZONE', None)
 
     def test_okay(self):
         d = '2010-10-13 01:27+0200'
-        assert_equal(F(d), d)
+        self._test(d, d)
 
     def test_space_before_tz(self):
-        assert_equal(
-            F('2010-05-12 18:36 -0400'),
-              '2010-05-12 18:36-0400'
+        self._test(
+            '2010-05-12 18:36 -0400',
+            '2010-05-12 18:36-0400'
         )
 
     def test_seconds(self):
-        assert_equal(
-            F('2010-03-27 12:44:19+0100'),
-              '2010-03-27 12:44+0100'
+        self._test(
+            '2010-03-27 12:44:19+0100',
+            '2010-03-27 12:44+0100'
         )
 
     def test_colon_in_tz(self):
-        assert_equal(
-            F('2001-06-25 18:55+02:00'),
-              '2001-06-25 18:55+0200'
+        self._test(
+            '2001-06-25 18:55+02:00',
+            '2001-06-25 18:55+0200'
         )
 
     def test_nonnumeric_tz(self):
-        assert_is_none(F('2004-04-20 13:24+CEST'))
+        self._test('2004-04-20 13:24+CEST', None)
 
     def test_only_date(self):
-        assert_is_none(F('2008-01-09'))
+        self._test('2008-01-09', None)
 
     def test_nonexistent(self):
-        assert_is_none(F('2010-02-29 19:49+0200'))
+        self._test('2010-02-29 19:49+0200', None)
 
 class test_parse_date:
 
+    _parse = staticmethod(lib.gettext.parse_date)
+
     def test_nonexistent(self):
         with assert_raises(lib.gettext.DateSyntaxError):
-            P('2010-02-29 19:49+0200')
+            self._parse('2010-02-29 19:49+0200')
 
     def test_existent(self):
-        d = P('2003-09-08 21:26+0200')
+        d = self._parse('2003-09-08 21:26+0200')
         assert_equal(d.second, 0)
         assert_is_instance(d, datetime.datetime)
         assert_equal(str(d), '2003-09-08 21:26:00+02:00')
 
-def test_epoch():
-    d = P('2008-04-03 16:06+0300')
-    assert_less(lib.gettext.epoch, d)
+    def test_epoch(self):
+        d = self._parse('2008-04-03 16:06+0300')
+        assert_less(lib.gettext.epoch, d)
 
 # vim:ts=4 sw=4 et
