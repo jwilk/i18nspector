@@ -235,8 +235,11 @@ class Checker(object):
             assert ext == '.po'
             try:
                 language = linginfo.parse_language(language)
+                if language.encoding is not None:
+                    # It's very likely that something else has been confused
+                    # for the apparent encoding.
+                    raise ling.LanguageError
                 language.fix_codes()
-                language.remove_encoding()
                 language.remove_nonlinguistic_modifier()
             except ling.LanguageError:
                 # It's not our job to report possible errors in _pathnames_.
