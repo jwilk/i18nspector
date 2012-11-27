@@ -148,7 +148,7 @@ def fix_date_format(s):
     match = _parse_date(s)
     if match is None:
         return
-    s = ''.join(match.groups())
+    s = ''.join(g if not g.isspace() else ' ' for g in match.groups())
     assert len(s) == 21, 'len({!r}) != 21'.format(s)
     try:
         parse_date(s)

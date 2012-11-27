@@ -112,6 +112,10 @@ class test_fix_date_format:
         d = '2010-10-13 01:27+0200'
         self._test(d, d)
 
+    def test_double_space(self):
+        d = '2011-11-08  16:49+0200'
+        self._test(d, d.replace('  ', ' '))
+
     def test_space_before_tz(self):
         self._test(
             '2010-05-12 18:36 -0400',
