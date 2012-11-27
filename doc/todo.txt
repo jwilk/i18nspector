@@ -1,6 +1,6 @@
 Acquire correct Plural-Forms from:
-http://translate.sourceforge.net/wiki/l10n/pluralforms
-http://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml
+ * http://translate.sourceforge.net/wiki/l10n/pluralforms
+ * http://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml
 
 Complain about incorrect locale codes:
  * al -> sq
@@ -22,7 +22,7 @@ Complain about incorrect locale codes:
  * vn -> vi
 
 Guess language from ``Language-Team``.
-http://translationproject.org/team/
+ * http://translationproject.org/team/
 
 Improve ``Plural-Forms`` support.
 
@@ -41,5 +41,6 @@ Add tests for:
 Detect question marks in unusual places.
 
 Make duplicate-header-field work for .mo files, too.
+ * https://bitbucket.org/izi/polib/issue/36
 
 .. vim:ft=rst
