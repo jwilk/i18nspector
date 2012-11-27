@@ -51,6 +51,10 @@ class PolibCodecs(object):
             for line in file:
                 yield line.decode(encoding)
 
+class MetadataStr(str):
+    def __iadd__(self, other):
+        return MetadataStr(str.__add__(self, other))
+
 class MetadataDict(dict):
 
     def __init__(self, *args, **kwargs):
@@ -58,10 +62,13 @@ class MetadataDict(dict):
         self.duplicates = {}
 
     def __setitem__(self, key, value):
+        if isinstance(value, MetadataStr):
+            dict.__setitem__(self, key, value)
+            return
         try:
             orig_value = self[key]
         except KeyError:
-            dict.__setitem__(self, key, value)
+            dict.__setitem__(self, key, MetadataStr(value))
         else:
             try:
                 self.duplicates[key] += value

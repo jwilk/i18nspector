@@ -15,9 +15,11 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Don't crash when parsing dates with double space between date and time.
   * Don't allow whitespace characters other than space and tab in plural
     expressions.
+  * Don't emit spurious duplicate-header-field tags on multi-line header
+    fields.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 17:13:35 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 17:37:38 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 
