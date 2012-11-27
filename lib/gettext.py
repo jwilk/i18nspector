@@ -61,7 +61,7 @@ _plural_exp_tokens = [
     (r'n', None),
     (r'[?:]', None),
     (r'[()]', None),
-    (r'\s+', None),
+    (r'[ \t]', None),
     (r'.', '_'), # junk
 ]
 
@@ -110,7 +110,11 @@ def parse_plural_expression(s):
         raise PluralExpressionSyntaxError
     [s] = stack
     s = _subst_ifelse(s)
-    fn = eval('lambda n: int({})'.format(s))
+    try:
+        fn = eval('lambda n: int({})'.format(s))
+    except SyntaxError as exc:
+        assert 0, "{!r} couldn't be parsed as Python expression".format(s)
+        raise PluralExpressionSyntaxError
     fn.__name__ = 'plural'
     return fn
 

@@ -13,9 +13,11 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Perform more checks on Plural-Forms.
   * Upgrade syntax-error-in-plural-forms severity to serious.
   * Don't crash when parsing dates with double space between date and time.
+  * Don't allow whitespace characters other than space and tab in plural
+    expressions.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 16:59:42 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 17:13:35 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 
