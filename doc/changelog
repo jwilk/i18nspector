@@ -17,9 +17,10 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
     expressions.
   * Don't emit spurious duplicate-header-field tags on multi-line header
     fields.
+  * Don't complain about issues with obsolete or fuzzy messages.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 17:37:38 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 18:19:05 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 

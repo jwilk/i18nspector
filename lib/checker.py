@@ -21,6 +21,7 @@
 import codecs
 import collections
 import email.utils
+import itertools
 import os
 import re
 import urllib.parse
@@ -313,7 +314,7 @@ class Checker(object):
             assert gettext.parse_plural_forms(correct_plural_forms)
         plural_forms = file.metadata.get('Plural-Forms')
         expected_nplurals = {}
-        for message in file:
+        for message in get_interesting_messages(file):
             if message.msgid_plural:
                 expected_nplurals[len(message.msgstr_plural)] = message
                 if len(expected_nplurals) > 1:
@@ -495,7 +496,7 @@ class Checker(object):
         encinfo = self.options.encinfo
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
-        for message in file:
+        for message in get_interesting_messages(file):
             msgid_uc = set(find_unusual_characters(message.msgid))
             msgstr_uc = set(find_unusual_characters(message.msgstr))
             uc = msgstr_uc - msgid_uc - found_unusual_characters
@@ -518,5 +519,11 @@ def message_repr(message, template='{}'):
         kwargs.update(ctxt=message.msgctxt)
     template = template.format(subtemplate)
     return tags.safe_format(template, **kwargs)
+
+def get_interesting_messages(file):
+    return itertools.chain(
+        file.translated_entries(),
+        file.untranslated_entries(),
+    )
 
 # vim:ts=4 sw=4 et
