@@ -1,0 +1,20 @@
+# E: duplicate-message-definition msgid '\x07\x07\x08\x08\x0c\x0c\t\t\x0b\x0b\r\n'
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Gizmo Enhancer 1.0\n"
+"Report-Msgid-Bugs-To: gizmoenhancer@example.net\n"
+"POT-Creation-Date: 2012-11-01 14:42+0100\n"
+"PO-Revision-Date: 2012-11-01 14:42+0100\n"
+"Last-Translator: Numerius Negidius <negidius@example.net>\n"
+"Language-Team: Latin Strike Force <la@li.org>\n"
+"Language: la\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\a\7\b\x8\f\x0c\t\11\v\013\r\n"
+msgstr ""
+
+msgid "\a\7\b\x8\f\x0c\t\11\v\013\r\n"
+msgstr ""

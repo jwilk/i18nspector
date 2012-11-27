@@ -1,3 +1,5 @@
+``polib_unescape()`` must take PO file encoding into account.
+
 Acquire correct Plural-Forms from:
  * http://translate.sourceforge.net/wiki/l10n/pluralforms
  * http://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml

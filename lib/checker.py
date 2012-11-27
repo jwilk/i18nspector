@@ -76,6 +76,27 @@ class MetadataDict(dict):
             except KeyError:
                 self.duplicates[key] = [orig_value, value]
 
+_escapes_re = re.compile(r''' ( \\
+(?: [ntbrfva]
+  | \\
+  | "
+  | [0-9]{1,3}
+  | x[0-9a-fA-F]{1,2}
+  ))+
+''', re.VERBOSE)
+
+_short_x_escape_re = re.compile(r'''
+    \\x ([0-9a-fA-F]) (?= \\ | $ )
+''', re.VERBOSE)
+
+def polib_unescape(s):
+    def unescape(match):
+        s = match.group()
+        s = _short_x_escape_re.sub(r'\x0\1', s)
+        result = eval("b'{}'".format(s))
+        return result.decode('UTF-8', 'replace') # FIXME!
+    return _escapes_re.sub(unescape, s)
+
 find_unusual_characters = re.compile(
     r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # C0 except TAB, LF, ESC
     r'|\x1b(?!\[)' # ESC, except when followed by [
@@ -108,6 +129,9 @@ class Checker(object):
             assert len(self.metadata) == 0
             self.metadata = MetadataDict()
         polib._BaseFile.__init__ = base_file_init
+        # Work around an escape sequence decoding bug
+        # <https://bitbucket.org/izi/polib/issue/31>:
+        polib.unescape = polib_unescape
         cls._patched_environment = True
 
     def __init__(self, path, *, options):
