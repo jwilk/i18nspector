@@ -9,7 +9,7 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Don't unpack control file directories of Debian binary packages; they
     almost certainly don't contain any interesting files.
   * Add DEL (U+007F) to the list of control characters.
-  * Change the way message identifies are formatted in tag output.
+  * Change the way message identifiers are formatted in tag output.
   * Perform more checks on Plural-Forms.
   * Upgrade syntax-error-in-plural-forms severity to serious.
   * Don't crash when parsing dates with double space between date and time.
