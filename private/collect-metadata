@@ -58,10 +58,14 @@ def main():
     ap.add_argument('-F', '--field', help='only this field')
     ap.add_argument('--insane', action='store_true', help='allow insane field names')
     ap.add_argument('--extract-addresses', action='store_true')
+    ap.add_argument('--all-test-cases', action='store_true')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
     metadata = collections.defaultdict(collections.Counter)
-    test_cases = {}
+    if options.all_test_cases:
+        test_cases = collections.defaultdict(set)
+    else:
+        test_cases = {}
     files = options.files
     if options.stdin:
         files = itertools.chain(
@@ -88,7 +92,10 @@ def main():
                 if options.extract_addresses:
                     v = extract_address(v)
                 metadata[k][v] += 1
-                test_cases[k, v] = path
+                if options.all_test_cases:
+                    test_cases[k, v].add(path)
+                else:
+                    test_cases[k, v] = path
             file = None
         except Exception as exc:
             print('error:', exc, file=sys.stderr)
@@ -98,8 +105,13 @@ def main():
     for key, values in sorted(metadata.items()):
         print('{key!r}:'.format(key=key))
         for value, n in values.most_common():
-            path = test_cases[key, value]
-            print(' {n:6} {value!r}; test-case: {path!r}'.format(n=n, value=value, path=path))
+            if options.all_test_cases:
+                print(' {n:6} {value!r}'.format(n=n, value=value))
+                for path in sorted(test_cases[key, value]):
+                    print('        + {path!r}'.format(path=path))
+            else:
+                path = test_cases[key, value]
+                print(' {n:6} {value!r}; test-case: {path!r}'.format(n=n, value=value, path=path))
 
 if __name__ == '__main__':
     main()
