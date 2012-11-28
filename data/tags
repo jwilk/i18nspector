@@ -370,9 +370,11 @@ description =
 severity = important
 certainty = possible
 description =
- This file declares an encoding that couldn't be recognized by gettext-inspector.
+ This file declares an encoding that couldn't be recognized by
+ gettext-inspector.
  It might be a typo.
- Absence of encoding information will prevent it from performing further checks.
+ Absence of encoding information will prevent it from performing further
+ checks.
 
 [unknown-file-type]
 severity = normal
@@ -399,7 +401,8 @@ description =
 severity = serious
 certainty = possible
 description =
- The declared encoding cannot represent all characters commonly used in this language.
+ The declared encoding cannot represent all characters commonly used in this
+ language.
  This is a strong indication that the declared encoding is incorrect.
 
 [unusual-character-in-translation]
