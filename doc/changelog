@@ -5,6 +5,7 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
       - inconsistent-number-of-plural-forms
       - incorrect-number-of-plural-forms
       - no-plural-forms-header-field
+      - no-required-plural-forms-header-field
 
   * Don't unpack control file directories of Debian binary packages; they
     almost certainly don't contain any interesting files.
@@ -26,7 +27,7 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
     https://bitbucket.org/izi/polib/issue/31 
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 28 Nov 2012 12:05:49 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 28 Nov 2012 12:37:11 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 

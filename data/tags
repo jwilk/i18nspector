@@ -274,11 +274,11 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-plural-forms-header-field]
-severity = serious
+severity = minor
 certainty = certain
 description =
  The Plural-Forms header field does not exist, even though some of the messages
- use plural forms.
+ use plural forms (although none of them have been translated).
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
@@ -300,6 +300,15 @@ description =
  untranslated strings.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+
+[no-required-plural-forms-header-field]
+severity = serious
+certainty = certain
+description =
+ The Plural-Forms header field does not exist, even though some of the
+ translated messages use plural forms.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [no-version-in-project-id-version]
 severity = pedantic

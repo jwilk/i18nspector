@@ -348,9 +348,15 @@ class Checker(object):
         if correct_plural_forms is not None:
             assert gettext.parse_plural_forms(correct_plural_forms)
         plural_forms = file.metadata.get('Plural-Forms')
-        expected_nplurals = {}
-        for message in get_interesting_messages(file):
+        has_plurals = False # messages with plural forms (translated or not)?
+        expected_nplurals = {} # number of plurals in _translated_ messages
+        for message in file:
+            if message.obsolete:
+                continue
             if message.msgid_plural:
+                has_plurals = True
+                if not message.translated():
+                    continue
                 expected_nplurals[len(message.msgstr_plural)] = message
                 if len(expected_nplurals) > 1:
                     break
@@ -359,7 +365,9 @@ class Checker(object):
             for n, message in sorted(expected_nplurals.items()):
                 args += [n, message_repr(message, template='({})'), '!=']
             self.tag('inconsistent-number-of-plural-forms', *args[:-1])
-        if correct_plural_forms is not None:
+        if is_template:
+            plural_forms_hint = 'Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;'
+        elif correct_plural_forms is not None:
             plural_forms_hint = correct_plural_forms
         else:
             plural_forms_hint = 'nplurals=<n>; plural=<expression>'
@@ -367,12 +375,13 @@ class Checker(object):
                 [n] = expected_nplurals.keys()
                 plural_forms_hint.replace('<n>', str(n))
         if plural_forms is None:
-            if expected_nplurals:
-                self.tag('no-plural-forms-header-field', 'Plural-Forms: ' + plural_forms_hint)
+            if has_plurals:
+                if expected_nplurals:
+                    self.tag('no-required-plural-forms-header-field', 'Plural-Forms: ' + plural_forms_hint)
+                else:
+                    self.tag('no-plural-forms-header-field', 'Plural-Forms: ' + plural_forms_hint)
             return
         if is_template:
-            if expected_nplurals:
-                self.tag('no-plural-forms-header-field', 'Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;')
             return
         try:
             (n, expr) = gettext.parse_plural_forms(plural_forms)
@@ -556,11 +565,5 @@ def message_repr(message, template='{}'):
         kwargs.update(ctxt=message.msgctxt)
     template = template.format(subtemplate)
     return tags.safe_format(template, **kwargs)
-
-def get_interesting_messages(file):
-    return itertools.chain(
-        file.translated_entries(),
-        file.untranslated_entries(),
-    )
 
 # vim:ts=4 sw=4 et
