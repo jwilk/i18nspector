@@ -21,6 +21,7 @@
 import codecs
 import collections
 import email.utils
+import inspect
 import itertools
 import os
 import re
@@ -94,7 +95,14 @@ def polib_unescape(s):
         s = match.group()
         s = _short_x_escape_re.sub(r'\x0\1', s)
         result = eval("b'{}'".format(s))
-        return result.decode('UTF-8', 'replace') # FIXME!
+        try:
+            return result.decode('ASCII')
+        except UnicodeDecodeError:
+            # an ugly hack to discover encoding of the PO file:
+            parser_stack_frame = inspect.stack()[2][0]
+            parser = parser_stack_frame.f_locals['self']
+            encoding = parser.instance.encoding
+            return result.decode(encoding)
     return _escapes_re.sub(unescape, s)
 
 find_unusual_characters = re.compile(
