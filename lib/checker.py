@@ -411,11 +411,12 @@ class Checker(object):
             self.tag('no-content-transfer-encoding-header-field', tags.safestr('Content-Transfer-Encoding: 8bit'))
         ct = file.metadata.get('Content-Type')
         encoding = None
+        content_type_hint = 'text/plain; charset=<encoding>'
         if ct is not None:
-            match = re.match('^text/plain; charset=([^\s;]+)$', ct)
+            match = re.search(r'(\Atext/plain; )?\bcharset=([^\s;]+)\Z', ct)
             if match:
                 encinfo = self.options.encinfo
-                encoding = match.group(1)
+                encoding = match.group(2)
                 try:
                     is_ascii_compatible = encinfo.is_ascii_compatible_encoding(encoding)
                 except LookupError:
@@ -433,16 +434,21 @@ class Checker(object):
                         new_encoding = encinfo.propose_portable_encoding(encoding)
                         if new_encoding is not None:
                             self.tag('non-portable-encoding', encoding, '=>', new_encoding)
+                            encoding = new_encoding
                         else:
                             self.tag('non-portable-encoding', encoding)
                     if language is not None:
                         unrepresentable_characters = language.get_unrepresentable_characters(encoding)
                         if unrepresentable_characters:
                             self.tag('unrepresentable-characters', encoding, *unrepresentable_characters)
+                if match.group(1) is None:
+                    if encoding is not None:
+                        content_type_hint = content_type_hint.replace('<encoding>', encoding)
+                    self.tag('invalid-content-type', ct, '=>', content_type_hint)
             else:
-                self.tag('invalid-content-type', ct, '=>', 'text/plain; charset=<encoding>')
+                self.tag('invalid-content-type', ct, '=>', content_type_hint)
         else:
-            self.tag('no-content-type-header-field', tags.safestr('Content-Type: text/plain; charset=<encoding>'))
+            self.tag('no-content-type-header-field', tags.safestr('Content-Type: ' + content_type_hint))
         return encoding
 
     def check_dates(self, file, *, is_template):

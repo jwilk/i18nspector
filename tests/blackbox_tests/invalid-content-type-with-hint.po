@@ -1,4 +1,4 @@
-# W: invalid-content-type 'text/plain' => 'text/plain; charset=<encoding>'
+# W: invalid-content-type 'text/enriched; charset=UTF-8' => 'text/plain; charset=UTF-8'
 
 msgid ""
 msgstr ""
@@ -10,7 +10,7 @@ msgstr ""
 "Language-Team: Latin Strike Force <la@li.org>\n"
 "Language: la\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain\n"
+"Content-Type: text/enriched; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "A quick brown fox jumps over the lazy dog."
