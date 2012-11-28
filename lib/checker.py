@@ -372,7 +372,7 @@ class Checker(object):
             return
         if is_template:
             if expected_nplurals:
-                self.tag('no-plural-forms-header-field')
+                self.tag('no-plural-forms-header-field', 'Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;')
             return
         try:
             (n, expr) = gettext.parse_plural_forms(plural_forms)
