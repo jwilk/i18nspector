@@ -169,6 +169,12 @@ class test_os_release:
                 pld=True,
             )
 
+    def test_none(self):
+        with self._tmpfile('') as file:
+            os_release = lib.misc.OSRelease(path=file.name)
+            with assert_raises(TypeError):
+                os_release.is_like(None)
+
 def test_utc_now():
     now = lib.misc.utc_now()
     assert_is_instance(now, datetime.datetime)
