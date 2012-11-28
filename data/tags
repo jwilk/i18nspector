@@ -359,6 +359,16 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
  http://bugs.debian.org/692283
 
+[syntax-error-in-unused-plural-forms]
+severity = important
+certainty = possible
+description =
+ Value of the Plural-Forms header field could not be parsed. (But there are no
+ translated messages which use plural forms.)
+ It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
 [unable-to-determine-language]
 severity = normal
 certainty = wild-guess

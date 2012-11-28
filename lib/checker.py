@@ -386,7 +386,10 @@ class Checker(object):
         try:
             (n, expr) = gettext.parse_plural_forms(plural_forms)
         except gettext.PluralFormsSyntaxError:
-            self.tag('syntax-error-in-plural-forms', plural_forms, '=>', plural_forms_hint)
+            if has_plurals:
+                self.tag('syntax-error-in-plural-forms', plural_forms, '=>', plural_forms_hint)
+            else:
+                self.tag('syntax-error-in-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
         else:
             if len(expected_nplurals) == 1:
                 [expected_nplurals] = expected_nplurals.keys()
