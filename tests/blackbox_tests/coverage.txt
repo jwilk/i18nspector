@@ -35,6 +35,7 @@
 [X] no-plural-forms-header-field
 [X] no-project-id-version-header-field
 [X] no-report-msgid-bugs-to-header-field
+[X] no-required-plural-forms-header-field
 [X] no-version-in-project-id-version
 [X] non-ascii-compatible-encoding
 [X] non-portable-encoding
