@@ -531,7 +531,9 @@ class Checker(object):
         encinfo = self.options.encinfo
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
-        for message in get_interesting_messages(file):
+        for message in file:
+            if message.obsolete:
+                continue
             msgid_uc = set(find_unusual_characters(message.msgid))
             msgstr_uc = set(find_unusual_characters(message.msgstr))
             uc = msgstr_uc - msgid_uc - found_unusual_characters

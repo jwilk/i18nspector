@@ -17,7 +17,7 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
     expressions.
   * Don't emit spurious duplicate-header-field tags on multi-line header
     fields.
-  * Don't complain about issues with obsolete or fuzzy messages.
+  * Don't complain about issues with obsolete messages.
   * Don't guess language from PO file name if it appears to contain an
     encoding declaration, as it's very likely that something else has been
     confused for the apparent encoding.
@@ -26,7 +26,7 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
     https://bitbucket.org/izi/polib/issue/31 
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 27 Nov 2012 23:13:30 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 28 Nov 2012 12:05:49 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 
