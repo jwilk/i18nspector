@@ -355,7 +355,7 @@ class Checker(object):
                 continue
             if message.msgid_plural:
                 has_plurals = True
-                if not message.translated():
+                if isinstance(message, polib.POEntry) and not message.translated():
                     continue
                 expected_nplurals[len(message.msgstr_plural)] = message
                 if len(expected_nplurals) > 1:

@@ -37,7 +37,8 @@ Document the security model.
 Add tests for:
  * Debian source packages
  * Debian binary packages
- * POT without Plural-Forms header.
+ * POT without Plural-Forms header
+ * MO files (at least against some tags)
 
 Detect question marks in unusual places.
 
