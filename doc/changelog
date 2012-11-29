@@ -27,10 +27,10 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Fix untrusted input sanitization.
   * Work around an escape sequence decoding bug in polib.
     https://bitbucket.org/izi/polib/issue/31 
-  * Fix a typo in the manual page.
+  * Fix typos and formatting errors in the manual page.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 29 Nov 2012 23:32:32 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 29 Nov 2012 23:59:55 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 

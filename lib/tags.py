@@ -133,12 +133,21 @@ class Tag(object):
     def _set_certainty(self, value):
         self.certainty = certainties[value]
 
+    _strip_multiline = functools.partial(re.compile('^[.]', re.MULTILINE).sub, '')
+
+    @classmethod
+    def _parse_multiline(cls, value):
+        for s in value.splitlines():
+            if not s or s.isspace():
+                continue
+            yield cls._strip_multiline(s)
+
     def _set_description(self, value):
-        value = '\n'.join(s.strip() for s in value.splitlines() if s and not s.isspace())
+        value = '\n'.join(self._parse_multiline(value))
         self.description = value
 
     def _set_references(self, value):
-        self.references += (s.strip() for s in value.splitlines() if s and not s.isspace())
+        self.references += self._parse_multiline(value)
 
     def get_colors(self):
         prio = self.get_priority()

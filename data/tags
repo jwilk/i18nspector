@@ -421,7 +421,8 @@ certainty = possible
 description =
  One of the translated messages contains an unusual character.
  This is usually an indication of an encoding problem, such as:
-  * using ISO 2022 escape sequences, or
-  * using UTF-8 despite declaring an 8-bit encoding.
+ .
+ * using ISO 2022 escape sequences, or
+ * using UTF-8 despite declaring an 8-bit encoding.
 
 # vim:ft=dosini
