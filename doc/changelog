@@ -1,4 +1,4 @@
-gettext-inspector (0.4) UNRELEASED; urgency=low
+gettext-inspector (0.4) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -30,7 +30,7 @@ gettext-inspector (0.4) UNRELEASED; urgency=low
   * Fix typos and formatting errors in the manual page.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 29 Nov 2012 23:59:55 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 30 Nov 2012 00:08:29 +0100
 
 gettext-inspector (0.3) unstable; urgency=low
 
