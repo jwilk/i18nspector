@@ -37,6 +37,7 @@ install:
 	# binary:
 	install -d -m755 $(DESTDIR)$(bindir)
 	sed -e "s#^basedir = .*#basedir = '$(basedir)/'#" $(gi) > $(DESTDIR)$(bindir)/$(gi)
+	chmod 0755 $(DESTDIR)$(bindir)/$(gi)
 	# library:
 	( cd lib && find -type f ! -name '*.py[co]' ) \
 	| sed -e 's#^[.]/##' \
@@ -45,7 +46,6 @@ install:
 	install -d -m755 $(DESTDIR)$(datadir)
 	install -m 644 data/* $(DESTDIR)$(datadir)
 	# manual page:
-	chmod 0755 $(DESTDIR)$(bindir)/$(gi)
 	install -D -m644 doc/$(gi).1 $(DESTDIR)$(mandir)/man1/$(gi).1
 
 # vim:ts=4 sw=4 noet
