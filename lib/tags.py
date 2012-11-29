@@ -133,14 +133,17 @@ class Tag(object):
     def _set_certainty(self, value):
         self.certainty = certainties[value]
 
-    _strip_multiline = functools.partial(re.compile('^[.]', re.MULTILINE).sub, '')
+    _strip_leading_dot = functools.partial(
+        re.compile('^[.]', re.MULTILINE).sub,
+        ''
+    )
 
     @classmethod
     def _parse_multiline(cls, value):
         for s in value.splitlines():
             if not s or s.isspace():
                 continue
-            yield cls._strip_multiline(s)
+            yield cls._strip_leading_dot(s)
 
     def _set_description(self, value):
         value = '\n'.join(self._parse_multiline(value))
