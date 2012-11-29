@@ -22,7 +22,6 @@ import codecs
 import collections
 import email.utils
 import inspect
-import itertools
 import os
 import re
 import urllib.parse
