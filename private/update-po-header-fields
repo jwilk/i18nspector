@@ -29,7 +29,7 @@ xgettexts = {'xgettext', 'pygettext'}
 
 def main():
     os.environ['LC_ALL'] = 'C'
-    tmpdir = tempfile.mkdtemp(prefix='gettext-inspector.private.')
+    tmpdir = tempfile.mkdtemp(prefix='i18nspector.private.')
     xgettext_versions = {
         ipc.check_output([xgettext, '--version']).splitlines()[0].decode('ASCII', 'replace')
         for xgettext in xgettexts

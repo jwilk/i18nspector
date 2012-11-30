@@ -53,8 +53,8 @@ description =
  Unicode.
  The usual cause of this is incorrect or missing encoding declaration.
  .
- Note that in the absence of encoding declaration, gettext-inspector assumes
- ASCII encoding.
+ Note that in the absence of encoding declaration, i18nspector assumes ASCII
+ encoding.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
@@ -215,8 +215,8 @@ description =
  The Content-Type header field doesn't exist. It should be set to
  ``text/plain; charset=``\ *encoding*.
  .
- Note that in the absence of encoding declaration, gettext-inspector assumes
- ASCII encoding.
+ Note that in the absence of encoding declaration, i18nspector assumes ASCII
+ encoding.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
@@ -373,15 +373,14 @@ references =
 severity = normal
 certainty = wild-guess
 description =
- gettext-inspector was unable to determine language of this file.
+ i18nspector was unable to determine language of this file.
  Absence of this information will prevent it from performing further checks.
 
 [unknown-encoding]
 severity = important
 certainty = possible
 description =
- This file declares an encoding that couldn't be recognized by
- gettext-inspector.
+ This file declares an encoding that couldn't be recognized by i18nspector.
  It might be a typo.
  Absence of encoding information will prevent it from performing further
  checks.
@@ -391,13 +390,13 @@ severity = normal
 certainty = wild-guess
 description =
  File format of this file couldn't be recognized.
- It might be a bug in gettext-inspector.
+ It might be a bug in i18nspector.
 
 [unknown-header-field]
 severity = minor
 certainty = wild-guess
 description =
- The header field name is unknown to gettext-inspector.
+ The header field name is unknown to i18nspector.
  It might be a typo.
 
 [unknown-poedit-language]
@@ -405,7 +404,7 @@ severity = minor
 certainty = wild-guess
 description =
  Language declared in X-Poedit-Language couldn't be recognized.
- It might be a bug in gettext-inspector.
+ It might be a bug in i18nspector.
 
 [unrepresentable-characters]
 severity = serious

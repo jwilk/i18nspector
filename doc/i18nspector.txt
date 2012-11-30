@@ -1,6 +1,6 @@
-=================
-gettext-inspector
-=================
+===========
+i18nspector
+===========
 
 -----------------------------------------
 tool for checking gettext POT/PO/MO files
@@ -10,7 +10,7 @@ tool for checking gettext POT/PO/MO files
 
 Usage
 -----
-**gettext-inspector** [--language *<lang>*] [--debian] *<file>* [*<file>* …]
+**i18nspector** [--language *<lang>*] [--debian] *<file>* [*<file>* …]
 
 Options
 -------

@@ -1,3 +1,9 @@
+i18nspector (0.4.1) UNRELEASED; urgency=low
+
+  * Rename the package.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 30 Nov 2012 11:52:22 +0100
+
 gettext-inspector (0.4) unstable; urgency=low
 
   * Summary of tag changes:

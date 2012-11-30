@@ -1,6 +1,6 @@
 syntax: glob
 
 __pycache__/
-doc/gettext-inspector.1
+doc/*.1
 doc/tags.txt
 .coverage
