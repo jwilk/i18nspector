@@ -18,10 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import codecs
 import collections
+import contextlib
 import email.utils
-import inspect
 import os
 import re
 import urllib.parse
@@ -31,78 +30,14 @@ import polib
 from lib import gettext
 from lib import ling
 from lib import misc
+from lib import polib4us
 from lib import tags
 
 class EnvironmentNotPatched(RuntimeError):
     pass
 
-class PolibCodecs(object):
-
-    # This class substitutes the codecs module for polib, in order to work
-    # around a newline decoding bug:
-    # http://bugs.debian.org/692283
-
-    def __getattr__(self, attr):
-        return getattr(codecs, attr)
-
-    def open(self, path, mode, encoding):
-        if mode != 'rU':
-            raise NotImplementedError
-        with open(path, 'rb') as file:
-            for line in file:
-                yield line.decode(encoding)
-
-class MetadataStr(str):
-    def __iadd__(self, other):
-        return MetadataStr(str.__add__(self, other))
-
-class MetadataDict(dict):
-
-    def __init__(self, *args, **kwargs):
-        dict.__init__(self, *args, **kwargs)
-        self.duplicates = {}
-
-    def __setitem__(self, key, value):
-        if isinstance(value, MetadataStr):
-            dict.__setitem__(self, key, value)
-            return
-        try:
-            orig_value = self[key]
-        except KeyError:
-            dict.__setitem__(self, key, MetadataStr(value))
-        else:
-            try:
-                self.duplicates[key] += value
-            except KeyError:
-                self.duplicates[key] = [orig_value, value]
-
-_escapes_re = re.compile(r''' ( \\
-(?: [ntbrfva]
-  | \\
-  | "
-  | [0-9]{1,3}
-  | x[0-9a-fA-F]{1,2}
-  ))+
-''', re.VERBOSE)
-
-_short_x_escape_re = re.compile(r'''
-    \\x ([0-9a-fA-F]) (?= \\ | $ )
-''', re.VERBOSE)
-
-def polib_unescape(s):
-    def unescape(match):
-        s = match.group()
-        s = _short_x_escape_re.sub(r'\x0\1', s)
-        result = eval("b'{}'".format(s))
-        try:
-            return result.decode('ASCII')
-        except UnicodeDecodeError:
-            # an ugly hack to discover encoding of the PO file:
-            parser_stack_frame = inspect.stack()[2][0]
-            parser = parser_stack_frame.f_locals['self']
-            encoding = parser.instance.encoding
-            return result.decode(encoding)
-    return _escapes_re.sub(unescape, s)
+class EnvironmentAlreadyPatched(RuntimeError):
+    pass
 
 find_unusual_characters = re.compile(
     r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # C0 except TAB, LF, ESC
@@ -116,33 +51,25 @@ find_unusual_characters = re.compile(
 
 class Checker(object):
 
-    _patched_environment = False
+    _patched_environment = None
 
     @classmethod
-    def patch_environment(cls, encinfo):
-        # Install extra encodings that used by real-world PO/MO files, but are
-        # not known to Python.
-        encinfo.install_extra_encodings()
-        # Do not allow broken/missing encoding declarations, unless the file is
-        # ASCII-only:
-        polib.default_encoding = 'ASCII'
-        # Work around a newline decoding bug:
-        polib.codecs = PolibCodecs()
-        # Detect metadata duplicates:
-        orig_base_file_init = polib._BaseFile.__init__
-        def base_file_init(self, *args, **kwargs):
-            orig_base_file_init(self, *args, **kwargs)
-            assert type(self.metadata) is dict
-            assert len(self.metadata) == 0
-            self.metadata = MetadataDict()
-        polib._BaseFile.__init__ = base_file_init
-        # Work around an escape sequence decoding bug
-        # <https://bitbucket.org/izi/polib/issue/31>:
-        polib.unescape = polib_unescape
-        cls._patched_environment = True
+    @contextlib.contextmanager
+    def patched_environment(cls, encinfo):
+        if cls._patched_environment is not None:
+            raise EnvironmentAlreadyPatched
+        cls._patched_environment = False
+        with polib4us.patched():
+            with encinfo.extra_encodings():
+                cls._patched_environment = True
+                try:
+                    yield
+                finally:
+                    cls._patched_environment = False
+        cls._patched_environment = None
 
     def __init__(self, path, *, options):
-        if not self._patched_environment:
+        if self._patched_environment is not True:
             raise EnvironmentNotPatched
         self.path = path
         self.fake_path = path

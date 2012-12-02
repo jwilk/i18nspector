@@ -158,7 +158,10 @@ def main():
         options.language = language
     options.ignore_tags = set()
     options.fake_root = None
-    Checker.patch_environment(encinfo)
+    with Checker.patched_environment(encinfo):
+        check_all(files, options=options)
+
+def check_all(files, *, options):
     for filename in files:
         if options.debian:
             try:

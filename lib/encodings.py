@@ -20,6 +20,7 @@
 
 import codecs
 import configparser
+import contextlib
 import itertools
 import os
 import subprocess as ipc
@@ -143,6 +144,7 @@ class EncodingInfo(object):
                 if name.upper() != name:
                     raise misc.DataIntegrityError
                 self._control_character_names[code] = name
+        self._extra_encodings_installed = None
 
     def get_portable_encodings(self, python=True):
         return (
@@ -181,6 +183,8 @@ class EncodingInfo(object):
             return False
 
     def _codec_search_function(self, encoding):
+        if not (self._extra_encodings_installed > 0):
+            return
         if self._portable_encodings.get(encoding, False) is None:
             # portable according to gettext documentation
             # but not supported directly by Python
@@ -192,8 +196,25 @@ class EncodingInfo(object):
             return
         return iconv_encoding(encoding)
 
-    def install_extra_encodings(self):
-        codecs.register(self._codec_search_function)
+    def _install_extra_encodings(self):
+        if self._extra_encodings_installed is None:
+            codecs.register(self._codec_search_function)
+            self._extra_encodings_installed = 1
+        else:
+            assert self._extra_encodings_installed >= 0
+            self._extra_encodings_installed += 1
+
+    def _uninstall_extra_encodings(self):
+        assert self._extra_encodings_installed > 0
+        self._extra_encodings_installed -= 1
+
+    @contextlib.contextmanager
+    def extra_encodings(self):
+        self._install_extra_encodings()
+        try:
+            yield
+        finally:
+            self._uninstall_extra_encodings()
 
     def get_character_name(self, ch):
         try:

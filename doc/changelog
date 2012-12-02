@@ -1,8 +1,8 @@
 i18nspector (0.4.2) UNRELEASED; urgency=low
 
-  * 
+  * Refactor the environment patching code.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 02 Dec 2012 17:10:45 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 02 Dec 2012 20:16:04 +0100
 
 i18nspector (0.4.1) unstable; urgency=low
 
