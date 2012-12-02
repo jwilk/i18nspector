@@ -38,7 +38,7 @@ class test_escape:
         s = 'fox'
         self._test(s, s)
 
-    def test_trailing_newilne(self):
+    def test_trailing_newline(self):
         s = 'fox\n'
         self._test(s, repr(s))
 
