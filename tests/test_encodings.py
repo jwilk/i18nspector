@@ -141,11 +141,20 @@ class test_get_character_name:
 class test_extra_encoding:
 
     def test_install(self):
-        with assert_raises(LookupError):
+        def enc():
             ''.encode('VISCII')
+        def dec():
+            b'.'.decode('VISCII')
+        with assert_raises(LookupError):
+            enc()
+        with assert_raises(LookupError):
+            dec()
         with E.extra_encodings():
-            ''.encode('VISCII')
+            enc()
+            dec()
         with assert_raises(LookupError):
-            ''.encode('VISCII')
+            enc()
+        with assert_raises(LookupError):
+            dec()
 
 # vim:ts=4 sw=4 et
