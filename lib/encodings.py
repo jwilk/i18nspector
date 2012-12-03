@@ -28,7 +28,7 @@ import unicodedata
 
 from lib import misc
 
-def iconv_encoding(encoding):
+def iconv_encoding(encoding, *, parent):
 
     # FIXME: This implementation is SLOW.
 
@@ -41,6 +41,10 @@ def iconv_encoding(encoding):
         )
 
     def encode(input, errors='strict'):
+        if not (parent._extra_encodings_installed > 0):
+            # There doesn't seem to be a way to de-register a codec.
+            # As a poor man's subsitute, raise LookupError at encoding time.
+            raise LookupError('unknown encoding: ' + encoding)
         if len(input) == 0:
             return b'', 0
         if errors != 'strict':
@@ -54,6 +58,10 @@ def iconv_encoding(encoding):
         return stdout, len(input)
 
     def decode(input, errors='strict'):
+        if not (parent._extra_encodings_installed > 0):
+            # There doesn't seem to be a way to de-register a codec.
+            # As a poor man's subsitute, raise LookupError at decoding time.
+            raise LookupError('unknown encoding: ' + encoding)
         if len(input) == 0:
             return '', 0
         if errors != 'strict':
@@ -194,7 +202,7 @@ class EncodingInfo(object):
             pass
         else:
             return
-        return iconv_encoding(encoding)
+        return iconv_encoding(encoding, parent=self)
 
     def _install_extra_encodings(self):
         if self._extra_encodings_installed is None:

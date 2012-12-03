@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import codecs
 import curses.ascii
 import os
 import lib.encodings
@@ -136,5 +137,15 @@ class test_get_character_name:
     def test_lookup_error(self):
         with assert_raises(ValueError):
             E.get_character_name('\ue000')
+
+class test_extra_encoding:
+
+    def test_install(self):
+        with assert_raises(LookupError):
+            ''.encode('VISCII')
+        with E.extra_encodings():
+            ''.encode('VISCII')
+        with assert_raises(LookupError):
+            ''.encode('VISCII')
 
 # vim:ts=4 sw=4 et
