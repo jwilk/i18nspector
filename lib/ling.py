@@ -51,8 +51,8 @@ class Language(object):
     def __init__(self, parent, language_code, territory_code=None, encoding=None, modifier=None):
         self._parent = parent
         self.language_code = language_code
-        if self.language_code is None:
-            raise ValueError('language_code must not be None')
+        if language_code is None:
+            raise TypeError('language_code must not be None')
         self.territory_code = territory_code
         self.encoding = None
         if encoding is not None:
