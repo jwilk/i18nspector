@@ -157,4 +157,40 @@ class test_extra_encoding:
         with assert_raises(LookupError):
             dec()
 
+    def test_not_allowed(self):
+        def enc():
+            ''.encode('RUSCII')
+        with assert_raises(LookupError):
+            enc()
+        with E.extra_encodings():
+            with assert_raises(LookupError):
+                enc()
+
+    _viscii_unicode = 'Ti\u1EBFng Vi\u1EC7t'
+    _viscii_bytes = b'Ti\xaang Vi\xaet'
+
+    def test_encode(self):
+        u = self._viscii_unicode
+        with E.extra_encodings():
+            b = u.encode('VISCII')
+        assert_equal(b, self._viscii_bytes)
+
+    def test_encode_error(self):
+        u = self._viscii_unicode
+        with E.extra_encodings():
+            with assert_raises(UnicodeEncodeError):
+                b = u.encode('KOI8-RU')
+
+    def test_decode(self):
+        b = self._viscii_bytes
+        with E.extra_encodings():
+            u = b.decode('VISCII')
+        assert_equal(u, self._viscii_unicode)
+
+    def test_decode_error(self):
+        b = self._viscii_bytes
+        with E.extra_encodings():
+            with assert_raises(UnicodeDecodeError):
+                u = b.decode('EUC-TW')
+
 # vim:ts=4 sw=4 et
