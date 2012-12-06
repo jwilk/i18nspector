@@ -105,7 +105,7 @@ class Language(object):
                 raise FixingLanguageCodesFailed()
             elif cc != self.territory_code:
                 # This shouldn't really happen, but better safe than sorry.
-                raise ValueError
+                raise ValueError # <no-coverage>
             # TODO: ll_CC could be still incorrect, even when both ll and CC are
             # correct.
         self.language_code = ll
@@ -234,7 +234,7 @@ class LingInfo(object):
             if ll:
                 try:
                     self._primary_languages[ll]
-                except LookupError:
+                except LookupError: # <no-coverage>
                     raise misc.DataIntegrityError
 
     def _lookup_language_code(self, language):
