@@ -112,9 +112,10 @@ def parse_plural_expression(s):
     s = _subst_ifelse(s)
     try:
         fn = eval('lambda n: int({})'.format(s))
-    except SyntaxError as exc:
-        assert 0, "{!r} couldn't be parsed as Python expression".format(s)
-        raise PluralExpressionSyntaxError
+    except SyntaxError as exc: # <no-coverage>
+        # This should never happen.
+        assert 0, "{!r} couldn't be parsed as Python expression".format(s) # <no-coverage>
+        raise PluralExpressionSyntaxError # <no-coverage>
     fn.__name__ = 'plural'
     return fn
 
