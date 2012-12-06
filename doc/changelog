@@ -1,9 +1,10 @@
 i18nspector (0.4.2) UNRELEASED; urgency=low
 
   * Refactor the environment patching code.
+  * Optimize PO file decoding.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 02 Dec 2012 20:42:49 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 06 Dec 2012 12:58:27 +0100
 
 i18nspector (0.4.1) unstable; urgency=low
 

@@ -72,6 +72,8 @@ patches += [default_encoding_patch]
 
 class Codecs(object):
 
+    _iterlines = re.compile(r'[^\n]*(?:\n|\Z)').findall
+
     def __getattr__(self, attr):
         return getattr(codecs, attr)
 
@@ -79,8 +81,10 @@ class Codecs(object):
         if mode != 'rU':
             raise NotImplementedError
         with open(path, 'rb') as file:
-            for line in file:
-                yield line.decode(encoding)
+            contents = file.read()
+        contents = contents.decode(encoding)
+        for line in self._iterlines(contents):
+            yield line
 
 @contextlib.contextmanager
 def codecs_patch():
