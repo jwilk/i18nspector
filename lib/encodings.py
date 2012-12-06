@@ -73,26 +73,14 @@ def iconv_encoding(encoding, *, parent):
             raise UnicodeDecodeError(encoding, input, 0, len(input), stderr)
         return stdout.decode('UTF-8'), len(input)
 
-    class StreamReader(codecs.StreamReader):
-        def decode(self, input, errors='strict'):
-            return decode(input, errors)
-
-        def read(self, size=-1, chars=-1, firstline=False):
-            # Always read as much bytes as possible, limiting number of
-            # required forks.
-            return codecs.StreamReader.read(self, size=-1, chars=chars, firstline=False)
-
-    class StreamWriter(codecs.StreamWriter):
-        pass
-
     def not_implemented(*args, **kwargs):
         raise NotImplementedError
 
     return codecs.CodecInfo(
         encode=encode,
         decode=decode,
-        streamreader=StreamReader,
-        streamwriter=StreamWriter,
+        streamreader=not_implemented,
+        streamwriter=not_implemented,
         incrementalencoder=not_implemented,
         incrementaldecoder=not_implemented,
         name=encoding,
