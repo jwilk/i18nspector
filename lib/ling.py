@@ -194,9 +194,6 @@ class Language(object):
             s += '@' + self.modifier
         return s
 
-    def __repr__(self):
-        return '<Language {}>'.format(self)
-
 class LingInfo(object):
 
     def __init__(self, datadir):
