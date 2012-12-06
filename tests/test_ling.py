@@ -20,6 +20,7 @@
 
 import os
 import lib.ling
+import lib.encodings
 
 import nose
 from nose.tools import (
@@ -42,6 +43,7 @@ basedir = os.path.join(
 datadir = os.path.join(basedir, 'data')
 T = lib.ling.Language
 L = lib.ling.LingInfo(datadir)
+E = lib.encodings.EncodingInfo(datadir)
 
 class test_fix_codes:
 
@@ -392,5 +394,15 @@ class test_unrepresentable_characters:
         lang = L.parse_language('ry')
         result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_is_none(result)
+
+    def test_extra_encoding(self):
+        encoding = 'GEORGIAN-PS'
+        lang = L.parse_language('pl')
+        with assert_raises(LookupError):
+            ''.encode(encoding)
+        with E.extra_encodings():
+            result = lang.get_unrepresentable_characters(encoding)
+        assert_not_equal(result, [])
+        assert_equal(len(result), 1)
 
 # vim:ts=4 sw=4 et
