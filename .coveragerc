@@ -1,5 +1,5 @@
 [report]
 exclude_lines =
-	raise misc.DataIntegrityError
+	\s+raise misc.DataIntegrityError\b
 
 # vim:ft=dosini
