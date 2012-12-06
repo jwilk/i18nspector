@@ -43,7 +43,7 @@ def iconv_encoding(encoding, *, parent):
     def encode(input, errors='strict'):
         if not (parent._extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
-            # As a poor man's subsitute, raise LookupError at encoding time.
+            # As a poor man's substitute, raise LookupError at encoding time.
             raise LookupError('unknown encoding: ' + encoding)
         if len(input) == 0:
             return b'', 0
@@ -60,7 +60,7 @@ def iconv_encoding(encoding, *, parent):
     def decode(input, errors='strict'):
         if not (parent._extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
-            # As a poor man's subsitute, raise LookupError at decoding time.
+            # As a poor man's substitute, raise LookupError at decoding time.
             raise LookupError('unknown encoding: ' + encoding)
         if len(input) == 0:
             return '', 0
