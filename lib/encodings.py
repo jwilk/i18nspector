@@ -34,7 +34,7 @@ def iconv_encoding(encoding, *, parent):
 
     def popen(*args):
         def set_lc_all_c():
-            os.environ['LC_ALL'] = 'C'
+            os.environ['LC_ALL'] = 'C' # <no-coverage>
         return ipc.Popen(args,
             stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
             preexec_fn=set_lc_all_c,
@@ -63,7 +63,9 @@ def iconv_encoding(encoding, *, parent):
             # As a poor man's substitute, raise LookupError at decoding time.
             raise LookupError('unknown encoding: ' + encoding)
         if len(input) == 0:
-            return '', 0
+            # This actually never happens. Python optimizes out empty-string
+            # decoding.
+            return '', 0 # <no-coverage>
         if errors != 'strict':
             raise NotImplementedError
         child = popen('iconv', '-s', '-f', encoding, '-t', 'UTF-8')
