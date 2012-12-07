@@ -20,6 +20,7 @@
 
 import collections
 import contextlib
+import difflib
 import email.utils
 import os
 import re
@@ -456,11 +457,21 @@ class Checker(object):
                         self.tag('language-team-equal-to-last-translator', team, translator)
 
     def check_headers(self, file):
+        po_header_fields = frozenset(self.options.gettextinfo.po_header_fields)
+        po_header_fields_lc = {str.lower(s): s for s in po_header_fields}
         for key in sorted(file.metadata):
             if key.startswith('X-'):
                 continue
             if key not in self.options.gettextinfo.po_header_fields:
-                self.tag('unknown-header-field', key)
+                hint = po_header_fields_lc.get(key.lower())
+                if hint is None:
+                    hints = difflib.get_close_matches(key, po_header_fields, n=1, cutoff=0.8)
+                    if hints:
+                        [hint] = hints
+                if hint is None:
+                    self.tag('unknown-header-field', key)
+                else:
+                    self.tag('unknown-header-field', key, '=>', hint)
         try:
             duplicates = file.metadata.duplicates
         except AttributeError:

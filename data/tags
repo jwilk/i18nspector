@@ -397,7 +397,10 @@ severity = minor
 certainty = wild-guess
 description =
  The header field name is unknown to i18nspector.
- It might be a typo.
+ It might be a typo or a capitalization error (header field names are
+ case-sensitive).
+references =
+ http://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
 
 [unknown-poedit-language]
 severity = minor
