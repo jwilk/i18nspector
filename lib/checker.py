@@ -151,6 +151,9 @@ class Checker(object):
                     broken_encoding.encoding.upper(),
                 )
                 broken_encoding = True
+        # check_headers() modifies the file metadata,
+        # so it has to be the first check:
+        self.check_headers(file)
         language = self.check_language(file, is_template=is_template)
         self.check_plurals(file, is_template=is_template, language=language)
         encoding = self.check_mime(file, is_template=is_template, language=language)
@@ -159,7 +162,6 @@ class Checker(object):
         self.check_dates(file, is_template=is_template)
         self.check_project(file)
         self.check_translator(file, is_template=is_template)
-        self.check_headers(file)
         self.check_messages(file, encoding=encoding)
 
     def check_language(self, file, *, is_template):
@@ -459,10 +461,15 @@ class Checker(object):
     def check_headers(self, file):
         po_header_fields = frozenset(self.options.gettextinfo.po_header_fields)
         po_header_fields_lc = {str.lower(s): s for s in po_header_fields}
-        for key in sorted(file.metadata):
+        new_metadata = {}
+        for key, value in sorted(file.metadata.items()):
+            value, *strays = value.split('\n')
+            for stray in strays:
+                self.tag('stray-header-line', stray)
+            new_metadata[key] = value
             if key.startswith('X-'):
                 continue
-            if key not in self.options.gettextinfo.po_header_fields:
+            if key not in po_header_fields:
                 hint = po_header_fields_lc.get(key.lower())
                 if hint is None:
                     hints = difflib.get_close_matches(key, po_header_fields, n=1, cutoff=0.8)
@@ -479,8 +486,13 @@ class Checker(object):
         except AttributeError:
             pass
         else:
-            for key in sorted(duplicates):
+            for key, values in sorted(duplicates.items()):
                 self.tag('duplicate-header-field', key)
+                for value in values:
+                    value, *strays = value.split('\n')
+                    for stray in strays:
+                        self.tag('stray-header-line', stray)
+        file.metadata = new_metadata
 
     def check_messages(self, file, *, encoding):
         if encoding is None:

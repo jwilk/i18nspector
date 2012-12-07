@@ -340,6 +340,15 @@ description =
  An input/output error or another operating system error occurred while
  checking this file.
 
+[stray-header-line]
+severity = important
+certainty = certain
+description =
+ The headers contains a line that does not belong to any header.
+ Note that RFC-822-style folding of long headers is not supported.
+references =
+ http://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
+
 [syntax-error-in-plural-forms]
 severity = serious
 certainty = possible
