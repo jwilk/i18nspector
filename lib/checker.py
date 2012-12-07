@@ -468,6 +468,8 @@ class Checker(object):
                     hints = difflib.get_close_matches(key, po_header_fields, n=1, cutoff=0.8)
                     if hints:
                         [hint] = hints
+                if hint in file.metadata:
+                    hint = None
                 if hint is None:
                     self.tag('unknown-header-field', key)
                 else:
