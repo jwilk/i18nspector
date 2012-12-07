@@ -3,6 +3,7 @@ i18nspector (0.5) UNRELEASED; urgency=low
   * Summary of tag changes:
     + Added:
       - stray-header-line
+
   * If a typo or a capitalization error in a header field name is detected,
     suggest the correct name.
   * Check for header lines that do not belong to any header fields.
