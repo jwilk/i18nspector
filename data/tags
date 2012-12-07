@@ -139,7 +139,7 @@ references =
 severity = important
 certainty = possible
 description =
- The language header field couldn't be parsed, or it contains an unknown
+ The Language header field couldn't be parsed, or it contains an unknown
  language.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
