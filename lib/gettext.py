@@ -30,14 +30,14 @@ from lib import misc
 class GettextInfo(object):
 
     def __init__(self, datadir):
-        path = os.path.join(datadir, 'po-header-fields')
+        path = os.path.join(datadir, 'header-fields')
         with open(path, 'rt', encoding='ASCII') as file:
             fields = [
                 s.rstrip() for s in file
                 if s.rstrip() and not s.startswith('#')
             ]
         misc.check_sorted(fields)
-        self.po_header_fields = frozenset(fields)
+        self.header_fields = frozenset(fields)
 
 # ================
 # Plurals handling

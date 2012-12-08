@@ -459,8 +459,8 @@ class Checker(object):
                         self.tag('language-team-equal-to-last-translator', team, translator)
 
     def check_headers(self, file):
-        po_header_fields = frozenset(self.options.gettextinfo.po_header_fields)
-        po_header_fields_lc = {str.lower(s): s for s in po_header_fields}
+        header_fields = frozenset(self.options.gettextinfo.header_fields)
+        header_fields_lc = {str.lower(s): s for s in header_fields}
         new_metadata = {}
         for key, value in sorted(file.metadata.items()):
             value, *strays = value.split('\n')
@@ -469,10 +469,10 @@ class Checker(object):
             new_metadata[key] = value
             if key.startswith('X-'):
                 continue
-            if key not in po_header_fields:
-                hint = po_header_fields_lc.get(key.lower())
+            if key not in header_fields:
+                hint = header_fields_lc.get(key.lower())
                 if hint is None:
-                    hints = difflib.get_close_matches(key, po_header_fields, n=1, cutoff=0.8)
+                    hints = difflib.get_close_matches(key, header_fields, n=1, cutoff=0.8)
                     if hints:
                         [hint] = hints
                 if hint in file.metadata:

@@ -1,8 +1,8 @@
 i18nspector (0.5.1) UNRELEASED; urgency=low
 
-  * 
+  * Rename the ‘po-header-fields’ data file to ‘header-fields’.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 08 Dec 2012 10:27:49 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 08 Dec 2012 10:46:40 +0100
 
 i18nspector (0.5) unstable; urgency=low
 

@@ -55,11 +55,11 @@ def main():
         os.path.dirname(__file__),
         os.pardir,
     )
-    path = os.path.join(basedir, 'data', 'po-header-fields')
+    path = os.path.join(basedir, 'data', 'header-fields')
     with open(path, 'wt', encoding='ASCII') as file:
         print('''\
 # This file has been generated automatically by
-# private/update-po-header-fields. Do not edit.
+# private/update-header-fields. Do not edit.
 #
 # The following string extraction tools have been used:\
 ''', file=file)

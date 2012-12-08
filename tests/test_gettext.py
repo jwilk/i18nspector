@@ -43,12 +43,12 @@ info = lib.gettext.GettextInfo(datadir)
 class test_gettext_info:
 
     def test_nonempty(self):
-        # XXX Update this number after editing data/po-header-fields:
+        # XXX Update this number after editing data/header-fields:
         expected = 12
-        assert_equal(len(info.po_header_fields), expected)
+        assert_equal(len(info.header_fields), expected)
 
     def test_no_x(self):
-        for field in info.po_header_fields:
+        for field in info.header_fields:
             assert_false(field.startswith('X-'))
 
 class test_plurals:
