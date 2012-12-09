@@ -24,6 +24,7 @@ import os
 import re
 
 from lib import misc
+from lib import intexpr
 
 class GettextInfo(object):
 
@@ -109,12 +110,11 @@ def parse_plural_expression(s):
     [s] = stack
     s = _subst_ifelse(s)
     try:
-        fn = eval('lambda n: int({})'.format(s))
+        fn = intexpr.Expression(s)
     except SyntaxError as exc: # <no-coverage>
         # This should never happen.
         assert 0, "{!r} couldn't be parsed as Python expression".format(s) # <no-coverage>
         raise PluralExpressionSyntaxError # <no-coverage>
-    fn.__name__ = 'plural'
     return fn
 
 _parse_plural_forms = re.compile(r'^\s*nplurals=([1-9][0-9]*);\s*plural=([^;]+);?\s*$').match
