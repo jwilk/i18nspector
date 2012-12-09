@@ -46,6 +46,7 @@ from lib import gettext
 from lib import ling
 from lib import misc
 from lib import tags
+from lib import terminal
 
 __version__ = '0.5.1'
 
@@ -58,7 +59,9 @@ def require_python(*version):
         ))
         sys.exit(1)
 
-def fix_stdout():
+def initialize_terminal():
+    if sys.stdout.isatty():
+        terminal.initialize()
     if sys.stdout.errors != 'strict':
         return
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer,
@@ -72,7 +75,7 @@ class Checker(checker.Checker):
         if tagname in self.options.ignore_tags:
             return
         tag = self.options.taginfo[tagname]
-        s = tag.format(self.fake_path, *extra, color=sys.stdout.isatty())
+        s = tag.format(self.fake_path, *extra, color=True)
         print(s)
 
 def check_file(filename, *, options):
@@ -124,7 +127,7 @@ def check_deb(filename, *, options):
 
 def main():
     require_python(3, 2)
-    fix_stdout()
+    initialize_terminal()
     is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser(description=__doc__.strip())
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))

@@ -24,6 +24,7 @@ import os
 import re
 
 from . import misc
+from . import terminal
 
 @functools.total_ordering
 class OrderedObject(object):
@@ -146,12 +147,15 @@ class Tag(object):
     def get_colors(self):
         prio = self.get_priority()
         n = dict(
-            P=2,
-            I=6,
-            W=3,
-            E=1,
+            P=terminal.colors.green,
+            I=terminal.colors.cyan,
+            W=terminal.colors.yellow,
+            E=terminal.colors.red,
         )[prio]
-        return ('\x1b[3{}m'.format(n), '\x1b[0m')
+        return (
+            terminal.attr_fg(n),
+            terminal.attr_reset()
+        )
 
     def get_priority(self):
         s = self.severity
