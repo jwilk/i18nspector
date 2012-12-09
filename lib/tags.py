@@ -55,9 +55,6 @@ class OrderedObject(object):
     def __str__(self):
         return str(self._name)
 
-    def __repr__(self):
-        return '<OrderedObject: {!r}>'.format(self._name)
-
 class OrderedGroup(object):
 
     def __init__(self, name, *items):
@@ -69,12 +66,6 @@ class OrderedGroup(object):
 
     def __getitem__(self, name):
         return self._objects[name]
-
-    def __repr__(self):
-        return '<OrderedGroup({type!r}): {objects}>'.format(
-            type=self._child_type.__name__,
-            objects=', '.join(self._objects.keys())
-        )
 
 severities = OrderedGroup('Severity',
     'pedantic',
