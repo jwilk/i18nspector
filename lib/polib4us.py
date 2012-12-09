@@ -22,6 +22,7 @@
 polib monkey-patching
 '''
 
+import ast
 import codecs
 import contextlib
 import inspect
@@ -163,7 +164,7 @@ def polib_unescape(s):
     def unescape(match):
         s = match.group()
         s = _short_x_escape_re.sub(r'\x0\1', s)
-        result = eval("b'{}'".format(s))
+        result = ast.literal_eval("b'{}'".format(s))
         try:
             return result.decode('ASCII')
         except UnicodeDecodeError:
