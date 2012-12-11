@@ -29,6 +29,7 @@ from nose.tools import (
     assert_greater,
     assert_is_instance,
     assert_is_none,
+    assert_is_not_none,
     assert_less,
     assert_raises,
 )
@@ -58,14 +59,91 @@ class test_plurals:
     def _pf(self, s):
         return lib.gettext.parse_plural_forms(s)
 
-    def _pe(self, s):
-        return lib.gettext.parse_plural_expression(s)
+    def _pe(self, s, n=None, fn=None):
+        f = lib.gettext.parse_plural_expression(s)
+        if n is not None:
+            assert_is_not_none(fn)
+            assert_equal(f(n), fn)
 
-    def test_plural_exp_c_operator(self):
-        self._pe('6 * 7')
+    def test_plural_exp_add(self):
+        self._pe('17 + n', 6, 23)
 
-    def test_plural_exp_py_operator(self):
-        self._pe('6 && 7')
+    def test_plural_exp_unary_plus(self):
+        self._pe('17 + (+ n)', 6, 23)
+
+    def test_plural_exp_sub(self):
+        self._pe('n - 23', 37, 14)
+
+    def test_plural_exp_unary_minus(self):
+        with assert_raises(OverflowError):
+            self._pe('37 + (- n)', 23, 14)
+        self._pe('37 + (- n)', 0, 37)
+
+    def test_plural_exp_mul(self):
+        self._pe('6 * n', 7, 42)
+
+    def test_plural_exp_div(self):
+        self._pe('105 / n', 17, 6)
+
+    def test_plural_exp_div_by_0(self):
+        with assert_raises(ZeroDivisionError):
+            self._pe('105 / n', 0, False)
+
+    def test_plural_exp_mod(self):
+        self._pe('105 % n', 17, 3)
+
+    def test_plural_exp_mod_by_0(self):
+        with assert_raises(ZeroDivisionError):
+            self._pe('105 % n', 0, False)
+
+    def test_plural_exp_and(self):
+        self._pe('n && 6', 7, 1)
+        self._pe('n && 6', 0, 0)
+        self._pe('n && (6 / 0)', 0, 0) # no ZeroDivisionError
+        self._pe('n && 0', 7, 0)
+        self._pe('n && 0', 0, 0)
+
+    def test_plural_exp_or(self):
+        self._pe('n || 6', 7, 1)
+        self._pe('n || (6 / 0)', 7, 1) # no ZeroDivisionError
+        self._pe('n || 6', 0, 1)
+        self._pe('n || 0', 7, 1)
+        self._pe('n || 0', 0, 0)
+
+    def test_plural_exp_gt(self):
+        self._pe('n > 37', 23, 0)
+        self._pe('n > 37', 37, 0)
+        self._pe('n > 37', 42, 1)
+
+    def test_plural_exp_ge(self):
+        self._pe('n >= 37', 23, 0)
+        self._pe('n >= 37', 37, 1)
+        self._pe('n >= 37', 42, 1)
+
+    def test_plural_exp_lt(self):
+        self._pe('n < 37', 23, 1)
+        self._pe('n < 37', 37, 0)
+        self._pe('n < 37', 42, 0)
+
+    def test_plural_exp_le(self):
+        self._pe('n <= 37', 23, 1)
+        self._pe('n <= 37', 37, 1)
+        self._pe('n <= 37', 42, 0)
+
+    def test_plural_exp_eq(self):
+        self._pe('n == 37', 23, 0)
+        self._pe('n == 37', 37, 1)
+        self._pe('n == 37', 42, 0)
+
+    def test_plural_exp_ne(self):
+        self._pe('n != 37', 23, 1)
+        self._pe('n != 37', 37, 0)
+        self._pe('n != 37', 42, 1)
+
+    def test_plural_neg(self):
+        self._pe('! n', 0, 1)
+        self._pe('! n', 1, 0)
+        self._pe('! n', 69, 0)
 
     def test_plural_exp_conditional(self):
         self._pe('6 ? 7 : 42')

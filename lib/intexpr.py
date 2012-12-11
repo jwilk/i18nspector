@@ -20,9 +20,157 @@
 
 import ast
 
+class Evaluator(object):
+
+    def __init__(self, node, n, *, precision):
+        class context: pass
+        context.n = n
+        context.max = 1 << precision
+        self._ctxt = context
+        self._node = node
+        self._check_overflow(n)
+
+    def __call__(self):
+        node = self._node
+        assert isinstance(node, ast.Expr)
+        return self._visit_expr(node)
+
+    def _check_overflow(self, n):
+        if n < 0:
+            raise OverflowError(n)
+        if n >= self._ctxt.max:
+            raise OverflowError(n)
+        return n
+
+    def _visit(self, node, *args):
+        try:
+            fn = getattr(self, '_visit_' + type(node).__name__.lower())
+        except KeyError:
+            raise NotImplementedError(type(node).__name__)
+        return fn(node, *args)
+
+    def _visit_expr(self, node):
+        [node] = ast.iter_child_nodes(node)
+        return self._visit(node)
+
+    # binary operators
+    # ================
+
+    def _visit_binop(self, node):
+        x = self._visit(node.left)
+        y = self._visit(node.right)
+        return self._visit(node.op, x, y)
+
+    def _visit_add(self, node, x, y):
+        return self._check_overflow(x + y)
+
+    def _visit_sub(self, node, x, y):
+        return self._check_overflow(x - y)
+
+    def _visit_mult(self, node, x, y):
+        return self._check_overflow(x * y)
+
+    def _visit_div(self, node, x, y):
+        return x // y
+
+    def _visit_mod(self, node, x, y):
+        return x % y
+
+    # unary operators
+    # ===============
+
+    def _visit_unaryop(self, node):
+        x = self._visit(node.operand)
+        return self._visit(node.op, x)
+
+    def _visit_not(self, node, x):
+        return int(not x)
+
+    def _visit_usub(self, node, x):
+        return self._check_overflow(-x)
+
+    def _visit_uadd(self, node, x):
+        return x
+
+    # comparison operators
+    # ====================
+
+    def _visit_compare(self, node):
+        # FIXME: only one operator is supported
+        left = node.left
+        [right] = node.comparators
+        [op] = node.ops
+        x = self._visit(left)
+        y = self._visit(right)
+        return self._visit(op, x, y)
+
+    def _visit_gte(self, node, x, y):
+        return int(x >= y)
+
+    def _visit_gt(self, node, x, y):
+        return int(x > y)
+
+    def _visit_lte(self, node, x, y):
+        return int(x <= y)
+
+    def _visit_lt(self, node, x, y):
+        return int(x < y)
+
+    def _visit_eq(self, node, x, y):
+        return int(x == y)
+
+    def _visit_noteq(self, node, x, y):
+        return int(x != y)
+
+    # boolean operators
+    # =================
+
+    def _visit_boolop(self, node):
+        return self._visit(node.op, *node.values)
+
+    def _visit_and(self, node, *args):
+        for arg in args:
+            if self._visit(arg) == 0:
+                return 0
+        return 1
+
+    def _visit_or(self, node, *args):
+        for arg in args:
+            if self._visit(arg) != 0:
+                return 1
+        return 0
+
+    # if-then-else expression
+    # =======================
+
+    def _visit_ifexp(self, node):
+        test = self._visit(node.test)
+        if test:
+            return self._visit(node.body)
+        else:
+            return self._visit(node.orelse)
+
+    # contants, variables
+    # ===================
+
+    def _visit_num(self, node):
+        return self._check_overflow(node.n)
+
+    def _visit_name(self, node):
+        return self._ctxt.n
+
 class Expression(object):
 
     def __init__(self, s):
-        self._tree = ast.parse(s, filename='<intexpr>')
+        module = ast.parse('({})'.format(s), filename='<intexpr>')
+        assert isinstance(module, ast.Module)
+        [node] = ast.iter_child_nodes(module)
+        if not isinstance(node, ast.Expr):
+            raise TypeError
+        self._node = node
+
+    def __call__(self, n, precision=32):
+        e = Evaluator(self._node, n, precision=precision)
+        return e()
 
 # vim:ts=4 sw=4 et
