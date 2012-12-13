@@ -96,13 +96,30 @@ class Evaluator(object):
     # ====================
 
     def _visit_compare(self, node):
-        # FIXME: only one operator is supported
-        left = node.left
-        [right] = node.comparators
-        [op] = node.ops
-        x = self._visit(left)
-        y = self._visit(right)
-        return self._visit(op, x, y)
+        # This one is tricky because in C equality comparison operators have
+        # lower priority that inequality comparison operators. This is unlike
+        # Python, in which they have the same priority.
+        assert len(node.comparators) == len(node.ops)
+        new_vals = []
+        new_ops = []
+        # high priority: <, <=, >, >=
+        left = self._visit(node.left)
+        for op, right in zip(node.ops, node.comparators):
+            right = self._visit(right)
+            if isinstance(op, (ast.Eq, ast.NotEq)):
+                new_vals += [left]
+                new_ops += [op]
+                left = right
+            else:
+                left = self._visit(op, left, right)
+        new_vals += [left]
+        assert len(new_vals) == len(new_ops) + 1
+        # low priority: ==, !=
+        new_vals = iter(new_vals)
+        left = next(new_vals)
+        for op, right in zip(new_ops, new_vals):
+            left = self._visit(op, left, right)
+        return left
 
     def _visit_gte(self, node, x, y):
         return int(x >= y)

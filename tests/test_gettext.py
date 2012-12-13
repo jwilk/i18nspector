@@ -140,6 +140,14 @@ class test_plurals:
         self._pe('n != 37', 37, 0)
         self._pe('n != 37', 42, 1)
 
+    def test_plural_exp_multi_compare(self):
+        self._pe('1 < n == 3 <= 4', 1, 0) # False in Python
+        self._pe('1 < n == 3 <= 4', 2, 1) # False in Python
+        self._pe('1 < n == 3 <= 4', 3, 1) # True in Python
+        self._pe('1 < n == 3 <= 4', 4, 1) # False in Python
+        self._pe('2 == 2 == n', 2, 0) # True in Python
+        self._pe('2 == 2 == n', 1, 1) # False in Python
+
     def test_plural_exp_neg(self):
         self._pe('! n', 0, 1)
         self._pe('! n', 1, 0)
