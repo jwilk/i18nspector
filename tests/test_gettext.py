@@ -140,7 +140,7 @@ class test_plurals:
         self._pe('n != 37', 37, 0)
         self._pe('n != 37', 42, 1)
 
-    def test_plural_neg(self):
+    def test_plural_exp_neg(self):
         self._pe('! n', 0, 1)
         self._pe('! n', 1, 0)
         self._pe('! n', 69, 0)
