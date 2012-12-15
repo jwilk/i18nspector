@@ -327,6 +327,34 @@ class Checker(object):
                         n, tags.safestr('(Plural-Forms header field)'), '!=',
                         expected_nplurals, tags.safestr('(number of msgstr items)')
                     )
+            try:
+                for i in range(200):
+                    fi = expr(i)
+                    if 0 <= fi < n:
+                        continue
+                    self.tag('codomain-error-in-plural-forms',
+                        tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
+                    )
+                    break
+            except OverflowError:
+                self.tag('arithmetic-error-in-plural-forms',
+                    tags.safe_format('f({}): integer overflow', i)
+                )
+            except ZeroDivisionError:
+                self.tag('arithmetic-error-in-plural-forms',
+                    tags.safe_format('f({}): division by zero', i)
+                )
+            codomain = expr.codomain()
+            if codomain is not None:
+                (x, y) = codomain
+                if x > 0:
+                    self.tag('codomain-error-in-plural-forms',
+                        tags.safestr('f(x) != {}'.format(', '.join(map(str, range(0, x)))))
+                    )
+                if y + 1 < n:
+                    self.tag('codomain-error-in-plural-forms',
+                        tags.safestr('f(x) != {}'.format(', '.join(map(str, range(y + 1, n)))))
+                    )
 
     def check_mime(self, file, *, is_template, language):
         mime_version = file.metadata.get('MIME-Version')

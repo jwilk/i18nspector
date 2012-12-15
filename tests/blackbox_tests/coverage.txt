@@ -2,11 +2,13 @@
 # Do not edit.
 
 [X] ancient-date
+[X] arithmetic-error-in-plural-forms
 [X] boilerplate-in-language-team
 [X] boilerplate-in-last-translator
 [X] boilerplate-in-project-id-version
 [X] boilerplate-in-report-msgid-bugs-to
 [X] broken-encoding
+[X] codomain-error-in-plural-forms
 [X] date-from-future
 [X] duplicate-header-field
 [X] duplicate-message-definition

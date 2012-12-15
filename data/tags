@@ -7,6 +7,16 @@ description =
 references =
  http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
+[arithmetic-error-in-plural-forms]
+severity = serious
+certainty = possible
+description =
+ Computing a plural form value triggers division by zero or integer overflow.
+ .
+ This normally indicates an error in the plural form expression.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
 [boilerplate-in-language-team]
 severity = minor
 certainty = certain
@@ -58,6 +68,17 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  http://tools.ietf.org/html/rfc2045#section-5
+
+[codomain-error-in-plural-forms]
+severity = serious
+certainty = possible
+description =
+ Either a plural form value is outside the declared range, or some values
+ within the declared range can never be reached.
+ .
+ This normally indicates an error in the plural form expression.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [date-from-future]
 severity = normal
