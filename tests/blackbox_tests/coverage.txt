@@ -40,6 +40,7 @@
 [X] non-ascii-compatible-encoding
 [X] non-portable-encoding
 [X] os-error
+[X] stray-header-line
 [X] syntax-error-in-plural-forms
 [X] syntax-error-in-po-file
 [X] syntax-error-in-unused-plural-forms
