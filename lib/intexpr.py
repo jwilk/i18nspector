@@ -191,6 +191,9 @@ class Expression(object):
         self._node = node
 
     def __call__(self, n, *, precision=32):
+        '''
+        return f(n)
+        '''
         e = Evaluator(self._node, n, precision=precision)
         return e()
 
