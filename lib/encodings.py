@@ -18,6 +18,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+'''
+- encoding information registry
+- codecs for unusual encodings
+'''
+
 import codecs
 import configparser
 import contextlib
