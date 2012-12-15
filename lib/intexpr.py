@@ -18,6 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+'''
+squeeze Python abstract syntax trees into C integer expressions semantics
+'''
+
 import ast
 
 class Evaluator(object):
