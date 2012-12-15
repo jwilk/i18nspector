@@ -190,7 +190,7 @@ class Expression(object):
             raise TypeError
         self._node = node
 
-    def __call__(self, n, precision=32):
+    def __call__(self, n, *, precision=32):
         e = Evaluator(self._node, n, precision=precision)
         return e()
 
