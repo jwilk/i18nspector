@@ -18,6 +18,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+'''
+gettext header support:
+- header field names registry
+- date parser
+- plural expressions parser
+'''
+
 import datetime
 import functools
 import os
