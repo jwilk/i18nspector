@@ -1,4 +1,4 @@
-i18nspector (0.5.1) UNRELEASED; urgency=low
+i18nspector (0.6) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -10,7 +10,7 @@ i18nspector (0.5.1) UNRELEASED; urgency=low
   * User terminfo for color terminal support, instead of hardcoded
     EMCA-48 sequences.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 15 Dec 2012 23:17:10 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 15 Dec 2012 23:40:51 +0100
 
 i18nspector (0.5) unstable; urgency=low
 
