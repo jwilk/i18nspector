@@ -1,4 +1,4 @@
-i18nspector (0.6) UNRELEASED; urgency=low
+i18nspector (0.6) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -15,7 +15,7 @@ i18nspector (0.6) UNRELEASED; urgency=low
   * Remove some dead code.
   * Use ast.literal_eval() instead of eval().
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 16 Dec 2012 21:14:59 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 16 Dec 2012 21:16:28 +0100
 
 i18nspector (0.5) unstable; urgency=low
 
