@@ -16,6 +16,16 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
+[arithmetic-error-in-unused-plural-forms]
+severity = important
+certainty = possible
+description =
+ Computing a plural form value triggers division by zero or integer overflow.
+ (But there are no translated messages which use plural forms.)
+ This normally indicates an error in the plural form expression.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
 [boilerplate-in-language-team]
 severity = minor
 certainty = certain
@@ -74,6 +84,17 @@ certainty = possible
 description =
  Either a plural form value is outside the declared range, or some values
  within the declared range can never be reached.
+ This normally indicates an error in the plural form expression.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
+[codomain-error-in-unused-plural-forms]
+severity = important
+certainty = possible
+description =
+ Either a plural form value is outside the declared range, or some values
+ within the declared range can never be reached.
+ (But there are no translated messages which use plural forms.)
  This normally indicates an error in the plural form expression.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html

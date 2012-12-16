@@ -3,7 +3,9 @@ i18nspector (0.6) UNRELEASED; urgency=low
   * Summary of tag changes:
     + Added:
       - arithmetic-error-in-plural-forms
+      - arithmetic-error-in-unused-plural-forms
       - codomain-error-in-plural-forms
+      - codomain-error-in-unused-plural-forms
 
   * Perform more checks on Plural-Forms.
   * Rename the ‘po-header-fields’ data file to ‘header-fields’.

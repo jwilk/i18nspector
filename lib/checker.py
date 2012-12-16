@@ -332,33 +332,43 @@ class Checker(object):
                     fi = expr(i)
                     if 0 <= fi < n:
                         continue
-                    self.tag('codomain-error-in-plural-forms',
-                        tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
-                    )
+                    message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
+                    if has_plurals:
+                        self.tag('codomain-error-in-plural-forms', message)
+                    else:
+                        self.tag('codomain-error-in-unused-plural-forms', message)
                     break
             except OverflowError:
-                self.tag('arithmetic-error-in-plural-forms',
-                    tags.safe_format('f({}): integer overflow', i)
-                )
+                message = tags.safe_format('f({}): integer overflow', i)
+                if has_plurals:
+                    self.tag('arithmetic-error-in-plural-forms', message)
+                else:
+                    self.tag('arithmetic-error-in-unused-plural-forms', message)
             except ZeroDivisionError:
-                self.tag('arithmetic-error-in-plural-forms',
-                    tags.safe_format('f({}): division by zero', i)
-                )
+                message = tags.safe_format('f({}): division by zero', i)
+                if has_plurals:
+                    self.tag('arithmetic-error-in-plural-forms', message)
+                else:
+                    self.tag('arithmetic-error-in-unused-plural-forms', message)
             codomain = expr.codomain()
             if codomain is not None:
                 (x, y) = codomain
                 if x > 0:
                     rng = range(0, x)
                     rng = misc.format_range(rng, max=5)
-                    self.tag('codomain-error-in-plural-forms',
-                        tags.safestr('f(x) != {}'.format(rng))
-                    )
+                    message = tags.safestr('f(x) != {}'.format(rng))
+                    if has_plurals:
+                        self.tag('codomain-error-in-plural-forms', message)
+                    else:
+                        self.tag('codomain-error-in-unused-plural-forms', message)
                 if y + 1 < n:
                     rng = range(y + 1, n)
                     rng = misc.format_range(rng, max=5)
-                    self.tag('codomain-error-in-plural-forms',
-                        tags.safestr('f(x) != {}'.format(rng))
-                    )
+                    message = tags.safestr('f(x) != {}'.format(rng))
+                    if has_plurals:
+                        self.tag('codomain-error-in-plural-forms', message)
+                    else:
+                        self.tag('codomain-error-in-unused-plural-forms', message)
 
     def check_mime(self, file, *, is_template, language):
         mime_version = file.metadata.get('MIME-Version')
