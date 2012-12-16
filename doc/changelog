@@ -11,8 +11,11 @@ i18nspector (0.6) UNRELEASED; urgency=low
   * Rename the ‘po-header-fields’ data file to ‘header-fields’.
   * User terminfo for color terminal support, instead of hardcoded
     EMCA-48 sequences.
+  * Improve the test suite.
+  * Remove some dead code.
+  * Use ast.literal_eval() instead of eval().
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 15 Dec 2012 23:40:51 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 16 Dec 2012 21:14:59 +0100
 
 i18nspector (0.5) unstable; urgency=low
 
