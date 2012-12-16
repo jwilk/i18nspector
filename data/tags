@@ -12,7 +12,6 @@ severity = serious
 certainty = possible
 description =
  Computing a plural form value triggers division by zero or integer overflow.
- .
  This normally indicates an error in the plural form expression.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
@@ -75,7 +74,6 @@ certainty = possible
 description =
  Either a plural form value is outside the declared range, or some values
  within the declared range can never be reached.
- .
  This normally indicates an error in the plural form expression.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
