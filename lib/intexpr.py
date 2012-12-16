@@ -116,10 +116,10 @@ class BaseEvaluator(object):
 
 class Evaluator(BaseEvaluator):
 
-    def __init__(self, node, n, *, precision):
+    def __init__(self, node, n, *, bits):
         super().__init__(node)
         self._ctxt.n = n
-        self._ctxt.max = 1 << precision
+        self._ctxt.max = 1 << bits
 
     def _check_overflow(self, n):
         if n < 0:
@@ -212,9 +212,9 @@ class Evaluator(BaseEvaluator):
 
 class CodomainEvaluator(BaseEvaluator):
 
-    def __init__(self, node, *, precision):
+    def __init__(self, node, *, bits):
         class context: pass
-        context.max = 1 << precision
+        context.max = 1 << bits
         self._ctxt = context
         self._node = node
 
@@ -429,20 +429,20 @@ class Expression(object):
             raise TypeError
         self._node = node
 
-    def __call__(self, n, *, precision=32):
+    def __call__(self, n, *, bits=32):
         '''
         return f(n)
         '''
-        e = Evaluator(self._node, n, precision=precision)
+        e = Evaluator(self._node, n, bits=bits)
         return e()
 
-    def codomain(self, *, precision=32):
+    def codomain(self, *, bits=32):
         '''
         return
         * (i, j) such that for every n, f(n) ∈ {i, i+1, …, j}
         * or None
         '''
-        e = CodomainEvaluator(self._node, precision=precision)
+        e = CodomainEvaluator(self._node, bits=bits)
         return e()
 
 # vim:ts=4 sw=4 et
