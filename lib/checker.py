@@ -50,19 +50,6 @@ find_unusual_characters = re.compile(
     r'|(?<=\w)\xbf' # INVERTED QUESTION MARK but only directly after a letter
 ).findall
 
-def format_range(rng, *, max):
-    last = rng[-1]
-    result = []
-    for i in rng:
-        if max <= 1:
-            if i != last:
-                result += ['...']
-            result += [str(last)]
-            break
-        result += [str(i)]
-        max -= 1
-    return ', '.join(result)
-
 class Checker(object):
 
     _patched_environment = None
@@ -362,13 +349,13 @@ class Checker(object):
                 (x, y) = codomain
                 if x > 0:
                     rng = range(0, x)
-                    rng = format_range(rng, max=5)
+                    rng = misc.format_range(rng, max=5)
                     self.tag('codomain-error-in-plural-forms',
                         tags.safestr('f(x) != {}'.format(rng))
                     )
                 if y + 1 < n:
                     rng = range(y + 1, n)
-                    rng = format_range(rng, max=5)
+                    rng = misc.format_range(rng, max=5)
                     self.tag('codomain-error-in-plural-forms',
                         tags.safestr('f(x) != {}'.format(rng))
                     )

@@ -105,4 +105,17 @@ def utc_now():
     now = now.replace(tzinfo=datetime.timezone.utc)
     return now
 
+def format_range(rng, *, max):
+    last = rng[-1]
+    result = []
+    for i in rng:
+        if max <= 1:
+            if i != last:
+                result += ['...']
+            result += [str(last)]
+            break
+        result += [str(i)]
+        max -= 1
+    return ', '.join(result)
+
 # vim:ts=4 sw=4 et
