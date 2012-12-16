@@ -48,7 +48,7 @@ from lib import misc
 from lib import tags
 from lib import terminal
 
-__version__ = '0.6'
+__version__ = '0.6.1'
 
 def require_python(*version):
     if sys.version_info < version:
