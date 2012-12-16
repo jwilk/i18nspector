@@ -1,0 +1,19 @@
+# E: codomain-error-in-plural-forms f(x) != 0, 1, 2, 3, ..., 41
+# E: codomain-error-in-plural-forms f(x) != 43, 44, 45, 46, ..., 999999999999999999999
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Gizmo Enhancer 1.0\n"
+"Report-Msgid-Bugs-To: gizmoenhancer@example.net\n"
+"POT-Creation-Date: 2012-11-01 14:42+0100\n"
+"PO-Revision-Date: 2012-11-01 14:42+0100\n"
+"Last-Translator: Numerius Negidius <negidius@example.net>\n"
+"Language-Team: Latin Strike Force <la@li.org>\n"
+"Language: la\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1000000000000000000000; plural=42\n"
+
+msgid "A quick brown fox jumps over the lazy dog."
+msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis."
