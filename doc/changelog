@@ -3,9 +3,10 @@ i18nspector (0.6.1) UNRELEASED; urgency=low
   * Add alphabet information for:
     - Iranian languages: Kurdish, Ossetic, Persian;
     - Georgian;
-    - Basque.
+    - Basque;
+    - Northwest Caucasian languages: Abkhazian, Adyghe.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 22 Dec 2012 12:01:28 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 22 Dec 2012 12:26:55 +0100
 
 i18nspector (0.6) unstable; urgency=low
 
