@@ -296,6 +296,8 @@ names = Basque
 
 [fa]
 names = Persian
+characters =
+ ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی
 principal-territory = IR
 
 [ff]
@@ -553,6 +555,9 @@ names = Kashmiri
 
 [ku]
 names = Kurdish
+characters =
+ ç ê î ş û
+ Ç Ê Î Ş Û
 
 [kv]
 names = Komi
