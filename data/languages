@@ -774,6 +774,9 @@ principal-territory = IN
 names =
  Ossetian
  Ossetic
+characters =
+ a ӕ б в г д дж дз е з и й к л м н о п р с т у ф х ц ч ч ы ъ
+ А Ӕ Б В Г Д ДЖ ДЗ Е З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ч Ы Ъ
 
 [pa]
 names =
