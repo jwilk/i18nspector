@@ -97,7 +97,7 @@ def check_deb(filename, *, options):
         binary = False
     else:
         raise UnsupportedFileType
-    tmpdir = tempfile.mkdtemp()
+    tmpdir = tempfile.mkdtemp(prefix='i18nspector.deb.')
     ignore_tags = set(options.ignore_tags)
     ignore_tags.add('unknown-file-type')
     try:

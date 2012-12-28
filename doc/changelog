@@ -6,9 +6,10 @@ i18nspector (0.6.1) UNRELEASED; urgency=low
     - Basque;
     - Northwest Caucasian languages: Abkhazian, Adyghe.
   * Handle some malformed MO files more gracefully.
+  * Add a prefix to temporary directory names.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 28 Dec 2012 23:51:51 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 29 Dec 2012 00:17:56 +0100
 
 i18nspector (0.6) unstable; urgency=low
 
