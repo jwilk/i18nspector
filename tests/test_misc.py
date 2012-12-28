@@ -20,7 +20,6 @@
 
 import datetime
 import os
-import tempfile
 import warnings
 
 import lib.misc
@@ -34,6 +33,8 @@ from nose.tools import (
     assert_raises,
     assert_true,
 )
+
+from . import aux
 
 def sorted_iterable():
     yield 1
@@ -104,8 +105,7 @@ class test_os_release:
                 assert_false(os_release.is_like(os))
 
     def _tmpfile(self, contents):
-        file = tempfile.NamedTemporaryFile(
-            prefix='i18nspector.tests.',
+        file = aux.temporary_file(
             mode='wt', encoding='ASCII'
         )
         file.write(contents)
@@ -113,15 +113,12 @@ class test_os_release:
         return file
 
     def test_nonexistent(self):
-        tmpdir = tempfile.mkdtemp(prefix='i18nspector.tests.')
-        try:
+        with aux.temporary_directory() as tmpdir:
             self._test(os.path.join(tmpdir, 'nonexistent'),
                debian=False,
                ubuntu=False,
                pld=False,
             )
-        finally:
-            os.rmdir(tmpdir)
 
     def test_io_error(self):
         with self._tmpfile('') as file:

@@ -24,7 +24,8 @@ import re
 import shlex
 import subprocess as ipc
 import sys
-import tempfile
+
+from .. import aux
 
 from nose.tools import (
     assert_list_equal,
@@ -161,48 +162,33 @@ def test_file():
 # E: os-error No such file or directory
 ''')
 def test_os_error_no_such_file():
-    tmpdir = tempfile.mkdtemp(prefix='i18nspector.tests.')
-    try:
+    with aux.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'nonexistent.po')
         expected = etags_from_tagstring(this(), path)
         assert_emit_tags(path, expected)
-    finally:
-        os.rmdir(tmpdir)
 
 @tagstring('''
 # E: os-error Permission denied
 ''')
 def test_os_error_permission_denied():
-    tmpdir = tempfile.mkdtemp('i18nspector.tests.')
-    try:
+    with aux.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'denied.po')
         with open(path, 'wb'):
             pass
-        try:
-            os.chmod(path, 0)
-            expected = etags_from_tagstring(this(), path)
-            assert_emit_tags(path, expected)
-        finally:
-            os.remove(path)
-    finally:
-        os.rmdir(tmpdir)
+        os.chmod(path, 0)
+        expected = etags_from_tagstring(this(), path)
+        assert_emit_tags(path, expected)
 
 @tagstring('''
 # E: invalid-mo-file
 ''')
 def test_empty_mo_file():
-    tmpdir = tempfile.mkdtemp('i18nspector.tests.')
-    try:
+    with aux.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'empty-mo-file.mo')
         with open(path, 'wb'):
             pass
-        try:
-            expected = etags_from_tagstring(this(), path)
-            assert_emit_tags(path, expected)
-        finally:
-            os.remove(path)
-    finally:
-        os.rmdir(tmpdir)
+        expected = etags_from_tagstring(this(), path)
+        assert_emit_tags(path, expected)
 
 def get_coverage():
     coverage = set()
