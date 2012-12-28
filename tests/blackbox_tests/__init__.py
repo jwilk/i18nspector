@@ -187,6 +187,23 @@ def test_os_error_permission_denied():
     finally:
         os.rmdir(tmpdir)
 
+@tagstring('''
+# E: invalid-mo-file
+''')
+def test_empty_mo_file():
+    tmpdir = tempfile.mkdtemp('i18nspector.tests.')
+    try:
+        path = os.path.join(tmpdir, 'empty-mo-file.mo')
+        with open(path, 'wb'):
+            pass
+        try:
+            expected = etags_from_tagstring(this(), path)
+            assert_emit_tags(path, expected)
+        finally:
+            os.remove(path)
+    finally:
+        os.rmdir(tmpdir)
+
 def get_coverage():
     coverage = set()
     for filename in _get_test_filenames():

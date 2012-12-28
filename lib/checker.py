@@ -24,6 +24,7 @@ import difflib
 import email.utils
 import os
 import re
+import struct
 import urllib.parse
 
 import polib
@@ -116,6 +117,9 @@ class Checker(object):
             except UnicodeDecodeError as exc:
                 broken_encoding = exc
                 file = constructor(self.path, encoding='ISO-8859-1')
+        except struct.error:
+            self.tag('invalid-mo-file')
+            return
         except IOError as exc:
             message = str(exc)
             if exc.errno is not None:
