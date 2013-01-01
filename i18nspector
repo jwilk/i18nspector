@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 '''
-tool for checking gettext POT/PO/MO files
+checking tool for gettext POT, PO and MO files
 '''
 
 import argparse
