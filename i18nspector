@@ -40,11 +40,11 @@ def require_python(*version):
             import optparse
             ap = optparse.OptionParser()
             prog = ap.get_prog_name()
-        print('{prog}: error: Python >= {ver} is required'.format(
+        message = '{prog}: error: Python >= {ver} is required\n'.format(
             prog=prog,
             ver='.'.join(map(str, version))
-        ))
-        sys.exit(1)
+        )
+        ap.exit(1, message)
 
 require_python(3, 2)
 
