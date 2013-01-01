@@ -25,7 +25,6 @@
 checking tool for gettext POT, PO and MO files
 '''
 
-import argparse
 import os
 import sys
 
@@ -33,7 +32,14 @@ import sys
 
 def require_python(*version):
     if sys.version_info < version:
-        prog = argparse.ArgumentParser().prog
+        try:
+            import argparse
+            ap = argparse.ArgumentParser()
+            prog = ap.prog
+        except ImportError:
+            import optparse
+            ap = optparse.OptionParser()
+            prog = ap.get_prog_name()
         print('{prog}: error: Python >= {ver} is required'.format(
             prog=prog,
             ver='.'.join(map(str, version))
