@@ -1,4 +1,4 @@
-i18nspector (0.6.1) UNRELEASED; urgency=low
+i18nspector (0.7) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -14,7 +14,7 @@ i18nspector (0.6.1) UNRELEASED; urgency=low
   * Add a prefix to temporary directory names.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 01 Jan 2013 23:47:50 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 01 Jan 2013 23:49:57 +0100
 
 i18nspector (0.6) unstable; urgency=low
 
