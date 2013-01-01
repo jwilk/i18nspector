@@ -21,8 +21,6 @@
 import datetime
 import os
 
-import lib.gettext
-
 from nose.tools import (
     assert_equal,
     assert_false,
@@ -34,12 +32,11 @@ from nose.tools import (
     assert_raises,
 )
 
-basedir = os.path.join(
-    os.path.dirname(__file__),
-    os.pardir,
-)
-datadir = os.path.join(basedir, 'data')
-info = lib.gettext.GettextInfo(datadir)
+from . import aux
+
+import lib.gettext
+
+info = lib.gettext.GettextInfo(aux.datadir)
 
 class test_gettext_info:
 

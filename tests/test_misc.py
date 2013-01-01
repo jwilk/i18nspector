@@ -22,8 +22,6 @@ import datetime
 import os
 import warnings
 
-import lib.misc
-
 from nose.tools import (
     assert_equal,
     assert_false,
@@ -35,6 +33,8 @@ from nose.tools import (
 )
 
 from . import aux
+
+import lib.misc
 
 def sorted_iterable():
     yield 1

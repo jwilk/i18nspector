@@ -20,7 +20,9 @@
 
 import contextlib
 import functools
+import os
 import shutil
+import sys
 import tempfile
 
 _tmp_prefix = 'i18nspector.tests.'
@@ -37,5 +39,16 @@ def temporary_directory():
         yield tmpdir
     finally:
         shutil.rmtree(tmpdir)
+
+basedir = os.path.join(
+    os.path.dirname(__file__),
+    os.pardir,
+)
+basedir = os.environ.get('I18NSPECTOR_BASEDIR', basedir)
+basedir = os.path.join(basedir, '')
+os.stat(basedir)
+datadir = os.path.join(basedir, 'data')
+os.stat(datadir)
+sys.path[:0] = [basedir]
 
 # vim:ts=4 sw=4 et

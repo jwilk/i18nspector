@@ -21,7 +21,6 @@
 import codecs
 import curses.ascii
 import os
-import lib.encodings
 
 from nose.tools import (
     assert_equal,
@@ -32,12 +31,11 @@ from nose.tools import (
     assert_true,
 )
 
-basedir = os.path.join(
-    os.path.dirname(__file__),
-    os.pardir,
-)
-datadir = os.path.join(basedir, 'data')
-E = lib.encodings.EncodingInfo(datadir)
+from . import aux
+
+import lib.encodings
+
+E = lib.encodings.EncodingInfo(aux.datadir)
 
 class test_is_portable_encoding:
 

@@ -19,8 +19,6 @@
 # SOFTWARE.
 
 import os
-import lib.ling
-import lib.encodings
 
 import nose
 from nose.tools import (
@@ -36,14 +34,14 @@ from nose.tools import (
     assert_true,
 )
 
-basedir = os.path.join(
-    os.path.dirname(__file__),
-    os.pardir,
-)
-datadir = os.path.join(basedir, 'data')
+from . import aux
+
+import lib.ling
+import lib.encodings
+
 T = lib.ling.Language
-L = lib.ling.LingInfo(datadir)
-E = lib.encodings.EncodingInfo(datadir)
+L = lib.ling.LingInfo(aux.datadir)
+E = lib.encodings.EncodingInfo(aux.datadir)
 
 class test_fix_codes:
 
