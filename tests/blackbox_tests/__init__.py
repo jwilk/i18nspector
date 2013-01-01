@@ -105,7 +105,7 @@ class ETag(object):
 
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
-    commandline = os.getenv('I18NSPECTOR_COMMANDLINE')
+    commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
         commandline = [sys.executable, prog]
