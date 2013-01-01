@@ -14,6 +14,7 @@
 [X] date-from-future
 [X] duplicate-header-field
 [X] duplicate-message-definition
+[X] empty-file
 [X] encoding-in-language-header-field
 [X] inconsistent-number-of-plural-forms
 [X] incorrect-number-of-plural-forms

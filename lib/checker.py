@@ -546,6 +546,8 @@ class Checker(object):
         encinfo = self.options.encinfo
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
+        if len(file) == 0:
+            self.tag('empty-file')
         for message in file:
             if message.obsolete:
                 continue

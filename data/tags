@@ -117,6 +117,12 @@ certainty = certain
 description =
  This file contains multiple definitions of the same message.
 
+[empty-file]
+severity = normal
+certainty = certain
+description =
+ This file doesn't contain any messages.
+
 [encoding-in-language-header-field]
 severity = minor
 certainty = certain

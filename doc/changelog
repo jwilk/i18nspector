@@ -1,5 +1,10 @@
 i18nspector (0.6.1) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - empty-file
+
+  * Check for empty files.
   * Add alphabet information for:
     - Iranian languages: Kurdish, Ossetic, Persian;
     - Georgian;
@@ -9,7 +14,7 @@ i18nspector (0.6.1) UNRELEASED; urgency=low
   * Add a prefix to temporary directory names.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 29 Dec 2012 00:17:56 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 01 Jan 2013 23:47:50 +0100
 
 i18nspector (0.6) unstable; urgency=low
 
