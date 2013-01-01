@@ -105,8 +105,12 @@ class ETag(object):
 
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
-    prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
-    commandline = [sys.executable, prog]
+    commandline = os.getenv('I18NSPECTOR_COMMANDLINE')
+    if commandline is None:
+        prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
+        commandline = [sys.executable, prog]
+    else:
+        commandline = shlex.split(commandline)
     commandline += options
     commandline += [path]
     fixed_env = dict(os.environ, LC_ALL='C')
