@@ -30,21 +30,24 @@ import sys
 
 # ----------------------------------------
 
+def error(message):
+    try:
+        import argparse
+        ap = argparse.ArgumentParser()
+        prog = ap.prog
+    except ImportError:
+        import optparse
+        ap = optparse.OptionParser()
+        prog = ap.get_prog_name()
+    message = ''.join((prog, ': error: ', message, '\n'))
+    ap.exit(1, message)
+
 def require_python(*version):
     if sys.version_info < version:
-        try:
-            import argparse
-            ap = argparse.ArgumentParser()
-            prog = ap.prog
-        except ImportError:
-            import optparse
-            ap = optparse.OptionParser()
-            prog = ap.get_prog_name()
-        message = '{prog}: error: Python >= {ver} is required\n'.format(
-            prog=prog,
+        message = 'Python >= {ver} is required'.format(
             ver='.'.join(map(str, version))
         )
-        ap.exit(1, message)
+        error(message)
 
 require_python(3, 2)
 
