@@ -27,10 +27,10 @@ basedir = os.path.join(
     os.path.dirname(__file__),
     os.pardir,
 )
-sys.path[:0] = [basedir, os.path.join(basedir, 'tests')]
+sys.path[:0] = [basedir]
 
 from lib import tags
-import blackbox_tests
+from tests import blackbox_tests
 
 def main():
     coverage = blackbox_tests.get_coverage()
