@@ -36,15 +36,6 @@ from . import terminal
 
 __version__ = '0.6.1'
 
-def require_python(*version):
-    if sys.version_info < version:
-        prog = argparse.ArgumentParser().prog
-        print('{prog}: error: Python >= {ver} is required'.format(
-            prog=prog,
-            ver='.'.join(map(str, version))
-        ))
-        sys.exit(1)
-
 def initialize_terminal():
     if sys.stdout.isatty():
         terminal.initialize()
@@ -112,7 +103,6 @@ def check_deb(filename, *, options):
         shutil.rmtree(tmpdir)
 
 def main(basedir):
-    require_python(3, 2)
     initialize_terminal()
     is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser(description=__doc__)
