@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import difflib
 import inspect
 import os
 import re
@@ -26,10 +27,6 @@ import subprocess as ipc
 import sys
 
 from .. import aux
-
-from nose.tools import (
-    assert_list_equal,
-)
 
 here = os.path.dirname(__file__)
 
@@ -116,7 +113,14 @@ def assert_emit_tags(path, etags, *, options=()):
     fixed_env = dict(os.environ, LC_ALL='C')
     stdout = ipc.check_output(commandline, env=fixed_env)
     stdout = stdout.decode('ASCII').splitlines()
-    assert_list_equal(stdout, etags)
+    if stdout != etags:
+        str_etags = [str(x) for x in etags]
+        message = ['Tags differ:', '']
+        diff = list(
+            difflib.unified_diff(str_etags, stdout, n=9999)
+        )
+        message += diff[3:]
+        raise AssertionError('\n'.join(message))
 
 def _test_file(path):
     path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
