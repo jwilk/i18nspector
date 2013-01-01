@@ -29,13 +29,7 @@ import argparse
 import os
 import sys
 
-basedir = ''
-if not basedir:
-    basedir = os.path.dirname(
-        os.path.realpath(__file__)
-    )
-os.stat(basedir)
-sys.path[:0] = [basedir]
+# ----------------------------------------
 
 def require_python(*version):
     if sys.version_info < version:
@@ -47,6 +41,18 @@ def require_python(*version):
         sys.exit(1)
 
 require_python(3, 2)
+
+# ----------------------------------------
+
+basedir_fallback = None
+basedir = os.environ.get('I18NSPECTOR_BASEDIR', basedir_fallback)
+if basedir is None:
+    basedir = os.path.dirname(
+        os.path.realpath(__file__)
+    )
+basedir = os.path.join(basedir, '')
+os.stat(basedir)
+sys.path[:0] = [basedir]
 
 from lib import cli
 
