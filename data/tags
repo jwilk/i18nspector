@@ -190,13 +190,24 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[invalid-language-team]
+severity = normal
+certainty = possible
+description =
+ The Language-Team header field contains an e-mail address that uses a
+ reserved domain name.
+references =
+ http://tools.ietf.org/html/rfc2606
+
 [invalid-last-translator]
 severity = normal
 certainty = possible
 description =
- The Last-Translator header field could neither be parsed as an e-mail.
+ The Last-Translator header field could neither be parsed as an e-mail,
+ or the e-mail address uses a reserved domain name.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ http://tools.ietf.org/html/rfc2606
 
 [invalid-mime-version]
 severity = pedantic
@@ -217,7 +228,7 @@ severity = normal
 certainty = possible
 description =
  The Report-Msgid-Bugs-To header field could neither be parsed as an e-mail nor
- as a URL.
+ as a URL, or the e-mail address uses a reserved domain name.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 

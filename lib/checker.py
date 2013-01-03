@@ -33,6 +33,7 @@ from lib import gettext
 from lib import ling
 from lib import misc
 from lib import polib4us
+from lib import rfc2606
 from lib import tags
 
 class EnvironmentNotPatched(RuntimeError):
@@ -469,6 +470,8 @@ class Checker(object):
                 uri = urllib.parse.urlparse(report_msgid_bugs_to)
                 if uri.scheme == '':
                     self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
+            elif rfc2606.is_reserved_email(email_address):
+                self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
             elif email_address == 'EMAIL@ADDRESS':
                 self.tag('boilerplate-in-report-msgid-bugs-to', report_msgid_bugs_to)
 
@@ -479,6 +482,8 @@ class Checker(object):
         else:
             translator_name, translator_email = email.utils.parseaddr(translator)
             if '@' not in translator_email:
+                self.tag('invalid-last-translator', translator)
+            elif rfc2606.is_reserved_email(translator_email):
                 self.tag('invalid-last-translator', translator)
             elif translator_email == 'EMAIL@ADDRESS':
                 if not is_template:
@@ -492,6 +497,8 @@ class Checker(object):
                 # TODO: An URL is also allowed here.
                 # self.tag('invalid-language-team', translator)
                 pass
+            elif rfc2606.is_reserved_email(team_email):
+                self.tag('invalid-language-team', team)
             elif team_email in {'LL@li.org', 'EMAIL@ADDRESS'}:
                 if not is_template:
                     self.tag('boilerplate-in-language-team', team)
