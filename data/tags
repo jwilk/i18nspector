@@ -231,6 +231,7 @@ description =
  as a URL, or the e-mail address uses a reserved domain name.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ http://tools.ietf.org/html/rfc2606
 
 [language-disparity]
 severity = normal
