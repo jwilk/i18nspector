@@ -22,7 +22,7 @@
 [X] invalid-content-type
 [X] invalid-date
 [X] invalid-language
-[ ] invalid-language-team
+[X] invalid-language-team
 [X] invalid-last-translator
 [X] invalid-mime-version
 [X] invalid-mo-file
