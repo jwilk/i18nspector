@@ -36,7 +36,7 @@ all: ;
 install:
 	# binary:
 	install -d -m755 $(DESTDIR)$(bindir)
-	sed -e "s#^basedir = .*#basedir = '$(basedir)/'#" $(exe) > $(DESTDIR)$(bindir)/$(exe)
+	sed -e "s#^basedir_fallback = .*#basedir_fallback = '$(basedir)/'#" $(exe) > $(DESTDIR)$(bindir)/$(exe)
 	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
 	# library:
 	( cd lib && find -type f ! -name '*.py[co]' ) \
