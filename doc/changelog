@@ -1,4 +1,4 @@
-i18nspector (0.7) UNRELEASED; urgency=low
+i18nspector (0.7) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -20,7 +20,7 @@ i18nspector (0.7) UNRELEASED; urgency=low
     Python < 3.2.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 04 Jan 2013 18:10:32 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 04 Jan 2013 18:12:30 +0100
 
 i18nspector (0.6) unstable; urgency=low
 
