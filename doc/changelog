@@ -14,9 +14,13 @@ i18nspector (0.7) UNRELEASED; urgency=low
     - Northwest Caucasian languages: Abkhazian, Adyghe.
   * Handle some malformed MO files more gracefully.
   * Add a prefix to temporary directory names.
+  * Make it possible to override code/data directory with an evironment
+    variable (I18NSPECTOR_BASEDIR).
+  * Produce a useful error message when one tries to run the script with
+    Python < 3.2.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 03 Jan 2013 21:18:19 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 04 Jan 2013 18:10:32 +0100
 
 i18nspector (0.6) unstable; urgency=low
 
