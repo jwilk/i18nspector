@@ -294,6 +294,9 @@ principal-territory = ES
 
 [et]
 names = Estonian
+characters =
+ (š) (ž) õ ä ö ü
+ (Š) (Ž) Õ Ä Ö Ü
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = EE
 
@@ -314,6 +317,9 @@ names = Fulah
 
 [fi]
 names = Finnish
+characters =
+ (š) (ž) å ä ö
+ (Š) (Ž) Å Ä Ö
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = FI
 
@@ -426,6 +432,9 @@ principal-territory = HT
 
 [hu]
 names = Hungarian
+characters =
+  á é í ó ö ő ú ü ű
+  Á É Í Ó Ö Ő Ú Ü Ű
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = HU
 
@@ -887,6 +896,9 @@ names = Sindhi
 
 [se]
 names = Northern Sami
+characters =
+ á č đ ŋ š ŧ ž
+ Á Č Đ Ŋ Š Ŧ Ž
 
 [sg]
 names =
