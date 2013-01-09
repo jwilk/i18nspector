@@ -1096,6 +1096,12 @@ principal-territory = PK
 
 [uz]
 names = Uzbek
+characters =
+ oʻ gʻ ʼ
+ Oʻ Gʻ
+characters@cyrillic =
+ а б д е э ф г ҳ и ж к л м н о п қ р с т у в х й з ў ғ ш ч ъ ё ю я
+ А Б Д Е Э Ф Г Ҳ И Ж К Л М Н О П Қ Р С Т У В Х Й З Ў Ғ Ш Ч   Ё Ю Я
 principal-territory = UZ
 
 [ve]

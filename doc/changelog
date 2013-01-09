@@ -2,7 +2,7 @@ i18nspector (0.7.1) UNRELEASED; urgency=low
 
   * Add alphabet information for:
     - Mongolian;
-    - Turkic languages: Azerbaijani, Crimean Tatar, Tatar, Turkish;
+    - Turkic languages: Azerbaijani, Crimean Tatar, Tatar, Turkish, Uzbek;
     - Uralic languages: Estonian, Finnish, Hungarian, Northern Sami.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Tue, 08 Jan 2013 23:20:10 +0100
