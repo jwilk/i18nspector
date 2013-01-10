@@ -1,13 +1,13 @@
 i18nspector (0.7.1) UNRELEASED; urgency=low
 
-  * Add alphabet information for:
+  * Add writing system information for:
     - Mongolian;
-    - Semitic languages: Arabic, Hebrew.
+    - Semitic languages: Amharic, Arabic, Hebrew.
     - Turkic languages: Azerbaijani, Crimean Tatar, Kazakh, Kyrgyz, Tatar,
       Turkish, Tuvinian, Uyghur, Uzbek;
     - Uralic languages: Estonian, Finnish, Hungarian, Northern Sami.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 10 Jan 2013 19:57:42 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 10 Jan 2013 19:59:04 +0100
 
 i18nspector (0.7) unstable; urgency=low
 
