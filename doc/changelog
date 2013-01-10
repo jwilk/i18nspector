@@ -2,7 +2,7 @@ i18nspector (0.7.1) UNRELEASED; urgency=low
 
   * Add writing system information for:
     - Mongolian;
-    - Semitic languages: Amharic, Arabic, Hebrew, Tigre.
+    - Semitic languages: Amharic, Arabic, Hebrew, Tigre, Tigrinya.
     - Turkic languages: Azerbaijani, Crimean Tatar, Kazakh, Kyrgyz, Tatar,
       Turkish, Tuvinian, Uyghur, Uzbek;
     - Uralic languages: Estonian, Finnish, Hungarian, Northern Sami.
