@@ -1,4 +1,4 @@
-i18nspector (0.7.1) UNRELEASED; urgency=low
+i18nspector (0.7.1) unstable; urgency=low
 
   * Add writing system information for:
     - Mongolian;
@@ -7,7 +7,7 @@ i18nspector (0.7.1) UNRELEASED; urgency=low
       Turkish, Tuvinian, Uyghur, Uzbek;
     - Uralic languages: Estonian, Finnish, Hungarian, Northern Sami.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 10 Jan 2013 20:39:40 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 11 Jan 2013 14:05:44 +0100
 
 i18nspector (0.7) unstable; urgency=low
 
