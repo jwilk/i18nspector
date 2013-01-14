@@ -973,6 +973,10 @@ names = Scots
 
 [sd]
 names = Sindhi
+characters =
+ جھ ڄ ج پ ث ٺ ٽ ٿ ت ڀ ٻ ب ا ڙ ر ذ ڍ ڊ ڏ ڌ د خ ح ڇ چ ڃ ق ڦ ف غ ع ظ ط ض ص ش س ز ڙھ ي ه و ڻ ن م ل ڱ گھ ڳ گ ک ڪ
+characters@devanagari =
+ अ आ इ ई उ ऊ ए ऐ ओ औ क ख ख़ ग ग॒ ग़ घ ङ च छ ज ज॒ ज़ झ ञ ट ठ ड ड॒ ड़ ढ ढ़ ण त थ द ध न प फ फ़ ब ब॒ भ म य र ल व श ष स ह
 
 [se]
 names = Northern Sami
