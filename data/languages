@@ -106,6 +106,7 @@ names =
 characters =
  á é í ñ ó ú (ü)
  Á É Í Ñ Ó Ú (Ü)
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = ES
 
 [av]
