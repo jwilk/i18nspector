@@ -800,6 +800,7 @@ names =
 characters =
  ä ö ü ß
  Ä Ö Ü
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = DE
 
 [ne]
