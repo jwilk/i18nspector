@@ -348,6 +348,7 @@ names = Basque
 characters =
  (ç) ñ
  (Ç) Ñ
+plural-forms = nplurals=2; plural=n != 1;
 
 [fa]
 names = Persian
