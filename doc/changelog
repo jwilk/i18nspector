@@ -32,9 +32,10 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Punjabi;
     - Sinhala;
     - Tajik;
+    - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 21:03:46 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 21:05:11 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
