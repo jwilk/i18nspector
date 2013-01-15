@@ -629,6 +629,10 @@ principal-territory = GL
 names =
  Central Khmer
  Khmer
+# for simplicity, only consonants are included here;
+# they should be sufficient for i18nspector purposes:
+characters =
+ ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ ឌ ឍ ណ ត ថ ទ ធ ន ប ផ ព ភ ម យ រ ល វ ឝ ឞ ស ហ ឡ អ
 plural-forms = nplurals=1; plural=0;
 principal-territory = KH
 

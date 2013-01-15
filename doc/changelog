@@ -2,6 +2,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
 
   * Add writing system information for:
     - Galician;
+    - Khmer;
     - Sindhi;
     - Thai.
   * Update alphabet information for Spanish.
