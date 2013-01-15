@@ -7,6 +7,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Sindhi;
     - Serbian Ijekavian with Latin alphabet;
     - Sinhala;
+    - Tajik;
     - Thai;
     - Vietnamese;
     - Walloon.
@@ -25,7 +26,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Sinhala;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 20:11:53 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 20:18:08 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
