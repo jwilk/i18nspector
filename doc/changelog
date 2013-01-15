@@ -3,6 +3,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
   * Add writing system information for:
     - Esperanto;
     - Galician;
+    - Hindi;
     - Khmer;
     - Sindhi;
     - Serbian Ijekavian with Latin alphabet;
@@ -27,7 +28,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Tajik;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 20:24:48 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 20:35:20 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
