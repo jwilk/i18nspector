@@ -1014,6 +1014,10 @@ principal-territory = MM
 names =
  Sinhala
  Sinhalese
+# for simplicity, only consonants are included here;
+# they should be sufficient for i18nspector purposes:
+characters =
+ ක ග (ච) ජ ට ඩ ණ ත ද න ප බ ම ය ර ල ව ස හ ළ
 principal-territory = LK
 
 [sk]
