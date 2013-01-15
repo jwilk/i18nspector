@@ -531,6 +531,7 @@ names = Herero
 
 [ia]
 names = Interlingua
+plural-forms = nplurals=2; plural=n != 1;
 
 [id]
 names = Indonesian
