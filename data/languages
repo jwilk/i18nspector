@@ -1018,6 +1018,7 @@ names =
 # they should be sufficient for i18nspector purposes:
 characters =
  ක ග (ච) ජ ට ඩ ණ ත ද න ප බ ම ය ර ල ව ස හ ළ
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = LK
 
 [sk]
