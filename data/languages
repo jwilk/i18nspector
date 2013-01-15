@@ -460,6 +460,7 @@ names = Galician
 characters =
  á é í ñ ó ú
  Á É Í Ñ Ó Ú
+plural-forms = nplurals=2; plural=n != 1;
 
 [gn]
 names = Guarani
