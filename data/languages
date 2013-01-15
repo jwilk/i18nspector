@@ -530,6 +530,7 @@ names = Interlingua
 
 [id]
 names = Indonesian
+plural-forms = nplurals=1; plural=0;
 principal-territory = ID
 
 [ie]
