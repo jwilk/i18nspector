@@ -4,6 +4,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Galician;
     - Khmer;
     - Sindhi;
+    - Serbian Ijekavian with Latin alphabet;
     - Thai;
     - Vietnamese.
   * Update alphabet information for Spanish.
