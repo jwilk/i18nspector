@@ -1059,6 +1059,7 @@ names = Albanian
 characters =
  ç ë
  Ç Ë
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = AL
 
 [sr]
