@@ -456,6 +456,9 @@ characters =
 
 [gl]
 names = Galician
+characters =
+ á é í ñ ó ú
+ Á É Í Ñ Ó Ú
 
 [gn]
 names = Guarani
