@@ -354,6 +354,7 @@ plural-forms = nplurals=2; plural=n != 1;
 names = Persian
 characters =
  ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی
+plural-forms = nplurals=1; plural=0;
 principal-territory = IR
 
 [ff]
