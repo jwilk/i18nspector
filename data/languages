@@ -325,6 +325,9 @@ names = American English
 
 [eo]
 names = Esperanto
+characters =
+ ĉ ĝ ĥ ĵ ŝ ŭ
+ Ĉ Ĝ Ĥ Ĵ Ŝ Ŭ
 plural-forms = nplurals=2; plural=n != 1;
 
 [es]
