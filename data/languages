@@ -1291,6 +1291,9 @@ names = Volapük
 
 [wa]
 names = Walloon
+characters =
+ â å ç è é ê î ô û
+ Â Å Ç È É Ê Î Ô Û
 principal-territory = BE
 
 [wal]
