@@ -629,6 +629,7 @@ principal-territory = GL
 names =
  Central Khmer
  Khmer
+plural-forms = nplurals=1; plural=0;
 principal-territory = KH
 
 [kn]
