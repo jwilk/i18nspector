@@ -1235,6 +1235,7 @@ names =
  Uyghur
 characters =
  ا ە ب پ ت ج چ خ د ر ز ژ س ش غ ف ق ك گ ڭ ل م ن ھ و ۇ ۆ ۈ ۋ ې ى ي
+plural-forms = nplurals=1; plural=0;
 principal-territory = CN
 
 [uk]

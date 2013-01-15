@@ -7,11 +7,12 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
   * Add plural forms information for:
     - Basque;
     - Catalan;
-    - Low German;
     - Galician;
-    - Punjabi.
+    - Low German;
+    - Punjabi;
+    - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 14:14:13 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 14:16:38 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
