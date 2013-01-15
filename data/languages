@@ -1096,6 +1096,7 @@ principal-territory = TJ
 names = Thai
 characters =
  ก ข ฃ ค ฅ ฆ ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ ด ต ถ ท ธ น บ ป ผ ฝ พ ฟ ภ ม ย ร ล ว ศ ษ ส ห ฬ อ ฮ
+plural-forms = nplurals=1; plural=0;
 principal-territory = TH
 
 [ti]
