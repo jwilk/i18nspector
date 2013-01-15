@@ -504,8 +504,8 @@ principal-territory = HT
 [hu]
 names = Hungarian
 characters =
-  á é í ó ö ő ú ü ű
-  Á É Í Ó Ö Ő Ú Ü Ű
+ á é í ó ö ő ú ü ű
+ Á É Í Ó Ö Ő Ú Ü Ű
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = HU
 
