@@ -196,6 +196,7 @@ names =
 characters =
  à é è í ï ó ò ú ü ç
  À É È Í Ï Ó Ò Ú Ü Ç
+plural-forms = nplurals=2; plural=n != 1
 principal-territory = ES
 
 [ce]

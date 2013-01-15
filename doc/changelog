@@ -4,8 +4,9 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Galician;
     - Sindhi.
   * Update alphabet information for Spanish.
+  * Add plural forms information for Catalan.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 13:44:48 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 13:48:24 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
