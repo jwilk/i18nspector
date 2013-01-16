@@ -995,6 +995,7 @@ principal-territory = RU
 
 [rw]
 names = Kinyarwanda
+plural-forms = nplurals=2; plural=n != 1;
 
 [sa]
 names = Sanskrit

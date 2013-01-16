@@ -34,6 +34,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Interlingua;
     - Kazakh;
     - Khmer;
+    - Kinyarwanda;
     - Low German;
     - Malayalam;
     - Marathi;
@@ -46,7 +47,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 18:55:16 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 19:02:12 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
