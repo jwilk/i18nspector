@@ -688,6 +688,7 @@ names = Kurdish
 characters =
  ç ê î ş û
  Ç Ê Î Ş Û
+plural-forms = nplurals=2; plural=n != 1;
 
 [kv]
 names = Komi
