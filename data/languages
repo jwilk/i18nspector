@@ -36,6 +36,7 @@ names = Avestan
 [af]
 names = Afrikaans
 principal-territory = ZA
+plural-forms = nplurals=2; plural=n != 1;
 
 [ak]
 names = Akan
