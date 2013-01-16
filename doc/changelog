@@ -5,6 +5,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Galician;
     - Hindi;
     - Khmer;
+    - Malayalam;
     - Sindhi;
     - Serbian Ijekavian with Latin alphabet;
     - Sinhala;
@@ -29,6 +30,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Kazakh;
     - Khmer;
     - Low German;
+    - Malayalam;
     - Persian;
     - Punjabi;
     - Sinhala;
@@ -37,7 +39,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 11:56:45 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 12:04:16 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
