@@ -914,6 +914,9 @@ names = Oromo
 
 [or]
 names = Oriya
+characters =
+ ଅ ଆ ଇ ଈ ଉ ଊ ଋ ଏ ଐ ଓ ଔ କ ଖ ଗ ଘ ଙ ଚ ଛ ଜ ଝ ଞ ଟ ଠ ଡ ଢ ଣ ତ ଥ ଦ ଧ ନ ପ ଫ ବ ଭ ମ ଯ ର ଲ ଳ ଶ ଷ ସ ହ
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = IN
 
 [os]

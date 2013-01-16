@@ -12,6 +12,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Malayalam;
     - Marathi;
     - Nepali;
+    - Oriya;
     - Punjabi;
     - Sindhi;
     - Serbian Ijekavian with Latin alphabet;
@@ -45,6 +46,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Marathi;
     - Nepali;
     - Occitan;
+    - Oriya;
     - Persian;
     - Punjabi;
     - Sinhala;
@@ -53,7 +55,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 23:12:31 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 23:16:22 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
