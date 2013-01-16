@@ -3,6 +3,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
   * Add writing system information for:
     - Esperanto;
     - Galician;
+    - Gujarati;
     - Hindi;
     - Khmer;
     - Malayalam;
@@ -24,6 +25,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Basque;
     - Catalan;
     - Galician;
+    - Gujarati;
     - Hindi;
     - Indonesian;
     - Interlingua;
@@ -39,7 +41,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 12:04:16 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 12:08:09 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 

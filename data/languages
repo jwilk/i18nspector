@@ -473,6 +473,9 @@ names = Guarani
 
 [gu]
 names = Gujarati
+characters =
+ અ આ ઇ ઈ ઉ ઊ ઋ એ ઐ ઓ ઔ ક ખ ગ ઘ ઙ ચ છ જ ઝ ઞ ટ ઠ ડ ઢ ણ ત થ દ ધ ન પ ફ બ ભ મ ય ર લ વ શ ષ સ હ ળ
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = IN
 
 [gv]
