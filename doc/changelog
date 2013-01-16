@@ -9,6 +9,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Serbian Ijekavian with Latin alphabet;
     - Sinhala;
     - Tajik;
+    - Tamil;
     - Telugu;
     - Thai;
     - Vietnamese;
@@ -32,10 +33,11 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Punjabi;
     - Sinhala;
     - Tajik;
+    - Tamil;
     - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jan 2013 21:05:11 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 11:56:45 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 

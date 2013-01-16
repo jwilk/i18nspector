@@ -1103,6 +1103,9 @@ names = Swahili
 
 [ta]
 names = Tamil
+characters =
+ அ ஆ இ ஈ உ ஊ எ ஏ ஐ ஒ ஓ ஔ க ங ச ஞ ட ண த ந ப ம ய ர ல வ ழ ள ற ன ஜ ஶ ஷ ஸ ஹ
+plural-forms = nplurals=2; plural=n != 1;
 
 [te]
 names = Telugu
