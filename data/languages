@@ -292,6 +292,10 @@ principal-territory = MV
 
 [dz]
 names = Dzongkha
+# for simplicity, only consonants are included here;
+# they should be sufficient for i18nspector purposes:
+characters =
+ ཀ ཁ ག ང ཅ ཆ ཇ ཉ ཏ ཐ ད ན པ ཕ བ མ ཙ ཚ ཛ ཝ ཞ ཟ འ ཡ ར ལ ཤ ས ཧ ཨ
 principal-territory = BT
 
 [ee]
