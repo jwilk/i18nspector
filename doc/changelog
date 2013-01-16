@@ -34,6 +34,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Bengali;
     - Catalan;
     - Galician;
+    - Georgian;
     - Gujarati;
     - Hindi;
     - Indonesian;
@@ -55,7 +56,7 @@ i18nspector (0.7.2) UNRELEASED; urgency=low
     - Telugu;
     - Uyghur.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 23:16:22 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jan 2013 23:18:17 +0100
 
 i18nspector (0.7.1) unstable; urgency=low
 
