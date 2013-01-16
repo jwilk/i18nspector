@@ -886,6 +886,7 @@ names = Occitan
 characters =
  à á ç è é í ï ò ó ú ü
  À Á Ç È É Í Ï Ò Ó Ú Ü
+plural-forms = nplurals=2; plural=n > 1;
 principal-territory = FR
 
 [oj]
