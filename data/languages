@@ -183,6 +183,10 @@ principal-territory = CN
 
 [br]
 names = Breton
+characters =
+ â ê î ô û ù ü ñ
+ Â Ê Î Ô Û Ù Ü Ñ
+plural-forms = nplurals=2; plural=n > 1;
 principal-territory = FR
 
 [bs]
