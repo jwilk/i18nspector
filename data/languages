@@ -79,6 +79,7 @@ characters =
  ፀ ፁ ፂ ፃ ፄ ፅ ፆ
  ፈ ፉ ፊ ፋ ፌ ፍ ፎ   ፏ
  ፐ ፑ ፒ ፓ ፔ ፕ ፖ   ፗ
+plural-forms = nplurals=2; plural=n > 1;
 principal-territory = ET
 
 [an]
