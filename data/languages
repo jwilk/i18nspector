@@ -96,6 +96,9 @@ characters =
 
 [as]
 names = Assamese
+characters =
+ অ আ ই ঈ উ ঊ ঋ ৠ ঌ ৡ এ ঐ ও ঔ ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ ত ৎ থ দ ধ ন প ফ ব ভ ম য ৰ ল ৱ শ ষ স হ
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = IN
 
 [ast]
