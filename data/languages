@@ -753,6 +753,7 @@ principal-territory = LV
 
 [mai]
 names = Maithili
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = IN
 
 [mg]
@@ -787,6 +788,7 @@ names = Mongolian
 characters =
  а б в г д е ё ж з и й к л м н о ө п р с т у ү ф х ц ч ш щ ъ ы ь э ю я
  А Б В Г Д Е Ё Ж З И Й К Л М Н О Ө П Р С Т У Ү Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = MN
 
 [mni]
