@@ -966,6 +966,9 @@ principal-territory = PL
 names =
  Pashto
  Pushto
+characters =
+ آ آ ب پ ت ټ ث ج چ ح خ څ ځ د ډ ﺫ ﺭ ړ ﺯ ژ ږ س ش ښ ص ض ط ظ ع غ ف ق ک ګ ل م ن ڼ و ه ي ې ی ۍ ئ
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = AF
 
 [pt]
