@@ -1380,6 +1380,7 @@ names = Wolof
 
 [xh]
 names = Xhosa
+plural-forms = nplurals=2; plural=n != 1;
 
 [yi]
 names = Yiddish

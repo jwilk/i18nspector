@@ -4,7 +4,8 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - English with Shavian alphabet;
     - Pashto.
   * Add plural forms information for the following languages:
-    - Pashto.
+    - Pashto;
+    - Xhosa.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Fri, 18 Jan 2013 23:17:26 +0100
 
