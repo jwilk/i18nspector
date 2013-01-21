@@ -767,6 +767,7 @@ names = Malagasy
 characters =
  à â é è ê ë ì î ï ñ ô
  À Â É È Ê Ë Ì Î Ï Ñ Ô
+plural-forms = nplurals=2; plural=n > 1;
 principal-territory = MG
 
 [mh]

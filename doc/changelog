@@ -5,10 +5,11 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - Malagasy;
     - Pashto.
   * Add plural forms information for the following languages:
+    - Malagasy;
     - Pashto;
     - Xhosa.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 21 Jan 2013 23:08:16 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 21 Jan 2013 23:09:52 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
