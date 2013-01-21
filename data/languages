@@ -764,6 +764,9 @@ principal-territory = IN
 
 [mg]
 names = Malagasy
+characters =
+ à â é è ê ë ì î ï ñ ô
+ À Â É È Ê Ë Ì Î Ï Ñ Ô
 principal-territory = MG
 
 [mh]

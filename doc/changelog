@@ -2,12 +2,13 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
 
   * Add writing system information for the following languages:
     - English with Shavian alphabet;
+    - Malagasy;
     - Pashto.
   * Add plural forms information for the following languages:
     - Pashto;
     - Xhosa.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 18 Jan 2013 23:17:26 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 21 Jan 2013 23:08:16 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
