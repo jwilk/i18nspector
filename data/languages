@@ -427,6 +427,7 @@ names =
 characters =
  â ê é ô û ú
  Â Ê É Ô Û Ú
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = NL
 
 [ga]
