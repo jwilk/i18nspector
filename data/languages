@@ -1262,6 +1262,7 @@ principal-territory = TM
 
 [tl]
 names = Tagalog
+plural-forms = nplurals=2; plural=n > 1;
 principal-territory = PH
 
 [tlh]

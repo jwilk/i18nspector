@@ -8,9 +8,10 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - Frisian;
     - Malagasy;
     - Pashto;
+    - Tagalog;
     - Xhosa.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jan 2013 17:06:54 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jan 2013 17:13:26 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
