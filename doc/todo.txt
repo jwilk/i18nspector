@@ -15,6 +15,7 @@ Complain about incorrect locale codes:
  * sh_BA -> bs_BA
  * sh_HR -> hr_HR
  * sh_RS -> sr_RS
+ * sr@Latn -> sr@latin
  * sr_CS -> sr
  * sr_SR -> sr_RS
  * sr_YU -> sr
