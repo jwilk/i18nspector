@@ -418,6 +418,8 @@ class Checker(object):
                             self.tag('non-portable-encoding', encoding)
                     if language is not None:
                         unrepresentable_characters = language.get_unrepresentable_characters(encoding)
+                        if len(unrepresentable_characters) > 5:
+                            unrepresentable_characters[4:] = ['...']
                         if unrepresentable_characters:
                             self.tag('unrepresentable-characters', encoding, *unrepresentable_characters)
                 if match.group(1) is None:
