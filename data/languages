@@ -609,6 +609,34 @@ names = Inuktitut
 
 [ja]
 names = Japanese
+characters =
+# Hiragana:
+ あ  い  う  え  お
+ か  き  く  け  こ
+ さ  し  す  せ  そ
+ た  ち  つ  て  と
+ な  に  ぬ  ね  の
+ は  ひ  ふ  へ  ほ
+ ま  み  む  め  も
+ や      ゆ      よ
+ ら  り  る  れ  ろ
+ わ  ゐ      ゑ  を
+ ん
+# Katakana:
+ ア イ ウ エ オ
+ カ キ ク ケ コ
+ サ シ ス セ ソ
+ タ チ ツ テ ト
+ ナ ニ ヌ ネ ノ
+ ハ ヒ フ ヘ ホ
+ マ ミ ム メ モ
+ ヤ    ユ    ヨ
+ ラ リ ル レ ロ
+ ワ ヰ    ヱ ヲ
+ ン
+# Kanji (the list of ideograms is of course incomplete;
+# only the most often used ones are included here):
+ 一 上 下 不 中 了 作 使 保 入 全 前 力 加 効 動 取 可 合 名 在 報 場 変 存 定 実 成 択 指 数 文 新 明 時 更 最 有 無 現 用 示 終 能 行 表 要 見 設 読 込 選 開 間 除
 plural-forms = nplurals=1; plural=0;
 principal-territory = JP
 

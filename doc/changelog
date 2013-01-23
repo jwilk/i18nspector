@@ -3,6 +3,7 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
   * Add writing system information for the following languages:
     - Chinese;
     - English with Shavian alphabet;
+    - Japanese;
     - Malagasy;
     - Pashto;
     - Tagalog;
@@ -14,7 +15,7 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - Tagalog;
     - Xhosa.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 23 Jan 2013 19:59:52 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 23 Jan 2013 20:23:51 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
