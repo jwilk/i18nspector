@@ -200,4 +200,7 @@ class test_format_range:
     def test_len_gt_max(self):
         self._test(5, 10, 6, '5, 6, 7, 8, 9')
 
+    def test_huge(self):
+        self._test(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
+
 # vim:ts=4 sw=4 et
