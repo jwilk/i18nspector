@@ -1407,6 +1407,10 @@ names =
 
 [zh]
 names = Chinese
+# The list of Chinese ideograms is of course incomplete;
+# only the most often used ones are included here.
+characters =
+ 一 上 下 不 中 以 作 使 入 出 到 前 可 名 器 在 存 定 已 式 所 新 是 有 法 用 的 示 程 行 要
 
 [zh_CN]
 names = Chinese (simplified)
