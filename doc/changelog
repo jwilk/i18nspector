@@ -4,7 +4,8 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - English with Shavian alphabet;
     - Malagasy;
     - Pashto;
-    - Tagalog.
+    - Tagalog;
+    - Volapük.
   * Add plural forms information for the following languages:
     - Frisian;
     - Malagasy;
@@ -12,7 +13,7 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - Tagalog;
     - Xhosa.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jan 2013 18:07:48 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 23 Jan 2013 19:33:05 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 

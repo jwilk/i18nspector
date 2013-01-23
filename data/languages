@@ -1370,6 +1370,9 @@ principal-territory = VN
 
 [vo]
 names = Volapük
+characters =
+ ä ö ü
+ Ä Ö Ü
 
 [wa]
 names = Walloon
