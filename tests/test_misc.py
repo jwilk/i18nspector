@@ -178,4 +178,26 @@ def test_utc_now():
     assert_is_not_none(now.tzinfo)
     assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
 
+class test_format_range:
+
+    def _test(self, x, y, max, expected):
+        assert_equal(
+            lib.misc.format_range(range(x, y), max=max),
+            expected
+        )
+
+    def test_max_is_lt_4(self):
+        with assert_raises(ValueError):
+            self._test(5, 10, 3, None)
+
+    def test_len_lt_max(self):
+        self._test(5, 10, 4, '5, 6, ..., 9')
+        self._test(23, 43, 6, '23, 24, 25, 26, ..., 42')
+
+    def test_len_eq_max(self):
+        self._test(5, 10, 5, '5, 6, 7, 8, 9')
+
+    def test_len_gt_max(self):
+        self._test(5, 10, 6, '5, 6, 7, 8, 9')
+
 # vim:ts=4 sw=4 et
