@@ -114,7 +114,8 @@ def format_range(rng, *, max):
         if len(result) < max:
             result += [i]
         else:
-            result[-2:] = ['...', i]
+            result[-2:] = ['...', str(last)]
+            break
     return ', '.join(map(str, result))
 
 # vim:ts=4 sw=4 et
