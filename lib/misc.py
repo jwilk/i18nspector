@@ -108,14 +108,13 @@ def utc_now():
 def format_range(rng, *, max):
     last = rng[-1]
     result = []
+    if max < 4:
+        raise ValueError('max must be >= 4')
     for i in rng:
-        if max <= 1:
-            if i != last:
-                result += ['...']
-            result += [str(last)]
-            break
-        result += [str(i)]
-        max -= 1
-    return ', '.join(result)
+        if len(result) < max:
+            result += [i]
+        else:
+            result[-2:] = ['...', i]
+    return ', '.join(map(str, result))
 
 # vim:ts=4 sw=4 et
