@@ -4,6 +4,7 @@ Acquire correct Plural-Forms from:
 
 Complain about incorrect locale codes:
  * al -> sq
+ * bh -> bho | mai | mag
  * cn -> zh
  * cz -> cs
  * dk -> da
