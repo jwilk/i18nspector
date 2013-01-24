@@ -634,7 +634,7 @@ characters =
  ラ リ ル レ ロ
  ワ ヰ    ヱ ヲ
  ン
-# Kanji (the list of ideograms is of course incomplete;
+# Kanji (the list of ideograms is incomplete;
 # only the most often used ones are included here):
  一 上 下 不 中 了 作 使 保 入 全 前 力 加 効 動 取 可 合 名 在 報 場 変 存 定 実 成 択 指 数 文 新 明 時 更 最 有 無 現 用 示 終 能 行 表 要 見 設 読 込 選 開 間 除
 plural-forms = nplurals=1; plural=0;
@@ -1440,7 +1440,7 @@ names =
 
 [zh]
 names = Chinese
-# The list of Chinese ideograms is of course incomplete;
+# The list of Chinese ideograms is incomplete;
 # only the most often used ones are included here.
 characters =
  一 上 下 不 中 以 作 使 入 出 到 前 可 名 器 在 存 定 已 式 所 新 是 有 法 用 的 示 程 行 要
