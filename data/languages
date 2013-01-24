@@ -705,6 +705,11 @@ principal-territory = IN
 
 [ko]
 names = Korean
+characters =
+# The list of Hangul syllables is incomplete;
+# only the most often used ones are included here.
+ 가 경 고 과 구 그 기 나 내 는 니 다 단 대 데 도 동 되 된 드 들 디 라 러 력 로 록 류 를 름 리 마 만 메 면 명 모 목 문 미 바 보 부 비 사 상 서 선 설 성 소 수 스 습 시 실 십 아 않 어 없 에 여 열 오 요 용 우 원 위 으 은 을 음 의 이 인 일 입 있 자 작 장 재 저 전 정 제 주 중 지 추 치 크 택 터 트 파 표 프 하 한 할 합 해 행 화
+
 plural-forms = nplurals=1; plural=0;
 principal-territory = KR
 
