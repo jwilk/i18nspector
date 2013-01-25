@@ -4,23 +4,13 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     characters at a time.
   * Output at most 5 items of long integer ranges.
   * Add writing system information for the following languages:
-    - Chinese;
-    - English with Shavian alphabet;
-    - Japanese;
-    - Korean;
-    - Malagasy;
-    - Pashto;
-    - Tagalog;
-    - Volapük.
+    Chinese, English with Shavian alphabet, Japanese, Korean, Malagasy,
+    Pashto, Tagalog, Volapük.
   * Add plural forms information for the following languages:
-    - Frisian;
-    - Malagasy;
-    - Pashto;
-    - Tagalog;
-    - Xhosa.
+    Frisian, Malagasy, Pashto, Tagalog, Xhosa.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:29:29 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:30:07 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
