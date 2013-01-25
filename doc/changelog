@@ -2,6 +2,7 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
 
   * Avoid very long lists of unrepresentable characters; output at most 5
     characters at a time.
+  * Output at most 5 items of long integer ranges.
   * Add writing system information for the following languages:
     - Chinese;
     - English with Shavian alphabet;
@@ -17,8 +18,9 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     - Pashto;
     - Tagalog;
     - Xhosa.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 24 Jan 2013 14:09:39 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:29:29 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
