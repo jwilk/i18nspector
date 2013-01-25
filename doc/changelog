@@ -1,4 +1,4 @@
-i18nspector (0.7.3) UNRELEASED; urgency=low
+i18nspector (0.7.3) unstable; urgency=low
 
   * Avoid very long lists of unrepresentable characters; output at most 5
     characters at a time.
@@ -10,7 +10,7 @@ i18nspector (0.7.3) UNRELEASED; urgency=low
     Frisian, Malagasy, Pashto, Tagalog, Xhosa.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:30:07 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:32:28 +0100
 
 i18nspector (0.7.2) unstable; urgency=low
 
