@@ -1,3 +1,9 @@
+i18nspector (0.7.4) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:46:51 +0100
+
 i18nspector (0.7.3) unstable; urgency=low
 
   * Avoid very long lists of unrepresentable characters; output at most 5
