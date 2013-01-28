@@ -1,6 +1,7 @@
 i18nspector (0.7.4) UNRELEASED; urgency=low
 
-  * 
+  * Add writing system information for the following languages:
+    - Maori.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:46:51 +0100
 

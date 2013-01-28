@@ -810,6 +810,9 @@ names =
 
 [mi]
 names = Maori
+characters =
+ ā ē ī ō ū
+ Ā Ē Ī Ō Ū
 principal-territory = NZ
 
 [mk]
