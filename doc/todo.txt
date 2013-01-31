@@ -26,8 +26,6 @@ Complain about incorrect locale codes:
 Guess language from ``Language-Team``.
  * http://translationproject.org/team/
 
-Improve ``Plural-Forms`` support.
-
 Add characters=… for more languages.
 
 Fix support for ``X-Poedit-Language: (Afan) Oromo``.
