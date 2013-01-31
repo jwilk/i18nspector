@@ -280,7 +280,9 @@ class Checker(object):
         if language is not None:
             correct_plural_forms = language.get_plural_forms()
         if correct_plural_forms is not None:
-            assert gettext.parse_plural_forms(correct_plural_forms)
+            [correct_n, correct_expr] = gettext.parse_plural_forms(correct_plural_forms)
+        else:
+            correct_n = correct_expr = None
         plural_forms = file.metadata.get('Plural-Forms')
         has_plurals = False # messages with plural forms (translated or not)?
         expected_nplurals = {} # number of plurals in _translated_ messages
@@ -332,17 +334,27 @@ class Checker(object):
                         n, tags.safestr('(Plural-Forms header field)'), '!=',
                         expected_nplurals, tags.safestr('(number of msgstr items)')
                     )
+            if correct_n is not None and n != correct_n:
+                if has_plurals:
+                    self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
+                else:
+                    self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
             try:
                 for i in range(200):
                     fi = expr(i)
-                    if 0 <= fi < n:
-                        continue
-                    message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
-                    if has_plurals:
-                        self.tag('codomain-error-in-plural-forms', message)
-                    else:
-                        self.tag('codomain-error-in-unused-plural-forms', message)
-                    break
+                    if fi >= n:
+                        message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
+                        if has_plurals:
+                            self.tag('codomain-error-in-plural-forms', message)
+                        else:
+                            self.tag('codomain-error-in-unused-plural-forms', message)
+                        break
+                    if n == correct_n and fi != correct_expr(i):
+                        if has_plurals:
+                            self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
+                        else:
+                            self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
+                        break
             except OverflowError:
                 message = tags.safe_format('f({}): integer overflow', i)
                 if has_plurals:

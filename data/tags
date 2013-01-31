@@ -152,6 +152,21 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
  http://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
 
+[incorrect-plural-forms]
+severity = serious
+certainty = possible
+description =
+ The Plural-Forms declaration is incorrect, according to i18nspector's
+ linguistic data.
+
+[incorrect-unused-plural-forms]
+severity = serious
+certainty = possible
+description =
+ The Plural-Forms declaration is incorrect, according to i18nspector's
+ linguistic data.
+ (But there are no translated messages which use plural forms.)
+
 [invalid-content-transfer-encoding]
 severity = pedantic
 certainty = certain

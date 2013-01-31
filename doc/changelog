@@ -1,9 +1,16 @@
 i18nspector (0.7.4) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - incorrect-plural-forms
+      - incorrect-unused-plural-forms
+
   * Add writing system information for the following languages:
     - Maori.
+  * Check for mismatches between Plural-Forms declarations and i18nspector's
+    linguistic data.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Jan 2013 01:46:51 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 18:03:56 +0100
 
 i18nspector (0.7.3) unstable; urgency=low
 
