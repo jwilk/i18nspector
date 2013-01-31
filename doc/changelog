@@ -6,11 +6,12 @@ i18nspector (0.8) UNRELEASED; urgency=low
       - incorrect-unused-plural-forms
 
   * Add writing system information for the following languages:
+    - Burmese;
     - Maori.
   * Check for mismatches between Plural-Forms declarations and i18nspector's
     linguistic data.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 18:11:32 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 18:30:48 +0100
 
 i18nspector (0.7.3) unstable; urgency=low
 
