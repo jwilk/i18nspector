@@ -7,10 +7,14 @@ i18nspector (0.8) UNRELEASED; urgency=low
 
   * Add writing system information for the following languages:
     Burmese, Maori.
+  * Comment out plural forms information for some Slavic languages:
+    Belarusian, Bosnian, Croatian, Hungarian, Russian, Slovak, Serbian and
+    Ukrainian; there is no consensus for the correct plural forms expression
+    for them.
   * Check for mismatches between Plural-Forms declarations and i18nspector's
     linguistic data.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 31 Jan 2013 23:12:06 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 01 Feb 2013 01:23:27 +0100
 
 i18nspector (0.7.3) unstable; urgency=low
 

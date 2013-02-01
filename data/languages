@@ -141,7 +141,7 @@ characters =
 characters@latin =
  ć č ł ń ś š ŭ ź ž
  Ć Č Ł Ń Ś Š Ŭ Ź Ž
-plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = BY
 
 [bem]
@@ -194,7 +194,7 @@ names = Bosnian
 characters =
  đ ž ć č š
  Đ Ž Ć Č Š
-plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = BA
 
 [byn]
@@ -528,7 +528,7 @@ names = Croatian
 characters =
  đ ž ć č š
  Đ Ž Ć Č Š
-plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = HR
 
 [ht]
@@ -542,7 +542,7 @@ names = Hungarian
 characters =
  á é í ó ö ő ú ü ű
  Á É Í Ó Ö Ő Ú Ü Ű
-plural-forms = nplurals=2; plural=n != 1;
+# plural-forms = nplurals=2; plural=n != 1;
 principal-territory = HU
 
 [hy]
@@ -1061,7 +1061,7 @@ names = Russian
 characters =
  а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я
  А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
-plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = RU
 
 [rw]
@@ -1122,7 +1122,7 @@ names = Slovak
 characters =
  á ä č ď ž é í ĺ ľ ň ó ô ŕ š ť ú ý ž
  Á Ä Č Ď Ž É Í Ĺ Ľ Ň Ó Ô Ŕ Š Ť Ú Ý Ž
-plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+# plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
 principal-territory = SK
 
 [sl]
@@ -1162,7 +1162,7 @@ characters@latin =
 characters@ijekavianlatin =
  đ ž ć č š
  Đ Ž Ć Č Š
-plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = RS
 
 [ss]
@@ -1373,7 +1373,7 @@ names = Ukrainian
 characters =
  а б в г ґ д е є ж з и і ї й к л м н о п р с т у ф х ц ч ш щ ь ю я
  А Б В Г Ґ Д Е Є Ж З И І Ї Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ь Ю Я
-plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = UA
 
 [ur]
