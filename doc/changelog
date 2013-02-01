@@ -1,4 +1,4 @@
-i18nspector (0.8) UNRELEASED; urgency=low
+i18nspector (0.8) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -14,7 +14,7 @@ i18nspector (0.8) UNRELEASED; urgency=low
   * Check for mismatches between Plural-Forms declarations and i18nspector's
     linguistic data.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 01 Feb 2013 01:23:27 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 01 Feb 2013 01:32:42 +0100
 
 i18nspector (0.7.3) unstable; urgency=low
 
