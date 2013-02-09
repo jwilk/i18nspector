@@ -1,0 +1,11 @@
+The following software is needed to run i18nspector:
+
+* Python ≥ 3.2;
+
+* polib_, a gettext catalogs manipulation library.
+
+
+.. _polib:
+   http://pypi.python.org/pypi/polib
+
+.. vim:ts=3 sw=3 ft=rst
