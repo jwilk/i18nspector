@@ -1400,8 +1400,8 @@ principal-territory = ZA
 [vi]
 names = Vietnamese
 characters =
- a à ả ã á ạ ă ằ ẳ ẵ ắ ặ â ầ ẩ ẫ ấ ậ b c d đ e è ẻ ẽ é ẹ ê ề ể ễ ế ệ g h i ì ỉ ĩ í ị k l m n o ò ỏ õ ó ọ ô ồ ổ ỗ ố ộ ơ ờ ở ỡ ớ ợ p q r s t u ù ủ ũ ú ụ ư ừ ử ữ ứ ự v x y ỳ ỷ ỹ ý ỵ
- A À Ả Ã Á Ạ Ă Ằ Ẳ Ẵ Ắ Ặ Â Ầ Ẩ Ẫ Ấ Ậ B C D Đ E È Ẻ Ẽ É Ẹ Ê Ề Ể Ễ Ế Ệ G H I Ì Ỉ Ĩ Í Ị K L M N O Ò Ỏ Õ Ó Ọ Ô Ồ Ổ Ỗ Ố Ộ Ơ Ờ Ở Ỡ Ớ Ợ P Q R S T U Ù Ủ Ũ Ú Ụ Ư Ừ Ử Ữ Ứ Ự V X Y Ỳ Ỷ Ỹ Ý Ỵ
+ à ả ã á ạ ă ằ ẳ ẵ ắ ặ â ầ ẩ ẫ ấ ậ đ è ẻ ẽ é ẹ ê ề ể ễ ế ệ ì ỉ ĩ í ị ò ỏ õ ó ọ ô ồ ổ ỗ ố ộ ơ ờ ở ỡ ớ ợ ù ủ ũ ú ụ ư ừ ử ữ ứ ự ỳ ỷ ỹ ý ỵ
+ À Ả Ã Á Ạ Ă Ằ Ẳ Ẵ Ắ Ặ Â Ầ Ẩ Ẫ Ấ Ậ Đ È Ẻ Ẽ É Ẹ Ê Ề Ể Ễ Ế Ệ Ì Ỉ Ĩ Í Ị Ò Ỏ Õ Ó Ọ Ô Ồ Ổ Ỗ Ố Ộ Ơ Ờ Ở Ỡ Ớ Ợ Ù Ủ Ũ Ú Ụ Ư Ừ Ử Ữ Ứ Ự Ỳ Ỷ Ỹ Ý Ỵ
 plural-forms = nplurals=1; plural=0;
 principal-territory = VN
 
