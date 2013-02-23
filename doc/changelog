@@ -3,9 +3,9 @@ i18nspector (0.9) UNRELEASED; urgency=low
   * Document the dependencies.
     Thanks to Kyrill Detinov for the bug report.
   * Remove an incorrect assertion in the plural expression parser.
-  * Improve documentation for the --debian option.
+  * Improve the documentation.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 23 Feb 2013 18:53:47 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 23 Feb 2013 19:22:12 +0100
 
 i18nspector (0.8) unstable; urgency=low
 
