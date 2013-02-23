@@ -108,7 +108,7 @@ def main(basedir):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this langauge')
-    debian_help = 'allow checking Debian packages' + (' (enabled by default)' if is_like_debian else '')
+    debian_help = 'allow checking Debian packages' + (' (enabled on this system)' if is_like_debian else '')
     ap.add_argument('--debian', action='store_true', default=is_like_debian, help=debian_help)
     ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
     ap.add_argument('files', metavar='<file>', nargs='+')

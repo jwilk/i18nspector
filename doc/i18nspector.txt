@@ -20,6 +20,8 @@ Options
    code.
 --debian
    Allow checking Debian (binary or source) packages.
+   This option is enabled by default on modern Debian systems and its
+   derivatives; it needs to be explicitly enabled on other systems.
 
 Tags
 ----
