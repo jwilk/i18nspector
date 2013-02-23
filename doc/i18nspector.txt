@@ -8,8 +8,8 @@ checking tool for gettext POT, PO and MO files
 
 :Manual section: 1
 
-Usage
------
+Synopsis
+--------
 **i18nspector** [--language *<lang>*] [--debian] *<file>* [*<file>* …]
 
 Options
