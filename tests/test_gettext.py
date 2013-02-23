@@ -162,6 +162,10 @@ class test_plurals:
         with assert_raises(self._error):
             self._pe('6 * 7)')
 
+    def test_plural_exp_dangling_binop(self):
+        with assert_raises(self._error):
+            self._pe('6 +')
+
     def test_plural_exp_junk_token(self):
         with assert_raises(self._error):
             self._pe('6 # 7')

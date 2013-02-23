@@ -118,10 +118,8 @@ def parse_plural_expression(s):
     s = _subst_ifelse(s)
     try:
         fn = intexpr.Expression(s)
-    except SyntaxError as exc: # <no-coverage>
-        # This should never happen.
-        assert 0, "{!r} couldn't be parsed as Python expression".format(s) # <no-coverage>
-        raise PluralExpressionSyntaxError # <no-coverage>
+    except SyntaxError as exc:
+        raise PluralExpressionSyntaxError
     return fn
 
 _parse_plural_forms = re.compile(r'^\s*nplurals=([1-9][0-9]*);\s*plural=([^;]+);?\s*$').match
