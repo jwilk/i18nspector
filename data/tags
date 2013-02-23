@@ -464,8 +464,8 @@ certainty = possible
 description =
  This file declares an encoding that couldn't be recognized by i18nspector.
  It might be a typo.
- Absence of encoding information will prevent it from performing further
- checks.
+ Absence of encoding information will prevent i18nspector from performing
+ further checks.
 
 [unknown-file-type]
 severity = normal
