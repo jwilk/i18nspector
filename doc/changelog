@@ -8,8 +8,9 @@ i18nspector (0.9) UNRELEASED; urgency=low
     + Rename the “USAGE” section of the manual page as “SYNOPSIS”.
     + Document that --debian is enabled on modern Debian(-like) systems.
   * Remove an incorrect assertion in the plural expression parser.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 23 Feb 2013 20:46:15 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 23 Feb 2013 20:53:23 +0100
 
 i18nspector (0.8) unstable; urgency=low
 
