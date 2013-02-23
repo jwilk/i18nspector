@@ -2,9 +2,9 @@
 i18nspector
 ===========
 
------------------------------------------
-tool for checking gettext POT/PO/MO files
------------------------------------------
+----------------------------------------------
+checking tool for gettext POT, PO and MO files
+----------------------------------------------
 
 :Manual section: 1
 
