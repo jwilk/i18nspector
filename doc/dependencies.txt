@@ -4,8 +4,15 @@ The following software is needed to run i18nspector:
 
 * polib_, a gettext catalogs manipulation library.
 
+Additionally, the following software is needed to rebuild the manual page from
+source:
+
+* docutils_ ≥ 0.6.
+
 
 .. _polib:
    http://pypi.python.org/pypi/polib
+.. _docutils:
+   http://docutils.sourceforge.net/
 
 .. vim:ts=3 sw=3 ft=rst
