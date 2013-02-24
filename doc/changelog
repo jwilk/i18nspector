@@ -1,4 +1,4 @@
-i18nspector (0.8.1) UNRELEASED; urgency=low
+i18nspector (0.8.1) unstable; urgency=low
 
   * Improve the documentation.
     + Document the dependencies.
@@ -11,7 +11,7 @@ i18nspector (0.8.1) UNRELEASED; urgency=low
   * Remove an incorrect assertion in the plural expression parser.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 24 Feb 2013 12:01:35 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 24 Feb 2013 12:24:46 +0100
 
 i18nspector (0.8) unstable; urgency=low
 
