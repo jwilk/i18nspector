@@ -15,6 +15,7 @@ i18nspector (0.8.1) unstable; urgency=low
     + Add “DESCRIPTION” section to the manual page.
     + Document that --debian is enabled on modern Debian(-like) systems.
   * Remove an incorrect assertion in the plural expression parser.
+    Thanks to Fabio Pirola for the bug report.
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sun, 24 Feb 2013 12:24:46 +0100
