@@ -59,6 +59,7 @@ def main():
     ap.add_argument('--insane', action='store_true', help='allow insane field names')
     ap.add_argument('--extract-addresses', action='store_true')
     ap.add_argument('--all-test-cases', action='store_true')
+    ap.add_argument('--plural-only', action='store_true', help='consider only translations with plural forms')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
     metadata = collections.defaultdict(collections.Counter)
@@ -84,6 +85,14 @@ def main():
             else:
                 raise NotImplementedError(repr(extension))
             file = constructor(path)
+            if options.plural_only:
+                for msg in file.translated_entries():
+                    if msg.msgstr_plural:
+                        break
+                else:
+                    print('skip', file=sys.stderr)
+                    sys.stderr.flush()
+                    continue
             for k, v in file.metadata.items():
                 if (not is_sane_field_name(k)) and (not options.insane):
                     continue
