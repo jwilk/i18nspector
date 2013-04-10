@@ -1,3 +1,9 @@
+i18nspector (0.8.3) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 11 Apr 2013 01:18:59 +0200
+
 i18nspector (0.8.2) unstable; urgency=low
 
   * Make it possible to declare that a language has more than one correct
