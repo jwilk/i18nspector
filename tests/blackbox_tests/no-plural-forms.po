@@ -14,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "%d quick brown fox jumps over the lazy dog."
-msgid_plural "%d quick brown foxes jumps over the lazy dog."
+msgid_plural "%d quick brown foxes jump over the lazy dog."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""

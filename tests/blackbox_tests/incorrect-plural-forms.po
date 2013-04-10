@@ -15,6 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgid "%d quick brown fox jumps over the lazy dog."
-msgid_plural "%d quick brown foxes jumps over the lazy dog."
+msgid_plural "%d quick brown foxes jump over the lazy dog."
 msgstr[0] "Mężny bądź, chroń pułk twój i %d flagę."
 msgstr[1] "Mężny bądź, chroń pułk twój i %d flagi."
