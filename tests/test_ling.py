@@ -261,13 +261,13 @@ class test_get_plural_forms:
     def test_found_ll(self):
         assert_equal(
             self._get('el'),
-            'nplurals=2; plural=n != 1;'
+            ['nplurals=2; plural=n != 1;']
         )
 
     def test_found_ll_cc(self):
         assert_equal(
             self._get('el_GR'),
-            'nplurals=2; plural=n != 1;'
+            ['nplurals=2; plural=n != 1;']
         )
 
     def test_en_ca(self):

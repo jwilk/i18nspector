@@ -298,7 +298,14 @@ class LingInfo(object):
             section = self._primary_languages[language]
         except KeyError:
             return
-        return section.get('plural-forms')
+        plural_forms = section.get('plural-forms')
+        if plural_forms is None:
+            return
+        return [
+            s.strip()
+            for s in plural_forms.splitlines()
+            if s and not s.isspace()
+        ]
 
     def _get_principal_territory_code(self, language):
         try:

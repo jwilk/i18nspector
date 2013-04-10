@@ -2,10 +2,6 @@ Acquire correct Plural-Forms from:
  * http://translate.sourceforge.net/wiki/l10n/pluralforms
  * http://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml
 
-Make it possible to declare that a language has more than one correct
-Plural-Forms. This is needed at least for many Slavic languages.
- * http://bugs.debian.org/703815
-
 Complain about incorrect locale codes:
  * al -> sq
  * bh -> bho | mai | mag

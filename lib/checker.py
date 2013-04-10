@@ -279,10 +279,6 @@ class Checker(object):
         correct_plural_forms = None
         if language is not None:
             correct_plural_forms = language.get_plural_forms()
-        if correct_plural_forms is not None:
-            [correct_n, correct_expr] = gettext.parse_plural_forms(correct_plural_forms)
-        else:
-            correct_n = correct_expr = None
         plural_forms = file.metadata.get('Plural-Forms')
         has_plurals = False # messages with plural forms (translated or not)?
         expected_nplurals = {} # number of plurals in _translated_ messages
@@ -302,20 +298,20 @@ class Checker(object):
                 args += [n, message_repr(message, template='({})'), '!=']
             self.tag('inconsistent-number-of-plural-forms', *args[:-1])
         if is_template:
-            plural_forms_hint = 'Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;'
-        elif correct_plural_forms is not None:
-            plural_forms_hint = correct_plural_forms
+            plural_forms_hint = 'nplurals=INTEGER; plural=EXPRESSION;'
+        elif correct_plural_forms:
+            plural_forms_hint = tags.safe_format(
+                ' or '.join('{}' for s in correct_plural_forms),
+                *correct_plural_forms
+            )
         else:
             plural_forms_hint = 'nplurals=<n>; plural=<expression>'
-            if len(expected_nplurals) == 1:
-                [n] = expected_nplurals.keys()
-                plural_forms_hint.replace('<n>', str(n))
         if plural_forms is None:
             if has_plurals:
                 if expected_nplurals:
-                    self.tag('no-required-plural-forms-header-field', 'Plural-Forms: ' + plural_forms_hint)
+                    self.tag('no-required-plural-forms-header-field', plural_forms_hint)
                 else:
-                    self.tag('no-plural-forms-header-field', 'Plural-Forms: ' + plural_forms_hint)
+                    self.tag('no-plural-forms-header-field', plural_forms_hint)
             return
         if is_template:
             return
@@ -334,11 +330,21 @@ class Checker(object):
                         n, tags.safestr('(Plural-Forms header field)'), '!=',
                         expected_nplurals, tags.safestr('(number of msgstr items)')
                     )
-            if correct_n is not None and n != correct_n:
-                if has_plurals:
-                    self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
-                else:
-                    self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
+            locally_correct_n = locally_correct_expr = None
+            incorrect_plural_forms_emitted = True
+            if correct_plural_forms is not None:
+                locally_correct_plural_forms = [
+                    (i, expression)
+                    for i, expression in map(gettext.parse_plural_forms, correct_plural_forms)
+                    if i == n
+                ]
+                if not locally_correct_plural_forms:
+                    if has_plurals:
+                        self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
+                    else:
+                        self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
+                elif len(locally_correct_plural_forms) == 1:
+                    [[locally_correct_n, locally_correct_expr]] = locally_correct_plural_forms
             try:
                 for i in range(200):
                     fi = expr(i)
@@ -349,7 +355,7 @@ class Checker(object):
                         else:
                             self.tag('codomain-error-in-unused-plural-forms', message)
                         break
-                    if n == correct_n and fi != correct_expr(i):
+                    if n == locally_correct_n and fi != locally_correct_expr(i):
                         if has_plurals:
                             self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
                         else:
