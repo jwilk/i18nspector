@@ -1,4 +1,4 @@
-i18nspector (0.8.2) UNRELEASED; urgency=low
+i18nspector (0.8.2) unstable; urgency=low
 
   * Make it possible to declare that a language has more than one correct
     Plural-Forms.
@@ -7,7 +7,7 @@ i18nspector (0.8.2) UNRELEASED; urgency=low
     Ukrainian.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 10 Apr 2013 23:34:34 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 11 Apr 2013 01:13:24 +0200
 
 i18nspector (0.8.1) unstable; urgency=low
 
