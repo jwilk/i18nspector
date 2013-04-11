@@ -10,6 +10,7 @@ i18nspector (0.8.2) unstable; urgency=low
 
   * Make it possible to declare that a language has more than one correct
     Plural-Forms.
+    Thanks to Guillem Jover for the bug report.
   * Add plural forms information for the following languages:
     Belarusian, Bosnian, Croatian, Hungarian, Russian, Serbian, Turkish,
     Ukrainian.
