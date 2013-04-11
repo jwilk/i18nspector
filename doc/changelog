@@ -1,8 +1,10 @@
 i18nspector (0.8.3) UNRELEASED; urgency=low
 
-  * 
+  * Improve the test suite.
+    + Skip some tests when run with (pseudo-)root privileges.
+      Thanks to Stuart Prescott for the bug report.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 11 Apr 2013 01:18:59 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 11 Apr 2013 19:36:32 +0200
 
 i18nspector (0.8.2) unstable; urgency=low
 

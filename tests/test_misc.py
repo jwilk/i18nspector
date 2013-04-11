@@ -22,6 +22,7 @@ import datetime
 import os
 import warnings
 
+import nose
 from nose.tools import (
     assert_equal,
     assert_false,
@@ -121,6 +122,8 @@ class test_os_release:
             )
 
     def test_io_error(self):
+        if os.getuid() == 0:
+            raise nose.SkipTest('this test must not be run as root')
         with self._tmpfile('') as file:
             os.chmod(file.name, 0)
             with assert_raises(IOError):

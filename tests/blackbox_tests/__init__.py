@@ -26,6 +26,8 @@ import shlex
 import subprocess as ipc
 import sys
 
+import nose
+
 from .. import aux
 
 here = os.path.dirname(__file__)
@@ -179,6 +181,8 @@ def test_os_error_no_such_file():
 # E: os-error Permission denied
 ''')
 def test_os_error_permission_denied():
+    if os.getuid() == 0:
+        raise nose.SkipTest('this test must not be run as root')
     with aux.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'denied.po')
         with open(path, 'wb'):
