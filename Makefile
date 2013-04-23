@@ -48,4 +48,8 @@ install:
 	# manual page:
 	install -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
 
+.PHONY: test
+test:
+	python3 -c 'import nose; nose.main()' -v
+
 # vim:ts=4 sw=4 noet
