@@ -5,8 +5,10 @@ i18nspector (0.8.3) UNRELEASED; urgency=low
       Thanks to Stuart Prescott for the bug report.
   * Add “test” target to Makefile.
     Thanks to Kyrill Detinov for the bug report.
+  * Recognize “PROJECT VERSION” as boilerplate in the Project-Id-Version header
+    field.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 23 Apr 2013 23:03:09 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Apr 2013 21:30:22 +0200
 
 i18nspector (0.8.2) unstable; urgency=low
 

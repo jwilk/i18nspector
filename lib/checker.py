@@ -474,7 +474,7 @@ class Checker(object):
         project_id_version = file.metadata.get('Project-Id-Version')
         if project_id_version is None:
             self.tag('no-project-id-version-header-field')
-        elif project_id_version == 'PACKAGE VERSION':
+        elif project_id_version in {'PACKAGE VERSION', 'PROJECT VERSION'}:
             self.tag('boilerplate-in-project-id-version', project_id_version)
         else:
             if not re.search(r'[A-Za-z]', project_id_version):
