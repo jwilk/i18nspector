@@ -1,4 +1,4 @@
-i18nspector (0.8.3) UNRELEASED; urgency=low
+i18nspector (0.8.3) unstable; urgency=low
 
   * Improve the test suite.
     + Skip some tests when run with (pseudo-)root privileges.
@@ -8,7 +8,7 @@ i18nspector (0.8.3) UNRELEASED; urgency=low
   * Recognize “PROJECT VERSION” as boilerplate in the Project-Id-Version header
     field.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Apr 2013 21:30:22 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 03 May 2013 01:23:29 +0200
 
 i18nspector (0.8.2) unstable; urgency=low
 
