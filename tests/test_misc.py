@@ -99,11 +99,11 @@ class test_os_release:
 
     def _test(self, path, **like):
         os_release = lib.misc.OSRelease(path=path)
-        for os, expected in like.items():
+        for opsys, expected in like.items():
             if expected:
-                assert_true(os_release.is_like(os))
+                assert_true(os_release.is_like(opsys))
             else:
-                assert_false(os_release.is_like(os))
+                assert_false(os_release.is_like(opsys))
 
     def _tmpfile(self, contents):
         file = aux.temporary_file(
