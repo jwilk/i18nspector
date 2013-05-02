@@ -1,3 +1,9 @@
+i18nspector (0.8.4) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 03 May 2013 01:40:58 +0200
+
 i18nspector (0.8.3) unstable; urgency=low
 
   * Improve the test suite.
