@@ -175,7 +175,7 @@ class test_extra_encoding:
         u = self._viscii_unicode
         with E.extra_encodings():
             with assert_raises(UnicodeEncodeError):
-                b = u.encode('KOI8-RU')
+                u.encode('KOI8-RU')
 
     def test_decode(self):
         b = self._viscii_bytes
@@ -187,6 +187,6 @@ class test_extra_encoding:
         b = self._viscii_bytes
         with E.extra_encodings():
             with assert_raises(UnicodeDecodeError):
-                u = b.decode('EUC-TW')
+                b.decode('EUC-TW')
 
 # vim:ts=4 sw=4 et

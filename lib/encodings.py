@@ -54,7 +54,6 @@ def iconv_encoding(encoding, *, parent):
             return b'', 0
         if errors != 'strict':
             raise NotImplementedError
-        fixed_env = dict(os.environ, LC_ALL='C')
         child = popen('iconv', '-s', '-f', 'UTF-8', '-t', encoding)
         (stdout, stderr) = child.communicate(input.encode('UTF-8'))
         if stderr != b'':

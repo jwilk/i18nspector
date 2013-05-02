@@ -229,10 +229,8 @@ class Checker(object):
         if meta_language:
             if meta_language.remove_encoding():
                 self.tag('encoding-in-language-header-field', orig_meta_language)
-                prev_meta_language = str(meta_language)
             if meta_language.remove_nonlinguistic_modifier():
                 self.tag('language-variant-does-not-affect-translation', orig_meta_language)
-                prev_meta_language = str(meta_language)
             try:
                 if meta_language.fix_codes():
                     self.tag('invalid-language', orig_meta_language, '=>', meta_language)
@@ -331,7 +329,6 @@ class Checker(object):
                         expected_nplurals, tags.safestr('(number of msgstr items)')
                     )
             locally_correct_n = locally_correct_expr = None
-            incorrect_plural_forms_emitted = True
             if correct_plural_forms is not None:
                 locally_correct_plural_forms = [
                     (i, expression)

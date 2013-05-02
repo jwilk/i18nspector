@@ -118,7 +118,7 @@ def parse_plural_expression(s):
     s = _subst_ifelse(s)
     try:
         fn = intexpr.Expression(s)
-    except SyntaxError as exc:
+    except SyntaxError:
         raise PluralExpressionSyntaxError
     return fn
 
