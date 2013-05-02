@@ -19,12 +19,10 @@
 # SOFTWARE.
 
 import datetime
-import os
 
 from nose.tools import (
     assert_equal,
     assert_false,
-    assert_greater,
     assert_is_instance,
     assert_is_none,
     assert_is_not_none,
