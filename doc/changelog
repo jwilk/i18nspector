@@ -1,8 +1,8 @@
 i18nspector (0.8.4) UNRELEASED; urgency=low
 
-  * 
+  * Add information about version and date to the manual page.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 03 May 2013 02:06:07 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 05 May 2013 01:50:52 +0200
 
 i18nspector (0.8.3) unstable; urgency=low
 
