@@ -590,15 +590,21 @@ class Checker(object):
                 if s.endswith('\n') != trailing_lf:
                     self.tag('inconsistent-trailing-newlines', message_repr(message))
                     break
-            msgid_uc = set(find_unusual_characters(message.msgid))
-            msgstr_uc = set(find_unusual_characters(message.msgstr))
-            uc = msgstr_uc - msgid_uc - found_unusual_characters
-            if uc:
+            msgid_uc = (
+                set(find_unusual_characters(message.msgid)) |
+                set(find_unusual_characters(message.msgid_plural))
+            )
+            strings = [message.msgstr] + sorted(message.msgstr_plural.values())
+            for msgstr in strings:
+                msgstr_uc = set(find_unusual_characters(msgstr))
+                uc = msgstr_uc - msgid_uc - found_unusual_characters
+                if not uc:
+                    continue
                 names = ', '.join(
                     'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
                     for ch in sorted(uc)
                 )
-                self.tag('unusual-character-in-translation', tags.safestr(names + ':'), message.msgstr)
+                self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
                 found_unusual_characters |= uc
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
