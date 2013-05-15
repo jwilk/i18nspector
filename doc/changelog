@@ -1,9 +1,15 @@
 i18nspector (0.9) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - inconsistent-leading-newlines
+      - inconsistent-trailing-newlines
+
+  * Check for inconsistent leading/trailing newlines in messages.
   * Add information about version and date to the manual page.
   * Fix stripping delay annotations from terminfo capabilities.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 May 2013 17:29:53 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 May 2013 17:30:33 +0200
 
 i18nspector (0.8.3) unstable; urgency=low
 

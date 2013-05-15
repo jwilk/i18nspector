@@ -132,6 +132,13 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[inconsistent-leading-newlines]
+severity = important
+certainty = possible
+description =
+ Some strings in an entry start with a newline, but some don't.
+ Either all of them should start with a newline, or none of them should.
+
 [inconsistent-number-of-plural-forms]
 severity = serious
 certainty = certain
@@ -141,6 +148,13 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
  http://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
+
+[inconsistent-trailing-newlines]
+severity = important
+certainty = possible
+description =
+ Some strings in an entry end with a newline, but some don't.
+ Either all of them should end with a newline, or none of them should.
 
 [incorrect-number-of-plural-forms]
 severity = serious

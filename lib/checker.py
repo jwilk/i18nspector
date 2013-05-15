@@ -22,6 +22,7 @@ import collections
 import contextlib
 import difflib
 import email.utils
+import itertools
 import os
 import re
 import struct
@@ -575,6 +576,20 @@ class Checker(object):
         for message in file:
             if message.obsolete:
                 continue
+            leading_lf = message.msgid.startswith('\n')
+            trailing_lf = message.msgid.endswith('\n')
+            strings = [s for s in itertools.chain(
+                [message.msgid_plural, message.msgstr],
+                message.msgstr_plural.values(),
+            ) if s]
+            for s in strings:
+                if s.startswith('\n') != leading_lf:
+                    self.tag('inconsistent-leading-newlines', message_repr(message))
+                    break
+            for s in strings:
+                if s.endswith('\n') != trailing_lf:
+                    self.tag('inconsistent-trailing-newlines', message_repr(message))
+                    break
             msgid_uc = set(find_unusual_characters(message.msgid))
             msgstr_uc = set(find_unusual_characters(message.msgstr))
             uc = msgstr_uc - msgid_uc - found_unusual_characters
