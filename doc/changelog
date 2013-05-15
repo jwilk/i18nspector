@@ -1,4 +1,4 @@
-i18nspector (0.9) UNRELEASED; urgency=low
+i18nspector (0.9) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -10,7 +10,7 @@ i18nspector (0.9) UNRELEASED; urgency=low
   * Add information about version and date to the manual page.
   * Fix stripping delay annotations from terminfo capabilities.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 May 2013 18:29:29 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 May 2013 19:37:44 +0200
 
 i18nspector (0.8.3) unstable; urgency=low
 
