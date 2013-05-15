@@ -1,9 +1,9 @@
-i18nspector (0.8.4) UNRELEASED; urgency=low
+i18nspector (0.9) UNRELEASED; urgency=low
 
   * Add information about version and date to the manual page.
   * Fix stripping delay annotations from terminfo capabilities.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 11 May 2013 16:23:27 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 May 2013 17:29:53 +0200
 
 i18nspector (0.8.3) unstable; urgency=low
 
