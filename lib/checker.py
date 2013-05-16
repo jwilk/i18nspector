@@ -576,12 +576,14 @@ class Checker(object):
         for message in file:
             if message.obsolete:
                 continue
+            fuzzy = isinstance(message, polib.POEntry) and 'fuzzy' in message.flags
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
-            strings = [s for s in itertools.chain(
-                [message.msgid_plural, message.msgstr],
-                message.msgstr_plural.values(),
-            ) if s]
+            strings = [message.msgid_plural]
+            if not fuzzy:
+                strings += [message.msgstr]
+                strings += message.msgstr_plural.values()
+            strings = [s for s in strings if s != '']
             for s in strings:
                 if s.startswith('\n') != leading_lf:
                     self.tag('inconsistent-leading-newlines', message_repr(message))
