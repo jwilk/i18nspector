@@ -4,8 +4,9 @@ i18nspector (0.9.1) UNRELEASED; urgency=low
   * Don't complain about leading/trailing newlines in fuzzy messages.
     Thanks to Guillem Jover for the bug report.
     http://bugs.debian.org/708586
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 17 May 2013 01:34:56 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 17 May 2013 01:49:54 +0200
 
 i18nspector (0.9) unstable; urgency=low
 
