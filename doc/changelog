@@ -1,4 +1,4 @@
-i18nspector (0.9.1) UNRELEASED; urgency=low
+i18nspector (0.9.1) unstable; urgency=low
 
   * Brown paper bag release.
   * Don't complain about leading/trailing newlines in fuzzy messages.
@@ -6,7 +6,7 @@ i18nspector (0.9.1) UNRELEASED; urgency=low
     http://bugs.debian.org/708586
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 17 May 2013 15:22:01 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 17 May 2013 15:23:30 +0200
 
 i18nspector (0.9) unstable; urgency=low
 
