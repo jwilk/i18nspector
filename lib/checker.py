@@ -22,7 +22,6 @@ import collections
 import contextlib
 import difflib
 import email.utils
-import itertools
 import os
 import re
 import struct
