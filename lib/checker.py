@@ -150,8 +150,13 @@ class Checker(object):
             raise
         finally:
             if broken_encoding:
+                s = broken_encoding.object
+                assert isinstance(s, bytes)
+                begin = max(broken_encoding.start - 40, 0)
+                end = broken_encoding.start + 40
+                s = s[begin:end]
                 self.tag('broken-encoding',
-                    tags.safestr(repr(broken_encoding.object)[1:]),
+                    tags.safestr(repr(s)[1:]),
                     tags.safestr('cannot be decoded as'),
                     broken_encoding.encoding.upper(),
                 )
