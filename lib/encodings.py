@@ -28,56 +28,28 @@ import configparser
 import contextlib
 import itertools
 import os
-import subprocess as ipc
 import unicodedata
 
+from lib import iconv
 from lib import misc
 
 def iconv_encoding(encoding, *, parent):
-
-    # FIXME: This implementation is SLOW.
-
-    def popen(*args):
-        def set_lc_all_c():
-            os.environ['LC_ALL'] = 'C' # <no-coverage>
-        return ipc.Popen(args,
-            stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
-            preexec_fn=set_lc_all_c,
-        )
 
     def encode(input, errors='strict'):
         if not (parent._extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at encoding time.
             raise LookupError('unknown encoding: ' + encoding)
-        if len(input) == 0:
-            return b'', 0
-        if errors != 'strict':
-            raise NotImplementedError
-        child = popen('iconv', '-s', '-f', 'UTF-8', '-t', encoding)
-        (stdout, stderr) = child.communicate(input.encode('UTF-8'))
-        if stderr != b'':
-            stderr = stderr.decode('ASCII', 'replace')
-            raise UnicodeEncodeError(encoding, input, 0, len(input), stderr)
-        return stdout, len(input)
+        output = iconv.encode(input, encoding=encoding, errors=errors)
+        return output, len(input)
 
     def decode(input, errors='strict'):
         if not (parent._extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at decoding time.
             raise LookupError('unknown encoding: ' + encoding)
-        if len(input) == 0:
-            # This actually never happens. Python optimizes out empty-string
-            # decoding.
-            return '', 0 # <no-coverage>
-        if errors != 'strict':
-            raise NotImplementedError
-        child = popen('iconv', '-s', '-f', encoding, '-t', 'UTF-8')
-        (stdout, stderr) = child.communicate(input)
-        if stderr != b'':
-            stderr = stderr.decode('ASCII', 'replace')
-            raise UnicodeDecodeError(encoding, input, 0, len(input), stderr)
-        return stdout.decode('UTF-8'), len(input)
+        output = iconv.decode(input, encoding=encoding, errors=errors)
+        return output, len(input)
 
     def not_implemented(*args, **kwargs):
         raise NotImplementedError
