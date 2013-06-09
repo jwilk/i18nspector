@@ -26,7 +26,7 @@ from nose.tools import (
 
 class test_escape:
 
-    _esc = staticmethod(lib.tags._escape) # FIXME: _escape is private
+    _esc = staticmethod(lib.tags._escape)  # FIXME: _escape is private
 
     def _test(self, s, expected):
         assert_equal(

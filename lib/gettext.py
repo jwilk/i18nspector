@@ -68,7 +68,7 @@ _plural_exp_tokens = [
     (r'[?:]', None),
     (r'[()]', None),
     (r'[ \t]', None),
-    (r'.', '_'), # junk
+    (r'.', '_'),  # junk
 ]
 
 _plural_exp_token_re = '|'.join(
@@ -83,7 +83,7 @@ def _plural_exp_tokenize(s):
             if ctoken is not None:
                 break
         if ctoken is not None:
-            if pytoken == '_': # junk
+            if pytoken == '_':  # junk
                 raise PluralExpressionSyntaxError(match.group(0))
             yield ' {} '.format(pytoken)
         else:
@@ -141,14 +141,14 @@ class DateSyntaxError(Exception):
 
 _parse_date = re.compile('''
     ^ \s*
-    ( [0-9]{4}-[0-9]{2}-[0-9]{2} ) # YYYY-MM-DD
+    ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
     ( \s+ )
-    ( [0-9]{2}:[0-9]{2} ) # hh:mm
-    (?: : [0-9]{2} )? # ss
+    ( [0-9]{2}:[0-9]{2} )  # hh:mm
+    (?: : [0-9]{2} )?  # ss
     \s*
-    ( [+-] [0-9]{2} ) # ZZ
+    ( [+-] [0-9]{2} )  # ZZ
     :?
-    ( [0-9]{2} ) # zz
+    ( [0-9]{2} )  # zz
     \s* $
 ''', re.VERBOSE).match
 

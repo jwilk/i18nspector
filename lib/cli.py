@@ -86,7 +86,7 @@ def check_deb(filename, *, options):
             with open(os.devnull) as bitbucket:
                 ipc.check_call(
                     ['dpkg-source', '--no-copy', '--no-check', '-x', filename, real_root],
-                    stdout=bitbucket # dpkg-source would be noisy without this...
+                    stdout=bitbucket  # dpkg-source would be noisy without this...
                 )
         options = copy_options(options,
             ignore_tags=ignore_tags,

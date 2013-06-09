@@ -266,7 +266,7 @@ class CodomainEvaluator(BaseEvaluator):
 
     def _visit_div(self, node, x, y):
         if y == (0, 0):
-            0 # division by zero
+            # division by zero
             return
         assert y[1] > 0
         return (

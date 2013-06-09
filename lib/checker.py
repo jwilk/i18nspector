@@ -43,13 +43,13 @@ class EnvironmentAlreadyPatched(RuntimeError):
     pass
 
 find_unusual_characters = re.compile(
-    r'[\x00-\x08\x0b-\x1a\x1c-\x1f]' # C0 except TAB, LF, ESC
-    r'|\x1b(?!\[)' # ESC, except when followed by [
-    r'|\x7f' # DEL
-    r'|[\x80-\x9f]' # C1
-     '|\ufffd' # REPLACEMENT CHARACTER
-     '|[\ufffe\uffff]' # non-characters
-    r'|(?<=\w)\xbf' # INVERTED QUESTION MARK but only directly after a letter
+    r'[\x00-\x08\x0b-\x1a\x1c-\x1f]'  # C0 except TAB, LF, ESC
+    r'|\x1b(?!\[)'  # ESC, except when followed by [
+    r'|\x7f'  # DEL
+    r'|[\x80-\x9f]'  # C1
+     '|\ufffd'  # REPLACEMENT CHARACTER
+     '|[\ufffe\uffff]'  # non-characters
+    r'|(?<=\w)\xbf'  # INVERTED QUESTION MARK but only directly after a letter
 ).findall
 
 class Checker(object):
@@ -283,8 +283,8 @@ class Checker(object):
         if language is not None:
             correct_plural_forms = language.get_plural_forms()
         plural_forms = file.metadata.get('Plural-Forms')
-        has_plurals = False # messages with plural forms (translated or not)?
-        expected_nplurals = {} # number of plurals in _translated_ messages
+        has_plurals = False  # messages with plural forms (translated or not)?
+        expected_nplurals = {}  # number of plurals in _translated_ messages
         for message in file:
             if message.obsolete:
                 continue
@@ -487,7 +487,7 @@ class Checker(object):
         if not report_msgid_bugs_to:
             self.tag('no-report-msgid-bugs-to-header-field')
         else:
-            real_name, email_address  = email.utils.parseaddr(report_msgid_bugs_to)
+            real_name, email_address = email.utils.parseaddr(report_msgid_bugs_to)
             if '@' not in email_address:
                 uri = urllib.parse.urlparse(report_msgid_bugs_to)
                 if uri.scheme == '':

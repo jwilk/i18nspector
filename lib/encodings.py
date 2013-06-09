@@ -67,16 +67,16 @@ def iconv_encoding(encoding, *, parent):
 class EncodingInfo(object):
 
     _interesting_ascii_bytes = bytes(itertools.chain([
-        0, # NUL
-        4, # EOT
-        7, # BEL
-        8, # BS
-        9, # HT
-        10, # LF
-        11, # VT
-        12, # FF
-        13, # CR
-        27, # ESC
+        0,  # NUL
+        4,  # EOT
+        7,  # BEL
+        8,  # BS
+        9,  # HT
+        10,  # LF
+        11,  # VT
+        12,  # FF
+        13,  # CR
+        27,  # ESC
     ], range(32, 127)))
     _interesting_ascii_str = _interesting_ascii_bytes.decode()
 

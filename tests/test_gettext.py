@@ -94,13 +94,13 @@ class test_plurals:
     def test_plural_exp_and(self):
         self._pe('n && 6', 7, 1)
         self._pe('n && 6', 0, 0)
-        self._pe('n && (6 / 0)', 0, 0) # no ZeroDivisionError
+        self._pe('n && (6 / 0)', 0, 0)  # no ZeroDivisionError
         self._pe('n && 0', 7, 0)
         self._pe('n && 0', 0, 0)
 
     def test_plural_exp_or(self):
         self._pe('n || 6', 7, 1)
-        self._pe('n || (6 / 0)', 7, 1) # no ZeroDivisionError
+        self._pe('n || (6 / 0)', 7, 1)  # no ZeroDivisionError
         self._pe('n || 6', 0, 1)
         self._pe('n || 0', 7, 1)
         self._pe('n || 0', 0, 0)
@@ -136,12 +136,12 @@ class test_plurals:
         self._pe('n != 37', 42, 1)
 
     def test_plural_exp_multi_compare(self):
-        self._pe('1 < n == 3 <= 4', 1, 0) # False in Python
-        self._pe('1 < n == 3 <= 4', 2, 1) # False in Python
-        self._pe('1 < n == 3 <= 4', 3, 1) # True in Python
-        self._pe('1 < n == 3 <= 4', 4, 1) # False in Python
-        self._pe('2 == 2 == n', 2, 0) # True in Python
-        self._pe('2 == 2 == n', 1, 1) # False in Python
+        self._pe('1 < n == 3 <= 4', 1, 0)  # False in Python
+        self._pe('1 < n == 3 <= 4', 2, 1)  # False in Python
+        self._pe('1 < n == 3 <= 4', 3, 1)  # True in Python
+        self._pe('1 < n == 3 <= 4', 4, 1)  # False in Python
+        self._pe('2 == 2 == n', 2, 0)  # True in Python
+        self._pe('2 == 2 == n', 1, 1)  # False in Python
 
     def test_plural_exp_neg(self):
         self._pe('! n', 0, 1)
@@ -192,7 +192,6 @@ class test_fix_date_format:
             assert_is_none(new)
         else:
             assert_equal(new, expected)
-
 
     def test_boilerplate(self):
         self._test('YEAR-MO-DA HO:MI+ZONE', None)
