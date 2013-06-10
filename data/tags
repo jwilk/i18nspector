@@ -32,6 +32,8 @@ certainty = certain
 description =
  The Content-Type header field contains xgettext boilerplate.
  It should be in the form ``text/plain; charset=``\ *encoding*.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-language-team]
 severity = minor
