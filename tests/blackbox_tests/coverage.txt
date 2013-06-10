@@ -4,6 +4,7 @@
 [X] ancient-date
 [X] arithmetic-error-in-plural-forms
 [X] arithmetic-error-in-unused-plural-forms
+[X] boilerplate-in-content-type
 [X] boilerplate-in-language-team
 [X] boilerplate-in-last-translator
 [X] boilerplate-in-project-id-version

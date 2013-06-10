@@ -419,8 +419,9 @@ class Checker(object):
                 try:
                     is_ascii_compatible = encinfo.is_ascii_compatible_encoding(encoding)
                 except LookupError:
-                    if is_template and (encoding == 'CHARSET'):
-                        pass
+                    if encoding == 'CHARSET':
+                        if not is_template:
+                            self.tag('boilerplate-in-content-type', ct)
                     else:
                         self.tag('unknown-encoding', encoding)
                     encoding = None

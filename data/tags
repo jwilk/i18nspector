@@ -26,6 +26,13 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
+[boilerplate-in-content-type]
+severity = important
+certainty = certain
+description =
+ The Content-Type header field contains xgettext boilerplate.
+ It should be in the form ``text/plain; charset=``\ *encoding*.
+
 [boilerplate-in-language-team]
 severity = minor
 certainty = certain
