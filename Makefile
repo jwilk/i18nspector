@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+PYTHON = python3
 PREFIX = /usr/local
 DESTDIR =
 
@@ -50,6 +51,6 @@ install:
 
 .PHONY: test
 test:
-	python3 -c 'import nose; nose.main()' -v
+	$(PYTHON) -c 'import nose; nose.main()' -v
 
 # vim:ts=4 sw=4 noet
