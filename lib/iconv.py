@@ -142,8 +142,8 @@ def _encode_cli(input, *, encoding):
 _encode = _encode_dl if _iconv is not None else _encode_cli
 
 def decode(input: bytes, encoding=default_encoding, errors='strict'):
-    if not isinstance(input, (bytes, memoryview)):
-        raise TypeError('input must be bytes or memoryview, not {tp}'.format(tp=type(input).__name__))
+    if not isinstance(input, bytes):
+        raise TypeError('input must be bytes, not {tp}'.format(tp=type(input).__name__))
     if not isinstance(encoding, str):
         raise TypeError('encoding must be str, not {tp}'.format(tp=type(encoding).__name__))
     if not isinstance(errors, str):
@@ -161,11 +161,7 @@ def _decode_dl(input: bytes, *, encoding):
         rc = ctypes.get_errno()
         raise OSError(rc, os.strerror(rc))
     try:
-        input_memview = memoryview(input)
-        if isinstance(input, bytes):
-            c_input = ctypes.c_char_p(input)
-        else:
-            c_input = (ctypes.c_char * len(input)).from_buffer(input)
+        c_input = ctypes.c_char_p(input)
         output_len = len(input)
         while True:
             inbuf = ctypes.cast(c_input, ctypes.POINTER(ctypes.c_char))
@@ -188,7 +184,7 @@ def _decode_dl(input: bytes, *, encoding):
                     for end in range(begin + 1, len(input)):
                         # Assume that the encoding can be synchronized on ASCII characters.
                         # That's not necessarily true for _every_ encoding, but oh well.
-                        if input_memview[end] < b'\x80':
+                        if input[end] < 0x80:
                             break
                     else:
                         end = len(input)

@@ -48,7 +48,7 @@ def iconv_encoding(encoding, *, parent):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at decoding time.
             raise LookupError('unknown encoding: ' + encoding)
-        output = iconv.decode(input, encoding=encoding, errors=errors)
+        output = iconv.decode(bytes(input), encoding=encoding, errors=errors)
         return output, len(input)
 
     def not_implemented(*args, **kwargs):
