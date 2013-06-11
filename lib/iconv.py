@@ -126,7 +126,7 @@ def _encode_dl(input: str, *, encoding):
             raise OSError(rc, os.strerror(rc))
 
 def _encode_cli(input, *, encoding):
-    child = _popen('iconv', '-s', '-f', 'UTF-8', '-t', encoding)
+    child = _popen('iconv', '-f', 'UTF-8', '-t', encoding)
     (stdout, stderr) = child.communicate(input.encode('UTF-8'))
     if stderr != b'':
         stderr = stderr.decode('ASCII', 'replace')
@@ -207,7 +207,7 @@ def _decode_dl(input: bytes, *, encoding):
             raise OSError(rc, os.strerror(rc))
 
 def _decode_cli(input, *, encoding):
-    child = _popen('iconv', '-s', '-f', encoding, '-t', 'UTF-8')
+    child = _popen('iconv', '-f', encoding, '-t', 'UTF-8')
     (stdout, stderr) = child.communicate(input)
     if stderr != b'':
         stderr = stderr.decode('ASCII', 'replace')
