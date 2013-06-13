@@ -539,6 +539,9 @@ class Checker(object):
         header_fields_lc = {str.lower(s): s for s in header_fields}
         new_metadata = {}
         for key, value in sorted(file.metadata.items()):
+            if not gettext.is_valid_field_name(key):
+                self.tag('stray-header-line', key + ':')
+                continue
             value, *strays = value.split('\n')
             for stray in strays:
                 self.tag('stray-header-line', stray)
@@ -563,7 +566,10 @@ class Checker(object):
             pass
         else:
             for key, values in sorted(duplicates.items()):
-                self.tag('duplicate-header-field', key)
+                if not gettext.is_valid_field_name(key):
+                    self.tag('stray-header-line', key + ':')
+                else:
+                    self.tag('duplicate-header-field', key)
                 for value in values:
                     value, *strays = value.split('\n')
                     for stray in strays:

@@ -45,6 +45,9 @@ class GettextInfo(object):
         misc.check_sorted(fields)
         self.header_fields = frozenset(fields)
 
+is_valid_field_name = re.compile(r'^[\x21-\x39\x3b-\x7e]+$').match
+# http://tools.ietf.org/html/rfc5322#section-3.6.8
+
 # ================
 # Plurals handling
 # ================
