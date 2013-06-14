@@ -72,4 +72,6 @@ Reimplement 8-bit codecs without iconv(1)/iconv(3).
 
 Check for hardcoded Language in POT files.
 
+Check for fuzzy headers in PO files.
+
 .. vim:ft=rst
