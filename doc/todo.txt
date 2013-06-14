@@ -70,7 +70,7 @@ Run ``msgfmt --check-format`` on PO files.
 
 Reimplement 8-bit codecs without iconv(1)/iconv(3).
 
-Check for ``msgcat`` conflict markers.
+Check for conflict markers in message definitions.
 
 Check for hardcoded Language in POT files.
 

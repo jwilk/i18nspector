@@ -580,13 +580,19 @@ class Checker(object):
         header_fields_lc = {str.lower(s): s for s in header_fields}
         class userdict(dict): pass
         new_metadata = userdict()
+        seen_conflict_marker = False
         for key, value in sorted(file.metadata.items()):
             if not gettext.is_valid_field_name(key):
                 self.tag('stray-header-line', key + ':')
                 continue
             value, *strays = value.split('\n')
             for stray in strays:
-                self.tag('stray-header-line', stray)
+                if gettext.search_for_conflict_marker(stray):
+                    if not seen_conflict_marker:
+                        self.tag('header-contains-conflict-marker', stray)
+                        seen_conflict_marker = True
+                else:
+                    self.tag('stray-header-line', stray)
             new_metadata[key] = value
             if key.startswith('X-'):
                 continue
@@ -631,7 +637,12 @@ class Checker(object):
                 for value in values:
                     value, *strays = value.split('\n')
                     for stray in strays:
-                        self.tag('stray-header-line', stray)
+                        if gettext.search_for_conflict_marker(stray):
+                            if not seen_conflict_marker:
+                                self.tag('header-contains-conflict-marker', stray)
+                                seen_conflict_marker = True
+                        else:
+                            self.tag('stray-header-line', stray)
         new_metadata.duplicates = frozenset(duplicates)
         file.metadata = new_metadata
 

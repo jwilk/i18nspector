@@ -13,6 +13,7 @@ i18nspector (0.10) UNRELEASED; urgency=low
       - duplicate-header-field-plural-forms
       - duplicate-header-field-project-id-version
       - duplicate-header-field-report-msgid-bugs-to
+      - header-contains-conflict-marker
 
   * If iconv(3) is available in the C standard library, use it to implement
     encodings that are not implemented in the Python standard library.
@@ -26,8 +27,9 @@ i18nspector (0.10) UNRELEASED; urgency=low
       duplicate-header-field to minor/wild-guess.
     + Emit duplicate-header-field-$NAME for standard fields.
     + Don't trust values of standard header fields if duplicates exist.
+  * Check for conflict markers (“#-#-#-#-#  …  #-#-#-#-#”) in headers.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 14 Jun 2013 11:47:43 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 14 Jun 2013 15:21:10 +0200
 
 i18nspector (0.9.2) unstable; urgency=low
 
