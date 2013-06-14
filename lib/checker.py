@@ -637,12 +637,7 @@ class Checker(object):
                 for value in values:
                     value, *strays = value.split('\n')
                     for stray in strays:
-                        if gettext.search_for_conflict_marker(stray):
-                            if not seen_conflict_marker:
-                                self.tag('header-contains-conflict-marker', stray)
-                                seen_conflict_marker = True
-                        else:
-                            self.tag('stray-header-line', stray)
+                        self.tag('stray-header-line', stray)
         new_metadata.duplicates = frozenset(duplicates)
         file.metadata = new_metadata
 
