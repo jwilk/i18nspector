@@ -1,4 +1,4 @@
-# E: duplicate-header-field Language
+# P: duplicate-header-field-mime-version
 
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "Last-Translator: Jakub Wilk <jwilk@jwilk.net>\n"
 "Language-Team: Latin Strike Force <la@li.org>\n"
 "Language: la\n"
-"Language: la\n"
+"MIME-Version: 1.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

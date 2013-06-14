@@ -115,10 +115,70 @@ description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
 [duplicate-header-field]
+severity = minor
+certainty = wild-guess
+description =
+ This file contains multiple header fields of the same name.
+
+[duplicate-header-field-content-transfer-encoding]
+severity = pedantic
+certainty = certain
+description =
+ This file contains multiple Content-Transfer-Encoding header fields.
+
+[duplicate-header-field-content-type]
 severity = serious
 certainty = certain
 description =
- This file contains multiple header fields of the same name.
+ This file contains multiple Content-Type header fields.
+
+[duplicate-header-field-date]
+severity = normal
+certainty = certain
+description =
+ This file contains multiple date header fields of the same name.
+
+[duplicate-header-field-language]
+severity = important
+certainty = certain
+description =
+ This file contains multiple Language header fields.
+
+[duplicate-header-field-language-team]
+severity = normal
+certainty = certain
+description =
+ This file contains multiple Language-Team header fields.
+
+[duplicate-header-field-last-translator]
+severity = normal
+certainty = certain
+description =
+ This file contains multiple Last-Translator header fields.
+
+[duplicate-header-field-mime-version]
+severity = pedantic
+certainty = certain
+description =
+ This file contains multiple MIME-Version header fields.
+
+[duplicate-header-field-plural-forms]
+severity = serious
+certainty = certain
+description =
+ This file contains multiple Plural-Forms header fields.
+
+[duplicate-header-field-project-id-version]
+severity = minor
+certainty = certain
+description =
+ This file contains multiple Project-Id-Version header fields.
+
+[duplicate-header-field-report-msgid-bugs-to]
+severity = normal
+certainty = certain
+description =
+ This file contains multiple Report-Msgid-Bugs-To header fields.
 
 [duplicate-message-definition]
 severity = serious
