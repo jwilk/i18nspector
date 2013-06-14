@@ -65,6 +65,10 @@ Check for POT files containing translations.
 
 Run ``msgfmt --check-format`` on PO files.
 
-Reimplement ``lib.encodings.iconv_encoding()`` efficiently. (ctypes?)
+Reimplement 8-bit codecs without iconv(1)/iconv(3).
+
+Check for ``msgcat`` conflict markers.
+
+Check for hardcoded Language in POT files.
 
 .. vim:ft=rst
