@@ -50,6 +50,11 @@ def main():
         print('[{check}] {tag}'.format(check=check, tag=tag.name))
     sys.stdout.close()
     os.rename(path + '.tmp', path)
+    rc = 0
+    for tag in sorted(set(coverage) - set(t.name for t in taginfo)):
+        print('update-coverage: error: uknown tag {tag}'.format(tag=tag), file=sys.stderr)
+        rc = 1
+    sys.exit(rc)
 
 if __name__ == '__main__':
     main()
