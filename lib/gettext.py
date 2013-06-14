@@ -48,7 +48,7 @@ class GettextInfo(object):
 is_valid_field_name = re.compile(r'^[\x21-\x39\x3b-\x7e]+$').match
 # http://tools.ietf.org/html/rfc5322#section-3.6.8
 
-search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$').search
+search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTILINE).search
 # gettext-tools/src/msgl-cat.c
 # http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 

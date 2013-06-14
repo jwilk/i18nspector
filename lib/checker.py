@@ -678,17 +678,23 @@ class Checker(object):
                 set(find_unusual_characters(message.msgid_plural))
             )
             strings = [message.msgstr] + sorted(message.msgstr_plural.values())
+
+            conflict_marker = None
             for msgstr in strings:
                 msgstr_uc = set(find_unusual_characters(msgstr))
                 uc = msgstr_uc - msgid_uc - found_unusual_characters
-                if not uc:
-                    continue
-                names = ', '.join(
-                    'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
-                    for ch in sorted(uc)
-                )
-                self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
-                found_unusual_characters |= uc
+                if uc:
+                    names = ', '.join(
+                        'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                        for ch in sorted(uc)
+                    )
+                    self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
+                    found_unusual_characters |= uc
+                if conflict_marker is None:
+                    conflict_marker = gettext.search_for_conflict_marker(msgstr)
+                    if conflict_marker is not None:
+                        conflict_marker = conflict_marker.group(0)
+                        self.tag('conflict-marker-in-translation', message_repr(message), conflict_marker)
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))

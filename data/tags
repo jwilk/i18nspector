@@ -108,6 +108,15 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
+[conflict-marker-in-translation]
+severity = serious
+certainty = possible
+description =
+ One of the translated messages appear to contain a conflict marker (**#-#-#-#-#** *…* **#-#-#-#-#**).
+ The conflict will have to be resolved manually.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
+
 [date-from-future]
 severity = normal
 certainty = certain

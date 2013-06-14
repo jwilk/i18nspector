@@ -12,6 +12,7 @@
 [X] broken-encoding
 [X] codomain-error-in-plural-forms
 [X] codomain-error-in-unused-plural-forms
+[X] conflict-marker-in-translation
 [X] date-from-future
 [X] duplicate-header-field
 [X] duplicate-header-field-content-transfer-encoding
