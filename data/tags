@@ -342,7 +342,7 @@ description =
 severity = minor
 certainty = possible
 description =
- Language-Team and Last-Translator header fields contains the same e-mail
+ Language-Team and Last-Translator header fields contain the same e-mail
  address.
 
 [language-variant-does-not-affect-translation]
