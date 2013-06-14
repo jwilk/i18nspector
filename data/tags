@@ -108,7 +108,7 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
-[conflict-marker-in-header]
+[conflict-marker-in-header-entry]
 severity = serious
 certainty = certain
 description =

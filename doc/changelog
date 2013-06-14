@@ -3,7 +3,7 @@ i18nspector (0.10) UNRELEASED; urgency=low
   * Summary of tag changes:
     + Added:
       - boilerplate-in-content-type
-      - conflict-marker-in-header
+      - conflict-marker-in-header-entry
       - conflict-marker-in-translation
       - duplicate-header-field-content-transfer-encoding
       - duplicate-header-field-content-type

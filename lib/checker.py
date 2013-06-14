@@ -589,7 +589,7 @@ class Checker(object):
             for stray in strays:
                 if gettext.search_for_conflict_marker(stray):
                     if not seen_conflict_marker:
-                        self.tag('conflict-marker-in-header', stray)
+                        self.tag('conflict-marker-in-header-entry', stray)
                         seen_conflict_marker = True
                 else:
                     self.tag('stray-header-line', stray)
