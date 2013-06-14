@@ -8,8 +8,8 @@ i18nspector (0.10) UNRELEASED; urgency=low
       - duplicate-header-field-content-transfer-encoding
       - duplicate-header-field-content-type
       - duplicate-header-field-date
-      - duplicate-header-field-language-team
       - duplicate-header-field-language
+      - duplicate-header-field-language-team
       - duplicate-header-field-last-translator
       - duplicate-header-field-mime-version
       - duplicate-header-field-plural-forms
