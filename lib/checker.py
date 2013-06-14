@@ -618,7 +618,6 @@ class Checker(object):
                     self.tag('stray-header-line', key + ':')
                 elif key in {
                     'Content-Transfer-Encoding',
-                    'Content-Transfer-Encoding',
                     'Content-Type',
                     'Language',
                     'Language-Team',
