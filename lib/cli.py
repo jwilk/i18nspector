@@ -51,7 +51,12 @@ class Checker(checker.Checker):
     def tag(self, tagname, *extra):
         if tagname in self.options.ignore_tags:
             return
-        tag = self.options.taginfo[tagname]
+        try:
+            tag = self.options.taginfo[tagname]
+        except KeyError:
+            raise misc.DataIntegrityError(
+                'attempted to emit an unknown tag: {tag!r}'.format(tag=tagname)
+            )
         s = tag.format(self.fake_path, *extra, color=True)
         print(s)
 
