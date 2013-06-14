@@ -1,4 +1,4 @@
-# E: header-contains-conflict-marker '#-#-#-#-#  la.po (Gizmo Enhancer 1.0)  #-#-#-#-#'
+# E: conflict-marker-in-header '#-#-#-#-#  la.po (Gizmo Enhancer 1.0)  #-#-#-#-#'
 
 msgid ""
 msgstr ""

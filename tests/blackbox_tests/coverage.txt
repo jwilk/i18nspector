@@ -12,6 +12,7 @@
 [X] broken-encoding
 [X] codomain-error-in-plural-forms
 [X] codomain-error-in-unused-plural-forms
+[X] conflict-marker-in-header
 [X] conflict-marker-in-translation
 [X] date-from-future
 [X] duplicate-header-field
@@ -28,7 +29,6 @@
 [X] duplicate-message-definition
 [X] empty-file
 [X] encoding-in-language-header-field
-[X] header-contains-conflict-marker
 [X] inconsistent-leading-newlines
 [X] inconsistent-number-of-plural-forms
 [X] inconsistent-trailing-newlines

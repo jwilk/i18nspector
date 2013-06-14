@@ -108,6 +108,15 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
+[conflict-marker-in-header]
+severity = serious
+certainty = certain
+description =
+ The header contains a conflict marker (**#-#-#-#-#** *…* **#-#-#-#-#**).
+ The conflict will have to be resolved manually.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
+
 [conflict-marker-in-translation]
 severity = serious
 certainty = possible
@@ -209,15 +218,6 @@ description =
  shouldn't be included in this field.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
-
-[header-contains-conflict-marker]
-severity = serious
-certainty = certain
-description =
- The header contains a conflict marker (**#-#-#-#-#** *…* **#-#-#-#-#**).
- The conflict will have to be resolved manually.
-references =
- http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
 [inconsistent-leading-newlines]
 severity = important
