@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import io
 import os
 import sys
 
@@ -52,6 +53,7 @@ def output_tags_rst(taginfo):
         print()
 
 def main():
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='UTF-8')
     datadir = os.path.join(basedir, 'data')
     taginfo = tags.TagInfo(datadir)
     output_tags_rst(taginfo)

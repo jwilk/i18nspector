@@ -9,7 +9,7 @@ tags.txt: ../data/tags
 	mv $(@).tmp $(@)
 
 $(exe).1: $(exe).txt tags.txt
-	$(rst2man) < $(<) > $(@).tmp
+	$(rst2man) --input-encoding=UTF-8:strict < $(<) > $(@).tmp
 	mv $(@).tmp $(@)
 
 .PHONY: clean
