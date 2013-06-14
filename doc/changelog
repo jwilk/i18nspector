@@ -31,9 +31,11 @@ i18nspector (0.10) UNRELEASED; urgency=low
     + Don't trust values of standard header fields if duplicates exist.
   * Check for conflict markers (“#-#-#-#-#  …  #-#-#-#-#”).
   * Check for fuzzy header entries.
+  * Post-process the manual page, so that it can be more easily translated by
+    po4a.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 14 Jun 2013 18:25:43 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 15 Jun 2013 00:58:44 +0200
 
 i18nspector (0.9.2) unstable; urgency=low
 
