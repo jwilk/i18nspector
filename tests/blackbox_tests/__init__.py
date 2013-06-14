@@ -23,6 +23,7 @@ import inspect
 import os
 import re
 import shlex
+import signal
 import subprocess as ipc
 import sys
 
@@ -102,6 +103,33 @@ class ETag(object):
 
 # ----------------------------------------
 
+def _get_signal_names():
+    data = dict(
+        (name, getattr(signal, name))
+        for name in dir(signal)
+        if re.compile('^SIG[A-Z0-9]*$').match(name)
+    )
+    try:
+        if data['SIGABRT'] == data['SIGIOT']:
+            del data['SIGIOT']
+    except KeyError:
+        pass
+    try:
+        if data['SIGCHLD'] == data['SIGCLD']:
+            del data['SIGCLD']
+    except KeyError:
+        pass
+    for name, n in data.items():
+        yield n, name
+
+_signal_names = dict(_get_signal_names())
+
+def get_signal_name(n):
+    try:
+        return _signal_names[n]
+    except KeyError:
+        return str(n)
+
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
@@ -113,8 +141,29 @@ def assert_emit_tags(path, etags, *, options=()):
     commandline += options
     commandline += [path]
     fixed_env = dict(os.environ, LC_ALL='C')
-    stdout = ipc.check_output(commandline, env=fixed_env)
-    stdout = stdout.decode('ASCII').splitlines()
+    child = ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env)
+    stdout, stderr = (
+        s.decode().splitlines()
+        for s in child.communicate()
+    )
+    rc = child.poll()
+    if rc != 0:
+        if rc < 0:
+            message = ['command was interrupted by signal {sig}'.format(sig=get_signal_name(-rc))]
+        else:
+            message = ['command exited with status {rc}'.format(rc=rc)]
+        message += ['']
+        if stdout:
+            message += ['stdout:']
+            message += ['| ' + s for s in stdout] + ['']
+        else:
+            message += ['stdout: (empty)']
+        if stderr:
+            message += ['stderr:']
+            message += ['| ' + s for s in stderr]
+        else:
+            message += ['stderr: (empty)']
+        raise AssertionError('\n'.join(message))
     if stdout != etags:
         str_etags = [str(x) for x in etags]
         message = ['Tags differ:', '']
