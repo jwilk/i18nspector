@@ -163,7 +163,7 @@ class Checker(object):
                 broken_encoding = True
         # check_headers() modifies the file metadata,
         # so it has to be the first check:
-        self.check_headers(file)
+        self.check_headers(file, is_template=is_template)
         language = self.check_language(file, is_template=is_template)
         self.check_plurals(file, is_template=is_template, language=language)
         encoding = self.check_mime(file, is_template=is_template, language=language)
@@ -575,7 +575,7 @@ class Checker(object):
                     if team_is_translator:
                         self.tag('language-team-equal-to-last-translator', team, translator)
 
-    def check_headers(self, file):
+    def check_headers(self, file, *, is_template):
         header_fields = frozenset(self.options.gettextinfo.header_fields)
         header_fields_lc = {str.lower(s): s for s in header_fields}
         class userdict(dict): pass
@@ -639,6 +639,8 @@ class Checker(object):
                         self.tag('stray-header-line', stray)
         new_metadata.duplicates = frozenset(duplicates)
         file.metadata = new_metadata
+        if file.metadata_is_fuzzy and not is_template:
+            self.tag('fuzzy-header-entry')
 
     def check_messages(self, file, *, encoding):
         if encoding is None:

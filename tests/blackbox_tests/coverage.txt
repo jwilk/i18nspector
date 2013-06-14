@@ -29,6 +29,7 @@
 [X] duplicate-message-definition
 [X] empty-file
 [X] encoding-in-language-header-field
+[X] fuzzy-header-entry
 [X] inconsistent-leading-newlines
 [X] inconsistent-number-of-plural-forms
 [X] inconsistent-trailing-newlines

@@ -219,6 +219,16 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[fuzzy-header-entry]
+severity = pedantic
+certainty = certain
+description =
+ The header entry is marked as fuzzy.
+ To increase operability with very old (<< 0.11) **msgfmt**\ (1) versions,
+ which didn't support fuzzy header entries, it shouldn't be marked as such.
+references =
+ http://git.savannah.gnu.org/cgit/gettext.git/tree/NEWS?id=7808a2b730c4#n44
+
 [inconsistent-leading-newlines]
 severity = important
 certainty = possible
