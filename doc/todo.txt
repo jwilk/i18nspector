@@ -48,7 +48,7 @@ Detect question marks in unusual places.
 Make duplicate-header-field work for .mo files, too.
  * https://bitbucket.org/izi/polib/issue/36
 
-Check for initial stray lines in headers. (They are currently ignore due to
+Check for initial stray lines in headers. (They are currently ignored due to
 deficiencies in the polib parser.)
 
 Add support for configuration files. Once it's implemented:
