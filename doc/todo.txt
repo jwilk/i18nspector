@@ -74,4 +74,8 @@ Check for hardcoded Language in POT files.
 
 Add option for printing tags descriptions.
 
+Check for duplicate header entries.
+
+Check for header entries with plural forms.
+
 .. vim:ft=rst
