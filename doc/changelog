@@ -17,12 +17,8 @@ i18nspector (0.10) UNRELEASED; urgency=low
       - duplicate-header-field-report-msgid-bugs-to
       - fuzzy-header-entry
 
-  * If iconv(3) is available in the C standard library, use it to implement
-    encodings that are not implemented in the Python standard library.
   * Check for boilerplate (“charset=CHARSET”) in the Content-Type header
     field.
-  * Don't pass -s to iconv(1); it makes GNU iconv quieten errors, and other
-    implementations don't have this option at all.
   * Check header field name syntax.
   * Overhaul duplicate header field detection.
     + Emit duplicate-header-field only for non-standard fields. Downgrade
@@ -31,9 +27,16 @@ i18nspector (0.10) UNRELEASED; urgency=low
     + Don't trust values of standard header fields if duplicates exist.
   * Check for conflict markers (“#-#-#-#-#  …  #-#-#-#-#”).
   * Check for fuzzy header entries.
+  * Fix a typo in the language-team-equal-to-last-translator description.
   * Post-process the manual page, so that it can be more easily translated by
     po4a.
-  * Improve the test suite.
+  * If iconv(3) is available in the C standard library, use it to implement
+    encodings that are not implemented in the Python standard library.
+  * Don't pass -s to iconv(1); it makes GNU iconv quieten errors, and other
+    implementations don't have this option at all.
+  * Improve the test suite:
+    + Add new tests.
+    + Make exception messages raised when a subprocess fails more readable.
     + Make it possible to use a custom Python interpreter for “make test”.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sat, 15 Jun 2013 00:58:44 +0200
