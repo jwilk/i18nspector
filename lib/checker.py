@@ -584,7 +584,7 @@ class Checker(object):
         for key, value in sorted(file.metadata.items()):
             if not gettext.is_valid_field_name(key):
                 self.tag('stray-header-line', key + ':')
-                continue
+                key = None
             value, *strays = value.split('\n')
             for stray in strays:
                 if gettext.search_for_conflict_marker(stray):
@@ -593,6 +593,8 @@ class Checker(object):
                         seen_conflict_marker = True
                 else:
                     self.tag('stray-header-line', stray)
+            if key is None:
+                continue
             new_metadata[key] = value
             if key.startswith('X-'):
                 continue
