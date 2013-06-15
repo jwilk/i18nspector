@@ -583,7 +583,8 @@ class Checker(object):
         seen_conflict_marker = False
         for key, value in sorted(file.metadata.items()):
             if not gettext.is_valid_field_name(key):
-                self.tag('stray-header-line', key + ':')
+                line = key + (':' if value else '')
+                self.tag('stray-header-line', line)
                 key = None
             value, *strays = value.split('\n')
             for stray in strays:
@@ -617,6 +618,7 @@ class Checker(object):
         else:
             for key, values in sorted(duplicates.items()):
                 if not gettext.is_valid_field_name(key):
+                    line = key + (':' if any(values) else '')
                     self.tag('stray-header-line', key + ':')
                 elif key in {
                     'Content-Transfer-Encoding',
