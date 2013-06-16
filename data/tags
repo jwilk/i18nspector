@@ -485,7 +485,7 @@ references =
 severity = normal
 certainty = certain
 description =
- The Report-Msgid-Bugs-To header field contains xgettext boilerplate.
+ The Report-Msgid-Bugs-To header field does not exists or it is empty.
  It should contain an email address or URL where one can report bugs in the
  untranslated strings.
 references =
