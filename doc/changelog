@@ -11,8 +11,9 @@ i18nspector (0.11) UNRELEASED; urgency=low
     duplicate-header-field) for duplicate X-Poedit-Language and
     X-Poedit-Country headers fields.
   * Fix the no-report-msgid-bugs-to-header-field description.
+  * Fix a few typos in the tag descriptions.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 16 Jun 2013 16:45:07 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 16 Jun 2013 16:53:49 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

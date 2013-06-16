@@ -431,7 +431,7 @@ references =
 severity = pedantic
 certainty = certain
 description =
- The Language-Team header field does not exists.
+ The Language-Team header field does not exist.
  It should contain English name of the language, and the email address or
  homepage URL of the language team.
 references =
@@ -485,7 +485,7 @@ references =
 severity = normal
 certainty = certain
 description =
- The Report-Msgid-Bugs-To header field does not exists or it is empty.
+ The Report-Msgid-Bugs-To header field does not exist or it is empty.
  It should contain an email address or URL where one can report bugs in the
  untranslated strings.
 references =
