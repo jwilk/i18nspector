@@ -175,10 +175,20 @@ class Checker(object):
         self.check_messages(file, encoding=encoding)
 
     def check_language(self, file, *, is_template):
+        duplicate_meta_language = False
+        meta_languages = file.metadata['Language']
+        if len(meta_languages) > 1:
+            self.tag('duplicate-header-field-language')
+            meta_languages = sorted(set(meta_languages))
+            if len(meta_languages) > 1:
+                duplicate_meta_language = True
+        if len(meta_languages) == 1:
+            [meta_language] = meta_languages
+        else:
+            meta_language = None
+        orig_meta_language = meta_language
         if is_template:
-            if 'Language' in file.metadata.duplicates:
-                self.tag('duplicate-header-field-language')
-            elif not 'Language' in file.metadata:
+            if meta_language is None:
                 self.tag('no-language-header-field')
             return
         language = self.options.language
@@ -219,14 +229,6 @@ class Checker(object):
                 language = None
             else:
                 language_source = 'pathname'
-        if 'Language' in file.metadata.duplicates:
-            self.tag('duplicate-header-field-language')
-            duplicate_meta_language = True
-            meta_language = None
-        else:
-            duplicate_meta_language = False
-            meta_language = file.metadata.get('Language')
-        orig_meta_language = meta_language
         if meta_language:
             try:
                 meta_language = linginfo.parse_language(meta_language)
@@ -261,8 +263,16 @@ class Checker(object):
                     '!=',
                     meta_language, tags.safestr('(Language header field)')
                 )
-        poedit_language = file.metadata.get('X-Poedit-Language')
-        if poedit_language:
+        poedit_languages = file.metadata['X-Poedit-Language']
+        if len(poedit_languages) > 1:
+            self.tag('duplicate-header-field-x-poedit', 'X-Poedit-Language')
+            poedit_languages = sorted(set(poedit_languages))
+        poedit_countries = file.metadata['X-Poedit-Country']
+        if len(poedit_countries) > 1:
+            self.tag('duplicate-header-field-x-poedit', 'X-Poedit-Country')
+            poedit_countries = sorted(set(poedit_countries))
+        if len(poedit_languages) == 1 and len(poedit_countries) <= 1:
+            [poedit_language] = poedit_languages
             # FIXME: This should take also X-Poedit-Country into account.
             try:
                 poedit_language = linginfo.get_language_for_name(poedit_language)
@@ -288,13 +298,20 @@ class Checker(object):
         return language
 
     def check_plurals(self, file, *, is_template, language):
-        if 'Plural-Forms' in file.metadata.duplicates:
+        plural_forms = file.metadata['Plural-Forms']
+        if len(plural_forms) > 1:
             self.tag('duplicate-header-field-plural-forms')
-            return
+            plural_forms = sorted(set(plural_forms))
+            if len(plural_forms) > 1:
+                return
+        if len(plural_forms) == 1:
+            [plural_forms] = plural_forms
+        else:
+            assert len(plural_forms) == 0
+            plural_forms = None
         correct_plural_forms = None
         if language is not None:
             correct_plural_forms = language.get_plural_forms()
-        plural_forms = file.metadata.get('Plural-Forms')
         has_plurals = False  # messages with plural forms (translated or not)?
         expected_nplurals = {}  # number of plurals in _translated_ messages
         for message in file:
@@ -409,33 +426,37 @@ class Checker(object):
 
     def check_mime(self, file, *, is_template, language):
         # MIME-Version:
-        mime_version = file.metadata.get('MIME-Version')
-        if 'MIME-Version' in file.metadata.duplicates:
+        mime_versions = file.metadata['MIME-Version']
+        if len(mime_versions) > 1:
             self.tag('duplicate-header-field-mime-version')
-        elif mime_version is not None:
+            mime_versions = sorted(set(mime_versions))
+        for mime_version in mime_versions:
             if mime_version != '1.0':
                 self.tag('invalid-mime-version', mime_version, '=>', '1.0')
-        else:
+        if len(mime_versions) == 0:
             self.tag('no-mime-version-header-field', tags.safestr('MIME-Version: 1.0'))
         # Content-Transfer-Encoding:
-        cte = file.metadata.get('Content-Transfer-Encoding')
-        if 'Content-Transfer-Encoding' in file.metadata.duplicates:
+        ctes = file.metadata['Content-Transfer-Encoding']
+        if len(ctes) > 1:
             self.tag('duplicate-header-field-content-transfer-encoding')
-        elif cte is not None:
+            ctes = sorted(set(ctes))
+        for cte in ctes:
             if cte != '8bit':
                 self.tag('invalid-content-transfer-encoding', cte, '=>', '8bit')
-        else:
+        if len(ctes) == 0:
             self.tag('no-content-transfer-encoding-header-field', tags.safestr('Content-Transfer-Encoding: 8bit'))
         # Content-Type:
-        if 'Content-Type' in file.metadata.duplicates:
-            duplicate_ct = True
-            ct = None
-        else:
-            duplicate_ct = False
-            ct = file.metadata.get('Content-Type')
-        encoding = None
-        content_type_hint = 'text/plain; charset=<encoding>'
-        if ct is not None:
+        cts = file.metadata['Content-Type']
+        if len(cts) > 1:
+            self.tag('duplicate-header-field-content-type')
+            cts = sorted(set(cts))
+        elif len(cts) == 0:
+            content_type_hint = 'text/plain; charset=<encoding>'
+            self.tag('no-content-type-header-field', tags.safestr('Content-Type: ' + content_type_hint))
+            return
+        encodings = set()
+        for ct in cts:
+            content_type_hint = 'text/plain; charset=<encoding>'
             match = re.search(r'(\Atext/plain; )?\bcharset=([^\s;]+)\Z', ct)
             if match:
                 encinfo = self.options.encinfo
@@ -471,58 +492,64 @@ class Checker(object):
                     if encoding is not None:
                         content_type_hint = content_type_hint.replace('<encoding>', encoding)
                     self.tag('invalid-content-type', ct, '=>', content_type_hint)
+                if encoding is not None:
+                    encodings.add(encoding)
             else:
                 self.tag('invalid-content-type', ct, '=>', content_type_hint)
-        elif duplicate_ct:
-            self.tag('duplicate-header-field-content-type')
-        else:
-            self.tag('no-content-type-header-field', tags.safestr('Content-Type: ' + content_type_hint))
-        return encoding
+        if len(encodings) == 1:
+            [encoding] = encodings
+            return encoding
 
     def check_dates(self, file, *, is_template):
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
-            if field in file.metadata.duplicates:
+            dates = file.metadata[field]
+            if len(dates) > 1:
                 self.tag('duplicate-header-field-date', field)
-                continue
-            date = file.metadata.get(field)
-            if date is None:
+                dates = sorted(set(dates))
+            elif len(dates) == 0:
                 self.tag('no-date-header-field', field)
                 continue
-            elif is_template and field.startswith('PO-') and (date == 'YEAR-MO-DA HO:MI+ZONE'):
-                continue
-            fixed_date = gettext.fix_date_format(date)
-            if fixed_date is None:
-                self.tag('invalid-date', tags.safestr(field + ':'), date)
-                continue
-            elif date != fixed_date:
-                self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
-            stamp = gettext.parse_date(fixed_date)
-            if stamp > misc.utc_now():
-                self.tag('date-from-future', tags.safestr(field + ':'), date)
-            if stamp < gettext.epoch:
-                self.tag('ancient-date', tags.safestr(field + ':'), date)
+            for date in dates:
+                if is_template and field.startswith('PO-') and (date == 'YEAR-MO-DA HO:MI+ZONE'):
+                    continue
+                fixed_date = gettext.fix_date_format(date)
+                if fixed_date is None:
+                    self.tag('invalid-date', tags.safestr(field + ':'), date)
+                    continue
+                elif date != fixed_date:
+                    self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
+                stamp = gettext.parse_date(fixed_date)
+                if stamp > misc.utc_now():
+                    self.tag('date-from-future', tags.safestr(field + ':'), date)
+                if stamp < gettext.epoch:
+                    self.tag('ancient-date', tags.safestr(field + ':'), date)
 
     def check_project(self, file):
         # Project-Id-Version:
-        project_id_version = file.metadata.get('Project-Id-Version')
-        if 'Project-Id-Version' in file.metadata.duplicates:
+        project_id_versions = file.metadata['Project-Id-Version']
+        if len(project_id_versions) > 1:
             self.tag('duplicate-header-field-project-id-version')
-        if project_id_version is None:
+            project_id_versions = sorted(set(project_id_versions))
+        elif len(project_id_versions) == 0:
             self.tag('no-project-id-version-header-field')
-        elif project_id_version in {'PACKAGE VERSION', 'PROJECT VERSION'}:
-            self.tag('boilerplate-in-project-id-version', project_id_version)
-        else:
-            if not re.search(r'[A-Za-z]', project_id_version):
-                self.tag('no-package-name-in-project-id-version', project_id_version)
-            if not re.search(r'[0-9]', project_id_version):
-                self.tag('no-version-in-project-id-version', project_id_version)
+        for project_id_version in project_id_versions:
+            if project_id_version in {'PACKAGE VERSION', 'PROJECT VERSION'}:
+                self.tag('boilerplate-in-project-id-version', project_id_version)
+            else:
+                if not re.search(r'[A-Za-z]', project_id_version):
+                    self.tag('no-package-name-in-project-id-version', project_id_version)
+                if not re.search(r'[0-9]', project_id_version):
+                    self.tag('no-version-in-project-id-version', project_id_version)
         # Report-Msgid-Bugs-To:
-        report_msgid_bugs_to = file.metadata.get('Report-Msgid-Bugs-To')
-        if 'Report-Msgid-Bugs-To' in file.metadata.duplicates:
+        report_msgid_bugs_tos = file.metadata['Report-Msgid-Bugs-To']
+        if len(report_msgid_bugs_tos) > 1:
             self.tag('duplicate-header-field-report-msgid-bugs-to')
-        elif not report_msgid_bugs_to:
+            report_msgid_bugs_tos = sorted(set(report_msgid_bugs_tos))
+        if report_msgid_bugs_tos == ['']:
+            report_msgid_bugs_tos = []
+        if len(report_msgid_bugs_tos) == 0:
             self.tag('no-report-msgid-bugs-to-header-field')
-        elif report_msgid_bugs_to:
+        for report_msgid_bugs_to in report_msgid_bugs_tos:
             real_name, email_address = email.utils.parseaddr(report_msgid_bugs_to)
             if '@' not in email_address:
                 uri = urllib.parse.urlparse(report_msgid_bugs_to)
@@ -535,13 +562,16 @@ class Checker(object):
 
     def check_translator(self, file, *, is_template):
         # Last-Translator:
-        translator = file.metadata.get('Last-Translator')
-        if 'Last-Translator' in file.metadata.duplicates:
+        translators = file.metadata['Last-Translator']
+        if len(translators) > 1:
             self.tag('duplicate-header-field-last-translator')
-        elif translator is None:
+            translators = sorted(set(translators))
+        elif len(translators) == 0:
             self.tag('no-last-translator-header-field')
-        else:
+        translator_emails = set()
+        for translator in translators:
             translator_name, translator_email = email.utils.parseaddr(translator)
+            translator_emails.add(translator_email)
             if '@' not in translator_email:
                 self.tag('invalid-last-translator', translator)
             elif rfc2606.is_reserved_email(translator_email):
@@ -550,12 +580,13 @@ class Checker(object):
                 if not is_template:
                     self.tag('boilerplate-in-last-translator', translator)
         # Language-Team:
-        team = file.metadata.get('Language-Team')
-        if 'Language-Team' in file.metadata.duplicates:
+        teams = file.metadata['Language-Team']
+        if len(teams) > 1:
             self.tag('duplicate-header-field-language-team')
-        elif team is None:
+            teams = sorted(set(teams))
+        elif len(teams) == 0:
             self.tag('no-language-team-header-field')
-        else:
+        for team in teams:
             team_name, team_email = email.utils.parseaddr(team)
             if '@' not in team_email:
                 # TODO: An URL is also allowed here.
@@ -567,60 +598,65 @@ class Checker(object):
                 if not is_template:
                     self.tag('boilerplate-in-language-team', team)
             else:
-                try:
-                    team_is_translator = team_email == translator_email
-                except NameError:
-                    pass
-                else:
-                    if team_is_translator:
-                        self.tag('language-team-equal-to-last-translator', team, translator)
+                if team_email in translator_emails:
+                    self.tag('language-team-equal-to-last-translator', team, translator)
 
     def check_headers(self, file, *, is_template):
+        metadata = collections.defaultdict(list)
+        strays = []
+        polib_metadata = file.metadata
+        file.header_entry = None
+        if polib_metadata:
+            for key, value in sorted(polib_metadata.items()):
+                if not gettext.is_valid_field_name(key):
+                    line = key + (':' if value else '')
+                    self.tag('stray-header-line', line)
+                    key = None
+                value, *v_strays = value.split('\n')
+                strays += v_strays
+                if key is not None:
+                    metadata[key] = [value]
+        else:
+            for entry in file:
+                if entry.msgid == '' and entry.msgctxt is None:
+                    # TODO: check for oddities like plural forms, etc.
+                    for line in gettext.parse_header(entry.msgstr):
+                        if isinstance(line, dict):
+                            [(key, value)] = line.items()
+                            metadata[key] += [value]
+                        else:
+                            strays += [line]
+                    file.header_entry = entry
+                    if 'fuzzy' in entry.flags and not is_template:
+                        self.tag('fuzzy-header-entry')
+                    break
+                # TODO: check for header later in the file
+        seen_conflict_marker = False
+        for stray in strays:
+            if gettext.search_for_conflict_marker(stray):
+                if not seen_conflict_marker:
+                    self.tag('conflict-marker-in-header-entry', stray)
+                    seen_conflict_marker = True
+            else:
+                self.tag('stray-header-line', stray)
         header_fields = frozenset(self.options.gettextinfo.header_fields)
         header_fields_lc = {str.lower(s): s for s in header_fields}
-        class userdict(dict): pass
-        new_metadata = userdict()
-        seen_conflict_marker = False
-        for key, value in sorted(file.metadata.items()):
-            if not gettext.is_valid_field_name(key):
-                line = key + (':' if value else '')
-                self.tag('stray-header-line', line)
-                key = None
-            value, *strays = value.split('\n')
-            for stray in strays:
-                if gettext.search_for_conflict_marker(stray):
-                    if not seen_conflict_marker:
-                        self.tag('conflict-marker-in-header-entry', stray)
-                        seen_conflict_marker = True
-                else:
-                    self.tag('stray-header-line', stray)
-            if key is None:
-                continue
-            new_metadata[key] = value
-            if key.startswith('X-'):
-                continue
-            if key not in header_fields:
-                hint = header_fields_lc.get(key.lower())
-                if hint is None:
-                    hints = difflib.get_close_matches(key, header_fields, n=1, cutoff=0.8)
-                    if hints:
-                        [hint] = hints
-                if hint in file.metadata:
-                    hint = None
-                if hint is None:
-                    self.tag('unknown-header-field', key)
-                else:
-                    self.tag('unknown-header-field', key, '=>', hint)
-        try:
-            duplicates = file.metadata.duplicates
-        except AttributeError:
-            duplicates = {}
-        else:
-            for key, values in sorted(duplicates.items()):
-                if not gettext.is_valid_field_name(key):
-                    line = key + (':' if any(values) else '')
-                    self.tag('stray-header-line', key + ':')
-                elif key in {
+        for key, values in sorted(metadata.items()):
+            if not key.startswith('X-'):
+                if key not in header_fields:
+                    hint = header_fields_lc.get(key.lower())
+                    if hint is None:
+                        hints = difflib.get_close_matches(key, header_fields, n=1, cutoff=0.8)
+                        if hints:
+                            [hint] = hints
+                    if hint in file.metadata:
+                        hint = None
+                    if hint is None:
+                        self.tag('unknown-header-field', key)
+                    else:
+                        self.tag('unknown-header-field', key, '=>', hint)
+            if len(values) > 1:
+                if key in {
                     'Content-Transfer-Encoding',
                     'Content-Type',
                     'Language',
@@ -631,20 +667,16 @@ class Checker(object):
                     'POT-Creation-Date',
                     'Plural-Forms',
                     'Project-Id-Version',
-                    'Report-Msgid-Bugs-To'
+                    'Report-Msgid-Bugs-To',
+                    'X-Poedit-Language',
+                    'X-Poedit-Country',
                 }:
                     # These will be handled elsewhere.
                     pass
                 else:
                     self.tag('duplicate-header-field', key)
-                for value in values:
-                    value, *strays = value.split('\n')
-                    for stray in strays:
-                        self.tag('stray-header-line', stray)
-        new_metadata.duplicates = frozenset(duplicates)
-        file.metadata = new_metadata
-        if file.metadata_is_fuzzy and not is_template:
-            self.tag('fuzzy-header-entry')
+        file.metadata = metadata
+        del file.metadata_is_fuzzy
 
     def check_messages(self, file, *, encoding):
         if encoding is None:
@@ -654,8 +686,10 @@ class Checker(object):
         msgid_counter = collections.Counter()
         if len(file) == 0:
             self.tag('empty-file')
+        elif len(file) == 1 and file[0] is file.header_entry:
+            self.tag('empty-file')
         for message in file:
-            if message.obsolete:
+            if message.obsolete or message.msgid == '':
                 continue
             fuzzy = isinstance(message, polib.POEntry) and 'fuzzy' in message.flags
             leading_lf = message.msgid.startswith('\n')

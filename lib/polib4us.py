@@ -98,49 +98,24 @@ def codecs_patch():
 
 patches += [codecs_patch]
 
-# polib._BaseFile.__init__()
-# ==========================
-# Detect metadata duplicates.
-
-class MetadataStr(str):
-    def __iadd__(self, other):
-        return MetadataStr(str.__add__(self, other))
-
-class MetadataDict(dict):
-
-    def __init__(self, *args, **kwargs):
-        dict.__init__(self, *args, **kwargs)
-        self.duplicates = {}
-
-    def __setitem__(self, key, value):
-        if isinstance(value, MetadataStr):
-            dict.__setitem__(self, key, value)
-            return
-        try:
-            orig_value = self[key]
-        except KeyError:
-            dict.__setitem__(self, key, MetadataStr(value))
-        else:
-            try:
-                self.duplicates[key] += value
-            except KeyError:
-                self.duplicates[key] = [orig_value, value]
+# polib.POFile.find()
+# ===================
+# Make POFile.find() always return None.
+# That way the parser won't find the header entry, allowing us to parse it
+# ourselves.
 
 @contextlib.contextmanager
-def metadata_patch():
-    original = polib._BaseFile.__init__
-    def base_file_init(self, *args, **kwargs):
-        original(self, *args, **kwargs)
-        assert type(self.metadata) is dict
-        assert len(self.metadata) == 0
-        self.metadata = MetadataDict()
+def pofile_find_patch():
+    original = polib.POFile.find
+    def pofile_find(self, *args, **kwargs):
+        return
     try:
-        polib._BaseFile.__init__ = base_file_init
+        polib.POFile.find = pofile_find
         yield
     finally:
-        polib._BaseFile.__init__ = original
+        polib.POFile.find = original
 
-patches += [metadata_patch]
+patches += [pofile_find_patch]
 
 # polib.unescape()
 # ================

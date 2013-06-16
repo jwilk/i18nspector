@@ -45,8 +45,25 @@ class GettextInfo(object):
         misc.check_sorted(fields)
         self.header_fields = frozenset(fields)
 
+# ==========================
+# Header and message parsing
+# ==========================
+
 is_valid_field_name = re.compile(r'^[\x21-\x39\x3b-\x7e]+$').match
 # http://tools.ietf.org/html/rfc5322#section-3.6.8
+
+def parse_header(s):
+    lines = s.split('\n')
+    if lines[-1] == '':
+        lines.pop()
+    for line in lines:
+        key, *values = line.split(':', 1)
+        if values and is_valid_field_name(key):
+            assert len(values) == 1
+            value = values[0].lstrip(' \t')
+            yield {key: value}
+        else:
+            yield line
 
 search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTILINE).search
 # gettext-tools/src/msgl-cat.c

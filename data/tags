@@ -198,6 +198,12 @@ certainty = certain
 description =
  This file contains multiple Report-Msgid-Bugs-To header fields.
 
+[duplicate-header-field-x-poedit]
+severity = normal
+certainty = certain
+description =
+ This file contains multiple X-Poedit-*\** header fields.
+
 [duplicate-message-definition]
 severity = serious
 certainty = certain
