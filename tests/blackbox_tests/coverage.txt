@@ -26,6 +26,7 @@
 [X] duplicate-header-field-plural-forms
 [X] duplicate-header-field-project-id-version
 [X] duplicate-header-field-report-msgid-bugs-to
+[X] duplicate-header-field-x-poedit
 [X] duplicate-message-definition
 [X] empty-file
 [X] encoding-in-language-header-field
