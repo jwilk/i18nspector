@@ -72,7 +72,7 @@ Reimplement 8-bit codecs without iconv(1)/iconv(3).
 
 Check for hardcoded Language in POT files.
 
-Add option for printing tags descriptions.
+Add option for printing tag descriptions.
 
 Check for duplicate header entries.
 
