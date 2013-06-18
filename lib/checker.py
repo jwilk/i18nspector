@@ -619,7 +619,6 @@ class Checker(object):
         else:
             seen_header_entry = False
             for entry in file:
-                # TODO: make sure that the header is the first entry in the file
                 if not is_header_entry(entry) or entry.obsolete:
                     continue
                 if seen_header_entry:
@@ -634,6 +633,8 @@ class Checker(object):
                         strays += [line]
                 if 'fuzzy' in entry.flags and not is_template:
                     self.tag('fuzzy-header-entry')
+                if entry is not file[0]:
+                    self.tag('distant-header-entry')
                 seen_header_entry = True
         seen_conflict_marker = False
         for stray in strays:

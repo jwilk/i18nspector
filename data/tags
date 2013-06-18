@@ -132,6 +132,13 @@ certainty = certain
 description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
+[distant-header-entry]
+severity = important
+certainty = certain
+description =
+ The header entry in this file is preceded by other entries.
+ The header entry should be always the first one.
+
 [duplicate-header-entry]
 severity = serious
 certainty = certain
