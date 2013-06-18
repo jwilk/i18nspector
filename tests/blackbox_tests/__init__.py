@@ -26,8 +26,10 @@ import shlex
 import signal
 import subprocess as ipc
 import sys
+import unittest
 
 import nose
+import nose.plugins
 
 from .. import aux
 
@@ -130,6 +132,35 @@ def get_signal_name(n):
     except KeyError:
         return str(n)
 
+# ----------------------------------------
+
+test_file_extensions = ('.mo', '.po', '.pot', '.pop')
+# .pop is a special extension to trigger unknown-file-type
+
+class Plugin(nose.plugins.Plugin):
+
+    name = 'po-plugin'
+
+    def wantFile(self, path):
+        if path.endswith(test_file_extensions):
+            # .pop is a special extension to trigger unknown-file-type
+            return True
+
+    def loadTestsFromFile(self, path):
+        yield TestCase(path)
+
+class TestCase(unittest.TestCase):
+
+    def __init__(self, path):
+        super().__init__('_test')
+        self.path = path
+
+    def _test(self):
+        _test_file(self.path)
+
+    def __str__(self):
+        return os.path.relpath(self.path)
+
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
@@ -204,19 +235,6 @@ def get_coverage_for_function(fn):
     for etag in etags_from_tagstring(fn, ''):
         yield etag.tag
 
-def _get_test_filenames():
-    for root, dirnames, filenames in os.walk(here):
-        for filename in filenames:
-            if not filename.endswith(('.mo', '.po', '.pot', '.pop')):
-                # .pop is a special extension to trigger unknown-file-type
-                continue
-            yield os.path.join(root, filename)
-
-def test_file():
-    for filename in _get_test_filenames():
-        path = os.path.relpath(filename, start=here)
-        yield _test_file, path
-
 @tagstring('''
 # E: os-error No such file or directory
 ''')
@@ -250,6 +268,15 @@ def test_empty_mo_file():
             pass
         expected = etags_from_tagstring(this(), path)
         assert_emit_tags(path, expected)
+
+# ----------------------------------------
+
+def _get_test_filenames():
+    for root, dirnames, filenames in os.walk(here):
+        for filename in filenames:
+            if not filename.endswith(test_file_extensions):
+                continue
+            yield os.path.join(root, filename)
 
 def get_coverage():
     coverage = set()

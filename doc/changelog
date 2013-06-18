@@ -17,8 +17,10 @@ i18nspector (0.11) UNRELEASED; urgency=low
   * Fix the no-report-msgid-bugs-to-header-field description.
   * Fix a few typos in the tag descriptions.
   * Improve the test suite.
+    + Add new tests.
+    + Use a dedicated nose plugin for blackbox tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Jun 2013 16:55:25 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Jun 2013 17:44:48 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

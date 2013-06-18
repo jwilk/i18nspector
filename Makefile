@@ -51,6 +51,6 @@ install:
 
 .PHONY: test
 test:
-	$(PYTHON) -c 'import nose; nose.main()' -v
+	$(PYTHON) ./tests/run-tests -v
 
 # vim:ts=4 sw=4 noet
