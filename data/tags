@@ -132,6 +132,12 @@ certainty = certain
 description =
  The date refers to the future. As such, it's extremely unlikely to be correct.
 
+[duplicate-header-entry]
+severity = serious
+certainty = certain
+description =
+ This file contains multiple header entries.
+
 [duplicate-header-field]
 severity = minor
 certainty = wild-guess

@@ -2,10 +2,12 @@ i18nspector (0.11) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
+      - duplicate-header-entry
       - duplicate-header-field-x-poedit
 
   * Implement own header parser for PO files. (The one in polib is inadequate
     for i18nspector's purposes.)
+  * Check for duplicate header entries.
   * Overhaul handling of duplicates and stray lines in the header entry.
   * Emit duplicate-header-field-x-poedit (instead of the generic
     duplicate-header-field) for duplicate X-Poedit-Language and
@@ -14,7 +16,7 @@ i18nspector (0.11) UNRELEASED; urgency=low
   * Fix a few typos in the tag descriptions.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 16 Jun 2013 16:59:08 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Jun 2013 16:36:50 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

@@ -617,20 +617,24 @@ class Checker(object):
                 if key is not None:
                     metadata[key] = [value]
         else:
+            seen_header_entry = False
             for entry in file:
-                if entry.msgid == '' and entry.msgctxt is None:
-                    # TODO: check for oddities like plural forms, etc.
-                    for line in gettext.parse_header(entry.msgstr):
-                        if isinstance(line, dict):
-                            [(key, value)] = line.items()
-                            metadata[key] += [value]
-                        else:
-                            strays += [line]
-                    file.header_entry = entry
-                    if 'fuzzy' in entry.flags and not is_template:
-                        self.tag('fuzzy-header-entry')
+                # TODO: make sure that the header is the first entry in the file
+                if not is_header_entry(entry) or entry.obsolete:
+                    continue
+                if seen_header_entry:
+                    self.tag('duplicate-header-entry')
                     break
-                # TODO: check for header later in the file
+                # TODO: check for oddities like plural forms, etc.
+                for line in gettext.parse_header(entry.msgstr):
+                    if isinstance(line, dict):
+                        [(key, value)] = line.items()
+                        metadata[key] += [value]
+                    else:
+                        strays += [line]
+                if 'fuzzy' in entry.flags and not is_template:
+                    self.tag('fuzzy-header-entry')
+                seen_header_entry = True
         seen_conflict_marker = False
         for stray in strays:
             if gettext.search_for_conflict_marker(stray):
@@ -684,12 +688,11 @@ class Checker(object):
         encinfo = self.options.encinfo
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
-        if len(file) == 0:
-            self.tag('empty-file')
-        elif len(file) == 1 and file[0] is file.header_entry:
-            self.tag('empty-file')
-        for message in file:
-            if message.obsolete or message.msgid == '':
+        messages = [msg for msg in file if not is_header_entry(msg)]
+        for message in messages:
+            if message.obsolete:
+                continue
+            if is_header_entry(message):
                 continue
             fuzzy = isinstance(message, polib.POEntry) and 'fuzzy' in message.flags
             leading_lf = message.msgid.startswith('\n')
@@ -731,6 +734,14 @@ class Checker(object):
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
+        if len(msgid_counter) == 0:
+            self.tag('empty-file')
+
+def is_header_entry(entry, obsolete=True):
+    return (
+        entry.msgid == '' and
+        entry.msgctxt is None
+    )
 
 def message_repr(message, template='{}'):
     subtemplate = 'msgid {id}'
