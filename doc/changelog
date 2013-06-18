@@ -2,9 +2,11 @@ i18nspector (0.11) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
+      - distant-header-entry
+      - duplicate-flag-for-header-entry
       - duplicate-header-entry
       - duplicate-header-field-x-poedit
-      - distant-header-entry
+      - unexpected-flag-for-header-entry
 
   * Implement own header parser for PO files. (The one in polib is inadequate
     for i18nspector's purposes.)
@@ -16,13 +18,14 @@ i18nspector (0.11) UNRELEASED; urgency=low
     X-Poedit-Country headers fields.
   * Work around a flag parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/46
+  * Check for duplicate and unexpected flags for header entries.
   * Fix the no-report-msgid-bugs-to-header-field description.
   * Fix a few typos in the tag descriptions.
   * Improve the test suite.
     + Add new tests.
     + Use a dedicated nose plugin for blackbox tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Jun 2013 19:44:15 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Jun 2013 21:57:32 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

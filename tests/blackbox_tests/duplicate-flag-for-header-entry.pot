@@ -1,7 +1,6 @@
-# P: fuzzy-header-entry
-# W: unexpected-flag-for-header-entry no-c-format
+# W: duplicate-flag-for-header-entry fuzzy
 
-#, no-c-format,fuzzy
+#, fuzzy, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"

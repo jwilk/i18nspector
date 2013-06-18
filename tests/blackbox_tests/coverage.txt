@@ -16,6 +16,7 @@
 [X] conflict-marker-in-translation
 [X] date-from-future
 [X] distant-header-entry
+[X] duplicate-flag-for-header-entry
 [X] duplicate-header-entry
 [X] duplicate-header-field
 [X] duplicate-header-field-content-transfer-encoding
@@ -72,6 +73,7 @@
 [X] syntax-error-in-po-file
 [X] syntax-error-in-unused-plural-forms
 [X] unable-to-determine-language
+[X] unexpected-flag-for-header-entry
 [X] unknown-encoding
 [X] unknown-file-type
 [X] unknown-header-field

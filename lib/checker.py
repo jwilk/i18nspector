@@ -631,13 +631,19 @@ class Checker(object):
                         metadata[key] += [value]
                     else:
                         strays += [line]
-                flags = [
+                flags = collections.Counter((
                     flag.strip('\t\r\f\v')
                     for subflags in entry.flags
                     for flag in subflags.split(',')
-                ] # work-around for https://bitbucket.org/izi/polib/issue/46
-                if 'fuzzy' in flags and not is_template:
-                    self.tag('fuzzy-header-entry')
+                )) # work-around for https://bitbucket.org/izi/polib/issue/46
+                for flag, n in sorted(flags.items()):
+                    if flag == 'fuzzy':
+                        if not is_template:
+                            self.tag('fuzzy-header-entry')
+                    else:
+                        self.tag('unexpected-flag-for-header-entry', flag)
+                    if n > 1:
+                        self.tag('duplicate-flag-for-header-entry', flag)
                 if entry is not file[0]:
                     self.tag('distant-header-entry')
                 seen_header_entry = True
