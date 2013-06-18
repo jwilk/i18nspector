@@ -712,7 +712,6 @@ class Checker(object):
                 set(find_unusual_characters(message.msgid_plural))
             )
             strings = [message.msgstr] + sorted(message.msgstr_plural.values())
-
             conflict_marker = None
             for msgstr in strings:
                 msgstr_uc = set(find_unusual_characters(msgstr))
