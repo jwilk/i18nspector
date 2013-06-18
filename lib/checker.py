@@ -631,7 +631,12 @@ class Checker(object):
                         metadata[key] += [value]
                     else:
                         strays += [line]
-                if 'fuzzy' in entry.flags and not is_template:
+                flags = [
+                    flag.strip('\t\r\f\v')
+                    for subflags in entry.flags
+                    for flag in subflags.split(',')
+                ] # work-around for https://bitbucket.org/izi/polib/issue/46
+                if 'fuzzy' in flags and not is_template:
                     self.tag('fuzzy-header-entry')
                 if entry is not file[0]:
                     self.tag('distant-header-entry')
