@@ -712,7 +712,15 @@ class Checker(object):
                 continue
             if is_header_entry(message):
                 continue
-            fuzzy = isinstance(message, polib.POEntry) and 'fuzzy' in message.flags
+            if isinstance(message, polib.POEntry):
+                flags = [
+                    flag.strip('\t\r\f\v')
+                    for subflags in message.flags
+                    for flag in subflags.split(',')
+                ] # work-around for https://bitbucket.org/izi/polib/issue/46
+            else:
+                flags = []
+            fuzzy = 'fuzzy' in flags
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]
