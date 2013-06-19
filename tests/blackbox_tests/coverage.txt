@@ -79,4 +79,5 @@
 [X] unknown-header-field
 [X] unknown-poedit-language
 [X] unrepresentable-characters
+[X] unusual-character-in-header-entry
 [X] unusual-character-in-translation

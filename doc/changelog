@@ -19,13 +19,14 @@ i18nspector (0.11) UNRELEASED; urgency=low
   * Work around a flag parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/46
   * Check for duplicate and unexpected flags for header entries.
+  * Check for unusual characters in header entries.
   * Fix the no-report-msgid-bugs-to-header-field description.
   * Fix a few typos in the tag descriptions.
   * Improve the test suite.
     + Add new tests.
     + Use a dedicated nose plugin for blackbox tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Jun 2013 21:57:32 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 19 Jun 2013 16:52:32 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

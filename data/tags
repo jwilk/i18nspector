@@ -644,6 +644,16 @@ description =
  language.
  This is a strong indication that the declared encoding is incorrect.
 
+[unusual-character-in-header-entry]
+severity = important
+certainty = certain
+description =
+ The header entry contains an unusual character.
+ This is usually an indication of an encoding problem, such as:
+ .
+ * using ISO 2022 escape sequences, or
+ * using UTF-8 despite declaring an 8-bit encoding.
+
 [unusual-character-in-translation]
 severity = important
 certainty = possible

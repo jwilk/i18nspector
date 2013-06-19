@@ -662,6 +662,14 @@ class Checker(object):
                         self.tag('duplicate-flag-for-header-entry', flag)
                 if entry is not file[0]:
                     self.tag('distant-header-entry')
+                unusual_chars = set(find_unusual_characters(entry.msgstr))
+                if unusual_chars:
+                    encinfo = self.options.encinfo
+                    unusual_char_names = ', '.join(
+                        'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                        for ch in sorted(unusual_chars)
+                    )
+                    self.tag('unusual-character-in-header-entry', tags.safestr(unusual_char_names))
                 seen_header_entry = True
         seen_conflict_marker = False
         for stray in strays:
