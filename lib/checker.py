@@ -654,6 +654,8 @@ class Checker(object):
                     if flag == 'fuzzy':
                         if not is_template:
                             self.tag('fuzzy-header-entry')
+                    elif difflib.get_close_matches(flag.lower(), ['fuzzy'], cutoff=0.8):
+                        self.tag('unexpected-flag-for-header-entry', flag, '=>', 'fuzzy')
                     else:
                         self.tag('unexpected-flag-for-header-entry', flag)
                     if n > 1:

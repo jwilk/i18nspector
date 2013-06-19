@@ -1,6 +1,6 @@
-# W: unexpected-flag-for-header-entry blurry
+# W: unexpected-flag-for-header-entry muzzy => fuzzy
 
-#, blurry
+#, muzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"
