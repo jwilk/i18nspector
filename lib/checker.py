@@ -52,6 +52,14 @@ find_unusual_characters = re.compile(
     r'|(?<=\w)\xbf'  # INVERTED QUESTION MARK but only directly after a letter
 ).findall
 
+header_fields_with_dedicated_checks = set()
+
+def checks_header_fields(*fields):
+    def identity(x):
+        return x
+    header_fields_with_dedicated_checks.update(fields)
+    return identity
+
 class Checker(object):
 
     _patched_environment = None
@@ -174,6 +182,7 @@ class Checker(object):
         self.check_translator(file, is_template=is_template)
         self.check_messages(file, encoding=encoding)
 
+    @checks_header_fields('Language', 'X-Poedit-Language', 'X-Poedit-Country')
     def check_language(self, file, *, is_template):
         duplicate_meta_language = False
         meta_languages = file.metadata['Language']
@@ -297,6 +306,7 @@ class Checker(object):
             self.tag('no-language-header-field', tags.safestr('Language:'), language)
         return language
 
+    @checks_header_fields('Plural-Forms')
     def check_plurals(self, file, *, is_template, language):
         plural_forms = file.metadata['Plural-Forms']
         if len(plural_forms) > 1:
@@ -424,6 +434,7 @@ class Checker(object):
                     else:
                         self.tag('codomain-error-in-unused-plural-forms', message)
 
+    @checks_header_fields('MIME-Version', 'Content-Transfer-Encoding', 'Content-Type')
     def check_mime(self, file, *, is_template, language):
         # MIME-Version:
         mime_versions = file.metadata['MIME-Version']
@@ -500,6 +511,7 @@ class Checker(object):
             [encoding] = encodings
             return encoding
 
+    @checks_header_fields('POT-Creation-Date', 'PO-Revision-Date')
     def check_dates(self, file, *, is_template):
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             dates = file.metadata[field]
@@ -524,6 +536,7 @@ class Checker(object):
                 if stamp < gettext.epoch:
                     self.tag('ancient-date', tags.safestr(field + ':'), date)
 
+    @checks_header_fields('Project-Id-Version', 'Report-Msgid-Bugs-To')
     def check_project(self, file):
         # Project-Id-Version:
         project_id_versions = file.metadata['Project-Id-Version']
@@ -560,6 +573,7 @@ class Checker(object):
             elif email_address == 'EMAIL@ADDRESS':
                 self.tag('boilerplate-in-report-msgid-bugs-to', report_msgid_bugs_to)
 
+    @checks_header_fields('Last-Translator', 'Language-Team')
     def check_translator(self, file, *, is_template):
         # Last-Translator:
         translators = file.metadata['Last-Translator']
@@ -671,26 +685,8 @@ class Checker(object):
                         self.tag('unknown-header-field', key)
                     else:
                         self.tag('unknown-header-field', key, '=>', hint)
-            if len(values) > 1:
-                if key in {
-                    'Content-Transfer-Encoding',
-                    'Content-Type',
-                    'Language',
-                    'Language-Team',
-                    'Last-Translator',
-                    'MIME-Version',
-                    'PO-Revision-Date',
-                    'POT-Creation-Date',
-                    'Plural-Forms',
-                    'Project-Id-Version',
-                    'Report-Msgid-Bugs-To',
-                    'X-Poedit-Language',
-                    'X-Poedit-Country',
-                }:
-                    # These will be handled elsewhere.
-                    pass
-                else:
-                    self.tag('duplicate-header-field', key)
+            if len(values) > 1 and key not in header_fields_with_dedicated_checks:
+                self.tag('duplicate-header-field', key)
         file.metadata = metadata
         del file.metadata_is_fuzzy
 
