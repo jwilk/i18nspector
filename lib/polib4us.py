@@ -50,12 +50,15 @@ def patched(*, patches=patches):
 
 __all__ = ['patched']
 
+def register_patch(patch):
+    patches.append(contextlib.contextmanager(patch))
+
 # polib.default_encoding
 # ======================
 # Do not allow broken/missing encoding declarations, unless the file is
 # ASCII-only.
 
-@contextlib.contextmanager
+@register_patch
 def default_encoding_patch():
     original = polib.default_encoding
     try:
@@ -63,8 +66,6 @@ def default_encoding_patch():
         yield
     finally:
         polib.default_encoding = original
-
-patches += [default_encoding_patch]
 
 # polib.codecs
 # ============
@@ -87,7 +88,7 @@ class Codecs(object):
         for line in self._iterlines(contents):
             yield line
 
-@contextlib.contextmanager
+@register_patch
 def codecs_patch():
     original = polib.codecs
     try:
@@ -96,15 +97,13 @@ def codecs_patch():
     finally:
         polib.codecs = original
 
-patches += [codecs_patch]
-
 # polib.POFile.find()
 # ===================
 # Make POFile.find() always return None.
 # That way the parser won't find the header entry, allowing us to parse it
 # ourselves.
 
-@contextlib.contextmanager
+@register_patch
 def pofile_find_patch():
     original = polib.POFile.find
     def pofile_find(self, *args, **kwargs):
@@ -114,8 +113,6 @@ def pofile_find_patch():
         yield
     finally:
         polib.POFile.find = original
-
-patches += [pofile_find_patch]
 
 # polib.unescape()
 # ================
@@ -150,7 +147,7 @@ def polib_unescape(s):
             return result.decode(encoding)
     return _escapes_re.sub(unescape, s)
 
-@contextlib.contextmanager
+@register_patch
 def unescape_patch():
     original = polib.unescape
     try:
@@ -158,7 +155,5 @@ def unescape_patch():
         yield
     finally:
         polib.unescape = original
-
-patches += [unescape_patch]
 
 # vim:ts=4 sw=4 et
