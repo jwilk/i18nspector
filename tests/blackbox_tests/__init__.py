@@ -153,6 +153,10 @@ class Plugin(nose.plugins.Plugin):
     def loadTestsFromFile(self, path):
         yield TestCase(path)
 
+    def wantFunction(self, func):
+        if func is test_file:
+            return False
+
 class TestCase(unittest.TestCase):
 
     def __init__(self, path):
@@ -239,6 +243,18 @@ def get_coverage_for_function(fn):
     for etag in etags_from_tagstring(fn, ''):
         yield etag.tag
 
+def _get_test_filenames():
+    for root, dirnames, filenames in os.walk(here):
+        for filename in filenames:
+            if not filename.endswith(test_file_extensions):
+                continue
+            yield os.path.join(root, filename)
+
+def test_file():
+    for filename in _get_test_filenames():
+        path = os.path.relpath(filename, start=here)
+        yield _test_file, path
+
 @tagstring('''
 # E: os-error No such file or directory
 ''')
@@ -274,13 +290,6 @@ def test_empty_mo_file():
         assert_emit_tags(path, expected)
 
 # ----------------------------------------
-
-def _get_test_filenames():
-    for root, dirnames, filenames in os.walk(here):
-        for filename in filenames:
-            if not filename.endswith(test_file_extensions):
-                continue
-            yield os.path.join(root, filename)
 
 def get_coverage():
     coverage = set()
