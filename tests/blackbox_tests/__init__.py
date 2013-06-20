@@ -140,6 +140,10 @@ test_file_extensions = ('.mo', '.po', '.pot', '.pop')
 class Plugin(nose.plugins.Plugin):
 
     name = 'po-plugin'
+    enabled = True
+
+    def options(self, parser, env):
+        pass
 
     def wantFile(self, path):
         if path.endswith(test_file_extensions):

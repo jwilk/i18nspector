@@ -30,7 +30,6 @@ sys.path[0] = os.path.join(os.path.dirname(__file__), '..')
 from tests import blackbox_tests
 
 if __name__ == '__main__':
-    os.environ['NOSE_WITH_PO_PLUGIN'] = '1'
     nose.main(addplugins=[blackbox_tests.Plugin()])
 
 # vim:ts=4 sw=4 et
