@@ -645,11 +645,7 @@ class Checker(object):
                         metadata[key] += [value]
                     else:
                         strays += [line]
-                flags = collections.Counter((
-                    flag.strip('\t\r\f\v')
-                    for subflags in entry.flags
-                    for flag in subflags.split(',')
-                )) # work-around for https://bitbucket.org/izi/polib/issue/46
+                flags = collections.Counter(resplit_flags(entry.flags))
                 for flag, n in sorted(flags.items()):
                     if flag == 'fuzzy':
                         if not is_template:
@@ -713,11 +709,7 @@ class Checker(object):
             if is_header_entry(message):
                 continue
             if isinstance(message, polib.POEntry):
-                flags = [
-                    flag.strip('\t\r\f\v')
-                    for subflags in message.flags
-                    for flag in subflags.split(',')
-                ] # work-around for https://bitbucket.org/izi/polib/issue/46
+                flags = resplit_flags(message.flags)
             else:
                 # https://bitbucket.org/izi/polib/issue/47
                 flags = []
@@ -769,6 +761,13 @@ def is_header_entry(entry, obsolete=True):
         entry.msgid == '' and
         entry.msgctxt is None
     )
+
+def resplit_flags(flags):
+    return (
+        flag.strip('\t\r\f\v')
+        for subflags in flags
+        for flag in subflags.split(',')
+    ) # work-around for https://bitbucket.org/izi/polib/issue/46
 
 def message_repr(message, template='{}'):
     subtemplate = 'msgid {id}'
