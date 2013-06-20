@@ -719,6 +719,7 @@ class Checker(object):
                     for flag in subflags.split(',')
                 ] # work-around for https://bitbucket.org/izi/polib/issue/46
             else:
+                # https://bitbucket.org/izi/polib/issue/47
                 flags = []
             fuzzy = 'fuzzy' in flags
             leading_lf = message.msgid.startswith('\n')
