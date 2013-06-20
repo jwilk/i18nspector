@@ -64,7 +64,7 @@ sys.path[:0] = [basedir]
 
 from lib import cli
 
-cli.__doc__ = __doc__.strip()
+cli.__doc__ = (__doc__ or '').strip()
 cli.main(basedir)
 
 # vim:ts=4 sw=4 et
