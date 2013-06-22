@@ -1,4 +1,4 @@
-# E: arithmetic-error-in-unused-plural-forms f(12): integer overflow
+# W: arithmetic-error-in-unused-plural-forms f(12): integer overflow
 
 msgid ""
 msgstr ""

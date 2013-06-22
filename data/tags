@@ -17,7 +17,7 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [arithmetic-error-in-unused-plural-forms]
-severity = important
+severity = normal
 certainty = possible
 description =
  Computing a plural form value triggers division by zero or integer overflow.
@@ -98,7 +98,7 @@ references =
  http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [codomain-error-in-unused-plural-forms]
-severity = important
+severity = normal
 certainty = possible
 description =
  Either a plural form value is outside the declared range, or some values
@@ -296,7 +296,7 @@ description =
  linguistic data.
 
 [incorrect-unused-plural-forms]
-severity = serious
+severity = normal
 certainty = possible
 description =
  The Plural-Forms declaration is incorrect, according to i18nspector's
