@@ -638,8 +638,14 @@ class Checker(object):
                 if seen_header_entry:
                     self.tag('duplicate-header-entry')
                     break
-                # TODO: check for oddities like plural forms, etc.
-                for line in gettext.parse_header(entry.msgstr):
+                if entry.occurrences:
+                    self.tag('empty-msgid-message-with-source-code-references')
+                if entry.comment:
+                    self.tag('empty-msgid-message-with-extracted-comments')
+                if entry.msgid_plural or entry.msgstr_plural:
+                    self.tag('empty-msgid-message-with-plural-forms')
+                msgstr = entry.msgstr_plural.get('0', entry.msgstr)
+                for line in gettext.parse_header(msgstr):
                     if isinstance(line, dict):
                         [(key, value)] = line.items()
                         metadata[key] += [value]
@@ -658,7 +664,7 @@ class Checker(object):
                         self.tag('duplicate-flag-for-header-entry', flag)
                 if entry is not file[0]:
                     self.tag('distant-header-entry')
-                unusual_chars = set(find_unusual_characters(entry.msgstr))
+                unusual_chars = set(find_unusual_characters(msgstr))
                 if unusual_chars:
                     encinfo = self.options.encinfo
                     unusual_char_names = ', '.join(

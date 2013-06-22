@@ -32,6 +32,9 @@
 [X] duplicate-header-field-x-poedit
 [X] duplicate-message-definition
 [X] empty-file
+[X] empty-msgid-message-with-extracted-comments
+[X] empty-msgid-message-with-plural-forms
+[X] empty-msgid-message-with-source-code-references
 [X] encoding-in-language-header-field
 [X] fuzzy-header-entry
 [X] inconsistent-leading-newlines

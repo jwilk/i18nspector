@@ -73,8 +73,6 @@ Check for hardcoded Language in POT files.
 
 Add option for printing tag descriptions.
 
-Check for header entries with plural forms.
-
 Check message flags: duplicates, unknown flags, conflicts.
 
 .. vim:ft=rst
