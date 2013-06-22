@@ -112,7 +112,7 @@ references =
 severity = serious
 certainty = certain
 description =
- The header contains a conflict marker (**#-#-#-#-#** *…* **#-#-#-#-#**).
+ The header contains a conflict marker (``#-#-#-#-#`` *…* ``#-#-#-#-#``).
  The conflict will have to be resolved manually.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
@@ -121,7 +121,8 @@ references =
 severity = serious
 certainty = possible
 description =
- One of the translated messages appear to contain a conflict marker (**#-#-#-#-#** *…* **#-#-#-#-#**).
+ One of the translated messages appear to contain a conflict marker
+ (``#-#-#-#-#`` *…* ``#-#-#-#-#``).
  The conflict will have to be resolved manually.
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
