@@ -203,6 +203,7 @@ class Checker(object):
         language = self.options.language
         linginfo = self.options.linginfo
         language_source = 'command-line'
+        language_source_quality = 1
         if language is None:
             path_components = os.path.normpath(self.path).split('/')
             try:
@@ -238,6 +239,7 @@ class Checker(object):
                 language = None
             else:
                 language_source = 'pathname'
+                language_source_quality = 0
         if meta_language:
             try:
                 meta_language = linginfo.parse_language(meta_language)
@@ -262,6 +264,16 @@ class Checker(object):
             except ling.LanguageError:
                 self.tag('invalid-language', orig_meta_language)
                 meta_language = None
+            if language_source_quality <= 0 and (
+                '/{lang}/'.format(lang=meta_language) in self.path or
+                '/{lang}/'.format(lang=str(meta_language).replace('_', '-')) in self.path
+            ):
+                # For LibreOffice, PO basename does not designate translation
+                # language, but one of the path components does.
+                # For example,
+                #   translations/source/da/dictionaries/pl_PL.po
+                # is a Danish translation.
+                language = None
         if meta_language:
             if language is None:
                 language = meta_language

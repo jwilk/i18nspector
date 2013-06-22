@@ -26,13 +26,15 @@ i18nspector (0.11) UNRELEASED; urgency=low
   * Check for unusual characters in header entries.
   * Check for messages with empty msgid (header entries?) with source code
     references or plural forms.
+  * Fix some false-positive language-disparity when PO basename does not
+    designate translation language.
   * Fix the no-report-msgid-bugs-to-header-field description.
   * Fix a few typos in the tag descriptions.
   * Improve the test suite.
     + Add new tests.
     + Use a dedicated nose plugin for blackbox tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 22 Jun 2013 21:26:13 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 22 Jun 2013 22:33:46 +0200
 
 i18nspector (0.10) unstable; urgency=low
 
