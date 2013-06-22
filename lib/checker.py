@@ -756,7 +756,7 @@ class Checker(object):
         if len(msgid_counter) == 0:
             self.tag('empty-file')
 
-def is_header_entry(entry, obsolete=True):
+def is_header_entry(entry):
     return (
         entry.msgid == '' and
         entry.msgctxt is None
