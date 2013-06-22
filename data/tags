@@ -236,14 +236,6 @@ certainty = certain
 description =
  This file doesn't contain any messages.
 
-[empty-msgid-message-with-extracted-comments]
-severity = serious
-certainty = possible
-description =
- The message with empty msgid contains extracted comments.
- Such messages are reserved by GNU gettext for header entries, and your should
- not call ``gettext("")``.
-
 [empty-msgid-message-with-plural-forms]
 severity = serious
 certainty = certain

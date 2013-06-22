@@ -24,8 +24,8 @@ i18nspector (0.11) UNRELEASED; urgency=low
     https://bitbucket.org/izi/polib/issue/46
   * Check for duplicate and unexpected flags for header entries.
   * Check for unusual characters in header entries.
-  * Check for messages with empty msgid (header entries?) with extracted
-    comments, source code references, and plural forms.
+  * Check for messages with empty msgid (header entries?) with source code
+    references or plural forms.
   * Fix the no-report-msgid-bugs-to-header-field description.
   * Fix a few typos in the tag descriptions.
   * Improve the test suite.

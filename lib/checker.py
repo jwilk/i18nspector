@@ -640,8 +640,6 @@ class Checker(object):
                     break
                 if entry.occurrences:
                     self.tag('empty-msgid-message-with-source-code-references')
-                if entry.comment:
-                    self.tag('empty-msgid-message-with-extracted-comments')
                 if entry.msgid_plural or entry.msgstr_plural:
                     self.tag('empty-msgid-message-with-plural-forms')
                 msgstr = entry.msgstr_plural.get('0', entry.msgstr)
