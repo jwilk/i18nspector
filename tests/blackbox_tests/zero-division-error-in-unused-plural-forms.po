@@ -1,4 +1,4 @@
-# W: arithmetic-error-in-unused-plural-forms f(2): division by zero
+# E: arithmetic-error-in-unused-plural-forms f(2): division by zero
 
 msgid ""
 msgstr ""

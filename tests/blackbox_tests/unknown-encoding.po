@@ -1,4 +1,4 @@
-# W: unknown-encoding UTF-42
+# E: unknown-encoding UTF-42
 
 msgid ""
 msgstr ""

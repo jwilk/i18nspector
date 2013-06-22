@@ -1,5 +1,5 @@
 # E: unrepresentable-characters ISO-8859-1 <...>
-# W: unusual-character-in-translation <...>, U+0085 control character NEL, <...>
+# E: unusual-character-in-translation <...>, U+0085 control character NEL, <...>
 
 msgid ""
 msgstr ""

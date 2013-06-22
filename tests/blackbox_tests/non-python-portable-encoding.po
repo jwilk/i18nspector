@@ -1,4 +1,4 @@
-# W: non-portable-encoding GEORGIAN-PS
+# E: non-portable-encoding GEORGIAN-PS
 
 msgid ""
 msgstr ""

@@ -1,4 +1,4 @@
-# W: unusual-character-in-header-entry U+0085 control character NEL
+# E: unusual-character-in-header-entry U+0085 control character NEL
 
 msgid ""
 msgstr ""

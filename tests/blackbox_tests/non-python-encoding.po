@@ -1,4 +1,4 @@
-# W: non-portable-encoding KOI8-RU
+# E: non-portable-encoding KOI8-RU
 
 msgid ""
 msgstr ""

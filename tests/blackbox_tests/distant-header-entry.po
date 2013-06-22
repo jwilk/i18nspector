@@ -1,4 +1,4 @@
-# W: distant-header-entry
+# E: distant-header-entry
 
 msgid "A quick brown fox jumps over the lazy dog."
 msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis."

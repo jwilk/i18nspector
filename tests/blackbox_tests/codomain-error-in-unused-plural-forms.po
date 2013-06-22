@@ -1,5 +1,5 @@
-# W: codomain-error-in-unused-plural-forms f(x) != 0, 1, 2, ..., 41
-# W: codomain-error-in-unused-plural-forms f(x) != 43, 44, 45, ..., 999999999999999999999
+# E: codomain-error-in-unused-plural-forms f(x) != 0, 1, 2, ..., 41
+# E: codomain-error-in-unused-plural-forms f(x) != 43, 44, 45, ..., 999999999999999999999
 
 msgid ""
 msgstr ""

@@ -1,4 +1,4 @@
-# W: unusual-character-in-translation U+0080 control character PAD: 'Sic fugiens, dux, zelotypos, quam Karus haberis\xe2\x80\xa6'
+# E: unusual-character-in-translation U+0080 control character PAD: 'Sic fugiens, dux, zelotypos, quam Karus haberis\xe2\x80\xa6'
 
 msgid ""
 msgstr ""

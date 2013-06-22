@@ -1,4 +1,4 @@
-# W: invalid-language LA
+# E: invalid-language LA
 # I: unable-to-determine-language
 
 msgid ""

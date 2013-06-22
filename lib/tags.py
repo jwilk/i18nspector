@@ -171,7 +171,7 @@ class Tag(object):
             S['wishlist']: 'I',
             S['minor']: 'IW'[c >= C['certain']],
             S['normal']: 'IW'[c >= C['possible']],
-            S['important']: 'EW'[c >= C['possible']],
+            S['important']: 'WE'[c >= C['possible']],
             S['serious']: 'E',
         }[s]
 

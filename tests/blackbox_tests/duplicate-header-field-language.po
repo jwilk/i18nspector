@@ -1,4 +1,4 @@
-# W: duplicate-header-field-language
+# E: duplicate-header-field-language
 
 msgid ""
 msgstr ""

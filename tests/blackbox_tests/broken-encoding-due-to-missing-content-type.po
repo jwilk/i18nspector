@@ -1,5 +1,5 @@
 # E: broken-encoding '<...>\xe2\x80\xa6"\n' cannot be decoded as ASCII
-# W: no-content-type-header-field Content-Type: text/plain; charset=<encoding>
+# E: no-content-type-header-field Content-Type: text/plain; charset=<encoding>
 
 msgid ""
 msgstr ""

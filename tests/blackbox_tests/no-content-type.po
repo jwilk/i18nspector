@@ -1,4 +1,4 @@
-# W: no-content-type-header-field Content-Type: text/plain; charset=<encoding>
+# E: no-content-type-header-field Content-Type: text/plain; charset=<encoding>
 
 msgid ""
 msgstr ""

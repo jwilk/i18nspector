@@ -1,4 +1,4 @@
-# W: stray-header-line 'Project-Id-Version Gizmo Enhancer 1.0'
+# E: stray-header-line 'Project-Id-Version Gizmo Enhancer 1.0'
 # W: no-project-id-version-header-field
 
 msgid ""

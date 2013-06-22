@@ -1,4 +1,4 @@
-# W: inconsistent-leading-newlines msgid '\nA quick brown fox jumps over the lazy dog.'
+# E: inconsistent-leading-newlines msgid '\nA quick brown fox jumps over the lazy dog.'
 
 msgid ""
 msgstr ""

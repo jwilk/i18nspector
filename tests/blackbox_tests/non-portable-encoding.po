@@ -1,4 +1,4 @@
-# W: non-portable-encoding ISO-8859-16
+# E: non-portable-encoding ISO-8859-16
 
 msgid ""
 msgstr ""

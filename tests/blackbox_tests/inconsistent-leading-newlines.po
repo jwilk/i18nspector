@@ -1,4 +1,4 @@
-# W: inconsistent-trailing-newlines msgid 'A quick brown fox jumps over the lazy dog.'
+# E: inconsistent-trailing-newlines msgid 'A quick brown fox jumps over the lazy dog.'
 
 msgid ""
 msgstr ""

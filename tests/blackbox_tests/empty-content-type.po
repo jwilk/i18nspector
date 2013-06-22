@@ -1,4 +1,4 @@
-# W: invalid-content-type (empty string) => 'text/plain; charset=<encoding>'
+# E: invalid-content-type (empty string) => 'text/plain; charset=<encoding>'
 
 msgid ""
 msgstr ""

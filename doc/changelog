@@ -8,6 +8,7 @@ i18nspector (0.11) UNRELEASED; urgency=low
       - duplicate-header-field-x-poedit
       - unexpected-flag-for-header-entry
 
+  * Fix letter codes for tags with severity important.
   * Implement own header parser for PO files. (The one in polib is inadequate
     for i18nspector's purposes.)
   * Check for duplicate header entries.
@@ -26,7 +27,7 @@ i18nspector (0.11) UNRELEASED; urgency=low
     + Add new tests.
     + Use a dedicated nose plugin for blackbox tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 19 Jun 2013 16:52:32 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 22 Jun 2013 15:43:20 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

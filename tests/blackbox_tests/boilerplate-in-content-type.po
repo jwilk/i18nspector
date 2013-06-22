@@ -1,4 +1,4 @@
-# W: boilerplate-in-content-type 'text/plain; charset=CHARSET'
+# E: boilerplate-in-content-type 'text/plain; charset=CHARSET'
 
 msgid ""
 msgstr ""

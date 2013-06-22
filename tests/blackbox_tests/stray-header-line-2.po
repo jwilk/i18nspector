@@ -1,4 +1,4 @@
-# W: stray-header-line 'POT-Creation-Date 2012-11-01 14:42+0100'
+# E: stray-header-line 'POT-Creation-Date 2012-11-01 14:42+0100'
 # W: no-date-header-field POT-Creation-Date
 
 msgid ""

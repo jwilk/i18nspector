@@ -1,4 +1,4 @@
-# W: unusual-character-in-translation U+FFFF non-character: '<...> flag\uffff'
+# E: unusual-character-in-translation U+FFFF non-character: '<...> flag\uffff'
 
 msgid ""
 msgstr ""

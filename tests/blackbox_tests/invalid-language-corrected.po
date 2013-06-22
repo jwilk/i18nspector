@@ -1,4 +1,4 @@
-# W: invalid-language lat => la
+# E: invalid-language lat => la
 
 msgid ""
 msgstr ""
