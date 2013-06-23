@@ -645,7 +645,11 @@ class Checker(object):
                 self.tag('empty-msgid-message-with-source-code-references')
             if entry.msgid_plural or entry.msgstr_plural:
                 self.tag('empty-msgid-message-with-plural-forms')
-            msgstr = entry.msgstr_plural.get('0', entry.msgstr)
+            try:
+                msgstr = entry.msgstr_plural['0']
+                # https://bitbucket.org/izi/polib/issue/49
+            except LookupError:
+                msgstr = entry.msgstr_plural.get(0, entry.msgstr)
             for line in gettext.parse_header(msgstr):
                 if isinstance(line, dict):
                     [(key, value)] = line.items()
