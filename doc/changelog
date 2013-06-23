@@ -6,7 +6,10 @@ i18nspector (0.11) UNRELEASED; urgency=low
       - duplicate-flag-for-header-entry
       - duplicate-header-entry
       - duplicate-header-field-x-poedit
+      - empty-msgid-message-with-plural-forms
+      - empty-msgid-message-with-source-code-references
       - unexpected-flag-for-header-entry
+      - unusual-character-in-header-entry
 
   * Fix letter codes for tags with severity important.
   * Reduce severity of arithmetic-error-in-unused-plural-forms,
