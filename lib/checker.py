@@ -126,6 +126,9 @@ class Checker(object):
             except UnicodeDecodeError as exc:
                 broken_encoding = exc
                 file = constructor(self.path, encoding='ISO-8859-1')
+        except polib4us.moparser.SyntaxError as exc:
+            self.tag('invalid-mo-file', tags.safestr(exc))
+            return
         except struct.error:
             self.tag('invalid-mo-file')
             return
@@ -341,7 +344,7 @@ class Checker(object):
                 continue
             if message.msgid_plural:
                 has_plurals = True
-                if isinstance(message, polib.POEntry) and not message.translated():
+                if not message.translated():
                     continue
                 expected_nplurals[len(message.msgstr_plural)] = message
                 if len(expected_nplurals) > 1:
@@ -630,59 +633,47 @@ class Checker(object):
     def check_headers(self, file, *, is_template):
         metadata = collections.defaultdict(list)
         strays = []
-        polib_metadata = file.metadata
         file.header_entry = None
-        if polib_metadata:
-            for key, value in sorted(polib_metadata.items()):
-                if not gettext.is_valid_field_name(key):
-                    line = key + (':' if value else '')
-                    self.tag('stray-header-line', line)
-                    key = None
-                value, *v_strays = value.split('\n')
-                strays += v_strays
-                if key is not None:
-                    metadata[key] = [value]
-        else:
-            seen_header_entry = False
-            for entry in file:
-                if not is_header_entry(entry) or entry.obsolete:
-                    continue
-                if seen_header_entry:
-                    self.tag('duplicate-header-entry')
-                    break
-                if entry.occurrences:
-                    self.tag('empty-msgid-message-with-source-code-references')
-                if entry.msgid_plural or entry.msgstr_plural:
-                    self.tag('empty-msgid-message-with-plural-forms')
-                msgstr = entry.msgstr_plural.get('0', entry.msgstr)
-                for line in gettext.parse_header(msgstr):
-                    if isinstance(line, dict):
-                        [(key, value)] = line.items()
-                        metadata[key] += [value]
-                    else:
-                        strays += [line]
-                flags = collections.Counter(resplit_flags(entry.flags))
-                for flag, n in sorted(flags.items()):
-                    if flag == 'fuzzy':
-                        if not is_template:
-                            self.tag('fuzzy-header-entry')
-                    elif difflib.get_close_matches(flag.lower(), ['fuzzy'], cutoff=0.8):
-                        self.tag('unexpected-flag-for-header-entry', flag, '=>', 'fuzzy')
-                    else:
-                        self.tag('unexpected-flag-for-header-entry', flag)
-                    if n > 1:
-                        self.tag('duplicate-flag-for-header-entry', flag)
-                if entry is not file[0]:
-                    self.tag('distant-header-entry')
-                unusual_chars = set(find_unusual_characters(msgstr))
-                if unusual_chars:
-                    encinfo = self.options.encinfo
-                    unusual_char_names = ', '.join(
-                        'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
-                        for ch in sorted(unusual_chars)
-                    )
-                    self.tag('unusual-character-in-header-entry', tags.safestr(unusual_char_names))
-                seen_header_entry = True
+        seen_header_entry = False
+        for entry in file:
+            if not is_header_entry(entry) or entry.obsolete:
+                continue
+            if seen_header_entry:
+                self.tag('duplicate-header-entry')
+                break
+            if entry.occurrences:
+                self.tag('empty-msgid-message-with-source-code-references')
+            if entry.msgid_plural or entry.msgstr_plural:
+                self.tag('empty-msgid-message-with-plural-forms')
+            msgstr = entry.msgstr_plural.get('0', entry.msgstr)
+            for line in gettext.parse_header(msgstr):
+                if isinstance(line, dict):
+                    [(key, value)] = line.items()
+                    metadata[key] += [value]
+                else:
+                    strays += [line]
+            flags = collections.Counter(resplit_flags(entry.flags))
+            for flag, n in sorted(flags.items()):
+                if flag == 'fuzzy':
+                    if not is_template:
+                        self.tag('fuzzy-header-entry')
+                elif difflib.get_close_matches(flag.lower(), ['fuzzy'], cutoff=0.8):
+                    self.tag('unexpected-flag-for-header-entry', flag, '=>', 'fuzzy')
+                else:
+                    self.tag('unexpected-flag-for-header-entry', flag)
+                if n > 1:
+                    self.tag('duplicate-flag-for-header-entry', flag)
+            if entry is not file[0]:
+                self.tag('distant-header-entry')
+            unusual_chars = set(find_unusual_characters(msgstr))
+            if unusual_chars:
+                encinfo = self.options.encinfo
+                unusual_char_names = ', '.join(
+                    'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                    for ch in sorted(unusual_chars)
+                )
+                self.tag('unusual-character-in-header-entry', tags.safestr(unusual_char_names))
+            seen_header_entry = True
         seen_conflict_marker = False
         for stray in strays:
             if gettext.search_for_conflict_marker(stray):
@@ -724,11 +715,7 @@ class Checker(object):
                 continue
             if is_header_entry(message):
                 continue
-            if isinstance(message, polib.POEntry):
-                flags = resplit_flags(message.flags)
-            else:
-                # https://bitbucket.org/izi/polib/issue/47
-                flags = []
+            flags = resplit_flags(message.flags)
             fuzzy = 'fuzzy' in flags
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')

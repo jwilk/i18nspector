@@ -279,7 +279,7 @@ def test_os_error_permission_denied():
         assert_emit_tags(path, expected)
 
 @tagstring('''
-# E: invalid-mo-file
+# E: invalid-mo-file unexpected magic
 ''')
 def test_empty_mo_file():
     with aux.temporary_directory() as tmpdir:

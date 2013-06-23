@@ -1,4 +1,4 @@
-# E: invalid-mo-file
+# E: invalid-mo-file unexpected magic
 
 msgid ""
 msgstr ""

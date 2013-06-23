@@ -14,6 +14,8 @@ i18nspector (0.11) UNRELEASED; urgency=low
     to normal.
   * Implement own header parser for PO files. (The one in polib is inadequate
     for i18nspector's purposes.)
+  * Implement own MO file parser. (The one in polib is inadequate for
+    i18nspector's purposes.)
   * Check for duplicate header entries.
   * Check for unusually located header entries.
   * Overhaul handling of duplicates and stray lines in the header entry.
@@ -34,7 +36,7 @@ i18nspector (0.11) UNRELEASED; urgency=low
     + Add new tests.
     + Use a dedicated nose plugin for blackbox tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 22 Jun 2013 22:33:46 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 23 Jun 2013 14:55:19 +0200
 
 i18nspector (0.10) unstable; urgency=low
 

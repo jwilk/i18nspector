@@ -30,6 +30,8 @@ import re
 
 import polib
 
+from . import moparser
+
 patches = []
 
 @contextlib.contextmanager
@@ -155,5 +157,22 @@ def unescape_patch():
         yield
     finally:
         polib.unescape = original
+
+# polib._MOFileParser
+# ===================
+# Use a custom MO file parser implementation.
+# https://bitbucket.org/izi/polib/issue/36
+# https://bitbucket.org/izi/polib/issue/44
+# https://bitbucket.org/izi/polib/issue/45
+# https://bitbucket.org/izi/polib/issue/47
+
+@register_patch
+def mo_parser_patch():
+    original = polib._MOFileParser
+    try:
+        polib._MOFileParser = moparser.Parser
+        yield
+    finally:
+        polib._MOFileParser = original
 
 # vim:ts=4 sw=4 et
