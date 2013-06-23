@@ -30,8 +30,8 @@ import functools
 import os
 import re
 
-from lib import misc
-from lib import intexpr
+from . import misc
+from . import intexpr
 
 class GettextInfo(object):
 

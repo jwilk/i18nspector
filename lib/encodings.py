@@ -30,8 +30,8 @@ import itertools
 import os
 import unicodedata
 
-from lib import iconv
-from lib import misc
+from . import iconv
+from . import misc
 
 def iconv_encoding(encoding, *, parent):
 

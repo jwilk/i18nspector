@@ -29,12 +29,12 @@ import urllib.parse
 
 import polib
 
-from lib import gettext
-from lib import ling
-from lib import misc
-from lib import polib4us
-from lib import rfc2606
-from lib import tags
+from . import gettext
+from . import ling
+from . import misc
+from . import polib4us
+from . import rfc2606
+from . import tags
 
 class EnvironmentNotPatched(RuntimeError):
     pass
