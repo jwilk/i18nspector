@@ -20,9 +20,9 @@ i18nspector (0.11) UNRELEASED; urgency=low
   * Check for duplicate header entries.
   * Check for unusually located header entries.
   * Overhaul handling of duplicates and stray lines in the header entry.
-  * Emit duplicate-header-field-x-poedit (instead of the generic
-    duplicate-header-field) for duplicate X-Poedit-Language and
-    X-Poedit-Country headers fields.
+    + Emit duplicate-header-field-x-poedit (instead of the generic
+      duplicate-header-field) for duplicate X-Poedit-Language and
+      X-Poedit-Country headers fields.
   * Work around a flag parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/46
   * Check for duplicate and unexpected flags for header entries.
