@@ -696,7 +696,7 @@ class Checker(object):
                         hints = difflib.get_close_matches(key, header_fields, n=1, cutoff=0.8)
                         if hints:
                             [hint] = hints
-                    if hint in file.metadata:
+                    if hint in metadata:
                         hint = None
                     if hint is None:
                         self.tag('unknown-header-field', key)
