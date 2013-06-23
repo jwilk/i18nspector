@@ -59,9 +59,12 @@ class Parser(object):
     def _read_ints(self, at, n=1):
         begin = at
         end = at + 4 * n
+        view = self._view
+        if end > len(self._view):
+            raise SyntaxError('truncated file')
         return struct.unpack(
             self._endian + 'I' * n,
-            self._view[begin:end],
+            view[begin:end],
         )
 
     def _parse(self):
@@ -88,16 +91,22 @@ class Parser(object):
         view = self._view
         [length, offset] = self._read_ints(at=msgid_offset, n=2)
         msgid = view[offset:offset+length].tobytes()
-        if view[offset + length] != b'\0':
-            raise SyntaxError('msgid is not null-terminated')
+        try:
+            if view[offset + length] != b'\0':
+                raise SyntaxError('msgid is not null-terminated')
+        except IndexError:
+            raise SyntaxError('truncated file')
         msgids = msgid.split(b'\0', 2)
         msgid = msgids[0]
         if len(msgids) > 2:
             raise SyntaxError('unexpected null byte in msgid')
         [length, offset] = self._read_ints(at=msgstr_offset, n=2)
         msgstr = view[offset:offset+length].tobytes()
-        if view[offset + length] != b'\0':
-            raise SyntaxError('msgstr is not null-terminated')
+        try:
+            if view[offset + length] != b'\0':
+                raise SyntaxError('msgstr is not null-terminated')
+        except IndexError:
+            raise SyntaxError('truncated file')
         msgstrs = msgstr.split(b'\0')
         if len(msgids) == 1 and len(msgstrs) > 1:
             raise SyntaxError('unexpected null byte in msgstr')
