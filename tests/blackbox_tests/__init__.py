@@ -147,8 +147,8 @@ class Plugin(nose.plugins.Plugin):
 
     def wantFile(self, path):
         if path.endswith(test_file_extensions):
-            # .pop is a special extension to trigger unknown-file-type
-            return True
+            if path.startswith(os.path.join(os.path.abspath(here), '')):
+                return True
 
     def loadTestsFromFile(self, path):
         yield TestCase(path)
