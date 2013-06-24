@@ -45,7 +45,7 @@ class Parser(object):
         view = memoryview(contents)
         if len(view) > 0:
             if sys.version_info >= (3, 3):
-                # http://docs.python.org/dev/whatsnew/3.3.html#pep-3118-new-memoryview-implementation-and-buffer-protocol-documentation
+                # http://docs.python.org/3.3/whatsnew/3.3.html#pep-3118-new-memoryview-implementation-and-buffer-protocol-documentation
                 # “Accessing a memoryview element with format ‘B’ (unsigned bytes)
                 # now returns an integer […]. For returning a bytes object the view
                 # must be cast to ‘c’ first.”
