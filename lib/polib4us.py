@@ -175,4 +175,22 @@ def mo_parser_patch():
     finally:
         polib._MOFileParser = original
 
+# polib.detect_encoding()
+# =======================
+# Don't use polib's detect_encoding() for MO files, as i18nspector's own MO
+# file parser has built-in encoding detection.
+
+@register_patch
+def detect_encoding_patch():
+    def detect_encoding(path, binary_mode=False):
+        if binary_mode:
+            return
+        return original(path)
+    original = polib.detect_encoding
+    try:
+        polib.detect_encoding = detect_encoding
+        yield
+    finally:
+        polib.detect_encoding = original
+
 # vim:ts=4 sw=4 et
