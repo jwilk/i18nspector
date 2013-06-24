@@ -118,7 +118,7 @@ class Parser(object):
             raise SyntaxError('unexpected null byte in msgstr')
         encoding = self._encoding
         if i == 0:
-            if encoding is None and msgid == '':
+            if encoding is None and msgid == b'':
                 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/dcigettext.c?id=159cd1aefcf2#n1106
                 match = re.search(b'charset=([^ \t\n]+)', msgstr)
                 if match is not None:
