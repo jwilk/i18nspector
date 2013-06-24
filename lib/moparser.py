@@ -112,8 +112,7 @@ class Parser(object):
             raise SyntaxError('unexpected null byte in msgstr')
         encoding = self._encoding
         if i == 0:
-            if encoding is None:
-                encoding = 'ASCII'
+            if encoding is None and msgid == '':
                 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/dcigettext.c?id=159cd1aefcf2#n1106
                 match = re.search(b'charset=([^ \t\n]+)', msgstr)
                 if match is not None:
@@ -121,11 +120,14 @@ class Parser(object):
                         encoding = match.group(1).decode('ASCII')
                     except UnicodeError:
                         pass
+            if encoding is None:
+                encoding = 'ASCII'
+            else:
                 try:
                     b'charset'.decode(encoding)
                 except (LookupError, UnicodeError):
                     encoding = 'ASCII'
-                self._encoding = encoding
+            self._encoding = encoding
         else:
             if msgids == self._last_msgid:
                 raise SyntaxError('duplicate message definition')
