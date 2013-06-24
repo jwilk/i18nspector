@@ -43,9 +43,9 @@ class Parser(object):
         with open(path, 'rb') as file:
             contents = file.read()
         view = memoryview(contents)
-        if sys.version_info >= (3, 3):
-            view = view.cast('c')
         if len(view) > 0:
+            if sys.version_info >= (3, 3):
+                view = view.cast('c')
             assert isinstance(view[0], bytes)
         self._view = view
         if klass is None:
