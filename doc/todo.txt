@@ -42,6 +42,7 @@ Add tests for:
  * MO files (at least against some tags)
  * VISCII encoding
  * languages with multiple correct Plural-Forms
+ * lib.moparser
 
 Detect question marks in unusual places.
 
