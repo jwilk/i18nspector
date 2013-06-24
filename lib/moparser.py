@@ -24,6 +24,7 @@ MO file parser
 
 import re
 import struct
+import sys
 
 import polib
 
@@ -41,7 +42,12 @@ class Parser(object):
             raise NotImplementedError
         with open(path, 'rb') as file:
             contents = file.read()
-        self._view = memoryview(contents)
+        view = memoryview(contents)
+        if sys.version_info >= (3, 3):
+            view = view.cast('c')
+        if len(view) > 0:
+            assert isinstance(view[0], bytes)
+        self._view = view
         if klass is None:
             klass = polib.MOFile
         try:

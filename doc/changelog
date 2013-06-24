@@ -1,9 +1,10 @@
 i18nspector (0.11.1) UNRELEASED; urgency=low
 
-  * MO file parser: detect encoding by inspecting only the first message with
-    empty msgid.
+  * Fix the MO file parser:
+    + Detect encoding by inspecting only the first message with empty msgid.
+    + Fix compatibility with Python 3.3.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 24 Jun 2013 14:30:24 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 24 Jun 2013 19:22:04 +0200
 
 i18nspector (0.11) unstable; urgency=low
 
