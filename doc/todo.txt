@@ -1,34 +1,49 @@
-Acquire correct Plural-Forms from:
+Acquire correct ``Plural-Forms`` from:
+
  * http://translate.sourceforge.net/wiki/l10n/pluralforms
  * http://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml
 
 Complain about incorrect locale codes:
- * al -> sq
- * bh -> bho | mai | mag
- * cn -> zh
- * cz -> cs
- * dk -> da
- * en_UK -> en_GB
- * gr -> el
- * in -> id
- * iw -> he
- * ji -> yi
- * mo -> ro_MD
- * no -> nb
- * sh_BA -> bs_BA
- * sh_HR -> hr_HR
- * sh_RS -> sr_RS
- * sr@Latn -> sr@latin
- * sr_CS -> sr
- * sr_SR -> sr_RS
- * sr_YU -> sr
- * uk_UK -> uk_UA
- * vn -> vi
+
+ * ``al`` → ``sq``
+ * ``bh`` → ``bho`` | ``mai`` | ``mag``
+ * ``ca-XV`` → ``ca@valencia``
+ * ``cn`` → ``zh``
+ * ``cz`` → ``cs``
+ * ``dk`` → ``da``
+ * ``en_UK`` → ``en_GB``
+ * ``gr`` → ``el``
+ * ``in`` → ``id``
+ * ``iw`` → ``he``
+ * ``ji`` → ``yi``
+ * ``mo`` → ``ro_MD``
+ * ``no`` → ``nb``
+ * ``sh_BA`` → ``bs_BA``
+ * ``sh_HR`` → ``hr_HR``
+ * ``sh_RS`` → ``sr_RS``
+ * ``sr@Latn`` → ``sr@latin``
+ * ``sr_CS`` → ``sr``
+ * ``sr_SR`` → ``sr_RS``
+ * ``sr_YU`` → ``sr``
+ * ``uk_UK`` → ``uk_UA``
+ * ``vn`` → ``vi``
+
+Correct locale codes in invalid format, e.g.:
+
+ * ``da-DK`` → ``da_DK``: http://sources.debian.net/data/main/d/debian-handbook/6.0+20121031/da-DK/00a_preface.po
+ * ``pt_br`` → ``pt_BR``: http://sources.debian.net/data/main/p/pam-pkcs11/0.6.8-1/po/pt_br.po
+ * ``Pt`` → ``pt``: http://sources.debian.net/data/main/d/darcsweb/1.1-3.1/debian/po/pt.po
+
+Correct ``Language`` with both a natural language and a language code, e.g.
+
+ * ``nl (Dutch)``: http://sources.debian.net/data/main/g/garcon/0.1.12-1/po/nl.po
+ * ``Serbian (sr)``: http://sources.debian.net/data/main/a/at-spi2-atk/2.5.3-2/po/sr.po
 
 Guess language from ``Language-Team``.
+
  * http://translationproject.org/team/
 
-Add characters=… for more languages.
+Add ``characters=``\ … for more languages.
 
 Fix support for ``X-Poedit-Language: (Afan) Oromo``.
 
@@ -37,6 +52,7 @@ Fix support for ``X-Poedit-Language: Serbian (Latin)``.
 Document the security model.
 
 Add tests for:
+
  * Debian source packages
  * Debian binary packages
  * MO files (at least against some tags)
@@ -47,6 +63,7 @@ Add tests for:
 Detect question marks in unusual places.
 
 Add support for configuration files. Once it's implemented:
+
  * Disable --debian by default.
  * Disable --pedantic by default.
 
@@ -70,5 +87,53 @@ Check for hardcoded Language in POT files.
 Add option for printing tag descriptions.
 
 Check message flags: duplicates, unknown flags, conflicts.
+
+When emitting encoding-in-language-header-field, check if the encoding
+matches the one from Content-Type. Test-cases:
+
+ * http://sources.debian.net/data/main/r/rhn-client-tools/1.8.9-3/po/zh_CN.GB2312.po
+
+Split no-email-address-in-last-translator from invalid-last-translator.
+Test-cases:
+
+ * http://sources.debian.net/data/main/m/mtpaint/3.40-1/po/de.po
+ * http://sources.debian.net/data/main/y/yaboot-installer/1.1.26/debian/po/hi.po
+
+Correct encoding ``8859-``\ *n* → ``ISO-8859-``\ *n*. Test-case:
+
+ * http://sources.debian.net/data/main/v/vnc4/4.1.1+X4.3.0-37.1/unix/xc/extras/FreeType/po/nl.po
+
+Split boilerplate-in-date from invalid-date. Test-case:
+
+ * http://sources.debian.net/data/main/n/neon27/0.29.6-3/po/tr.po
+
+Split missing-timezone-in-date from invalid-date. Test-case:
+
+ * http://sources.debian.net/data/main/d/debian-handbook/6.0+20121031/tr-TR/Book_Info.po
+
+Recognize more date formats. Test-cases:
+
+ * http://sources.debian.net/data/main/b/boinc/7.0.27+dfsg-5/html/languages/translations/pt.po
+ * http://sources.debian.net/data/main/k/kde-l10n/4:4.8.4-2/is/messages/kde-runtime/kdesud.po
+ * http://sources.debian.net/data/main/p/pavuk/0.9.35-2.3/po/es.po
+
+Fix false-positive no-package-name-in-project-id-version when project name
+is not in ASCII. Test-case:
+
+ * http://sources.debian.net/data/main/a/alarm-clock/1.2.5-1.2/po/sr.po
+
+Split {trailing,leading}-junk-in-plural-forms from
+syntax-error-in-plural-forms. Test-case:
+
+ * http://sources.debian.net/data/main/d/dpkg/1.16.10/po/ja.po
+
+Decide what to do with commas in Last-Translator: either accept them, or
+provide a better error message. Test-case:
+
+ * http://sources.debian.net/data/main/i/installation-guide/20130503/po/zh_TW/using-d-i.po
+
+polib cannot parse some comments; implement a work-around. Test-case:
+
+ * http://sources.debian.net/data/main/a/accerciser/3.4.1-1/help/el/el.po
 
 .. vim:ft=rst
