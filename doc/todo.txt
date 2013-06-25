@@ -1,4 +1,5 @@
-Acquire correct ``Plural-Forms`` from:
+Add more ``Plural-Forms``. Document how the current ``Plural-Forms`` were
+obtained.
 
  * http://translate.sourceforge.net/wiki/l10n/pluralforms
  * http://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml
@@ -43,7 +44,8 @@ Guess language from ``Language-Team``.
 
  * http://translationproject.org/team/
 
-Add ``characters=``\ … for more languages.
+Add ``characters=``\ … for more languages. Document how the current values were
+obtained.
 
 Fix support for ``X-Poedit-Language: (Afan) Oromo``.
 
