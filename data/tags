@@ -269,7 +269,7 @@ description =
  To increase operability with very old (<< 0.11) **msgfmt**\ (1) versions,
  which didn't support fuzzy header entries, it shouldn't be marked as such.
 references =
- http://git.savannah.gnu.org/cgit/gettext.git/tree/NEWS?id=7808a2b730c4#n44
+ http://git.savannah.gnu.org/cgit/gettext.git/tree/NEWS?id=v0.11#n44
 
 [inconsistent-leading-newlines]
 severity = important
