@@ -22,6 +22,11 @@
 MO file parser
 '''
 
+# MO file format documentation:
+# * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/gmo.h?id=159cd1aefcf2
+# * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/read-mo.c?id=159cd1aefcf2
+# * http://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
+
 import re
 import struct
 import sys
