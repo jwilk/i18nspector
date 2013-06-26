@@ -761,7 +761,11 @@ class Checker(object):
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
         if len(msgid_counter) == 0:
-            self.tag('empty-file')
+            possible_hidden_strings = False
+            if isinstance(file, polib.MOFile):
+                possible_hidden_strings = file.possible_hidden_strings
+            if not possible_hidden_strings:
+                self.tag('empty-file')
 
 def is_header_entry(entry):
     return (

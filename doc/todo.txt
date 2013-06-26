@@ -138,4 +138,6 @@ polib cannot parse some comments; implement a work-around. Test-case:
 
  * http://sources.debian.net/data/main/a/accerciser/3.4.1-1/help/el/el.po
 
+Add support for system-dependent messages (minor revision 1).
+
 .. vim:ft=rst

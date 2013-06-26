@@ -1,8 +1,9 @@
 i18nspector (0.11.2) UNRELEASED; urgency=low
 
-  * 
+  * Don't emit empty-file for MO files with only system-dependent messages, or
+    with minor revision greater than 1.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 24 Jun 2013 20:38:22 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 27 Jun 2013 00:06:18 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 

@@ -91,6 +91,16 @@ class Parser(object):
         if major_revision > 1:
             raise SyntaxError('unexpected major revision number: {n}'.format(n=major_revision))
         [n_strings] = self._read_ints(at=8)
+        possible_hidden_strings = False
+        if minor_revision > 1:
+            # “an unexpected minor revision number means that the file can be
+            # read but will not reveal its full contents”
+            possible_hidden_strings = True
+        elif minor_revision == 1:
+            [n_sysdep_strings] = self._read_ints(at=36)
+            if n_sysdep_strings > 0:
+                possible_hidden_strings = True
+        self.instance.possible_hidden_strings = possible_hidden_strings
         [msgid_offset, msgstr_offset] = self._read_ints(at=12, n=2)
         self._last_msgid = None
         for i in range(n_strings):
