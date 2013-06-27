@@ -1,4 +1,4 @@
-# W: invalid-last-translator 'Numerius Negidius'
+# W: invalid-last-translator 'Jakub Wilk'
 
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: gizmoenhancer@jwilk.net\n"
 "POT-Creation-Date: 2012-11-01 14:42+0100\n"
 "PO-Revision-Date: 2012-11-01 14:42+0100\n"
-"Last-Translator: Numerius Negidius\n"
+"Last-Translator: Jakub Wilk\n"
 "Language-Team: Latin Strike Force <la@li.org>\n"
 "Language: la\n"
 "MIME-Version: 1.0\n"
