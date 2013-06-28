@@ -66,12 +66,14 @@ def parse_header(s):
             yield line
 
 search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTILINE).search
-# gettext-tools/src/msgl-cat.c
+# http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msgl-cat.c?id=v0.18.2.1#n590
 # http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
 # ================
 # Plurals handling
 # ================
+
+# http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.2.1#n132
 
 class PluralFormsSyntaxError(Exception):
     pass
