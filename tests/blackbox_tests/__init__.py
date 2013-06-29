@@ -203,7 +203,10 @@ def assert_emit_tags(path, etags, *, options=()):
         else:
             message += ['stderr: (empty)']
         raise AssertionError('\n'.join(message))
+    expected_failure = os.path.basename(path).startswith('xfail-')
     if stdout != etags:
+        if expected_failure:
+            raise nose.SkipTest('expected failure')
         str_etags = [str(x) for x in etags]
         message = ['Tags differ:', '']
         diff = list(
@@ -211,6 +214,8 @@ def assert_emit_tags(path, etags, *, options=()):
         )
         message += diff[3:]
         raise AssertionError('\n'.join(message))
+    elif expected_failure:
+        raise AssertionError('unexpected success')
 
 def _test_file(path):
     path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
