@@ -19,6 +19,7 @@
 # SOFTWARE.
 
 import difflib
+import errno
 import inspect
 import os
 import re
@@ -221,8 +222,17 @@ def _test_file(path):
     path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
     options = []
     etags = []
-    with open(path, 'rt', encoding='ASCII', errors='ignore') as file:
-        for line in file:
+    try:
+        file = open(path + '.gen', encoding='ASCII', errors='ignore')
+    except IOError as exc:
+        if exc.errno == errno.ENOENT:
+            file = open(path, 'rt', encoding='ASCII', errors='ignore')
+        else:
+            raise
+    with file:
+        for n, line in enumerate(file):
+            if n == 0 and line.startswith('#!'):
+                continue
             if not line.startswith('# '):
                 break
             etag = parse_etag(line, path)
@@ -235,8 +245,17 @@ def _test_file(path):
     assert_emit_tags(path, etags, options=options)
 
 def get_coverage_for_file(path):
-    with open(path, 'rt', encoding='ASCII', errors='ignore') as file:
-        for line in file:
+    try:
+        file = open(path + '.gen', encoding='ASCII', errors='ignore')
+    except IOError as exc:
+        if exc.errno == errno.ENOENT:
+            file = open(path, 'rt', encoding='ASCII', errors='ignore')
+        else:
+            raise
+    with file:
+        for n, line in enumerate(file):
+            if n == 0 and line.startswith('#!'):
+                continue
             if not line.startswith('# '):
                 break
             etag = parse_etag(line, '')
