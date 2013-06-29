@@ -1,0 +1,15 @@
+#!/bin/sh
+# P: no-language-header-field
+# I: unable-to-determine-language
+# P: no-mime-version-header-field MIME-Version: 1.0
+# P: no-content-transfer-encoding-header-field Content-Transfer-Encoding: 8bit
+# E: no-content-type-header-field Content-Type: text/plain; charset=<encoding>
+# W: no-date-header-field POT-Creation-Date
+# W: no-date-header-field PO-Revision-Date
+# W: no-project-id-version-header-field
+# W: no-report-msgid-bugs-to-header-field
+# W: no-last-translator-header-field
+# P: no-language-team-header-field
+
+set -e -u -x
+exec msgfmt --endian=little "${here}/xfail-header-imitation.po" -o "${target}"

@@ -1,0 +1,17 @@
+# P: no-language-header-field
+# I: unable-to-determine-language
+# P: no-mime-version-header-field MIME-Version: 1.0
+# P: no-content-transfer-encoding-header-field Content-Transfer-Encoding: 8bit
+# E: no-content-type-header-field Content-Type: text/plain; charset=<encoding>
+# W: no-date-header-field POT-Creation-Date
+# W: no-date-header-field PO-Revision-Date
+# W: no-project-id-version-header-field
+# W: no-report-msgid-bugs-to-header-field
+# W: no-last-translator-header-field
+# P: no-language-team-header-field
+
+msgid "header imitation"
+msgstr "Content-Type: text/plain; charset=UTF-16"
+
+msgid "A quick brown fox jumps over the lazy dog."
+msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis."
