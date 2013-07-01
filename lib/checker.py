@@ -528,6 +528,7 @@ class Checker(object):
 
     @checks_header_fields('POT-Creation-Date', 'PO-Revision-Date')
     def check_dates(self, file, *, is_template):
+        fix_date_format = self.options.gettextinfo.fix_date_format
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             dates = file.metadata[field]
             if len(dates) > 1:
@@ -539,7 +540,7 @@ class Checker(object):
             for date in dates:
                 if is_template and field.startswith('PO-') and (date == 'YEAR-MO-DA HO:MI+ZONE'):
                     continue
-                fixed_date = gettext.fix_date_format(date)
+                fixed_date = fix_date_format(date)
                 if fixed_date is None:
                     self.tag('invalid-date', tags.safestr(field + ':'), date)
                     continue

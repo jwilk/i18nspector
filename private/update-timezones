@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+
+# Copyright © 2013 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import collections
+import datetime
+import os
+import sys
+
+import pytz
+
+basedir = '{here}/..'.format(here=os.path.dirname(__file__))
+sys.path[:0] = [basedir]
+
+import lib.gettext as gettext
+
+def main():
+    minyear = gettext.epoch.year
+    maxyear = datetime.date.today().year + 1
+    tzdata = collections.defaultdict(set)
+    for tzname in pytz.all_timezones:
+        if tzname.startswith('Etc/'):
+            continue
+        tz = pytz.timezone(tzname)
+        try:
+            timestamps = list(tz._utc_transition_times)
+        except AttributeError:
+            timestamps = []
+        timestamps += [datetime.datetime(minyear, 1, 1)]
+        for timestamp in timestamps:
+            if not (minyear <= timestamp.year <= maxyear):
+                continue
+            timestamp = tz.fromutc(timestamp)
+            code, offset = timestamp.strftime('%Z %z').split()
+            assert 3 <= len(code) <= 6
+            tzdata[code].add(offset)
+    path = os.path.join(basedir, 'data', 'timezones')
+    sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')
+    print('''\
+# This file has been generated automatically by private/update-timezones.
+# Do not edit.
+# Last update: {today}
+'''.format(today=datetime.date.today()))
+    print('[timezones]')
+    for code, offsets in sorted(tzdata.items()):
+        print('{code} = {offsets}'.format(code=code, offsets=' '.join(sorted(offsets))))
+    sys.stdout.close()
+    os.rename(path + '.tmp', path)
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sw=4 et

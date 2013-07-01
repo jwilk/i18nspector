@@ -187,7 +187,7 @@ class test_plurals:
 class test_fix_date_format:
 
     def _test(self, old, expected):
-        new = lib.gettext.fix_date_format(old)
+        new = info.fix_date_format(old)
         if expected is None:
             assert_is_none(new)
         else:
@@ -222,8 +222,18 @@ class test_fix_date_format:
             '2001-06-25 18:55+0200'
         )
 
-    def test_nonnumeric_tz(self):
-        self._test('2004-04-20 13:24+CEST', None)
+    def test_gmt_before_tz(self):
+        self._test('2001-07-28 11:19GMT+0200', '2001-07-28 11:19+0200')
+        self._test('2001-12-20 17:22GMT+0100', '2001-12-20 17:22+0100')
+
+    def test_pygettext(self):
+        self._test('2004-04-20 13:24+CEST', '2004-04-20 13:24+0200')
+        self._test('2004-04-14 21:35+CDT', None)  # ambiguous
+        self._test('2005-12-20 10:33+JEST', None)  # nonexistent
+
+    def test_abbrev(self):
+        self._test('2010-02-17 13:11 PST', '2010-02-17 13:11-0800')
+        self._test('2001-01-06 12:12GMT', '2001-01-06 12:12+0000')
 
     def test_only_date(self):
         self._test('2008-01-09', None)

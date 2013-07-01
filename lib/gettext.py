@@ -25,6 +25,7 @@ gettext header support:
 - plural expressions parser
 '''
 
+import configparser
 import datetime
 import functools
 import os
@@ -44,6 +45,48 @@ class GettextInfo(object):
             ]
         misc.check_sorted(fields)
         self.header_fields = frozenset(fields)
+        path = os.path.join(datadir, 'timezones')
+        cp = configparser.ConfigParser(interpolation=None, default_section='')
+        cp.optionxform = lambda x: x
+        cp.read(path, encoding='ASCII')
+        self.timezones = {
+            abbrev: offsets.split()
+            for abbrev, offsets in cp['timezones'].items()
+        }
+        tz_re = '|'.join(re.escape(tz) for tz in self.timezones)
+        self._parse_date = re.compile('''
+            ^ \s*
+            ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
+            (?: \s+ )
+            ( [0-9]{2}:[0-9]{2} )  # hh:mm
+            (?: : [0-9]{2} )?  # ss
+            \s*
+            (?:
+              (?: GMT | UTC )? ( [+-] [0-9]{2} )  :? ( [0-9]{2} )  # ZZzz
+            | [+]? (''' + tz_re + ''')
+            )
+            \s* $
+        ''', re.VERBOSE).match
+
+    def fix_date_format(self, s):
+        match = self._parse_date(s)
+        if match is None:
+            return
+        (date, time, zhour, zminute, zabbr) = match.groups()
+        if zabbr is not None:
+            try:
+                [zone] = self.timezones[zabbr]
+            except ValueError:
+                return
+        else:
+            zone = zhour + zminute
+        s = '{} {}{}'.format(date, time, zone)
+        assert len(s) == 21, 'len({!r}) != 21'.format(s)
+        try:
+            parse_date(s)
+        except DateSyntaxError:
+            return
+        return s
 
 # ==========================
 # Header and message parsing
@@ -164,31 +207,6 @@ def parse_plural_forms(s):
 
 class DateSyntaxError(Exception):
     pass
-
-_parse_date = re.compile('''
-    ^ \s*
-    ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
-    ( \s+ )
-    ( [0-9]{2}:[0-9]{2} )  # hh:mm
-    (?: : [0-9]{2} )?  # ss
-    \s*
-    ( [+-] [0-9]{2} )  # ZZ
-    :?
-    ( [0-9]{2} )  # zz
-    \s* $
-''', re.VERBOSE).match
-
-def fix_date_format(s):
-    match = _parse_date(s)
-    if match is None:
-        return
-    s = ''.join(g if not g.isspace() else ' ' for g in match.groups())
-    assert len(s) == 21, 'len({!r}) != 21'.format(s)
-    try:
-        parse_date(s)
-    except DateSyntaxError:
-        return
-    return s
 
 def parse_date(s):
     try:
