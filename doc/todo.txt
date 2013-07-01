@@ -108,9 +108,7 @@ Correct encoding ``8859-``\ *n* → ``ISO-8859-``\ *n*. Test-case:
 Emit boilerplate-in-date also for partial boilerplate, e.g.
 ``2001-01-03 HO:MI+ZONE``.
 
-Split missing-timezone-in-date from invalid-date. Test-case:
-
- * http://sources.debian.net/data/main/d/debian-handbook/6.0+20121031/tr-TR/Book_Info.po
+Split missing-timezone-in-date from invalid-date.
 
 Fix false-positive no-package-name-in-project-id-version when project name
 is not in ASCII. Test-case:
