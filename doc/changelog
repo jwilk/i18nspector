@@ -1,16 +1,20 @@
 i18nspector (0.11.2) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - boilerplate-in-date
+
   [ Jakub Wilk ]
   * Don't emit empty-file for MO files with only system-dependent messages, or
     with minor revision greater than 1.
   * Parse more date formats.
+  * Check for xgettext boilerplate in dates.
   * Improve the test suite.
 
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
-
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 01 Jul 2013 20:06:07 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 01 Jul 2013 20:25:58 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 

@@ -35,6 +35,14 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[boilerplate-in-date]
+severity = normal
+certainty = certain
+description =
+ The date header field contains xgettext boilerplate.
+ The date format should be ``YYYY-MM-DD hh:mm+ZZzz``,
+ e.g. ``2011-11-05 10:14+0100``.
+
 [boilerplate-in-language-team]
 severity = minor
 certainty = certain
