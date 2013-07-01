@@ -529,6 +529,11 @@ class Checker(object):
     @checks_header_fields('POT-Creation-Date', 'PO-Revision-Date')
     def check_dates(self, file, *, is_template):
         fix_date_format = self.options.gettextinfo.fix_date_format
+        try:
+            content_type = file.metadata['Content-Type'][0]
+        except IndexError:
+            content_type = ''
+        is_publican = content_type.startswith('application/x-publican;')
         boilerplate = 'YEAR-MO-DA HO:MI+ZONE'
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             dates = file.metadata[field]
@@ -541,7 +546,13 @@ class Checker(object):
             for date in dates:
                 if is_template and field.startswith('PO-') and (date == boilerplate):
                     continue
-                fixed_date = fix_date_format(date)
+                if 'T' in date and is_publican:
+                    # Publican uses DateTime->now(), which uses the UTC timezone by default:
+                    # http://sources.debian.net/src/publican/2.8-3/lib/Publican/Translate.pm?hl=748#L744
+                    tz_hint = '+0000'
+                else:
+                    tz_hint = None
+                fixed_date = fix_date_format(date, tz_hint=tz_hint)
                 if fixed_date is None:
                     if date == boilerplate:
                         self.tag('boilerplate-in-date', tags.safestr(field + ':'), date)

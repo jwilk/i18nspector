@@ -1,0 +1,19 @@
+# E: invalid-content-type 'application/x-publican; charset=UTF-8' => 'text/plain; charset=UTF-8'
+# W: invalid-date POT-Creation-Date: '2012-11-01T13:42' => '2012-11-01 13:42+0000'
+# W: invalid-date PO-Revision-Date: '2012-11-01T13:42' => '2012-11-01 13:42+0000'
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Gizmo Enhancer 1.0\n"
+"Report-Msgid-Bugs-To: gizmoenhancer@jwilk.net\n"
+"POT-Creation-Date: 2012-11-01T13:42\n"
+"PO-Revision-Date: 2012-11-01T13:42\n"
+"Last-Translator: Jakub Wilk <jwilk@jwilk.net>\n"
+"Language-Team: Latin <la@li.org>\n"
+"Language: la\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-publican; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "A quick brown fox jumps over the lazy dog."
+msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis."

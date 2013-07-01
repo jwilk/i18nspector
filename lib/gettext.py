@@ -57,29 +57,35 @@ class GettextInfo(object):
         self._parse_date = re.compile('''
             ^ \s*
             ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
-            (?: \s+ )
+            (?: \s+ | T )
             ( [0-9]{2}:[0-9]{2} )  # hh:mm
             (?: : [0-9]{2} )?  # ss
             \s*
             (?:
               (?: GMT | UTC )? ( [+-] [0-9]{2} )  :? ( [0-9]{2} )  # ZZzz
             | [+]? (''' + tz_re + ''')
-            )
+            ) ?
             \s* $
         ''', re.VERBOSE).match
 
-    def fix_date_format(self, s):
+    def fix_date_format(self, s, *, tz_hint=None):
+        if tz_hint is not None:
+            datetime.datetime.strptime(tz_hint, '%z')  # just check syntax
         match = self._parse_date(s)
         if match is None:
             return
         (date, time, zhour, zminute, zabbr) = match.groups()
-        if zabbr is not None:
+        if (zhour is not None) and (zminute is not None):
+            zone = zhour + zminute
+        elif zabbr is not None:
             try:
                 [zone] = self.timezones[zabbr]
             except ValueError:
                 return
+        elif tz_hint is not None:
+            zone = tz_hint
         else:
-            zone = zhour + zminute
+            return
         s = '{} {}{}'.format(date, time, zone)
         assert len(s) == 21, 'len({!r}) != 21'.format(s)
         try:

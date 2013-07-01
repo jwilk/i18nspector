@@ -222,6 +222,21 @@ class test_fix_date_format:
             '2001-06-25 18:55+0200'
         )
 
+    def test_t_seperator(self):
+        self._test(
+            '2003-04-01T09:08+0500',
+            '2003-04-01 09:08+0500'
+        )
+
+    def test_missing_tz(self):
+        self._test('2002-01-01 03:05', None)
+
+    def test_tz_hint(self):
+        assert_equal(
+            info.fix_date_format('2002-01-01 03:05', tz_hint='+0900'),
+            '2002-01-01 03:05+0900',
+        )
+
     def test_gmt_before_tz(self):
         self._test('2001-07-28 11:19GMT+0200', '2001-07-28 11:19+0200')
         self._test('2001-12-20 17:22GMT+0100', '2001-12-20 17:22+0100')
