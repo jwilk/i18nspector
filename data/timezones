@@ -213,3 +213,5 @@ YAKST = +1000
 YAKT = +0900 +1000
 YEKST = +0600
 YEKT = +0500 +0600
+
+# vim:ft=dosini
