@@ -62,9 +62,13 @@ basedir = os.path.join(basedir, '')
 os.stat(basedir)
 sys.path[:0] = [basedir]
 
+from lib import paths
+
+assert os.path.samefile(basedir, paths.basedir)
+
 from lib import cli
 
 cli.__doc__ = (__doc__ or '').strip()
-cli.main(basedir)
+cli.main()
 
 # vim:ts=4 sw=4 et

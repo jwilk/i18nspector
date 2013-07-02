@@ -31,6 +31,7 @@ from . import encodings
 from . import gettext
 from . import ling
 from . import misc
+from . import paths
 from . import tags
 from . import terminal
 
@@ -107,7 +108,7 @@ def check_deb(filename, *, options):
     finally:
         shutil.rmtree(tmpdir)
 
-def main(basedir):
+def main():
     initialize_terminal()
     is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser(description=__doc__)
@@ -120,15 +121,11 @@ def main(basedir):
     options = ap.parse_args()
     files = options.files
     del options.files
-    datadir = os.path.join(
-        basedir,
-        'data', ''
-    )
-    os.stat(datadir)
-    options.encinfo = encinfo = encodings.EncodingInfo(datadir)
-    options.gettextinfo = gettext.GettextInfo(datadir)
-    options.linginfo = linginfo = ling.LingInfo(datadir)
-    options.taginfo = tags.TagInfo(datadir)
+    paths.check()
+    options.encinfo = encinfo = encodings.EncodingInfo(paths.datadir)
+    options.gettextinfo = gettext.GettextInfo(paths.datadir)
+    options.linginfo = linginfo = ling.LingInfo(paths.datadir)
+    options.taginfo = tags.TagInfo(paths.datadir)
     if options.language is not None:
         try:
             language = linginfo.parse_language(options.language)
