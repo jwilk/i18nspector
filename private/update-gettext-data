@@ -54,10 +54,15 @@ def main():
             language = linginfo.parse_language(language)
             gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
             our_plural_forms = language.get_plural_forms()
-            if our_plural_forms != gettext_plural_forms:
+            if our_plural_forms != [gettext_plural_forms]:
                 print('[{}]'.format(language))
                 if our_plural_forms != None:
-                    print('# plural-forms = ' + our_plural_forms)
+                    if len(our_plural_forms) == 1:
+                        print('# plural-forms = ' + our_plural_forms)
+                    else:
+                        print('# plural-forms =')
+                        for pf in our_plural_forms:
+                            print('#  ' + pf)
                 print('plural-forms = ' + gettext_plural_forms)
                 print()
             else:
