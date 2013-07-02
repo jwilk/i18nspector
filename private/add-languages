@@ -31,10 +31,6 @@ def main():
     ap.add_argument('languages', metavar='<lang>', nargs='+')
     options = ap.parse_args()
     languages = set(options.languages)
-    basedir = os.path.join(
-        os.path.dirname(__file__),
-        os.pardir,
-    )
     for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639.xml')):
         if element.tag != 'iso_639_entry':
             continue
