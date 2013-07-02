@@ -32,11 +32,12 @@ import unicodedata
 
 from . import iconv
 from . import misc
+from . import paths
 
-def iconv_encoding(encoding, *, parent):
+def iconv_encoding(encoding):
 
     def encode(input, errors='strict'):
-        if not (parent._extra_encodings_installed > 0):
+        if not (_extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at encoding time.
             raise LookupError('unknown encoding: ' + encoding)
@@ -44,7 +45,7 @@ def iconv_encoding(encoding, *, parent):
         return output, len(input)
 
     def decode(input, errors='strict'):
-        if not (parent._extra_encodings_installed > 0):
+        if not (_extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at decoding time.
             raise LookupError('unknown encoding: ' + encoding)
@@ -64,141 +65,147 @@ def iconv_encoding(encoding, *, parent):
         name=encoding,
     )
 
-class EncodingInfo(object):
+_interesting_ascii_bytes = bytes(itertools.chain([
+    0,  # NUL
+    4,  # EOT
+    7,  # BEL
+    8,  # BS
+    9,  # HT
+    10,  # LF
+    11,  # VT
+    12,  # FF
+    13,  # CR
+    27,  # ESC
+], range(32, 127)))
+_interesting_ascii_str = _interesting_ascii_bytes.decode()
 
-    _interesting_ascii_bytes = bytes(itertools.chain([
-        0,  # NUL
-        4,  # EOT
-        7,  # BEL
-        8,  # BS
-        9,  # HT
-        10,  # LF
-        11,  # VT
-        12,  # FF
-        13,  # CR
-        27,  # ESC
-    ], range(32, 127)))
-    _interesting_ascii_str = _interesting_ascii_bytes.decode()
-
-    def __init__(self, datadir):
-        path = os.path.join(datadir, 'encodings')
-        cp = configparser.ConfigParser(interpolation=None, default_section='')
-        cp.read(path, encoding='UTF-8')
-        self._portable_encodings = e2c = {}
-        self._pycodec_to_encoding = c2e = {}
-        for encoding, extra in cp['portable-encodings'].items():
-            e2c[encoding] = None
-            if extra == '':
-                pycodec = codecs.lookup(encoding)
-                e2c[encoding] = pycodec
-                c2e.setdefault(pycodec.name, encoding)
-                assert self.propose_portable_encoding(encoding) is not None
-            elif extra == 'not-python':
-                pass
-            else:
-                raise misc.DataIntegrityError
-        self._extra_encodings = {
-            key.lower()
-            for key, value in cp['extra-encodings'].items()
-        }
-        path = os.path.join(datadir, 'control-characters')
-        cp = configparser.ConfigParser(interpolation=None, default_section='')
-        cp.read(path, encoding='UTF-8')
-        self._control_character_names = {}
-        for section in cp.values():
-            if not section.name:
-                continue
-            misc.check_sorted(section)
-            for code, name in section.items():
-                if len(code) != 2:
-                    raise misc.DataIntegrityError
-                code = chr(int(code, 16))
-                if unicodedata.category(code) != 'Cc':
-                    raise misc.DataIntegrityError
-                if name.upper() != name:
-                    raise misc.DataIntegrityError
-                self._control_character_names[code] = name
-        self._extra_encodings_installed = None
-
-    def get_portable_encodings(self, python=True):
-        return (
-            encoding
-            for encoding, codec in self._portable_encodings.items()
-            if (not python) or (codec is not None)
-        )
-
-    def is_portable_encoding(self, encoding, python=True):
-        encoding = encoding.lower()
-        if encoding.startswith('iso_'):
-            encoding = 'iso-' + encoding[4:]
-        if python:
-            return self._portable_encodings.get(encoding, None) is not None
-        else:
-            return encoding in self._portable_encodings
-
-    def propose_portable_encoding(self, encoding, python=True):
-        # Note that the "python" argument is never used.
-        # Only encodings supported by Python are proposed.
-        try:
+def _read_encodings():
+    path = os.path.join(paths.datadir, 'encodings')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='UTF-8')
+    e2c = {}
+    c2e = {}
+    for encoding, extra in cp['portable-encodings'].items():
+        e2c[encoding] = None
+        if extra == '':
             pycodec = codecs.lookup(encoding)
-            new_encoding = self._pycodec_to_encoding[pycodec.name]
-        except LookupError:
-            return
-        assert self.is_portable_encoding(new_encoding, python=True)
-        return new_encoding.upper()
-
-    def is_ascii_compatible_encoding(self, encoding):
-        try:
-            return (
-                self._interesting_ascii_bytes.decode(encoding) ==
-                self._interesting_ascii_str
-            )
-        except UnicodeError:
-            return False
-
-    def _codec_search_function(self, encoding):
-        if not (self._extra_encodings_installed > 0):
-            return
-        if self._portable_encodings.get(encoding, False) is None:
-            # portable according to gettext documentation
-            # but not supported directly by Python
-            pass
-        elif encoding in self._extra_encodings:
-            # non-portable, but used by real-world software
+            e2c[encoding] = pycodec
+            c2e.setdefault(pycodec.name, encoding)
+        elif extra == 'not-python':
             pass
         else:
-            return
-        return iconv_encoding(encoding, parent=self)
+            raise misc.DataIntegrityError
+    extra_encodings = {
+        key.lower()
+        for key, value in cp['extra-encodings'].items()
+    }
+    return (e2c, c2e, extra_encodings)
 
-    def _install_extra_encodings(self):
-        if self._extra_encodings_installed is None:
-            codecs.register(self._codec_search_function)
-            self._extra_encodings_installed = 1
-        else:
-            assert self._extra_encodings_installed >= 0
-            self._extra_encodings_installed += 1
+[_portable_encodings, _pycodec_to_encoding, _extra_encodings] = _read_encodings()
 
-    def _uninstall_extra_encodings(self):
-        assert self._extra_encodings_installed > 0
-        self._extra_encodings_installed -= 1
+def _read_control_characters():
+    path = os.path.join(paths.datadir, 'control-characters')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='UTF-8')
+    for section in cp.values():
+        if not section.name:
+            continue
+        misc.check_sorted(section)
+        for code, name in section.items():
+            if len(code) != 2:
+                raise misc.DataIntegrityError
+            code = chr(int(code, 16))
+            if unicodedata.category(code) != 'Cc':
+                raise misc.DataIntegrityError
+            if name.upper() != name:
+                raise misc.DataIntegrityError
+            yield (code, name)
 
-    @contextlib.contextmanager
-    def extra_encodings(self):
-        self._install_extra_encodings()
-        try:
-            yield
-        finally:
-            self._uninstall_extra_encodings()
+_control_character_names = dict(_read_control_characters())
 
-    def get_character_name(self, ch):
-        try:
-            return unicodedata.name(ch)
-        except ValueError:
-            if unicodedata.category(ch) == 'Cn':
-                return 'non-character'
-            name = self._control_character_names.get(ch)
-            if name is None:
-                raise
-            return 'control character ' + name
+_extra_encodings_installed = None
+
+def get_portable_encodings(python=True):
+    return (
+        encoding
+        for encoding, codec in _portable_encodings.items()
+        if (not python) or (codec is not None)
+    )
+
+def is_portable_encoding(encoding, python=True):
+    encoding = encoding.lower()
+    if encoding.startswith('iso_'):
+        encoding = 'iso-' + encoding[4:]
+    if python:
+        return _portable_encodings.get(encoding, None) is not None
+    else:
+        return encoding in _portable_encodings
+
+def propose_portable_encoding(encoding, python=True):
+    # Note that the "python" argument is never used.
+    # Only encodings supported by Python are proposed.
+    try:
+        pycodec = codecs.lookup(encoding)
+        new_encoding = _pycodec_to_encoding[pycodec.name]
+    except LookupError:
+        return
+    assert is_portable_encoding(new_encoding, python=True)
+    return new_encoding.upper()
+
+def is_ascii_compatible_encoding(encoding):
+    try:
+        return (
+            _interesting_ascii_bytes.decode(encoding) ==
+            _interesting_ascii_str
+        )
+    except UnicodeError:
+        return False
+
+def _codec_search_function(encoding):
+    if not (_extra_encodings_installed > 0):
+        return
+    if _portable_encodings.get(encoding, False) is None:
+        # portable according to gettext documentation
+        # but not supported directly by Python
+        pass
+    elif encoding in _extra_encodings:
+        # non-portable, but used by real-world software
+        pass
+    else:
+        return
+    return iconv_encoding(encoding)
+
+def _install_extra_encodings():
+    global _extra_encodings_installed
+    if _extra_encodings_installed is None:
+        codecs.register(_codec_search_function)
+        _extra_encodings_installed = 1
+    else:
+        assert _extra_encodings_installed >= 0
+        _extra_encodings_installed += 1
+
+def _uninstall_extra_encodings():
+    global _extra_encodings_installed
+    assert _extra_encodings_installed > 0
+    _extra_encodings_installed -= 1
+
+@contextlib.contextmanager
+def extra_encodings():
+    _install_extra_encodings()
+    try:
+        yield
+    finally:
+        _uninstall_extra_encodings()
+
+def get_character_name(ch):
+    try:
+        return unicodedata.name(ch)
+    except ValueError:
+        if unicodedata.category(ch) == 'Cn':
+            return 'non-character'
+        name = _control_character_names.get(ch)
+        if name is None:
+            raise
+        return 'control character ' + name
 
 # vim:ts=4 sw=4 et

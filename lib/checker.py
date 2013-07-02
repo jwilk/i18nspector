@@ -33,6 +33,7 @@ import urllib.parse
 
 import polib
 
+from . import encodings as encinfo
 from . import gettext
 from . import ling
 from . import misc
@@ -70,7 +71,7 @@ class Checker(object):
 
     @classmethod
     @contextlib.contextmanager
-    def patched_environment(cls, encinfo):
+    def patched_environment(cls):
         if cls._patched_environment is not None:
             raise EnvironmentAlreadyPatched
         cls._patched_environment = False
@@ -488,7 +489,6 @@ class Checker(object):
             content_type_hint = 'text/plain; charset=<encoding>'
             match = re.search(r'(\Atext/plain; )?\bcharset=([^\s;]+)\Z', ct)
             if match:
-                encinfo = self.options.encinfo
                 encoding = match.group(2)
                 try:
                     is_ascii_compatible = encinfo.is_ascii_compatible_encoding(encoding)
@@ -690,7 +690,6 @@ class Checker(object):
                 self.tag('distant-header-entry')
             unusual_chars = set(find_unusual_characters(msgstr))
             if unusual_chars:
-                encinfo = self.options.encinfo
                 unusual_char_names = ', '.join(
                     'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
                     for ch in sorted(unusual_chars)
@@ -729,7 +728,6 @@ class Checker(object):
     def check_messages(self, file, *, encoding):
         if encoding is None:
             return
-        encinfo = self.options.encinfo
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
         messages = [msg for msg in file if not is_header_entry(msg)]

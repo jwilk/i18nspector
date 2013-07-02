@@ -31,9 +31,7 @@ from nose.tools import (
 
 from . import aux
 
-import lib.encodings
-
-E = lib.encodings.EncodingInfo(aux.datadir)
+import lib.encodings as E
 
 class test_is_portable_encoding:
 

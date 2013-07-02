@@ -31,7 +31,6 @@ import sys
 import tempfile
 
 from . import checker
-from . import encodings
 from . import gettext
 from . import ling
 from . import misc
@@ -137,7 +136,6 @@ def main():
     files = options.files
     del options.files
     paths.check()
-    options.encinfo = encinfo = encodings.EncodingInfo(paths.datadir)
     if options.language is not None:
         try:
             language = ling.parse_language(options.language)
@@ -151,7 +149,7 @@ def main():
         options.language = language
     options.ignore_tags = set()
     options.fake_root = None
-    with Checker.patched_environment(encinfo):
+    with Checker.patched_environment():
         check_all(files, options=options)
 
 __all__ = ['main']

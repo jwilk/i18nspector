@@ -38,7 +38,7 @@ import lib.encodings
 
 L = lib.ling
 T = lib.ling.Language
-E = lib.encodings.EncodingInfo(aux.datadir)
+E = lib.encodings
 
 class test_fix_codes:
 
