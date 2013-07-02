@@ -32,12 +32,12 @@ sys.path[:0] = [basedir]
 
 from lib import tags
 
-def output_tags_rst(taginfo):
+def output_tags_rst(tags):
     print('''\
 .. This file has been generated automatically by private/tags-as-rst.
    Do not edit.
 ''')
-    for tag in taginfo:
+    for tag in tags:
         tagname = tag.name
         print(tagname)
         print('~' * len(tagname))
@@ -54,9 +54,7 @@ def output_tags_rst(taginfo):
 
 def main():
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='UTF-8')
-    datadir = os.path.join(basedir, 'data')
-    taginfo = tags.TagInfo(datadir)
-    output_tags_rst(taginfo)
+    output_tags_rst(tags.iter_tags())
 
 if __name__ == '__main__':
     main()

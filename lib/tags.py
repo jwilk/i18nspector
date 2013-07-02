@@ -28,6 +28,7 @@ import os
 import re
 
 from . import misc
+from . import paths
 from . import terminal
 
 @functools.total_ordering
@@ -191,32 +192,33 @@ class Tag(object):
             s += ' ' + ' '.join(map(_escape, extra))
         return s
 
-class TagInfo(object):
+def _read_tags():
+    path = os.path.join(paths.datadir, 'tags')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='UTF-8')
+    misc.check_sorted(cp)
+    tags = {}
+    for tagname, section in cp.items():
+        if not tagname:
+            continue
+        kwargs = dict(section.items())
+        kwargs['name'] = tagname
+        try:
+            tags[tagname] = Tag(**kwargs)
+        except KeyError as exc:
+            [key] = exc.args
+            raise misc.DataIntegrityError('unknown field: {!r}'.format(key))
+    return tags
 
-    def __init__(self, datadir):
-        path = os.path.join(datadir, 'tags')
-        cp = configparser.ConfigParser(interpolation=None, default_section='')
-        cp.read(path, encoding='UTF-8')
-        misc.check_sorted(cp)
-        self._tags = {}
-        for tagname, section in cp.items():
-            if not tagname:
-                continue
-            kwargs = dict(section.items())
-            kwargs['name'] = tagname
-            try:
-                self._tags[tagname] = Tag(**kwargs)
-            except KeyError as exc:
-                [key] = exc.args
-                raise misc.DataIntegrityError('unknown field: {!r}'.format(key))
+_tags = _read_tags()
 
-    def __contains__(self, tagname):
-        return tagname in self._tags
+def tag_exists(tagname):
+    return tagname in _tags
 
-    def __iter__(self):
-        return (tag for _, tag in sorted(self._tags.items()))
+def iter_tags():
+    return (tag for _, tag in sorted(_tags.items()))
 
-    def __getitem__(self, tagname):
-        return self._tags[tagname]
+def get_tag(tagname):
+    return _tags[tagname]
 
 # vim:ts=4 sw=4 et

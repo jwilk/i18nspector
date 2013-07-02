@@ -34,8 +34,6 @@ from tests import blackbox_tests
 
 def main():
     coverage = blackbox_tests.get_coverage()
-    datadir = os.path.join(basedir, 'data')
-    taginfo = tags.TagInfo(datadir)
     path = os.path.join(
         os.path.dirname(blackbox_tests.__file__),
         'coverage.txt'
@@ -45,13 +43,13 @@ def main():
 # This file has been generated automatically by private/update-coverage.
 # Do not edit.
 ''')
-    for tag in taginfo:
+    for tag in tags.iter_tags():
         check = 'X' if tag.name in coverage else ' '
         print('[{check}] {tag}'.format(check=check, tag=tag.name))
     sys.stdout.close()
     os.rename(path + '.tmp', path)
     rc = 0
-    for tag in sorted(set(coverage) - set(t.name for t in taginfo)):
+    for tag in sorted(set(coverage) - set(t.name for t in tags.iter_tags())):
         print('update-coverage: error: uknown tag {tag}'.format(tag=tag), file=sys.stderr)
         rc = 1
     sys.exit(rc)

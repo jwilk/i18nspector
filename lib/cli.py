@@ -57,7 +57,7 @@ class Checker(checker.Checker):
         if tagname in self.options.ignore_tags:
             return
         try:
-            tag = self.options.taginfo[tagname]
+            tag = tags.get_tag(tagname)
         except KeyError:
             raise misc.DataIntegrityError(
                 'attempted to emit an unknown tag: {tag!r}'.format(tag=tagname)
@@ -139,7 +139,6 @@ def main():
     paths.check()
     options.encinfo = encinfo = encodings.EncodingInfo(paths.datadir)
     options.linginfo = linginfo = ling.LingInfo(paths.datadir)
-    options.taginfo = tags.TagInfo(paths.datadir)
     if options.language is not None:
         try:
             language = linginfo.parse_language(options.language)

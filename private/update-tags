@@ -46,8 +46,6 @@ def extract_tagnames(node):
         yield node.args[0].s
 
 def main():
-    datadir = os.path.join(basedir, 'data')
-    taginfo = tags.TagInfo(datadir)
     source_path = os.path.join(basedir, 'lib', 'checker.py')
     with open(source_path, 'rt', encoding='UTF-8') as file:
         source = file.read()
@@ -55,7 +53,7 @@ def main():
         tagnames = set(extract_tagnames(node))
         del source, node
     for tagname in sorted(tagnames):
-        if tagname in taginfo:
+        if tags.tag_exists(tagname):
             continue
         print('[{tag}]'.format(tag=tagname))
         print('severity = wishlist')
