@@ -62,7 +62,7 @@ def main():
                 else:
                     if gi_ll is not None:
                         print('# Not {}'.format(gi_ll))
-                print('names = ' + name)
+                print('names =', name)
                 print()
             else:
                 n_okay += 1
