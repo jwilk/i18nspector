@@ -31,7 +31,6 @@ import sys
 import tempfile
 
 from . import checker
-from . import gettext
 from . import ling
 from . import misc
 from . import paths
