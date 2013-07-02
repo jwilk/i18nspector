@@ -549,6 +549,7 @@ class Checker(object):
                 if 'T' in date and is_publican:
                     # Publican uses DateTime->now(), which uses the UTC timezone by default:
                     # http://sources.debian.net/src/publican/2.8-3/lib/Publican/Translate.pm?hl=748#L744
+                    # http://bugs.debian.org/714739
                     tz_hint = '+0000'
                 else:
                     tz_hint = None
