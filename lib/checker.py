@@ -787,6 +787,8 @@ class Checker(object):
             if not possible_hidden_strings:
                 self.tag('empty-file')
 
+__all__ = ['Checker']
+
 def is_header_entry(entry):
     return (
         entry.msgid == '' and
