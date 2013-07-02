@@ -109,7 +109,7 @@ def parse_header(s):
         key, *values = line.split(':', 1)
         if values and is_valid_field_name(key):
             assert len(values) == 1
-            value = values[0].lstrip(' \t')
+            value = values[0].strip(' \t')
             yield {key: value}
         else:
             yield line
@@ -197,7 +197,7 @@ def parse_plural_expression(s):
         raise PluralExpressionSyntaxError
     return fn
 
-_parse_plural_forms = re.compile(r'^\s*nplurals=([1-9][0-9]*);\s*plural=([^;]+);?\s*$').match
+_parse_plural_forms = re.compile(r'^nplurals=([1-9][0-9]*);[ \t]*plural=([^;]+);?$').match
 
 def parse_plural_forms(s):
     match = _parse_plural_forms(s)

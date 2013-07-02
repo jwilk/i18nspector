@@ -9,12 +9,15 @@ i18nspector (0.12) UNRELEASED; urgency=low
     with minor revision greater than 1.
   * Parse more date formats.
   * Check for xgettext boilerplate in dates.
+  * Strip trailing whitespace when parsing header entry.
+  * Allow only tabs and spaces between “nplurals=…” and “plural=…”.
   * Improve the test suite.
 
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 01 Jul 2013 23:31:21 +0200
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 02 Jul 2013 13:56:41 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 
