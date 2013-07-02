@@ -64,7 +64,7 @@ def main():
 # The following string extraction tools have been used:\
 ''', file=file)
         for xgettext_version in sorted(xgettext_versions):
-            print('# * ' + xgettext_version, file=file)
+            print('# *', xgettext_version, file=file)
         print(file=file)
         for header in sorted(headers):
             print(header, file=file)
