@@ -112,6 +112,17 @@ def check_deb(filename, *, options):
     finally:
         shutil.rmtree(tmpdir)
 
+def check_all(files, *, options):
+    for filename in files:
+        if options.debian:
+            try:
+                check_deb(filename, options=options)
+            except UnsupportedFileType:
+                pass
+            else:
+                continue
+        check_file(filename, options=options)
+
 def main():
     initialize_terminal()
     is_like_debian = misc.OSRelease().is_like('debian')
@@ -144,17 +155,6 @@ def main():
     options.fake_root = None
     with Checker.patched_environment(encinfo):
         check_all(files, options=options)
-
-def check_all(files, *, options):
-    for filename in files:
-        if options.debian:
-            try:
-                check_deb(filename, options=options)
-            except UnsupportedFileType:
-                pass
-            else:
-                continue
-        check_file(filename, options=options)
 
 __all__ = ['main']
 
