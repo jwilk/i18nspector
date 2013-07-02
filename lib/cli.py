@@ -156,4 +156,6 @@ def check_all(files, *, options):
                 continue
         check_file(filename, options=options)
 
+__all__ = ['main']
+
 # vim:ts=4 sw=4 et
