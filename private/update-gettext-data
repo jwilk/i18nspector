@@ -39,8 +39,6 @@ def strip_plural_forms(s):
 
 def main():
     regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
-    datadir = os.path.join(basedir, 'data')
-    linginfo = ling.LingInfo(datadir)
     # ---------
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
     okay = set()
@@ -51,7 +49,7 @@ def main():
             if match is None:
                 continue
             language, gettext_plural_forms = match.groups()
-            language = linginfo.parse_language(language)
+            language = ling.parse_language(language)
             gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
             our_plural_forms = language.get_plural_forms()
             if our_plural_forms != [gettext_plural_forms]:
@@ -82,18 +80,18 @@ def main():
     contents = re.compile(br'/[*].*?[*]/', re.DOTALL).sub(b'', contents)
     contents = contents.decode('ASCII')
     data = {}
-    primary_languages = set(linginfo.get_primary_languages())
+    primary_languages = set(ling.get_primary_languages())
     for item in re.findall('"(\w+)"', contents):
         language, gettext_cc = item.split('_')
         if language not in primary_languages:
             continue
         data[language] = gettext_cc
-        our_cc = linginfo.parse_language(language).get_principal_territory_code()
+        our_cc = ling.parse_language(language).get_principal_territory_code()
         if our_cc != gettext_cc:
             print('[{}]'.format(language))
             if our_cc is not None:
                 print('# WAS: principal-territory =', our_cc)
-            if linginfo.lookup_territory_code(gettext_cc) is None:
+            if ling.lookup_territory_code(gettext_cc) is None:
                 print('# BAD: principal-territory =', gettext_cc)
             else:
                 print('principal-territory =', gettext_cc)
@@ -103,7 +101,7 @@ def main():
     for language in sorted(primary_languages):
         if '_' in language:
             continue
-        cc = linginfo.parse_language(language).get_principal_territory_code()
+        cc = ling.parse_language(language).get_principal_territory_code()
         if cc is None:
             continue
         if language not in data:

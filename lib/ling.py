@@ -28,6 +28,7 @@ import re
 import unicodedata
 
 from . import misc
+from . import paths
 
 def _munch_language_name(s):
     # Normalize whitespace:
@@ -52,8 +53,7 @@ class FixingLanguageEncodingFailed(LanguageError):
 
 class Language(object):
 
-    def __init__(self, parent, language_code, territory_code=None, encoding=None, modifier=None):
-        self._parent = parent
+    def __init__(self, language_code, territory_code=None, encoding=None, modifier=None):
         self.language_code = language_code
         if language_code is None:
             raise TypeError('language_code must not be None')
@@ -65,7 +65,6 @@ class Language(object):
 
     def _get_tuple(self):
         return (
-            self._parent,
             self.language_code,
             self.territory_code,
             self.encoding,
@@ -88,14 +87,16 @@ class Language(object):
             raise TypeError
         self_clone = self.clone()
         self_clone.remove_principal_territory_code()
+        print(vars(self_clone))
         other_clone = other.clone()
         other_clone.remove_principal_territory_code()
+        print(vars(other_clone))
         return self_clone == other_clone
 
     def fix_codes(self):
         fixed = None
         ll = self.language_code
-        ll = self._parent._lookup_language_code(ll)
+        ll = _lookup_language_code(ll)
         if ll is None:
             # TODO: Try to guess correct language code.
             raise FixingLanguageCodesFailed()
@@ -103,7 +104,7 @@ class Language(object):
             fixed = True
         cc = self.territory_code
         if cc is not None:
-            cc = self._parent.lookup_territory_code(cc)
+            cc = lookup_territory_code(cc)
             if cc is None:
                 # TODO: Try to guess correct territory code.
                 raise FixingLanguageCodesFailed()
@@ -119,7 +120,7 @@ class Language(object):
     def get_principal_territory_code(self):
         ll = self.language_code
         assert ll is not None
-        return self._parent._get_principal_territory_code(ll)
+        return _get_principal_territory_code(ll)
 
     def remove_principal_territory_code(self):
         cc = self.territory_code
@@ -146,20 +147,20 @@ class Language(object):
         result = None
         if self.territory_code is not None:
             code = self._simple_format()
-            result = self._parent._get_plural_forms(code)
+            result = _get_plural_forms(code)
         if result is None:
             code = self._simple_format(territory=False)
-            result = self._parent._get_plural_forms(code)
+            result = _get_plural_forms(code)
         return result
 
     def get_unrepresentable_characters(self, encoding, strict=False):
         characters = None
         if self.territory_code is not None:
             code = self._simple_format()
-            characters = self._parent._get_characters(code, self.modifier, strict=strict)
+            characters = _get_characters(code, self.modifier, strict=strict)
         if characters is None:
             code = self._simple_format(territory=False)
-            characters = self._parent._get_characters(code, self.modifier, strict=strict)
+            characters = _get_characters(code, self.modifier, strict=strict)
         if characters is None:
             return
         result = []
@@ -198,143 +199,153 @@ class Language(object):
             s += '@' + self.modifier
         return s
 
-class LingInfo(object):
+def _read_iso_codes():
+    # ISO language/territory codes:
+    path = os.path.join(paths.datadir, 'iso-codes')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='UTF-8')
+    iso_639 = cp['language-codes']
+    misc.check_sorted(iso_639)
+    _iso_639 = {}
+    for lll, ll in iso_639.items():
+        if ll:
+            _iso_639[ll] = ll
+            _iso_639[lll] = ll
+        else:
+            _iso_639[lll] = lll
+    iso_3166 = cp['territory-codes']
+    misc.check_sorted(iso_3166)
+    _iso_3166 = frozenset(cc.upper() for cc in iso_3166.keys())
+    return (_iso_639, _iso_3166)
 
-    def __init__(self, datadir):
-        # ISO language/territory codes:
-        path = os.path.join(datadir, 'iso-codes')
-        cp = configparser.ConfigParser(interpolation=None, default_section='')
-        cp.read(path, encoding='UTF-8')
-        iso_639 = cp['language-codes']
-        misc.check_sorted(iso_639)
-        self._iso_639 = {}
-        for lll, ll in iso_639.items():
-            if ll:
-                self._iso_639[ll] = ll
-                self._iso_639[lll] = ll
-            else:
-                self._iso_639[lll] = lll
-        iso_3166 = cp['territory-codes']
-        misc.check_sorted(iso_3166)
-        self._iso_3166 = frozenset(cc.upper() for cc in iso_3166.keys())
-        # Hand-edited linguistic data:
-        path = os.path.join(datadir, 'languages')
-        cp = configparser.ConfigParser(interpolation=None, default_section='')
-        cp.read(path, encoding='UTF-8')
-        self._primary_languages = {name: sect for name, sect in cp.items() if sect.name}
-        self._name_to_code = {}
-        misc.check_sorted(cp)
-        for language, section in cp.items():
-            if not language:
-                continue
-            for name in section['names'].splitlines():
-                name = _munch_language_name(name)
-                if name:
-                    if name in self._name_to_code:
-                        raise misc.DataIntegrityError
-                    self._name_to_code[name] = language
-        # Check if primary languages have full ISO 639-1 coverage:
-        for lll, ll in iso_639.items():
-            if ll:
-                try:
-                    self._primary_languages[ll]
-                except LookupError:  # <no-coverage>
+[_iso_639, _iso_3166] = _read_iso_codes()
+
+def _read_primary_languages():
+    # Hand-edited linguistic data:
+    path = os.path.join(paths.datadir, 'languages')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='UTF-8')
+    _primary_languages = {name: sect for name, sect in cp.items() if sect.name}
+    _name_to_code = {}
+    misc.check_sorted(cp)
+    for language, section in cp.items():
+        if not language:
+            continue
+        for name in section['names'].splitlines():
+            name = _munch_language_name(name)
+            if name:
+                if name in _name_to_code:
                     raise misc.DataIntegrityError
+                _name_to_code[name] = language
+    return _primary_languages, _name_to_code
 
-    def _lookup_language_code(self, language):
-        return self._iso_639.get(language)
-
-    def lookup_territory_code(self, cc):
-        if cc in self._iso_3166:
-            return cc
-
-    def get_language_for_name(self, name):
-        parse = self.parse_language
-        _name = _munch_language_name(name)
+def _check_primary_languages_coverage():
+    # Check if primary languages have full ISO 639-1 coverage:
+    for ll in _iso_639:
+        if len(ll) > 2:
+            continue
         try:
-            return parse(self._name_to_code[_name])
-        except KeyError:
-            pass
-        if ';' in _name:
-            for subname in _name.split(';'):
-                subname = subname.strip()
-                try:
-                    return parse(self._name_to_code[subname])
-                except LookupError:
-                    pass
-        if ',' in _name:
-            subname = ' '.join(map(str.strip, _name.split(',', 1)[::-1]))
+            _primary_languages[ll]
+        except LookupError:  # <no-coverage>
+            raise misc.DataIntegrityError
+
+[_primary_languages, _name_to_code] = _read_primary_languages()
+_check_primary_languages_coverage()
+
+def _lookup_language_code(language):
+    return _iso_639.get(language)
+
+def lookup_territory_code(cc):
+    if cc in _iso_3166:
+        return cc
+
+def get_language_for_name(name):
+    parse = parse_language
+    _name = _munch_language_name(name)
+    try:
+        return parse(_name_to_code[_name])
+    except KeyError:
+        pass
+    if ';' in _name:
+        for subname in _name.split(';'):
+            subname = subname.strip()
             try:
-                return parse(self._name_to_code[subname])
+                return parse(_name_to_code[subname])
             except LookupError:
                 pass
-            results = set()
-            for subname in _name.split(','):
-                subname = subname.strip()
-                result = self._name_to_code.get(subname)
-                results.add(result)
-            if len(results) == 1:
-                return parse(results.pop())
-        raise LookupError(name)
-
-    _language_regexp = re.compile(r'''
-    ^       ( [a-z]{2,} )
-    (?:  _  ( [A-Z]{2,} ) )?
-    (?: [.] ( [a-zA-Z0-9+-]+ ) )?
-    (?:  @  ( [a-z]+) )?
-    $''', re.VERBOSE)
-
-    def parse_language(self, s):
-        match = self._language_regexp.match(s)
-        if match is None:
-            raise LanguageSyntaxError
-        return Language(self, *match.groups())
-
-    def get_primary_languages(self):
-        return iter(self._primary_languages)
-
-    def _get_plural_forms(self, language):
+    if ',' in _name:
+        subname = ' '.join(map(str.strip, _name.split(',', 1)[::-1]))
         try:
-            section = self._primary_languages[language]
-        except KeyError:
-            return
-        plural_forms = section.get('plural-forms')
-        if plural_forms is None:
-            return
+            return parse(_name_to_code[subname])
+        except LookupError:
+            pass
+        results = set()
+        for subname in _name.split(','):
+            subname = subname.strip()
+            result = _name_to_code.get(subname)
+            results.add(result)
+        if len(results) == 1:
+            return parse(results.pop())
+    raise LookupError(name)
+
+_language_regexp = re.compile(r'''
+^       ( [a-z]{2,} )
+(?:  _  ( [A-Z]{2,} ) )?
+(?: [.] ( [a-zA-Z0-9+-]+ ) )?
+(?:  @  ( [a-z]+) )?
+$''', re.VERBOSE)
+
+def parse_language(s):
+    match = _language_regexp.match(s)
+    if match is None:
+        raise LanguageSyntaxError
+    return Language(*match.groups())
+
+def get_primary_languages():
+    return iter(_primary_languages)
+
+def _get_plural_forms(language):
+    try:
+        section = _primary_languages[language]
+    except KeyError:
+        return
+    plural_forms = section.get('plural-forms')
+    if plural_forms is None:
+        return
+    return [
+        s.strip()
+        for s in plural_forms.splitlines()
+        if s and not s.isspace()
+    ]
+
+def _get_principal_territory_code(language):
+    try:
+        section = _primary_languages[language]
+    except KeyError:
+        return
+    return section.get('principal-territory')
+
+def _get_characters(language, modifier=None, strict=True):
+    try:
+        section = _primary_languages[language]
+    except KeyError:
+        return
+    section_name = 'characters'
+    if modifier is not None:
+        section_name += '@{}'.format(modifier)
+    result = section.get(section_name)
+    if result is None:
+        return
+    if strict:
         return [
-            s.strip()
-            for s in plural_forms.splitlines()
-            if s and not s.isspace()
+            ch.strip('()')
+            for ch in result.split()
         ]
-
-    def _get_principal_territory_code(self, language):
-        try:
-            section = self._primary_languages[language]
-        except KeyError:
-            return
-        return section.get('principal-territory')
-
-    def _get_characters(self, language, modifier=None, strict=True):
-        try:
-            section = self._primary_languages[language]
-        except KeyError:
-            return
-        section_name = 'characters'
-        if modifier is not None:
-            section_name += '@{}'.format(modifier)
-        result = section.get(section_name)
-        if result is None:
-            return
-        if strict:
-            return [
-                ch.strip('()')
-                for ch in result.split()
-            ]
-        else:
-            return [
-                ch
-                for ch in result.split()
-                if not (ch.startswith('(') and ch.endswith(')'))
-            ]
+    else:
+        return [
+            ch
+            for ch in result.split()
+            if not (ch.startswith('(') and ch.endswith(')'))
+        ]
 
 # vim:ts=4 sw=4 et

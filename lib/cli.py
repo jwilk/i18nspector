@@ -138,10 +138,9 @@ def main():
     del options.files
     paths.check()
     options.encinfo = encinfo = encodings.EncodingInfo(paths.datadir)
-    options.linginfo = linginfo = ling.LingInfo(paths.datadir)
     if options.language is not None:
         try:
-            language = linginfo.parse_language(options.language)
+            language = ling.parse_language(options.language)
             language.fix_codes()
         except ling.LanguageError:
             if options.traceback:

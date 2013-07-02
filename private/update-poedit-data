@@ -36,8 +36,6 @@ from lib import ling
 def main():
     url = 'https://raw.github.com/vslavik/poedit/master/src/isocodes.cpp'
     regexp = re.compile(r'^\s*\{\s*_T\("([a-z]{2,}(?:_[A-Z]{2})?(?:@[a-z]+)?)"\)\s*,\s*_T\("([^"]+)"\)\s*\}\s*,?\s*$')
-    datadir = os.path.join(basedir, 'data')
-    linginfo = ling.LingInfo(datadir)
     n_okay = 0
     with urllib.request.urlopen(url) as file:
         for line in file:
@@ -46,9 +44,9 @@ def main():
             if match is None:
                 continue
             poedit_ll, name = match.groups()
-            poedit_ll = linginfo.parse_language(poedit_ll)
+            poedit_ll = ling.parse_language(poedit_ll)
             try:
-                gi_ll = linginfo.get_language_for_name(name)
+                gi_ll = ling.get_language_for_name(name)
             except LookupError:
                 gi_ll = None
             if gi_ll != poedit_ll:

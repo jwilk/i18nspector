@@ -208,7 +208,6 @@ class Checker(object):
                 self.tag('no-language-header-field')
             return
         language = self.options.language
-        linginfo = self.options.linginfo
         language_source = 'command-line'
         language_source_quality = 1
         if language is None:
@@ -220,7 +219,7 @@ class Checker(object):
             if i > 0:
                 language = path_components[i - 1]
                 try:
-                    language = linginfo.parse_language(language)
+                    language = ling.parse_language(language)
                     language.fix_codes()
                     language.remove_encoding()
                     language.remove_nonlinguistic_modifier()
@@ -234,7 +233,7 @@ class Checker(object):
             language, ext = os.path.splitext(os.path.basename(self.path))
             assert ext == '.po'
             try:
-                language = linginfo.parse_language(language)
+                language = ling.parse_language(language)
                 if language.encoding is not None:
                     # It's very likely that something else has been confused
                     # for the apparent encoding.
@@ -249,10 +248,10 @@ class Checker(object):
                 language_source_quality = 0
         if meta_language:
             try:
-                meta_language = linginfo.parse_language(meta_language)
+                meta_language = ling.parse_language(meta_language)
             except ling.LanguageError:
                 try:
-                    new_meta_language = linginfo.get_language_for_name(meta_language)
+                    new_meta_language = ling.get_language_for_name(meta_language)
                 except LookupError:
                     new_meta_language = None
                 if new_meta_language:
@@ -303,7 +302,7 @@ class Checker(object):
             [poedit_language] = poedit_languages
             # FIXME: This should take also X-Poedit-Country into account.
             try:
-                poedit_language = linginfo.get_language_for_name(poedit_language)
+                poedit_language = ling.get_language_for_name(poedit_language)
             except LookupError:
                 self.tag('unknown-poedit-language', poedit_language)
             else:
