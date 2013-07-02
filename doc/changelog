@@ -16,7 +16,6 @@ i18nspector (0.12) UNRELEASED; urgency=low
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
-
  -- Jakub Wilk <jwilk@jwilk.net>  Tue, 02 Jul 2013 13:56:41 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
