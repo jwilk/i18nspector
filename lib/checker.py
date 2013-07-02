@@ -528,7 +528,6 @@ class Checker(object):
 
     @checks_header_fields('POT-Creation-Date', 'PO-Revision-Date')
     def check_dates(self, file, *, is_template):
-        fix_date_format = self.options.gettextinfo.fix_date_format
         try:
             content_type = file.metadata['Content-Type'][0]
         except IndexError:
@@ -553,7 +552,7 @@ class Checker(object):
                     tz_hint = '+0000'
                 else:
                     tz_hint = None
-                fixed_date = fix_date_format(date, tz_hint=tz_hint)
+                fixed_date = gettext.fix_date_format(date, tz_hint=tz_hint)
                 if fixed_date is None:
                     if date == boilerplate:
                         self.tag('boilerplate-in-date', tags.safestr(field + ':'), date)
@@ -703,7 +702,7 @@ class Checker(object):
                     seen_conflict_marker = True
             else:
                 self.tag('stray-header-line', stray)
-        header_fields = frozenset(self.options.gettextinfo.header_fields)
+        header_fields = frozenset(gettext.header_fields)
         header_fields_lc = {str.lower(s): s for s in header_fields}
         for key, values in sorted(metadata.items()):
             if not key.startswith('X-'):

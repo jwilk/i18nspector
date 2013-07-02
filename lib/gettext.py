@@ -31,68 +31,25 @@ import functools
 import os
 import re
 
-from . import misc
 from . import intexpr
+from . import misc
+from . import paths
 
-class GettextInfo(object):
+# =============
+# Header fields
+# =============
 
-    def __init__(self, datadir):
-        path = os.path.join(datadir, 'header-fields')
-        with open(path, 'rt', encoding='ASCII') as file:
-            fields = [
-                s.rstrip() for s in file
-                if s.rstrip() and not s.startswith('#')
-            ]
-        misc.check_sorted(fields)
-        self.header_fields = frozenset(fields)
-        path = os.path.join(datadir, 'timezones')
-        cp = configparser.ConfigParser(interpolation=None, default_section='')
-        cp.optionxform = lambda x: x
-        cp.read(path, encoding='ASCII')
-        self.timezones = {
-            abbrev: offsets.split()
-            for abbrev, offsets in cp['timezones'].items()
-        }
-        tz_re = '|'.join(re.escape(tz) for tz in self.timezones)
-        self._parse_date = re.compile('''
-            ^ \s*
-            ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
-            (?: \s+ | T )
-            ( [0-9]{2}:[0-9]{2} )  # hh:mm
-            (?: : [0-9]{2} )?  # ss
-            \s*
-            (?:
-              (?: GMT | UTC )? ( [+-] [0-9]{2} ) :? ( [0-9]{2} )  # ZZzz
-            | [+]? (''' + tz_re + ''')
-            ) ?
-            \s* $
-        ''', re.VERBOSE).match
+def _read_header_fields():
+    path = os.path.join(paths.datadir, 'header-fields')
+    with open(path, 'rt', encoding='ASCII') as file:
+        fields = [
+            s.rstrip() for s in file
+            if s.rstrip() and not s.startswith('#')
+        ]
+    misc.check_sorted(fields)
+    return frozenset(fields)
 
-    def fix_date_format(self, s, *, tz_hint=None):
-        if tz_hint is not None:
-            datetime.datetime.strptime(tz_hint, '%z')  # just check syntax
-        match = self._parse_date(s)
-        if match is None:
-            return
-        (date, time, zhour, zminute, zabbr) = match.groups()
-        if (zhour is not None) and (zminute is not None):
-            zone = zhour + zminute
-        elif zabbr is not None:
-            try:
-                [zone] = self.timezones[zabbr]
-            except ValueError:
-                return
-        elif tz_hint is not None:
-            zone = tz_hint
-        else:
-            return
-        s = '{} {}{}'.format(date, time, zone)
-        assert len(s) == 21, 'len({!r}) != 21'.format(s)
-        try:
-            parse_date(s)
-        except DateSyntaxError:
-            return
-        return s
+header_fields = _read_header_fields()
 
 # ==========================
 # Header and message parsing
@@ -213,6 +170,59 @@ def parse_plural_forms(s):
 
 class DateSyntaxError(Exception):
     pass
+
+def _read_timezones():
+    path = os.path.join(paths.datadir, 'timezones')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.optionxform = lambda x: x
+    cp.read(path, encoding='ASCII')
+    return {
+        abbrev: offsets.split()
+        for abbrev, offsets in cp['timezones'].items()
+    }
+
+_timezones = _read_timezones()
+
+_tz_re = '|'.join(re.escape(tz) for tz in _timezones)
+_parse_date = re.compile('''
+    ^ \s*
+    ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
+    (?: \s+ | T )
+    ( [0-9]{2}:[0-9]{2} )  # hh:mm
+    (?: : [0-9]{2} )?  # ss
+    \s*
+    (?:
+      (?: GMT | UTC )? ( [+-] [0-9]{2} ) :? ( [0-9]{2} )  # ZZzz
+    | [+]? (''' + _tz_re + ''')
+    ) ?
+    \s* $
+''', re.VERBOSE).match
+
+def fix_date_format(s, *, tz_hint=None):
+    if tz_hint is not None:
+        datetime.datetime.strptime(tz_hint, '%z')  # just check syntax
+    match = _parse_date(s)
+    if match is None:
+        return
+    (date, time, zhour, zminute, zabbr) = match.groups()
+    if (zhour is not None) and (zminute is not None):
+        zone = zhour + zminute
+    elif zabbr is not None:
+        try:
+            [zone] = _timezones[zabbr]
+        except ValueError:
+            return
+    elif tz_hint is not None:
+        zone = tz_hint
+    else:
+        return
+    s = '{} {}{}'.format(date, time, zone)
+    assert len(s) == 21, 'len({!r}) != 21'.format(s)
+    try:
+        parse_date(s)
+    except DateSyntaxError:
+        return
+    return s
 
 def parse_date(s):
     try:

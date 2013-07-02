@@ -123,7 +123,6 @@ def main():
     del options.files
     paths.check()
     options.encinfo = encinfo = encodings.EncodingInfo(paths.datadir)
-    options.gettextinfo = gettext.GettextInfo(paths.datadir)
     options.linginfo = linginfo = ling.LingInfo(paths.datadir)
     options.taginfo = tags.TagInfo(paths.datadir)
     if options.language is not None:

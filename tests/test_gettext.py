@@ -34,17 +34,15 @@ from . import aux
 
 import lib.gettext
 
-info = lib.gettext.GettextInfo(aux.datadir)
-
 class test_header_fields:
 
     def test_nonempty(self):
         # XXX Update this number after editing data/header-fields:
         expected = 12
-        assert_equal(len(info.header_fields), expected)
+        assert_equal(len(lib.gettext.header_fields), expected)
 
     def test_no_x(self):
-        for field in info.header_fields:
+        for field in lib.gettext.header_fields:
             assert_false(field.startswith('X-'))
 
 class test_plurals:
@@ -187,7 +185,7 @@ class test_plurals:
 class test_fix_date_format:
 
     def _test(self, old, expected):
-        new = info.fix_date_format(old)
+        new = lib.gettext.fix_date_format(old)
         if expected is None:
             assert_is_none(new)
         else:
@@ -233,7 +231,7 @@ class test_fix_date_format:
 
     def test_tz_hint(self):
         assert_equal(
-            info.fix_date_format('2002-01-01 03:05', tz_hint='+0900'),
+            lib.gettext.fix_date_format('2002-01-01 03:05', tz_hint='+0900'),
             '2002-01-01 03:05+0900',
         )
 
