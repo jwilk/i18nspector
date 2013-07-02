@@ -76,7 +76,7 @@ def generate_iso_639():
         code1 = element.get('part1_code')
         code2 = element.get('part2_code')
         if code2 is None:
-            # We're not insted in languages that are not in 639-2 (yet?).
+            # We're not interested in languages that are not in 639-2 (yet?).
             continue
         if code2 != code:
             raise Panic('{!r} != {!r}'.format(code, code2))
