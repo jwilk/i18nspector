@@ -185,14 +185,12 @@ class test_plurals:
 class test_fix_date_format:
 
     def _test(self, old, expected):
-        try:
+        if expected is None:
+            with assert_raises(lib.gettext.DateSyntaxError):
+                lib.gettext.fix_date_format(old)
+        else:
             new = lib.gettext.fix_date_format(old)
             assert_is_not_none(new)
-        except lib.gettext.DateSyntaxError:
-            new = None
-        if expected is None:
-            assert_is_none(new)
-        else:
             assert_equal(new, expected)
 
     def test_boilerplate(self):
