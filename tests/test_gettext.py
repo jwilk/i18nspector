@@ -193,8 +193,12 @@ class test_fix_date_format:
             assert_is_not_none(new)
             assert_equal(new, expected)
 
+    def _test_boilerplate(self, old):
+        with assert_raises(lib.gettext.BoilerplateDate):
+            lib.gettext.fix_date_format(old)
+
     def test_boilerplate(self):
-        self._test('YEAR-MO-DA HO:MI+ZONE', None)
+        self._test_boilerplate('YEAR-MO-DA HO:MI+ZONE')
 
     def test_okay(self):
         d = '2010-10-13 01:27+0200'
