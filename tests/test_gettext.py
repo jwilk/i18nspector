@@ -185,7 +185,11 @@ class test_plurals:
 class test_fix_date_format:
 
     def _test(self, old, expected):
-        new = lib.gettext.fix_date_format(old)
+        try:
+            new = lib.gettext.fix_date_format(old)
+            assert_is_not_none(new)
+        except lib.gettext.DateSyntaxError:
+            new = None
         if expected is None:
             assert_is_none(new)
         else:

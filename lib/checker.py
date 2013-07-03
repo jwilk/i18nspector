@@ -555,15 +555,17 @@ class Checker(object):
                     tz_hint = '+0000'
                 else:
                     tz_hint = None
-                fixed_date = gettext.fix_date_format(date, tz_hint=tz_hint)
-                if fixed_date is None:
+                try:
+                    fixed_date = gettext.fix_date_format(date, tz_hint=tz_hint)
+                except gettext.DateSyntaxError:
                     if date == boilerplate:
                         self.tag('boilerplate-in-date', tags.safestr(field + ':'), date)
                     else:
                         self.tag('invalid-date', tags.safestr(field + ':'), date)
                     continue
-                elif date != fixed_date:
-                    self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
+                else:
+                    if date != fixed_date:
+                        self.tag('invalid-date', tags.safestr(field + ':'), date, '=>', fixed_date)
                 stamp = gettext.parse_date(fixed_date)
                 if stamp > misc.utc_now():
                     self.tag('date-from-future', tags.safestr(field + ':'), date)

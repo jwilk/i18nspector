@@ -203,7 +203,7 @@ def fix_date_format(s, *, tz_hint=None):
         datetime.datetime.strptime(tz_hint, '%z')  # just check syntax
     match = _parse_date(s)
     if match is None:
-        return
+        raise DateSyntaxError
     (date, time, zhour, zminute, zabbr) = match.groups()
     if (zhour is not None) and (zminute is not None):
         zone = zhour + zminute
@@ -211,17 +211,14 @@ def fix_date_format(s, *, tz_hint=None):
         try:
             [zone] = _timezones[zabbr]
         except ValueError:
-            return
+            raise DateSyntaxError('ambiguous timezone abbreviation: ' + zabbr)
     elif tz_hint is not None:
         zone = tz_hint
     else:
-        return
+        raise DateSyntaxError
     s = '{} {}{}'.format(date, time, zone)
     assert len(s) == 21, 'len({!r}) != 21'.format(s)
-    try:
-        parse_date(s)
-    except DateSyntaxError:
-        return
+    parse_date(s)  # just check syntax
     return s
 
 def parse_date(s):
