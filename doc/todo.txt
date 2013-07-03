@@ -105,9 +105,6 @@ Correct encoding ``8859-``\ *n* → ``ISO-8859-``\ *n*. Test-case:
 
  * http://sources.debian.net/data/main/v/vnc4/4.1.1+X4.3.0-37.1/unix/xc/extras/FreeType/po/nl.po
 
-Emit boilerplate-in-date also for partial boilerplate, e.g.
-``2001-01-03 HO:MI+ZONE``.
-
 Split missing-timezone-in-date from invalid-date.
 
 Fix false-positive no-package-name-in-project-id-version when project name

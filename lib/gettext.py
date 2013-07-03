@@ -203,9 +203,18 @@ _parse_date = re.compile('''
 
 boilerplate_date = 'YEAR-MO-DA HO:MI+ZONE'
 
+_search_for_date_boilerplate = re.compile('''
+  ^ YEAR -
+| - MO -
+| - DA \s
+| \s HO :
+| : MI (?:[+]|$)
+| [+] ZONE $
+''', re.VERBOSE).search
+
 def fix_date_format(s, *, tz_hint=None):
     s = s.strip()
-    if s == boilerplate_date:
+    if _search_for_date_boilerplate(s):
         raise BoilerplateDate
     if tz_hint is not None:
         datetime.datetime.strptime(tz_hint, '%z')  # just check syntax
