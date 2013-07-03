@@ -198,18 +198,16 @@ class test_fix_date_format:
             lib.gettext.fix_date_format(old)
 
     def test_boilerplate(self):
-        t = self._test_boilerplate
-        yield t, 'YEAR-MO-DA HO:MI+ZONE'
-        yield t, 'YEAR-MO-DA HO:MI +ZONE'
+        self._test_boilerplate('YEAR-MO-DA HO:MI+ZONE')
+        self._test_boilerplate('YEAR-MO-DA HO:MI +ZONE')
 
     def test_partial_boilerplate(self):
-        t = self._test_boilerplate
-        yield t, '2000-05-15 22:MI+0200'
-        yield t, '2002-10-15 HO:MI+ZONE'
-        yield t, '2003-07-DA 11:31+0100'
-        yield t, '2004-MO-DA HO:MI+ZONE'
-        yield t, '2006-10-24 18:00+ZONE'
-        yield t, '2010-11-01 HO:MI+0000'
+        self._test_boilerplate('2000-05-15 22:MI+0200')
+        self._test_boilerplate('2002-10-15 HO:MI+ZONE')
+        self._test_boilerplate('2003-07-DA 11:31+0100')
+        self._test_boilerplate('2004-MO-DA HO:MI+ZONE')
+        self._test_boilerplate('2006-10-24 18:00+ZONE')
+        self._test_boilerplate('2010-11-01 HO:MI+0000')
 
     def test_okay(self):
         d = '2010-10-13 01:27+0200'
