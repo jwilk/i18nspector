@@ -536,7 +536,6 @@ class Checker(object):
         except IndexError:
             content_type = ''
         is_publican = content_type.startswith('application/x-publican;')
-        boilerplate = 'YEAR-MO-DA HO:MI+ZONE'
         for field in 'POT-Creation-Date', 'PO-Revision-Date':
             dates = file.metadata[field]
             if len(dates) > 1:
@@ -546,7 +545,7 @@ class Checker(object):
                 self.tag('no-date-header-field', field)
                 continue
             for date in dates:
-                if is_template and field.startswith('PO-') and (date == boilerplate):
+                if is_template and field.startswith('PO-') and (date == gettext.boilerplate_date):
                     continue
                 if 'T' in date and is_publican:
                     # Publican uses DateTime->now(), which uses the UTC timezone by default:
@@ -557,11 +556,11 @@ class Checker(object):
                     tz_hint = None
                 try:
                     fixed_date = gettext.fix_date_format(date, tz_hint=tz_hint)
+                except gettext.BoilerplateDate:
+                    self.tag('boilerplate-in-date', tags.safestr(field + ':'), date)
+                    continue
                 except gettext.DateSyntaxError:
-                    if date == boilerplate:
-                        self.tag('boilerplate-in-date', tags.safestr(field + ':'), date)
-                    else:
-                        self.tag('invalid-date', tags.safestr(field + ':'), date)
+                    self.tag('invalid-date', tags.safestr(field + ':'), date)
                     continue
                 else:
                     if date != fixed_date:

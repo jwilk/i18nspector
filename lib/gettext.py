@@ -171,6 +171,9 @@ def parse_plural_forms(s):
 class DateSyntaxError(Exception):
     pass
 
+class BoilerplateDate(DateSyntaxError):
+    pass
+
 def _read_timezones():
     path = os.path.join(paths.datadir, 'timezones')
     cp = configparser.ConfigParser(interpolation=None, default_section='')
@@ -185,7 +188,7 @@ _timezones = _read_timezones()
 
 _tz_re = '|'.join(re.escape(tz) for tz in _timezones)
 _parse_date = re.compile('''
-    ^ \s*
+    ^
     ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
     (?: \s+ | T )
     ( [0-9]{2}:[0-9]{2} )  # hh:mm
@@ -195,10 +198,15 @@ _parse_date = re.compile('''
       (?: GMT | UTC )? ( [+-] [0-9]{2} ) :? ( [0-9]{2} )  # ZZzz
     | [+]? (''' + _tz_re + ''')
     ) ?
-    \s* $
+    $
 ''', re.VERBOSE).match
 
+boilerplate_date = 'YEAR-MO-DA HO:MI+ZONE'
+
 def fix_date_format(s, *, tz_hint=None):
+    s = s.strip()
+    if s == boilerplate_date:
+        raise BoilerplateDate
     if tz_hint is not None:
         datetime.datetime.strptime(tz_hint, '%z')  # just check syntax
     match = _parse_date(s)
