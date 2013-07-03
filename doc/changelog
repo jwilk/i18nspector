@@ -11,12 +11,14 @@ i18nspector (0.12) UNRELEASED; urgency=low
   * Check for xgettext boilerplate in dates.
   * Strip trailing whitespace when parsing header entry.
   * Allow only tabs and spaces between “nplurals=…” and “plural=…”.
+  * Remove Bihari (codes “bh”, “bih”) from the data files; it's not a single
+    language, but a language collection.
   * Improve the test suite.
 
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 02 Jul 2013 13:56:41 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 03 Jul 2013 02:32:09 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 

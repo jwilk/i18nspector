@@ -158,9 +158,6 @@ characters =
 plural-forms = nplurals=2; plural=n != 1;
 principal-territory = BG
 
-[bh]
-names = Bihari
-
 [bho]
 names = Bhojpuri
 principal-territory = IN

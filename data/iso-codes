@@ -1,6 +1,7 @@
 # This file has been generated automatically by private/update-iso-codes.
 # Do not edit.
-# Last update: 2012-11-11
+# iso-codes version: 3.44
+# Last update: 2013-07-03
 
 [language-codes]
 aar = aa
@@ -45,7 +46,6 @@ bel = be
 bem =
 ben = bn
 bho =
-bih = bh
 bik =
 bin =
 bis = bi
