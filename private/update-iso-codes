@@ -21,15 +21,27 @@
 # SOFTWARE.
 
 import collections
+import functools
 import datetime
 import os
+import subprocess as ipc
 import sys
 import xml.etree.cElementTree as etree
 
-iso_codes_dir = '/usr/share/xml/iso-codes/';
-
 class Panic(ValueError):
     pass
+
+@functools.lru_cache()
+def get_iso_codes_version():
+    version = ipc.check_output(['pkg-config', 'iso-codes', '--modversion'])
+    version = version.decode('ASCII').strip()
+    return version
+
+@functools.lru_cache()
+def get_iso_codes_dir():
+    prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])
+    prefix = prefix.decode('ASCII').strip()
+    return '{prefix}/share/xml/iso-codes/'.format(prefix=prefix)
 
 def main():
     basedir = os.path.join(
@@ -41,8 +53,9 @@ def main():
     print('''\
 # This file has been generated automatically by private/update-iso-codes.
 # Do not edit.
+# iso-codes version: {version}
 # Last update: {today}
-'''.format(today=datetime.date.today()))
+'''.format(version=get_iso_codes_version(), today=datetime.date.today()))
     generate_iso_639()
     generate_iso_3166()
     sys.stdout.close()
@@ -52,9 +65,9 @@ def generate_iso_639():
     # =======================
     # ISO 639: language codes
     # =======================
-    l2b_to_2t = {}
+    l2t_to_2b = {}
     iso_639 = {}
-    for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639.xml')):
+    for event, element in etree.iterparse(os.path.join(get_iso_codes_dir(), 'iso_639.xml')):
         if element.tag != 'iso_639_entry':
             continue
         l2b = element.get('iso_639_2B_code')
@@ -65,9 +78,9 @@ def generate_iso_639():
             if len(l) != 3:
                 raise Panic('len({!r}) != 3'.format(l))
         if l2b != l2t:
-            l2b_to_2t[l2b] = l2t
-    iso_639 = collections.defaultdict(lambda: [None])
-    for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639_3.xml')):
+            l2t_to_2b[l2t] = l2b
+    iso_639 = {}
+    for event, element in etree.iterparse(os.path.join(get_iso_codes_dir(), 'iso_639_3.xml')):
         if element.tag != 'iso_639_3_entry':
             continue
         code = element.get('id')
@@ -100,23 +113,23 @@ def generate_iso_639():
         else:
             raise Panic('unknown status: {!r}'.format(status))
         reference_name = element.get('reference_name')
-        datum = iso_639[reference_name]
-        if code in l2b_to_2t:
-            datum += [code]
-        else:
-            if datum[0] is not None:
-                raise Panic
-            if code1 is not None:
-                if code1.endswith('(deprecated)'):
-                    code1 = None
-            if code1 is not None:
-                if len(code1) == 2:
-                    datum[0] = code1
-                    datum += [code]
-                else:
-                    raise Panic('len({!r}) != 2'.format(code1))
+        if reference_name in iso_639:
+            raise Panic('duplicate reference name: {!r}'.format(reference_name))
+        if code1 is not None:
+            if code1.endswith('(deprecated)'):
+                code1 = None
+        if code1 is not None:
+            if len(code1) == 2:
+                codelist = [code1, code]
             else:
-                datum[0] = code
+                raise Panic('len({!r}) != 2'.format(code1))
+        else:
+            codelist = [code]
+        try:
+            codelist += [l2t_to_2b[code]]
+        except KeyError:
+            pass
+        iso_639[reference_name] = codelist
     print('[language-codes]')
     iso_639_rev = {}
     for code, *aliases in iso_639.values():
@@ -133,7 +146,7 @@ def generate_iso_3166():
     # ISO 3166: territory codes
     # =========================
     iso_3166 = set()
-    for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_3166.xml')):
+    for event, element in etree.iterparse(os.path.join(get_iso_codes_dir(), 'iso_3166.xml')):
         if element.tag != 'iso_3166_entry':
             continue
         cc = element.get('alpha_2_code')
