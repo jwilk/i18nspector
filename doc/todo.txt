@@ -122,10 +122,6 @@ provide a better error message. Test-case:
 
  * http://sources.debian.net/data/main/i/installation-guide/20130503/po/zh_TW/using-d-i.po
 
-polib cannot parse some comments; implement a work-around. Test-case:
-
- * http://sources.debian.net/data/main/a/accerciser/3.4.1-1/help/el/el.po
-
 polib PO encoding detection is not robust enough. Test-case: xfail-header-imitation.po
 
 Add support for system-dependent messages (minor revision 1).

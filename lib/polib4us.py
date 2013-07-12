@@ -71,12 +71,14 @@ def default_encoding_patch():
 
 # polib.codecs
 # ============
-# Work around a newline decoding bug:
-# <http://bugs.debian.org/692283>.
+# Work around a few PO parsing bugs:
+# - newline decoding: http://bugs.debian.org/692283
+# - atypical comment parsing
 
 class Codecs(object):
 
     _iterlines = re.compile(r'[^\n]*(?:\n|\Z)').findall
+    _atypical_comment = re.compile(r'#[^ .:,|]').match
 
     def __getattr__(self, attr):
         return getattr(codecs, attr)
@@ -88,7 +90,10 @@ class Codecs(object):
             contents = file.read()
         contents = contents.decode(encoding)
         for line in self._iterlines(contents):
-            yield line
+            if self._atypical_comment(line):
+                yield '# ' + line[1:]
+            else:
+                yield line
 
 @register_patch
 def codecs_patch():

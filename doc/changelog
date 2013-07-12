@@ -7,6 +7,7 @@ i18nspector (0.12) UNRELEASED; urgency=low
   [ Jakub Wilk ]
   * Don't emit empty-file for MO files with only system-dependent messages, or
     with minor revision greater than 1.
+  * Fix parsing some atypical PO comments.
   * Parse more date formats.
   * Check for xgettext boilerplate in dates.
   * Strip trailing whitespace when parsing header entry.
@@ -19,7 +20,7 @@ i18nspector (0.12) UNRELEASED; urgency=low
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 03 Jul 2013 23:45:44 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 12 Jul 2013 14:14:49 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 
