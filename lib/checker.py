@@ -584,7 +584,7 @@ class Checker(object):
             if project_id_version in {'PACKAGE VERSION', 'PROJECT VERSION'}:
                 self.tag('boilerplate-in-project-id-version', project_id_version)
             else:
-                if not re.search(r'[A-Za-z]', project_id_version):
+                if not re.compile(r'[^_\d\W]', re.UNICODE).search(project_id_version):
                     self.tag('no-package-name-in-project-id-version', project_id_version)
                 if not re.search(r'[0-9]', project_id_version):
                     self.tag('no-version-in-project-id-version', project_id_version)

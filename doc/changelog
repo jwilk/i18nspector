@@ -7,6 +7,8 @@ i18nspector (0.12) UNRELEASED; urgency=low
   [ Jakub Wilk ]
   * Don't emit empty-file for MO files with only system-dependent messages, or
     with minor revision greater than 1.
+  * Don't emit no-package-name-in-project-id-version if the package name
+    consists of only non-ASCII letters.
   * Fix parsing some atypical PO comments.
   * Parse more date formats.
   * Check for xgettext boilerplate in dates.
@@ -20,7 +22,7 @@ i18nspector (0.12) UNRELEASED; urgency=low
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 12 Jul 2013 14:14:49 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 12 Jul 2013 15:22:29 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 
