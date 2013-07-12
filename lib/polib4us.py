@@ -78,7 +78,7 @@ def default_encoding_patch():
 class Codecs(object):
 
     _iterlines = re.compile(r'[^\n]*(?:\n|\Z)').findall
-    _atypical_comment = re.compile(r'#[^ .:,|]').match
+    _atypical_comment = re.compile(r'#[^ .:,|~]').match
 
     def __getattr__(self, attr):
         return getattr(codecs, attr)
