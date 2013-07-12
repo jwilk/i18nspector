@@ -126,4 +126,7 @@ polib PO encoding detection is not robust enough. Test-case: xfail-header-imitat
 
 Add support for system-dependent messages (minor revision 1).
 
+Fix false-positive duplicate-header-entry for PO files with trailing comments.
+Test-case: xfail-trailing-comment.po
+
 .. vim:ft=rst
