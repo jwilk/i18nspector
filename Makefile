@@ -53,4 +53,9 @@ install:
 test:
 	$(PYTHON) ./tests/run-tests -v
 
+.PHONY: clean
+clean:
+	find . -type f -name '*.py[co]' -delete
+	find . -type d -name '__pycache__' -delete
+
 # vim:ts=4 sw=4 noet
