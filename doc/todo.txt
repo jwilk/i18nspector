@@ -128,4 +128,6 @@ Add support for system-dependent messages (minor revision 1).
 Fix false-positive duplicate-header-entry for PO files with trailing comments.
 Test-case: xfail-trailing-comment.po
 
+ * https://bitbucket.org/izi/polib/issue/51
+
 .. vim:ft=rst
