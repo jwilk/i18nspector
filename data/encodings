@@ -1,7 +1,11 @@
 [portable-encodings]
+
 # PO files should use only character encodings that are supported by both GNU
 # libc and GNU libiconv. This section lists all of them. Unfortunately, some of
 # these encodings are not supported by Python. These are marked as "not-python".
+
+# http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/po-charset.c?id=v0.18.3#n57
+
 ASCII =
 US-ASCII =
 ANSI_X3.4-1968 =
