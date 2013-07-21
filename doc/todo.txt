@@ -58,9 +58,9 @@ Add tests for:
  * Debian source packages
  * Debian binary packages
  * MO files (at least against some tags)
- * VISCII encoding
  * languages with multiple correct Plural-Forms
  * lib.moparser
+ * all non-Python encodings
  * 0x5c byte as a part of a multibyte character:
    http://sources.debian.net/src/vim/2:7.3.547-7/src/po/zh_TW.po#L13
  * SHIFT_JIS encoding:
