@@ -86,8 +86,6 @@ Check for POT files containing translations.
 
 Run ``msgfmt --check-format`` on PO files.
 
-Reimplement 8-bit codecs without iconv(1)/iconv(3).
-
 Reimplement the EUC-TW codec with PyICU.
 
 Check for hardcoded Language in POT files.

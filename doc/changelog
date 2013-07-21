@@ -16,6 +16,7 @@ i18nspector (0.12) UNRELEASED; urgency=low
   * Allow only tabs and spaces between “nplurals=…” and “plural=…”.
   * Remove Bihari (codes “bh”, “bih”) from the data files; it's not a single
     language, but a language collection.
+  * Implement 8-bit encodings without iconv(3) or iconv(1).
   * Add “SEE ALSO” section to the manual page.
   * Improve the test suite.
   * Makefile: add “clean” target.

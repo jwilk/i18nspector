@@ -26,6 +26,7 @@
 import codecs
 import configparser
 import contextlib
+import errno
 import itertools
 import os
 import unicodedata
@@ -33,6 +34,47 @@ import unicodedata
 from . import iconv
 from . import misc
 from . import paths
+
+def charmap_encoding(encoding):
+
+    def encode(input, errors='strict'):
+        if not (_extra_encodings_installed > 0):
+            # There doesn't seem to be a way to de-register a codec.
+            # As a poor man's substitute, raise LookupError at decoding time.
+            raise LookupError('unknown encoding: ' + encoding)
+        return codecs.charmap_encode(input, errors, encoding_table)
+
+    def decode(input, errors='strict'):
+        if not (_extra_encodings_installed > 0):
+            # There doesn't seem to be a way to de-register a codec.
+            # As a poor man's substitute, raise LookupError at decoding time.
+            raise LookupError('unknown encoding: ' + encoding)
+        return codecs.charmap_decode(input, errors, decoding_table)
+
+    def not_implemented(*args, **kwargs):
+        raise NotImplementedError
+
+    path = os.path.join(paths.datadir, 'charmaps', encoding.upper())
+    try:
+        file = open(path, 'rb')
+    except IOError as exc:
+        if exc.errno == errno.ENOENT:
+            raise LookupError('unknown encoding: ' + encoding)
+        raise
+    with file:
+        decoding_table = file.read()
+    decoding_table = decoding_table.decode('UTF-8')
+    encoding_table = codecs.charmap_build(decoding_table)
+
+    return codecs.CodecInfo(
+        encode=encode,
+        decode=decode,
+        streamreader=not_implemented,
+        streamwriter=not_implemented,
+        incrementalencoder=not_implemented,
+        incrementaldecoder=not_implemented,
+        name=encoding,
+    )
 
 def iconv_encoding(encoding):
 
@@ -173,7 +215,10 @@ def _codec_search_function(encoding):
         pass
     else:
         return
-    return iconv_encoding(encoding)
+    try:
+        return charmap_encoding(encoding)
+    except LookupError:
+        return iconv_encoding(encoding)
 
 def _install_extra_encodings():
     global _extra_encodings_installed
