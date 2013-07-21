@@ -63,7 +63,8 @@ Add tests for:
  * lib.moparser
  * 0x5c byte as a part of a multibyte character:
    http://sources.debian.net/src/vim/2:7.3.547-7/src/po/zh_TW.po#L13
- * SHIFT_JIS encoding
+ * SHIFT_JIS encoding:
+   http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/po-lex.c?id=v0.18.3#n179
 
 Detect question marks in unusual places.
 
