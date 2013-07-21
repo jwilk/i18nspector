@@ -35,20 +35,25 @@ from . import iconv
 from . import misc
 from . import paths
 
+class EncodingLookupError(LookupError):
+
+    def __init__(self, encoding):
+        return LookupError.__init__(self, 'unknown encoding: ' + encoding)
+
 def charmap_encoding(encoding):
 
     def encode(input, errors='strict'):
         if not (_extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at decoding time.
-            raise LookupError('unknown encoding: ' + encoding)
+            raise EncodingLookupError(encoding)
         return codecs.charmap_encode(input, errors, encoding_table)
 
     def decode(input, errors='strict'):
         if not (_extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at decoding time.
-            raise LookupError('unknown encoding: ' + encoding)
+            raise EncodingLookupError(encoding)
         return codecs.charmap_decode(input, errors, decoding_table)
 
     def not_implemented(*args, **kwargs):
@@ -59,7 +64,7 @@ def charmap_encoding(encoding):
         file = open(path, 'rb')
     except IOError as exc:
         if exc.errno == errno.ENOENT:
-            raise LookupError('unknown encoding: ' + encoding)
+            raise EncodingLookupError(encoding)
         raise
     with file:
         decoding_table = file.read()
@@ -82,7 +87,7 @@ def iconv_encoding(encoding):
         if not (_extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at encoding time.
-            raise LookupError('unknown encoding: ' + encoding)
+            raise EncodingLookupError(encoding)
         output = iconv.encode(input, encoding=encoding, errors=errors)
         return output, len(input)
 
@@ -90,7 +95,7 @@ def iconv_encoding(encoding):
         if not (_extra_encodings_installed > 0):
             # There doesn't seem to be a way to de-register a codec.
             # As a poor man's substitute, raise LookupError at decoding time.
-            raise LookupError('unknown encoding: ' + encoding)
+            raise EncodingLookupError(encoding)
         output = iconv.decode(bytes(input), encoding=encoding, errors=errors)
         return output, len(input)
 
@@ -217,7 +222,7 @@ def _codec_search_function(encoding):
         return
     try:
         return charmap_encoding(encoding)
-    except LookupError:
+    except EncodingLookupError:
         return iconv_encoding(encoding)
 
 def _install_extra_encodings():
