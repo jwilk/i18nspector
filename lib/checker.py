@@ -48,13 +48,13 @@ class EnvironmentAlreadyPatched(RuntimeError):
     pass
 
 find_unusual_characters = re.compile(
-    r'[\x00-\x08\x0b-\x1a\x1c-\x1f]'  # C0 except TAB, LF, ESC
-    r'|\x1b(?!\[)'  # ESC, except when followed by [
-    r'|\x7f'  # DEL
-    r'|[\x80-\x9f]'  # C1
-     '|\ufffd'  # REPLACEMENT CHARACTER
-     '|[\ufffe\uffff]'  # non-characters
-    r'|(?<=\w)\xbf'  # INVERTED QUESTION MARK but only directly after a letter
+    r'[\x00-\x08\x0B-\x1A\x1C-\x1F]'  # C0 except TAB, LF, ESC
+    r'|\x1B(?!\[)'  # ESC, except when followed by [
+    r'|\x7F'  # DEL
+    r'|[\x80-\x9F]'  # C1
+     '|\uFFFD'  # REPLACEMENT CHARACTER
+     '|[\uFFFE\uFFFF]'  # non-characters
+    r'|(?<=\w)\xBF'  # INVERTED QUESTION MARK but only directly after a letter
 ).findall
 
 header_fields_with_dedicated_checks = set()

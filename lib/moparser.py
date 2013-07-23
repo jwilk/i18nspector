@@ -33,7 +33,7 @@ import sys
 
 import polib
 
-little_endian_magic = b'\xde\x12\x04\x95'
+little_endian_magic = b'\xDE\x12\x04\x95'
 big_endian_magic = little_endian_magic[::-1]
 
 class SyntaxError(Exception):

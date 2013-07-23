@@ -168,7 +168,7 @@ class test_plurals:
 
     def test_plural_exp_exotic_whitespace(self):
         with assert_raises(self._error):
-            self._pe('6 *\xa07')
+            self._pe('6 *\xA07')
 
     def test_plural_forms_nplurals_0(self):
         with assert_raises(self._error):

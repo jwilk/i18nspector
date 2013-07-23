@@ -123,14 +123,14 @@ class test_get_character_name:
             names.add(name)
 
     def test_non_character(self):
-        name = E.get_character_name('\ufffe')
+        name = E.get_character_name('\uFFFE')
         assert_equal(name, 'non-character')
-        name = E.get_character_name('\uffff')
+        name = E.get_character_name('\uFFFF')
         assert_equal(name, 'non-character')
 
     def test_lookup_error(self):
         with assert_raises(ValueError):
-            E.get_character_name('\ue000')
+            E.get_character_name('\uE000')
 
 class test_extra_encoding:
 
@@ -159,7 +159,7 @@ class test_extra_encoding:
             enc()
 
     _viscii_unicode = 'Ti\u1EBFng Vi\u1EC7t'
-    _viscii_bytes = b'Ti\xaang Vi\xaet'
+    _viscii_bytes = b'Ti\xAAng Vi\xAEt'
 
     @aux.fork_isolation
     def test_8b_encode(self):
@@ -190,7 +190,7 @@ class test_extra_encoding:
             b.decode('KOI8-T')
 
     _euc_tw_unicode = '\u4E2D\u6587'
-    _euc_tw_bytes = b'\xc4\xe3\xc5\xc6'
+    _euc_tw_bytes = b'\xC4\xE3\xC5\xC6'
 
     @aux.fork_isolation
     def test_mb_encode(self):
