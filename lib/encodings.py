@@ -41,6 +41,9 @@ class EncodingLookupError(LookupError):
     def __init__(self, encoding):
         return LookupError.__init__(self, 'unknown encoding: ' + encoding)
 
+def _not_implemented(*args, **kwargs):
+    raise NotImplementedError
+
 def charmap_encoding(encoding):
 
     def encode(input, errors='strict'):
@@ -49,8 +52,6 @@ def charmap_encoding(encoding):
     def decode(input, errors='strict'):
         return codecs.charmap_decode(input, errors, decoding_table)
 
-    def not_implemented(*args, **kwargs):
-        raise NotImplementedError
 
     path = os.path.join(paths.datadir, 'charmaps', encoding.upper())
     try:
@@ -67,10 +68,10 @@ def charmap_encoding(encoding):
     return codecs.CodecInfo(
         encode=encode,
         decode=decode,
-        streamreader=not_implemented,
-        streamwriter=not_implemented,
-        incrementalencoder=not_implemented,
-        incrementaldecoder=not_implemented,
+        streamreader=_not_implemented,
+        streamwriter=_not_implemented,
+        incrementalencoder=_not_implemented,
+        incrementaldecoder=_not_implemented,
         name=encoding,
     )
 
@@ -84,16 +85,13 @@ def iconv_encoding(encoding):
         output = iconv.decode(bytes(input), encoding=encoding, errors=errors)
         return output, len(input)
 
-    def not_implemented(*args, **kwargs):
-        raise NotImplementedError
-
     return codecs.CodecInfo(
         encode=encode,
         decode=decode,
-        streamreader=not_implemented,
-        streamwriter=not_implemented,
-        incrementalencoder=not_implemented,
-        incrementaldecoder=not_implemented,
+        streamreader=_not_implemented,
+        streamwriter=_not_implemented,
+        incrementalencoder=_not_implemented,
+        incrementaldecoder=_not_implemented,
         name=encoding,
     )
 
