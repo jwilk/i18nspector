@@ -75,13 +75,10 @@ class Checker(object):
         if cls._patched_environment is not None:
             raise EnvironmentAlreadyPatched
         cls._patched_environment = False
+        encinfo.install_extra_encodings()
         with polib4us.patched():
-            with encinfo.extra_encodings():
-                cls._patched_environment = True
-                try:
-                    yield
-                finally:
-                    cls._patched_environment = False
+            cls._patched_environment = True
+            yield
         cls._patched_environment = None
 
     def __init__(self, path, *, options):

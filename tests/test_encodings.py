@@ -134,6 +134,7 @@ class test_get_character_name:
 
 class test_extra_encoding:
 
+    @aux.fork_isolation
     def test_install(self):
         def enc():
             ''.encode('VISCII')
@@ -143,75 +144,80 @@ class test_extra_encoding:
             enc()
         with assert_raises(LookupError):
             dec()
-        with E.extra_encodings():
-            enc()
-            dec()
-        with assert_raises(LookupError):
-            enc()
-        with assert_raises(LookupError):
-            dec()
+        E.install_extra_encodings()
+        enc()
+        dec()
 
+    @aux.fork_isolation
     def test_not_allowed(self):
         def enc():
             ''.encode('RUSCII')
         with assert_raises(LookupError):
             enc()
-        with E.extra_encodings():
-            with assert_raises(LookupError):
-                enc()
+        E.install_extra_encodings()
+        with assert_raises(LookupError):
+            enc()
 
     _viscii_unicode = 'Ti\u1EBFng Vi\u1EC7t'
     _viscii_bytes = b'Ti\xaang Vi\xaet'
 
+    @aux.fork_isolation
     def test_8b_encode(self):
+        E.install_extra_encodings()
         u = self._viscii_unicode
-        with E.extra_encodings():
-            b = u.encode('VISCII')
+        b = u.encode('VISCII')
         assert_equal(b, self._viscii_bytes)
 
+    @aux.fork_isolation
     def test_8b_encode_error(self):
+        E.install_extra_encodings()
         u = self._viscii_unicode
-        with E.extra_encodings():
-            with assert_raises(UnicodeEncodeError):
-                u.encode('KOI8-RU')
+        with assert_raises(UnicodeEncodeError):
+            u.encode('KOI8-RU')
 
+    @aux.fork_isolation
     def test_8b_decode(self):
+        E.install_extra_encodings()
         b = self._viscii_bytes
-        with E.extra_encodings():
-            u = b.decode('VISCII')
+        u = b.decode('VISCII')
         assert_equal(u, self._viscii_unicode)
 
+    @aux.fork_isolation
     def test_8b_decode_error(self):
+        E.install_extra_encodings()
         b = self._viscii_bytes
-        with E.extra_encodings():
-            with assert_raises(UnicodeDecodeError):
-                b.decode('KOI8-T')
+        with assert_raises(UnicodeDecodeError):
+            b.decode('KOI8-T')
 
     _euc_tw_unicode = '\u4E2D\u6587'
     _euc_tw_bytes = b'\xc4\xe3\xc5\xc6'
 
+    @aux.fork_isolation
     def test_mb_encode(self):
+        E.install_extra_encodings()
         u = self._euc_tw_unicode
-        with E.extra_encodings():
-            b = u.encode('EUC-TW')
+        b = u.encode('EUC-TW')
         assert_equal(b, self._euc_tw_bytes)
 
+    @aux.fork_isolation
     def test_mb_encode_error(self):
+        E.install_extra_encodings()
         u = self._viscii_unicode
-        with E.extra_encodings():
-            with assert_raises(UnicodeEncodeError):
-                u.encode('EUC-TW')
+        with assert_raises(UnicodeEncodeError):
+            u.encode('EUC-TW')
 
+    @aux.fork_isolation
     def test_mb_decode(self):
+        E.install_extra_encodings()
         b = self._euc_tw_bytes
-        with E.extra_encodings():
-            u = b.decode('EUC-TW')
+        u = b.decode('EUC-TW')
         assert_equal(u, self._euc_tw_unicode)
 
+    @aux.fork_isolation
     def test_mb_decode_error(self):
+        E.install_extra_encodings()
         b = self._viscii_bytes
-        with E.extra_encodings():
-            with assert_raises(UnicodeDecodeError):
-                b.decode('EUC-TW')
+        with assert_raises(UnicodeDecodeError):
+            b.decode('EUC-TW')
 
 # vim:ts=4 sw=4 et

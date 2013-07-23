@@ -390,13 +390,14 @@ class test_unrepresentable_characters:
         result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_is_none(result)
 
+    @aux.fork_isolation
     def test_extra_encoding(self):
         encoding = 'GEORGIAN-PS'
         lang = L.parse_language('pl')
         with assert_raises(LookupError):
             ''.encode(encoding)
-        with E.extra_encodings():
-            result = lang.get_unrepresentable_characters(encoding)
+        E.install_extra_encodings()
+        result = lang.get_unrepresentable_characters(encoding)
         assert_not_equal(result, [])
 
 # vim:ts=4 sw=4 et
