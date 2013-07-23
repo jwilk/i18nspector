@@ -70,16 +70,12 @@ class Checker(object):
     _patched_environment = None
 
     @classmethod
-    @contextlib.contextmanager
-    def patched_environment(cls):
+    def patch_environment(cls):
         if cls._patched_environment is not None:
             raise EnvironmentAlreadyPatched
-        cls._patched_environment = False
         encinfo.install_extra_encodings()
-        with polib4us.patched():
-            cls._patched_environment = True
-            yield
-        cls._patched_environment = None
+        polib4us.install_patches()
+        cls._patched_environment = True
 
     def __init__(self, path, *, options):
         if self._patched_environment is not True:

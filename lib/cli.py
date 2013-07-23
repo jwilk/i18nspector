@@ -148,8 +148,8 @@ def main():
         options.language = language
     options.ignore_tags = set()
     options.fake_root = None
-    with Checker.patched_environment():
-        check_all(files, options=options)
+    Checker.patch_environment()
+    check_all(files, options=options)
 
 __all__ = ['main']
 

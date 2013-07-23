@@ -34,23 +34,11 @@ from . import moparser
 
 patches = []
 
-@contextlib.contextmanager
-def patched(*, patches=patches):
-    '''
-    with polib4us.patched():
-        ...
-    '''
-    patches = tuple(patches)
-    try:
-        current_patch, *remaining_patches = patches
-    except ValueError:
-        yield
-        return
-    with current_patch():
-        with patched(patches=remaining_patches):
-            yield
+def install_patches(patches=patches):
+    for patch in patches:
+        patch()
 
-__all__ = ['patched']
+__all__ = ['install_patches']
 
 def register_patch(patch):
     patches.append(contextlib.contextmanager(patch))
@@ -62,12 +50,7 @@ def register_patch(patch):
 
 @register_patch
 def default_encoding_patch():
-    original = polib.default_encoding
-    try:
-        polib.default_encoding = 'ASCII'
-        yield
-    finally:
-        polib.default_encoding = original
+    polib.default_encoding = 'ASCII'
 
 # polib.codecs
 # ============
@@ -97,12 +80,7 @@ class Codecs(object):
 
 @register_patch
 def codecs_patch():
-    original = polib.codecs
-    try:
-        polib.codecs = Codecs()
-        yield
-    finally:
-        polib.codecs = original
+    polib.codecs = Codecs()
 
 # polib.POFile.find()
 # ===================
@@ -112,14 +90,9 @@ def codecs_patch():
 
 @register_patch
 def pofile_find_patch():
-    original = polib.POFile.find
     def pofile_find(self, *args, **kwargs):
         return
-    try:
-        polib.POFile.find = pofile_find
-        yield
-    finally:
-        polib.POFile.find = original
+    polib.POFile.find = pofile_find
 
 # polib.unescape()
 # ================
@@ -156,12 +129,7 @@ def polib_unescape(s):
 
 @register_patch
 def unescape_patch():
-    original = polib.unescape
-    try:
-        polib.unescape = polib_unescape
-        yield
-    finally:
-        polib.unescape = original
+    polib.unescape = polib_unescape
 
 # polib._MOFileParser
 # ===================
@@ -173,12 +141,7 @@ def unescape_patch():
 
 @register_patch
 def mo_parser_patch():
-    original = polib._MOFileParser
-    try:
-        polib._MOFileParser = moparser.Parser
-        yield
-    finally:
-        polib._MOFileParser = original
+    polib._MOFileParser = moparser.Parser
 
 # polib.detect_encoding()
 # =======================
@@ -192,10 +155,6 @@ def detect_encoding_patch():
             return
         return original(path)
     original = polib.detect_encoding
-    try:
-        polib.detect_encoding = detect_encoding
-        yield
-    finally:
-        polib.detect_encoding = original
+    polib.detect_encoding = detect_encoding
 
 # vim:ts=4 sw=4 et
