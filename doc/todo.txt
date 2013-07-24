@@ -134,4 +134,8 @@ Test-case: xfail-trailing-comment.po
 
  * https://bitbucket.org/izi/polib/issue/51
 
+Check for PO files that are not encoding-aware:
+
+ * http://www.monkey.org/openbsd/archive2/ports/200105/msg00081.html
+
 .. vim:ft=rst
