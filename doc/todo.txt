@@ -138,4 +138,6 @@ Check for PO files that are not encoding-aware:
 
  * http://www.monkey.org/openbsd/archive2/ports/200105/msg00081.html
 
+Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``.
+
 .. vim:ft=rst
