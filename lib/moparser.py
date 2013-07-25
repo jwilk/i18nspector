@@ -23,8 +23,8 @@ MO file parser
 '''
 
 # MO file format documentation:
-# * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/gmo.h?id=v0.18.2.1
-# * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/read-mo.c?id=v0.18.2.1
+# * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/gmo.h?id=v0.18.3
+# * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/read-mo.c?id=v0.18.3
 # * http://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
 
 import re
@@ -138,7 +138,7 @@ class Parser(object):
         encoding = self._encoding
         if i == 0:
             if encoding is None and msgid == b'':
-                # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/dcigettext.c?id=v0.18.2.1#n1106
+                # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/dcigettext.c?id=v0.18.3#n1106
                 match = re.search(b'charset=([^ \t\n]+)', msgstr)
                 if match is not None:
                     try:
