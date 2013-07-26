@@ -20,11 +20,14 @@ i18nspector (0.12) UNRELEASED; urgency=low
   * Add “SEE ALSO” section to the manual page.
   * Improve the test suite.
   * Makefile: add “clean” target.
+  * Make it possible to use a custom install(1) implementation for “make
+    install”. (This is useful for systems such as FreeBSD which have GNU
+    install available under the name “ginstall”.)
 
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 21 Jul 2013 19:41:32 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Jul 2013 14:03:15 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 

@@ -19,6 +19,8 @@
 # SOFTWARE.
 
 PYTHON = python3
+INSTALL = install
+
 PREFIX = /usr/local
 DESTDIR =
 
@@ -36,19 +38,19 @@ all: ;
 .PHONY: install
 install:
 	# binary:
-	install -d -m755 $(DESTDIR)$(bindir)
+	$(INSTALL) -d -m755 $(DESTDIR)$(bindir)
 	sed -e "s#^basedir_fallback = .*#basedir_fallback = '$(basedir)/'#" $(exe) > $(DESTDIR)$(bindir)/$(exe)
 	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
 	# library:
 	( cd lib && find -type f ! -name '*.py[co]' ) \
 	| sed -e 's#^[.]/##' \
-	| xargs -t -I {} install -p -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
+	| xargs -t -I {} $(INSTALL) -p -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
 	# data:
 	( cd data && find -type f ) \
 	| sed -e 's#^[.]/##' \
-	| xargs -t -I {} install -p -D -m644 data/{} $(DESTDIR)$(datadir)/{}
+	| xargs -t -I {} $(INSTALL) -p -D -m644 data/{} $(DESTDIR)$(datadir)/{}
 	# manual page:
-	install -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
+	$(INSTALL) -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
 
 .PHONY: test
 test:
