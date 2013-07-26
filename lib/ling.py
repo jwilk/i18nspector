@@ -87,10 +87,8 @@ class Language(object):
             raise TypeError
         self_clone = self.clone()
         self_clone.remove_principal_territory_code()
-        print(vars(self_clone))
         other_clone = other.clone()
         other_clone.remove_principal_territory_code()
-        print(vars(other_clone))
         return self_clone == other_clone
 
     def fix_codes(self):
