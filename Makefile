@@ -42,11 +42,11 @@ install:
 	sed -e "s#^basedir_fallback = .*#basedir_fallback = '$(basedir)/'#" $(exe) > $(DESTDIR)$(bindir)/$(exe)
 	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
 	# library:
-	( cd lib && find -type f ! -name '*.py[co]' ) \
+	( cd lib && find . -type f ! -name '*.py[co]' ) \
 	| sed -e 's#^[.]/##' \
 	| xargs -t -I {} $(INSTALL) -p -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
 	# data:
-	( cd data && find -type f ) \
+	( cd data && find . -type f ) \
 	| sed -e 's#^[.]/##' \
 	| xargs -t -I {} $(INSTALL) -p -D -m644 data/{} $(DESTDIR)$(datadir)/{}
 	# manual page:

@@ -19,15 +19,18 @@ i18nspector (0.12) UNRELEASED; urgency=low
   * Implement 8-bit encodings without iconv(3) or iconv(1).
   * Add “SEE ALSO” section to the manual page.
   * Improve the test suite.
-  * Makefile: add “clean” target.
-  * Make it possible to use a custom install(1) implementation for “make
-    install”. (This is useful for systems such as FreeBSD which have GNU
-    install available under the name “ginstall”.)
+  * Improve the makefile:
+    + Add “clean” target.
+    + Make it possible to use a custom install(1) implementation for “make
+      install”. (This is useful for systems such as FreeBSD which have GNU
+      install available under the name “ginstall”.)
+    + Fix compatibility with find(1) implementations that require a path
+      argument.
 
   [ Christopher Meng ]
   * Makefile: preserve file timestamps.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Jul 2013 14:03:15 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Jul 2013 14:09:01 +0200
 
 i18nspector (0.11.1) unstable; urgency=low
 
