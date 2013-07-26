@@ -36,7 +36,7 @@ all: ;
 .PHONY: install
 install:
 	# binary:
-	install -p -d -m755 $(DESTDIR)$(bindir)
+	install -d -m755 $(DESTDIR)$(bindir)
 	sed -e "s#^basedir_fallback = .*#basedir_fallback = '$(basedir)/'#" $(exe) > $(DESTDIR)$(bindir)/$(exe)
 	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
 	# library:
@@ -44,7 +44,7 @@ install:
 	| sed -e 's#^[.]/##' \
 	| xargs -t -I {} install -p -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
 	# data:
-	install -p -d -m755 $(DESTDIR)$(datadir)
+	install -d -m755 $(DESTDIR)$(datadir)
 	install -p -m 644 data/* $(DESTDIR)$(datadir)
 	# manual page:
 	install -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
