@@ -44,8 +44,9 @@ install:
 	| sed -e 's#^[.]/##' \
 	| xargs -t -I {} install -p -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
 	# data:
-	install -d -m755 $(DESTDIR)$(datadir)
-	install -p -m 644 data/* $(DESTDIR)$(datadir)
+	( cd data && find -type f ) \
+	| sed -e 's#^[.]/##' \
+	| xargs -t -I {} install -p -D -m644 data/{} $(DESTDIR)$(datadir)/{}
 	# manual page:
 	install -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
 
