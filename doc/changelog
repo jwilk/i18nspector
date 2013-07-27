@@ -1,4 +1,4 @@
-i18nspector (0.12.1) UNRELEASED; urgency=low
+i18nspector (0.13) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -8,7 +8,7 @@ i18nspector (0.12.1) UNRELEASED; urgency=low
 
   * Check for duplicate, conflicting, or unknown message flags.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 27 Jul 2013 13:07:11 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 27 Jul 2013 15:16:27 +0200
 
 i18nspector (0.12) unstable; urgency=low
 
