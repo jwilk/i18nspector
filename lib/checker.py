@@ -733,6 +733,7 @@ class Checker(object):
             flags = collections.Counter(resplit_flags(message.flags))
             fuzzy = False
             wrap = None
+            format_flags = collections.defaultdict(dict)
             for flag, n in sorted(flags.items()):
                 known_flag = True
                 if flag == 'fuzzy':
@@ -746,13 +747,25 @@ class Checker(object):
                 elif flag.startswith('range:'):
                     pass
                 elif flag.endswith('-format'):
-                    pass
+                    known_flag = False
+                    for prefix in 'no-', 'possible-', 'impossible-', '':
+                        tp = prefix.rstrip('-')
+                        if not flag.startswith(prefix):
+                            continue
+                        string_format = flag[len(prefix):-7]
+                        if string_format in gettext.string_formats:
+                            known_flag = True
+                            format_flags[tp][string_format] = flag
+                            break
                 else:
                     known_flag = False
                 if not known_flag:
                     self.tag('unknown-message-flag', flag)
                 if n > 1:
                     self.tag('duplicate-message-flag', flag)
+                positive_format_flags = format_flags['']
+                if len(positive_format_flags) > 1:
+                    self.tag('conflicting-message-flags', *sorted(positive_format_flags.values()))
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]
