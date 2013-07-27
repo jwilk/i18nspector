@@ -94,7 +94,6 @@ Add option for printing tag descriptions.
 
 Detect more message flag conflicts:
 
- * ``X-format`` + ``no-X-format``
  * ``X-format`` + ``impossible-X-format``
  * ``possible-X-format`` + ``impossible-X-format``
 
