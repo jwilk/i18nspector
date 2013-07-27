@@ -37,9 +37,8 @@ def strip_plural_forms(s):
     # Remove superfluous parentheses around the plural formula:
     return re.sub(r'\bplural=\((.*?)\);$', r'plural=\1;', s)
 
-def main():
+def do_plurals():
     regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
-    # ---------
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
     okay = set()
     with urllib.request.urlopen(url) as file:
@@ -68,7 +67,8 @@ def main():
     n_okay = len(okay)
     print('# No plural-forms changes required for {} languages'.format(n_okay))
     print()
-    # ---------
+
+def do_languages():
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/msginit.c'
     okay = set()
     with urllib.request.urlopen(url) as file:
@@ -110,6 +110,11 @@ def main():
             print()
     n_okay = len(okay)
     print('# No principal-territory changes required for {} languages'.format(n_okay))
+    print()
+
+def main():
+    do_plurals()
+    do_languages()
 
 if __name__ == '__main__':
     main()
