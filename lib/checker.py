@@ -766,6 +766,20 @@ class Checker(object):
             positive_format_flags = format_flags['']
             if len(positive_format_flags) > 1:
                 self.tag('conflicting-message-flags', *sorted(positive_format_flags.values()))
+            elif len(positive_format_flags) == 1:
+                [[positive_format, positive_format_flag]] = positive_format_flags.items()
+                negative_format_flags = sorted(
+                    format_flag
+                    for fmt, format_flag in
+                    format_flags['no'].items()
+                    if fmt != positive_format
+                )
+                if negative_format_flags:
+                    args = (
+                        negative_format_flags +
+                        [tags.safe_format('(implied by {flag})'.format(flag=positive_format_flag))]
+                    )
+                    self.tag('redundant-message-flag', *args)
             for positive_key, negative_key in [('', 'no'), ('', 'impossible'), ('possible', 'impossible')]:
                 positive_format_flags = format_flags[positive_key]
                 negative_format_flags = format_flags[negative_key]

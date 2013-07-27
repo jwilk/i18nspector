@@ -92,10 +92,6 @@ Check for hardcoded Language in POT files.
 
 Add option for printing tag descriptions.
 
-Detect redundant message flags:
- 
- * ``X-format`` + ``no-Y-format``
-
 When emitting encoding-in-language-header-field, check if the encoding
 matches the one from Content-Type. Test-cases:
 
