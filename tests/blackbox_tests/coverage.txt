@@ -15,6 +15,7 @@
 [X] codomain-error-in-unused-plural-forms
 [X] conflict-marker-in-header-entry
 [X] conflict-marker-in-translation
+[X] conflicting-message-flags
 [X] date-from-future
 [X] distant-header-entry
 [X] duplicate-flag-for-header-entry
@@ -32,6 +33,7 @@
 [X] duplicate-header-field-report-msgid-bugs-to
 [X] duplicate-header-field-x-poedit
 [X] duplicate-message-definition
+[X] duplicate-message-flag
 [X] empty-file
 [X] empty-msgid-message-with-plural-forms
 [X] empty-msgid-message-with-source-code-references
@@ -80,6 +82,7 @@
 [X] unknown-encoding
 [X] unknown-file-type
 [X] unknown-header-field
+[X] unknown-message-flag
 [X] unknown-poedit-language
 [X] unrepresentable-characters
 [X] unusual-character-in-header-entry

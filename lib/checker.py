@@ -730,8 +730,29 @@ class Checker(object):
                 continue
             if is_header_entry(message):
                 continue
-            flags = resplit_flags(message.flags)
-            fuzzy = 'fuzzy' in flags
+            flags = collections.Counter(resplit_flags(message.flags))
+            fuzzy = False
+            wrap = None
+            for flag, n in sorted(flags.items()):
+                known_flag = True
+                if flag == 'fuzzy':
+                    fuzzy = True
+                elif flag in {'wrap', 'no-wrap'}:
+                    new_wrap = flag == 'wrap'
+                    if wrap == (not new_wrap):
+                        self.tag('conflicting-message-flags', 'wrap', 'no-wrap')
+                    else:
+                        wrap = new_wrap
+                elif flag.startswith('range:'):
+                    pass
+                elif flag.endswith('-format'):
+                    pass
+                else:
+                    known_flag = False
+                if not known_flag:
+                    self.tag('unknown-message-flag', flag)
+                if n > 1:
+                    self.tag('duplicate-message-flag', flag)
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]

@@ -135,6 +135,14 @@ description =
 references =
  http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
+[conflicting-message-flags]
+severity = important
+certainty = certain
+description =
+ Two flags with conflicting meanings are associated with one of the messages.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+
 [date-from-future]
 severity = normal
 certainty = certain
@@ -237,6 +245,12 @@ severity = serious
 certainty = certain
 description =
  This file contains multiple definitions of the same message.
+
+[duplicate-message-flag]
+severity = normal
+certainty = certain
+description =
+ Multiple identical flags are associated with one of the messages.
 
 [empty-file]
 severity = normal
@@ -653,6 +667,15 @@ description =
  case-sensitive).
 references =
  http://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
+
+[unknown-message-flag]
+severity = normal
+certainty = wild-guess
+description =
+ An unknown flag is associated with one of the messages.
+ It might be a typo.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [unknown-poedit-language]
 severity = minor
