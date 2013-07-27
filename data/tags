@@ -588,6 +588,15 @@ description =
  An input/output error or another operating system error occurred while
  checking this file.
 
+[redundant-message-flag]
+severity = pedantic
+certainty = certain
+description =
+ A flags associated with one of the messages is redundant, because it's implied
+ by another flag.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+
 [stray-header-line]
 severity = important
 certainty = certain

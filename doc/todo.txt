@@ -94,7 +94,6 @@ Add option for printing tag descriptions.
 
 Detect redundant message flags:
  
- * ``X-format`` + ``possible-X-format``
  * ``X-format`` + ``no-Y-format``
 
 When emitting encoding-in-language-header-field, check if the encoding

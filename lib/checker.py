@@ -772,6 +772,14 @@ class Checker(object):
                     conflicting_formats = frozenset(positive_format_flags) & frozenset(negative_format_flags)
                     for fmt in sorted(conflicting_formats):
                         self.tag('conflicting-message-flags', positive_format_flags[fmt], negative_format_flags[fmt])
+                positive_format_flags = format_flags['']
+                possible_format_flags = format_flags['possible']
+                redundant_formats = frozenset(positive_format_flags) & frozenset(possible_format_flags)
+                for fmt in sorted(redundant_formats):
+                    self.tag('redundant-message-flag',
+                        possible_format_flags[fmt],
+                        tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
+                    )
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]

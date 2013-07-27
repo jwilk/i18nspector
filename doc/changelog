@@ -4,13 +4,14 @@ i18nspector (0.13) UNRELEASED; urgency=low
     + Added:
       - conflicting-message-flags
       - duplicate-message-flag
+      - redundant-message-flag
       - unknown-message-flag
 
-  * Check for duplicate, conflicting, or unknown message flags.
+  * Check for duplicate, conflicting, redundant, or unknown message flags.
   * Work around a trailing comment parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/51
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 27 Jul 2013 16:02:49 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 27 Jul 2013 16:43:59 +0200
 
 i18nspector (0.12) unstable; urgency=low
 
