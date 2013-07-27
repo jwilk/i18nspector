@@ -23,6 +23,7 @@ gettext header support:
 - header field names registry
 - date parser
 - plural expressions parser
+- string formats registry
 '''
 
 import configparser
@@ -245,5 +246,21 @@ def parse_date(s):
         raise DateSyntaxError(exc)
 
 epoch = datetime.datetime(1995, 7, 2, tzinfo=datetime.timezone.utc)
+
+# ==============
+# String formats
+# ==============
+
+def _read_string_formats():
+    path = os.path.join(paths.datadir, 'string-formats')
+    with open(path, 'rt', encoding='ASCII') as file:
+        fields = [
+            s.rstrip() for s in file
+            if s.rstrip() and not s.startswith('#')
+        ]
+    misc.check_sorted(fields)
+    return frozenset(fields)
+
+string_formats = _read_string_formats()
 
 # vim:ts=4 sw=4 et

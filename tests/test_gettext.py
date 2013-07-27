@@ -28,6 +28,7 @@ from nose.tools import (
     assert_is_not_none,
     assert_less,
     assert_raises,
+    assert_true,
 )
 
 from . import aux
@@ -301,5 +302,18 @@ class test_parse_date:
     def test_epoch(self):
         d = self._parse('2008-04-03 16:06+0300')
         assert_less(lib.gettext.epoch, d)
+
+class test_string_formats:
+
+    def test_nonempty(self):
+        # XXX Update this number after editing data/string-formats:
+        expected = 27
+        assert_equal(len(lib.gettext.string_formats), expected)
+
+    def test_lowercase(self):
+        for s in lib.gettext.string_formats:
+            assert_is_instance(s, str)
+            assert_true(s)
+            assert_equal(s, s.lower())
 
 # vim:ts=4 sw=4 et

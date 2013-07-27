@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 import os
 import re
 import sys
@@ -112,9 +113,35 @@ def do_languages():
     print('# No principal-territory changes required for {} languages'.format(n_okay))
     print()
 
+template = '''\
+# This file has been generated automatically by private/update-gettext-data.
+# Do not edit.
+# Last update: {today}
+'''
+
+def do_string_formats():
+    url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/message.c'
+    with urllib.request.urlopen(url) as file:
+        contents = file.read()
+    match = re.compile(br'\sformat_language\s*\[NFORMATS\]\s*=\s*[{](.*?)[}]', re.DOTALL).search(contents)
+    if match is None:
+        raise ValueError
+    contents = match.group(1)
+    contents = re.compile(br'/[*].*?[*]/', re.DOTALL).sub(b'', contents)
+    contents = contents.decode('ASCII')
+    formats = re.findall('"([\w-]+)"', contents)
+    path = os.path.join(basedir, 'data', 'string-formats')
+    with open(path + '.tmp', 'wt', encoding='ASCII') as stdout:
+        print(template.format(today=datetime.date.today()), file=stdout)
+        for item in sorted(formats):
+            print(item, file=stdout)
+    os.rename(path + '.tmp', path)
+    print('# Saved {} string formats'.format(len(formats)))
+
 def main():
     do_plurals()
     do_languages()
+    do_string_formats()
 
 if __name__ == '__main__':
     main()

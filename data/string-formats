@@ -1,0 +1,31 @@
+# This file has been generated automatically by private/update-gettext-data.
+# Do not edit.
+# Last update: 2013-07-27
+
+awk
+boost
+c
+csharp
+elisp
+gcc-internal
+gfc-internal
+java
+javascript
+kde
+librep
+lisp
+lua
+objc
+object-pascal
+perl
+perl-brace
+php
+python
+python-brace
+qt
+qt-plural
+scheme
+sh
+smalltalk
+tcl
+ycp
