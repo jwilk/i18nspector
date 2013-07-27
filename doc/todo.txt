@@ -96,13 +96,12 @@ Detect more message flag conflicts:
 
  * ``X-format`` + ``no-X-format``
  * ``X-format`` + ``impossible-X-format``
- * ``impossible-X-format`` + ``possible-X-format``
- * ``no-X-format`` + ``possible-X-format``
+ * ``possible-X-format`` + ``impossible-X-format``
 
 Detect redundant message flags:
  
  * ``X-format`` + ``possible-X-format``
- * ``no-X-format`` + ``impossible-X-format``
+ * ``X-format`` + ``no-Y-format``
 
 When emitting encoding-in-language-header-field, check if the encoding
 matches the one from Content-Type. Test-cases:
