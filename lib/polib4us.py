@@ -56,6 +56,7 @@ def default_encoding_patch():
 # ============
 # Work around a few PO parsing bugs:
 # - newline decoding: http://bugs.debian.org/692283
+# - trailing comment parsing: https://bitbucket.org/izi/polib/issue/51
 # - atypical comment parsing
 
 class Codecs(object):
@@ -72,10 +73,16 @@ class Codecs(object):
         with open(path, 'rb') as file:
             contents = file.read()
         contents = contents.decode(encoding)
+        pending_comments = []
         for line in self._iterlines(contents):
             if self._atypical_comment(line):
-                yield '# ' + line[1:]
+                line = '# ' + line[1:]
+            if line[:1] == '#' or line == '' or line.isspace():
+                pending_comments += [line]
             else:
+                for comment_line in pending_comments:
+                    yield comment_line
+                pending_comments = []
                 yield line
 
 @register_patch
