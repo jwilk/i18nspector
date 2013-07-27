@@ -92,11 +92,6 @@ Check for hardcoded Language in POT files.
 
 Add option for printing tag descriptions.
 
-Detect more message flag conflicts:
-
- * ``X-format`` + ``impossible-X-format``
- * ``possible-X-format`` + ``impossible-X-format``
-
 Detect redundant message flags:
  
  * ``X-format`` + ``possible-X-format``

@@ -766,10 +766,12 @@ class Checker(object):
                 positive_format_flags = format_flags['']
                 if len(positive_format_flags) > 1:
                     self.tag('conflicting-message-flags', *sorted(positive_format_flags.values()))
-                negative_format_flags = format_flags['no']
-                conflicting_formats = frozenset(positive_format_flags) & frozenset(negative_format_flags)
-                for fmt in sorted(conflicting_formats):
-                    self.tag('conflicting-message-flags', positive_format_flags[fmt], negative_format_flags[fmt])
+                for positive_key, negative_key in [('', 'no'), ('', 'impossible'), ('possible', 'impossible')]:
+                    positive_format_flags = format_flags[positive_key]
+                    negative_format_flags = format_flags[negative_key]
+                    conflicting_formats = frozenset(positive_format_flags) & frozenset(negative_format_flags)
+                    for fmt in sorted(conflicting_formats):
+                        self.tag('conflicting-message-flags', positive_format_flags[fmt], negative_format_flags[fmt])
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]
