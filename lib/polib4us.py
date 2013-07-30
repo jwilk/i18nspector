@@ -77,7 +77,7 @@ class Codecs(object):
         for line in self._iterlines(contents):
             if self._atypical_comment(line):
                 line = '# ' + line[1:]
-            if line[:1] == '#' or line == '' or line.isspace():
+            if line[:2] in {'', '# '} or line.isspace():
                 pending_comments += [line]
             else:
                 for comment_line in pending_comments:
