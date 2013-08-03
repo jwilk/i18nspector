@@ -133,4 +133,8 @@ Check for PO files that are not encoding-aware:
 
 Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``.
 
+Add support for MediaWiki Translate's ``invalid-plural`` flag.
+
+Check syntax of ``range: …`` flags.
+
 .. vim:ft=rst
