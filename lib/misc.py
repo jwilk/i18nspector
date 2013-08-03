@@ -44,22 +44,6 @@ def check_sorted(iterable, exception=DataIntegrityError):
 class NotOverriddenWarning(UserWarning):
     pass
 
-def not_overridden(f):
-    '''
-    Issue NotOverriddenWarning if the decorated method was not overridden in a
-    subclass, or called directly.
-    '''
-    @functools.wraps(f)
-    def new_f(self, *args, **kwargs):
-        cls = type(self)
-        warnings.warn(
-            '%s.%s.%s() is not overridden' % (cls.__module__, cls.__name__, f.__name__),
-            category=NotOverriddenWarning,
-            stacklevel=2
-        )
-        return f(self, *args, **kwargs)
-    return new_f
-
 class OSRelease(object):
 
     '''

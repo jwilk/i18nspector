@@ -70,31 +70,6 @@ class test_check_sorted:
         with assert_raises(lib.misc.DataIntegrityError):
             lib.misc.check_sorted(iterable)
 
-class test_not_overriden:
-
-    class B(object):
-        @lib.misc.not_overridden
-        def f(self, x, y):
-            pass
-
-    class C(B):
-        def f(self, x, y):
-            return x * y
-
-    def test_not_overriden(self):
-        def show(message, category, filename, lineno, file=None, line=None):
-            with assert_raises(lib.misc.NotOverriddenWarning):
-                raise message
-        with warnings.catch_warnings():
-            warnings.showwarning = show
-            assert_is_none(self.B().f(6, 7))
-
-    def test_overriden(self):
-        with warnings.catch_warnings():
-            warnings.filterwarnings('error', category=lib.misc.NotOverriddenWarning)
-            result = self.C().f(6, 7)
-            assert_equal(result, 42)
-
 class test_os_release:
 
     def _test(self, path, **like):
