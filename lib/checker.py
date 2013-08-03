@@ -22,6 +22,7 @@
 checks
 '''
 
+import abc
 import collections
 import contextlib
 import difflib
@@ -65,7 +66,7 @@ def checks_header_fields(*fields):
     header_fields_with_dedicated_checks.update(fields)
     return identity
 
-class Checker(object):
+class Checker(object, metaclass=abc.ABCMeta):
 
     _patched_environment = None
 
@@ -92,7 +93,7 @@ class Checker(object):
                 self.fake_path = fake_root + path[len(real_root):]
         self.options = options
 
-    @misc.not_overridden
+    @abc.abstractmethod
     def tag(self, tagname, *extra):
         return
 
