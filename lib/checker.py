@@ -24,7 +24,6 @@ checks
 
 import abc
 import collections
-import contextlib
 import difflib
 import email.utils
 import os

@@ -24,9 +24,7 @@ miscellanea
 
 import datetime
 import errno
-import functools
 import shlex
-import warnings
 
 def is_sorted(iterable):
     # It's not very efficient, but should be enough for our purposes.
