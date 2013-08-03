@@ -24,14 +24,11 @@ from nose.tools import (
     assert_equal,
     assert_false,
     assert_is_instance,
-    assert_is_none,
     assert_is_not_none,
     assert_less,
     assert_raises,
     assert_true,
 )
-
-from . import aux
 
 import lib.gettext
 

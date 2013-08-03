@@ -21,7 +21,6 @@
 import polib
 
 from nose.tools import (
-    assert_equal,
     assert_true,
 )
 
