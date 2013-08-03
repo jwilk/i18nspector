@@ -1,4 +1,4 @@
-# P: redundant-message-flag no-python-brace-format no-python-format (implied by c-format)
+# P: redundant-message-flag msgid 'A quick brown fox jumps over the lazy dog.': no-python-brace-format no-python-format (implied by c-format)
 
 msgid ""
 msgstr ""

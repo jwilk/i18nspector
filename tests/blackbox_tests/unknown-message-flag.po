@@ -1,4 +1,4 @@
-# I: unknown-message-flag muzzy
+# I: unknown-message-flag msgid 'A quick brown fox jumps over the lazy dog.': muzzy
 
 msgid ""
 msgstr ""

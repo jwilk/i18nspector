@@ -1,4 +1,4 @@
-# P: redundant-message-flag possible-c-format (implied by c-format)
+# P: redundant-message-flag msgid 'A quick brown fox jumps over the lazy dog.': possible-c-format (implied by c-format)
 
 msgid ""
 msgstr ""

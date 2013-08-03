@@ -1,4 +1,4 @@
-# W: duplicate-message-flag no-c-format
+# W: duplicate-message-flag msgid 'A quick brown fox jumps over the lazy dog.': no-c-format
 
 msgid ""
 msgstr ""

@@ -741,7 +741,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                 elif flag in {'wrap', 'no-wrap'}:
                     new_wrap = flag == 'wrap'
                     if wrap == (not new_wrap):
-                        self.tag('conflicting-message-flags', 'wrap', 'no-wrap')
+                        self.tag('conflicting-message-flags',
+                            message_repr(message, template='{}:'),
+                            'wrap', 'no-wrap'
+                        )
                     else:
                         wrap = new_wrap
                 elif flag.startswith('range:'):
@@ -760,12 +763,21 @@ class Checker(object, metaclass=abc.ABCMeta):
                 else:
                     known_flag = False
                 if not known_flag:
-                    self.tag('unknown-message-flag', flag)
+                    self.tag('unknown-message-flag',
+                        message_repr(message, template='{}:'),
+                        flag
+                    )
                 if n > 1:
-                    self.tag('duplicate-message-flag', flag)
+                    self.tag('duplicate-message-flag',
+                        message_repr(message, template='{}:'),
+                        flag
+                    )
             positive_format_flags = format_flags['']
             if len(positive_format_flags) > 1:
-                self.tag('conflicting-message-flags', *sorted(positive_format_flags.values()))
+                self.tag('conflicting-message-flags',
+                    message_repr(message, template='{}:'),
+                    *sorted(positive_format_flags.values())
+                )
             elif len(positive_format_flags) == 1:
                 [[positive_format, positive_format_flag]] = positive_format_flags.items()
                 negative_format_flags = sorted(
@@ -779,18 +791,26 @@ class Checker(object, metaclass=abc.ABCMeta):
                         negative_format_flags +
                         [tags.safe_format('(implied by {flag})'.format(flag=positive_format_flag))]
                     )
-                    self.tag('redundant-message-flag', *args)
+                    self.tag('redundant-message-flag',
+                        message_repr(message, template='{}:'),
+                        *args
+                    )
             for positive_key, negative_key in [('', 'no'), ('', 'impossible'), ('possible', 'impossible')]:
                 positive_format_flags = format_flags[positive_key]
                 negative_format_flags = format_flags[negative_key]
                 conflicting_formats = frozenset(positive_format_flags) & frozenset(negative_format_flags)
                 for fmt in sorted(conflicting_formats):
-                    self.tag('conflicting-message-flags', positive_format_flags[fmt], negative_format_flags[fmt])
+                    self.tag('conflicting-message-flags',
+                        message_repr(message, template='{}:'),
+                        positive_format_flags[fmt],
+                        negative_format_flags[fmt],
+                    )
             positive_format_flags = format_flags['']
             possible_format_flags = format_flags['possible']
             redundant_formats = frozenset(positive_format_flags) & frozenset(possible_format_flags)
             for fmt in sorted(redundant_formats):
                 self.tag('redundant-message-flag',
+                    message_repr(message, template='{}:'),
                     possible_format_flags[fmt],
                     tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
                 )

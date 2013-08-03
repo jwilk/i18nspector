@@ -1,4 +1,4 @@
-# I: unknown-message-flag intercal-format
+# I: unknown-message-flag msgid 'A quick brown fox jumps over the lazy dog.': intercal-format
 
 msgid ""
 msgstr ""

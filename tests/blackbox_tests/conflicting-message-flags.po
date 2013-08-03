@@ -1,4 +1,4 @@
-# E: conflicting-message-flags wrap no-wrap
+# E: conflicting-message-flags msgid 'A quick brown fox jumps over the lazy dog.': wrap no-wrap
 
 msgid ""
 msgstr ""

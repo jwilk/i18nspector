@@ -1,4 +1,4 @@
-# E: conflicting-message-flags c-format python-format
+# E: conflicting-message-flags msgid 'A quick brown fox jumps over the lazy dog.': c-format python-format
 
 msgid ""
 msgstr ""
