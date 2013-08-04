@@ -145,4 +145,9 @@ Check .desktop files:
 
  * http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
 
+Figure out what to do with software that call ``gettext("")`` intentionally.
+Test-case:
+
+ * http://sources.debian.net/src/evolution/3.8.2-1/shell/main.c#L574
+
 .. vim:ft=rst
