@@ -870,7 +870,7 @@ def is_header_entry(entry):
 
 def resplit_flags(flags):
     return (
-        flag.strip('\t\r\f\v')
+        flag.strip(' \t\r\f\v')
         for subflags in flags
         for flag in subflags.split(',')
     ) # work-around for https://bitbucket.org/izi/polib/issue/46

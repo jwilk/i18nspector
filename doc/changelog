@@ -8,10 +8,11 @@ i18nspector (0.13) UNRELEASED; urgency=low
       - unknown-message-flag
 
   * Check for duplicate, conflicting, redundant, or unknown message flags.
+  * Strip leading and trailing spaces from flag lines.
   * Work around a trailing comment parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/51
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 27 Jul 2013 16:43:59 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 04 Aug 2013 12:07:34 +0200
 
 i18nspector (0.12) unstable; urgency=low
 
