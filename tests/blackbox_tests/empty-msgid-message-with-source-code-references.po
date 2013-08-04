@@ -1,4 +1,4 @@
-# E: empty-msgid-message-with-source-code-references
+# E: empty-msgid-message-with-source-code-references 'gizmo.c:1'
 
 #: gizmo.c:1
 msgid ""

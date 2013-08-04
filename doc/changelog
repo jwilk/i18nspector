@@ -11,10 +11,13 @@ i18nspector (0.13) UNRELEASED; urgency=low
 
   * Check for duplicate, conflicting, redundant, or unknown message flags.
   * Strip leading and trailing spaces from flag lines.
+  * Be verbose when checking for messages with empty msgid with source code
+    references.
+
   * Work around a trailing comment parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/51
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 04 Aug 2013 15:21:02 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 04 Aug 2013 18:21:25 +0200
 
 i18nspector (0.12) unstable; urgency=low
 

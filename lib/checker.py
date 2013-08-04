@@ -655,7 +655,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('duplicate-header-entry')
                 break
             if entry.occurrences:
-                self.tag('empty-msgid-message-with-source-code-references')
+                self.tag('empty-msgid-message-with-source-code-references',
+                    *(':'.join((path, line)) for path, line in entry.occurrences)
+                )
             if entry.msgid_plural or entry.msgstr_plural:
                 self.tag('empty-msgid-message-with-plural-forms')
             try:
