@@ -778,7 +778,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                         message_repr(message, template='{}:'),
                         flag
                     )
-                if n > 1:
+                if n > 1 and flag:
                     self.tag('duplicate-message-flag',
                         message_repr(message, template='{}:'),
                         flag
