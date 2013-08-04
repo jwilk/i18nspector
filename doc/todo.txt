@@ -143,4 +143,8 @@ Test-case:
 
  * http://sources.debian.net/src/recode/3.6-20/i18n/recode.pot#L324
 
+Check .desktop files:
+
+ * http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
+
 .. vim:ft=rst
