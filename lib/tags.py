@@ -88,6 +88,15 @@ certainties = OrderedGroup('Certainty',
     'certain',
 )
 
+class InvalidSeverity(misc.DataIntegrityError):
+    pass
+
+class InvalidCertainty(misc.DataIntegrityError):
+    pass
+
+class UnknownField(misc.DataIntegrityError):
+    pass
+
 _is_safe = re.compile(r'\A[A-Za-z0-9_.!<>=-]+\Z').match
 
 class safestr(str):
@@ -118,17 +127,25 @@ class Tag(object):
             try:
                 getattr(self, '_set_' + k)(v)
             except AttributeError:
-                raise KeyError(k)
+                raise UnknownField(k)
         self.name, self.severity, self.certainty
 
     def _set_name(self, value):
         self.name = value
 
     def _set_severity(self, value):
-        self.severity = severities[value]
+        try:
+            self.severity = severities[value]
+        except KeyError as exc:
+            [key] = exc.args
+            raise InvalidSeverity(key)
 
     def _set_certainty(self, value):
-        self.certainty = certainties[value]
+        try:
+            self.certainty = certainties[value]
+        except KeyError as exc:
+            [key] = exc.args
+            raise InvalidCertainty(key)
 
     _strip_leading_dot = functools.partial(
         re.compile('^[.]', re.MULTILINE).sub,
@@ -203,11 +220,7 @@ def _read_tags():
             continue
         kwargs = dict(section.items())
         kwargs['name'] = tagname
-        try:
-            tags[tagname] = Tag(**kwargs)
-        except KeyError as exc:
-            [key] = exc.args
-            raise misc.DataIntegrityError('unknown field: {!r}'.format(key))
+        tags[tagname] = Tag(**kwargs)
     return tags
 
 _tags = _read_tags()
