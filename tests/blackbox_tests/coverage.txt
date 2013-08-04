@@ -53,6 +53,7 @@
 [X] invalid-last-translator
 [X] invalid-mime-version
 [X] invalid-mo-file
+[X] invalid-range-flag
 [X] invalid-report-msgid-bugs-to
 [X] language-disparity
 [X] language-team-equal-to-last-translator
@@ -73,6 +74,7 @@
 [X] non-ascii-compatible-encoding
 [X] non-portable-encoding
 [X] os-error
+[X] range-flag-without-plural-string
 [X] redundant-message-flag
 [X] stray-header-line
 [X] syntax-error-in-plural-forms

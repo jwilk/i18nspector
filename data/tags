@@ -413,6 +413,17 @@ certainty = certain
 description =
  This file couldn't be parsed a MO file.
 
+[invalid-range-flag]
+severity = important
+certainty = certain
+description =
+ A ``range:`` flag couldn't be parsed, or the designated range contained less
+ than two numbers.
+ The syntax is ``range: ``\ *min*\ ``..``\ *max*, where both values are
+ non-negative integers.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+
 [invalid-report-msgid-bugs-to]
 severity = normal
 certainty = possible
@@ -587,6 +598,15 @@ certainty = certain
 description =
  An input/output error or another operating system error occurred while
  checking this file.
+
+[range-flag-without-plural-string]
+severity = normal
+certainty = certain
+description =
+ A ``range:`` flag is associated with a message that doesn't have plural string.
+ ``range:`` flags only make sense for translations involving plural forms.
+references =
+ http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [redundant-message-flag]
 severity = pedantic

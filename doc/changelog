@@ -4,6 +4,8 @@ i18nspector (0.13) UNRELEASED; urgency=low
     + Added:
       - conflicting-message-flags
       - duplicate-message-flag
+      - invalid-range-flag
+      - range-flag-without-plural-string
       - redundant-message-flag
       - unknown-message-flag
 
@@ -12,7 +14,7 @@ i18nspector (0.13) UNRELEASED; urgency=low
   * Work around a trailing comment parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/51
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 04 Aug 2013 12:07:34 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 04 Aug 2013 15:21:02 +0200
 
 i18nspector (0.12) unstable; urgency=low
 

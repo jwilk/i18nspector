@@ -748,7 +748,18 @@ class Checker(object, metaclass=abc.ABCMeta):
                     else:
                         wrap = new_wrap
                 elif flag.startswith('range:'):
-                    pass
+                    if not message.msgid_plural:
+                        self.tag('range-flag-without-plural-string')
+                    match = re.match('([0-9]+)[.][.]([0-9]+)', flag[6:].strip(' \t\r\f\v'))
+                    if match is not None:
+                        i, j = map(int, match.groups())
+                        if i >= j:
+                            match = None
+                    if match is None:
+                        self.tag('invalid-range-flag',
+                            message_repr(message, template='{}:'),
+                            flag
+                        )
                 elif flag.endswith('-format'):
                     known_flag = False
                     for prefix in 'no-', 'possible-', 'impossible-', '':
