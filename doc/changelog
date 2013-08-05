@@ -13,7 +13,7 @@ i18nspector (0.13) UNRELEASED; urgency=low
   * Strip leading and trailing spaces from flag lines.
   * Be verbose when checking for messages with empty msgid with source code
     references.
-
+  * Reduce duplicate-flag-for-header-entry severity to minor.
   * Work around a trailing comment parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/51
 

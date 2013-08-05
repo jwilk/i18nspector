@@ -137,7 +137,7 @@ references =
 
 [conflicting-message-flags]
 severity = important
-certainty = certain
+certainty = possible
 description =
  Two flags with conflicting meanings are associated with one of the messages.
 references =
@@ -157,7 +157,7 @@ description =
  The header entry should be always the first one.
 
 [duplicate-flag-for-header-entry]
-severity = normal
+severity = minor
 certainty = certain
 description =
  Multiple identical flags are associated with the header entry.
@@ -247,7 +247,7 @@ description =
  This file contains multiple definitions of the same message.
 
 [duplicate-message-flag]
-severity = normal
+severity = minor
 certainty = certain
 description =
  Multiple identical flags are associated with one of the messages.
