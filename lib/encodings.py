@@ -52,7 +52,6 @@ def charmap_encoding(encoding):
     def decode(input, errors='strict'):
         return codecs.charmap_decode(input, errors, decoding_table)
 
-
     path = os.path.join(paths.datadir, 'charmaps', encoding.upper())
     try:
         file = open(path, 'rb')
