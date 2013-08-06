@@ -14,10 +14,11 @@ i18nspector (0.13) UNRELEASED; urgency=low
   * Be verbose when checking for messages with empty msgid with source code
     references.
   * Reduce duplicate-flag-for-header-entry severity to minor.
+  * Improve the test suite.
   * Work around a trailing comment parsing bug in polib.
     https://bitbucket.org/izi/polib/issue/51
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 04 Aug 2013 18:21:25 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 06 Aug 2013 13:30:41 +0200
 
 i18nspector (0.12) unstable; urgency=low
 
