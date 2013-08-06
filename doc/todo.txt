@@ -133,7 +133,9 @@ Check for PO files that are not encoding-aware:
 
 Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``.
 
-Add support for MediaWiki Translate's ``invalid-plural`` flag.
+Add support for MediaWiki Translate's ``invalid-plural`` flag. Test-case:
+
+ * http://sources.debian.net/data/main/e/evolution/3.4.4-3/po/fi.po
 
 Add support for pygettext's ``docstring`` flag.
 
@@ -150,6 +152,6 @@ Check .desktop files:
 Figure out what to do with software that call ``gettext("")`` intentionally.
 Test-case:
 
- * http://sources.debian.net/src/evolution/3.8.2-1/shell/main.c#L574
+ * http://sources.debian.net/src/evolution/3.4.4-3/shell/main.c#L579
 
 .. vim:ft=rst
