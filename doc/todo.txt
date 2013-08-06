@@ -135,6 +135,8 @@ Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``.
 
 Add support for MediaWiki Translate's ``invalid-plural`` flag.
 
+Add support for pygettext's ``docstring`` flag.
+
 Apparently some versions of ``xgettext`` incorrectly produce entries with
 duplicate format flags. Find out and document which versions are affected.
 Test-case:
