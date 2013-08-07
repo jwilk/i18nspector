@@ -34,6 +34,8 @@ from lib import iconv
 
 def generate_charmap(encoding):
     encoding = encoding.upper()
+    print(encoding, '...', end=' ')
+    sys.stdout.flush()
     path = '{base}/data/charmaps/{enc}'.format(base=basedir, enc=encoding)
     n = 0
     us = []
@@ -48,12 +50,14 @@ def generate_charmap(encoding):
         assert len(u) == 1
         us += [u]
     if n <= 128:
+        print('SKIP (not 8-bit)')
         return
     assert len(us) == 0x100
     with open(path, 'wb') as file:
         us = ''.join(us)
         assert len(us) == 0x100
         file.write(us.encode('UTF-8'))
+    print('ok')
 
 def main():
     for encoding, codec in encodings._portable_encodings.items():
