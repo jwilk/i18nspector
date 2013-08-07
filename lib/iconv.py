@@ -98,10 +98,21 @@ def _encode_dl(input: str, *, encoding):
             outbuf = ctypes.create_string_buffer(output_len)
             outbytesleft = ctypes.c_size_t(output_len)
             assert outbytesleft.value == output_len  # no overflow
-            rc = _iconv(cd, *map(ctypes.byref, [
-                ctypes.cast(inbuf, ctypes.POINTER(ctypes.c_char)), inbytesleft,
-                ctypes.cast(outbuf, ctypes.POINTER(ctypes.c_char)), outbytesleft,
-            ]))
+            rc = _iconv(cd, None, None, None, None)
+            if rc == ctypes.c_size_t(-1).value:
+                rc = ctypes.get_errno()
+                raise OSError(rc, os.strerror(rc))
+            inbufptr = ctypes.pointer(ctypes.cast(inbuf, ctypes.POINTER(ctypes.c_char)))
+            outbufptr = ctypes.pointer(ctypes.cast(outbuf, ctypes.POINTER(ctypes.c_char)))
+            rc = _iconv(cd,
+                inbufptr, ctypes.byref(inbytesleft),
+                outbufptr, ctypes.byref(outbytesleft),
+            )
+            if rc != ctypes.c_size_t(-1).value:
+                rc = _iconv(cd,
+                    None, None,
+                    outbufptr, ctypes.byref(outbytesleft),
+                )
             if rc == ctypes.c_size_t(-1).value:
                 rc = ctypes.get_errno()
                 if rc == errno.E2BIG:
@@ -170,10 +181,21 @@ def _decode_dl(input: bytes, *, encoding):
             outbuf = ctypes.create_unicode_buffer(output_len)
             outbytesleft = ctypes.c_size_t(output_len)  # no overflow
             assert outbytesleft.value == output_len
-            rc = _iconv(cd, *map(ctypes.byref, [
-                ctypes.cast(inbuf, ctypes.POINTER(ctypes.c_char)), inbytesleft,
-                ctypes.cast(outbuf, ctypes.POINTER(ctypes.c_char)), outbytesleft,
-            ]))
+            rc = _iconv(cd, None, None, None, None)
+            if rc == ctypes.c_size_t(-1).value:
+                rc = ctypes.get_errno()
+                raise OSError(rc, os.strerror(rc))
+            inbufptr = ctypes.pointer(ctypes.cast(inbuf, ctypes.POINTER(ctypes.c_char)))
+            outbufptr = ctypes.pointer(ctypes.cast(outbuf, ctypes.POINTER(ctypes.c_char)))
+            rc = _iconv(cd,
+                inbufptr, ctypes.byref(inbytesleft),
+                outbufptr, ctypes.byref(outbytesleft),
+            )
+            if rc != ctypes.c_size_t(-1).value:
+                rc = _iconv(cd,
+                    None, None,
+                    outbufptr, ctypes.byref(outbytesleft),
+                )
             if rc == ctypes.c_size_t(-1).value:
                 rc = ctypes.get_errno()
                 if rc == errno.E2BIG:

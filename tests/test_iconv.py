@@ -24,15 +24,27 @@ from nose.tools import (
 
 import lib.iconv as M
 
-_iso2_unicode = 'Żrą łódź? Część miń!'
-_iso2_bytes = b'\xafr\xb1 \xb3\xf3d\xbc? Cz\xea\xb6\xe6 mi\xf1!'
+class _test:
+    u = None
+    b = None
+    e = None
 
-def test_encode():
-    b = M.encode(_iso2_unicode, 'ISO-8859-2')
-    assert_equal(b, _iso2_bytes)
+    def test_encode(self):
+        b = M.encode(self.u, self.e)
+        assert_equal(b, self.b)
 
-def test_decode():
-    u = M.decode(_iso2_bytes, 'ISO-8859-2')
-    assert_equal(u, _iso2_unicode)
+    def test_decode(self):
+        u = M.decode(self.b, self.e)
+        assert_equal(u, self.u)
+
+class test_iso2(_test):
+    u = 'Żrą łódź? Część miń!'
+    b = b'\xAFr\xB1 \xB3\xF3d\xBC? Cz\xEA\xB6\xE6 mi\xF1!'
+    e = 'ISO-8859-2'
+
+class test_tcvn(_test):
+    u = 'Do bạch kim rất quý, sẽ để lắp vô xương'
+    b = b'Do b\xB9ch kim r\xCAt qu\xFD, s\xCF \xAE\xD3 l\xBEp v\xAB x\xAD\xACng'
+    e = 'TCVN-5712'
 
 # vim:ts=4 sw=4 et
