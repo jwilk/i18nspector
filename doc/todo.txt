@@ -131,7 +131,9 @@ Check for PO files that are not encoding-aware:
 
  * http://www.monkey.org/openbsd/archive2/ports/200105/msg00081.html
 
-Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``.
+Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``. Reference:
+
+ * http://www.unicode.org/faq/utf_bom.html#bom6
 
 Add support for MediaWiki Translate's ``invalid-plural`` flag. Test-case:
 
