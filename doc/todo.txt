@@ -131,10 +131,6 @@ Check for PO files that are not encoding-aware:
 
  * http://www.monkey.org/openbsd/archive2/ports/200105/msg00081.html
 
-Check for ``ZERO WIDTH NO-BREAK SPACE (U+FEFF)``. Reference:
-
- * http://www.unicode.org/faq/utf_bom.html#bom6
-
 Add support for MediaWiki Translate's ``invalid-plural`` flag. Test-case:
 
  * http://sources.debian.net/data/main/e/evolution/3.4.4-3/po/fi.po

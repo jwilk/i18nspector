@@ -730,6 +730,8 @@ description =
  .
  * using ISO 2022 escape sequences, or
  * using UTF-8 despite declaring an 8-bit encoding.
+references =
+ http://www.unicode.org/faq/utf_bom.html#bom6
 
 [unusual-character-in-translation]
 severity = important
@@ -740,5 +742,7 @@ description =
  .
  * using ISO 2022 escape sequences, or
  * using UTF-8 despite declaring an 8-bit encoding.
+references =
+ http://www.unicode.org/faq/utf_bom.html#bom6
 
 # vim:ft=dosini

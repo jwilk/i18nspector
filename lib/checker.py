@@ -52,6 +52,7 @@ find_unusual_characters = re.compile(
     r'|\x1B(?!\[)'  # ESC, except when followed by [
     r'|\x7F'  # DEL
     r'|[\x80-\x9F]'  # C1
+     '|\uFEFF'  # ZERO WIDTH NO-BREAK SPACE
      '|\uFFFD'  # REPLACEMENT CHARACTER
      '|[\uFFFE\uFFFF]'  # non-characters
     r'|(?<=\w)\xBF'  # INVERTED QUESTION MARK but only directly after a letter
