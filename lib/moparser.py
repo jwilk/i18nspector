@@ -194,5 +194,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+else:
+    del main
 
 # vim:ts=4 sw=4 et
