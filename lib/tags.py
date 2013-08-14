@@ -105,6 +105,8 @@ class safestr(str):
 def _escape(s):
     if isinstance(s, safestr):
         return s
+    if isinstance(s, bytes):
+        return repr(s)[1:]
     s = str(s)
     if s == '':
         return '(empty string)'
