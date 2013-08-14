@@ -166,7 +166,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 end = broken_encoding.start + 40
                 s = s[begin:end]
                 self.tag('broken-encoding',
-                    tags.safestr(repr(s)[1:]),
+                    s,
                     tags.safestr('cannot be decoded as'),
                     broken_encoding.encoding.upper(),
                 )
