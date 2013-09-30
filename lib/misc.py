@@ -39,46 +39,6 @@ def check_sorted(iterable, exception=DataIntegrityError):
     if not is_sorted(iterable):
         raise exception()
 
-class OSRelease(object):
-
-    '''
-    /etc/os-release parser
-
-    File format documentation:
-    http://www.freedesktop.org/software/systemd/man/os-release.html
-    '''
-
-    def __init__(self, path='/etc/os-release'):
-        self._id = None
-        self._id_like = ()
-        try:
-            file = open(path, 'rt', encoding='UTF-8')
-        except EnvironmentError as exc:
-            if exc.errno == errno.ENOENT:
-                return
-            raise
-        with file:
-            for line in file:
-                self._parse_line(line)
-
-    def _parse_line(self, line):
-        try:
-            name, value = line.split('=', 1)
-            [value] = shlex.split(value)
-        except ValueError:
-            return
-        if name == 'ID':
-            self._id = value
-        elif name == 'ID_LIKE':
-            self._id_like = frozenset(value.split())
-
-    def is_like(self, ident):
-        if ident is None:
-            raise TypeError('ident must not be None')
-        if self._id == ident:
-            return True
-        return ident in self._id_like
-
 def utc_now():
     now = datetime.datetime.now()
     now = now.replace(tzinfo=datetime.timezone.utc)
