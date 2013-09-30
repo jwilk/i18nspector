@@ -39,9 +39,6 @@ def check_sorted(iterable, exception=DataIntegrityError):
     if not is_sorted(iterable):
         raise exception()
 
-class NotOverriddenWarning(UserWarning):
-    pass
-
 class OSRelease(object):
 
     '''
