@@ -46,7 +46,7 @@ class colors:
     white = NotImplemented
 
 _strip_delay = functools.partial(
-    re.compile(b'[$]<[0-9]+[/*]*>').sub,
+    re.compile(b'[$]<([0-9]*[.])?[0-9]+([/*]|[*][/])?>').sub,
     b''
 )
 
