@@ -54,24 +54,23 @@ def test_dummy():
         assert_equal(T.attr_fg(i), '')
     assert_equal(T.attr_reset(), '')
 
-@aux.fork_isolation
-def test_vt100():
+def _setup_tty(term):
     master_fd, slave_fd = pty.openpty()
     os.dup2(slave_fd, pty.STDOUT_FILENO)
     sys.stdout = sys.__stdout__
-    os.environ['TERM'] = 'vt100'
+    os.environ['TERM'] = term
     T.initialize()
+
+@aux.fork_isolation
+def test_vt100():
+    _setup_tty('vt100')
     for i in _get_colors():
         assert_equal(T.attr_fg(i), '')
     assert_equal(T.attr_reset(), '\x1b[m\x0f')
 
 @aux.fork_isolation
 def test_ansi():
-    master_fd, slave_fd = pty.openpty()
-    os.dup2(slave_fd, pty.STDOUT_FILENO)
-    sys.stdout = sys.__stdout__
-    os.environ['TERM'] = 'ansi'
-    T.initialize()
+    _setup_tty('ansi')
     assert_equal(T.attr_fg(T.colors.black), '\x1b[30m')
     assert_equal(T.attr_fg(T.colors.red), '\x1b[31m')
     assert_equal(T.attr_fg(T.colors.green), '\x1b[32m')
