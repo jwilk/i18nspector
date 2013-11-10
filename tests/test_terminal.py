@@ -18,9 +18,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import pty
+import os
+import sys
+
 from nose.tools import (
     assert_equal,
 )
+
+from . import aux
 
 import lib.terminal as T
 
@@ -35,5 +41,45 @@ def test_strip_delay():
     t(b'$<0.6*>')
     s = b'$<\x9b20>'
     t(s, s)
+
+def _get_colors():
+    return (
+        value
+        for name, value in sorted(vars(T.colors).items())
+        if name.isalpha()
+    )
+
+def test_dummy():
+    for i in _get_colors():
+        assert_equal(T.attr_fg(i), '')
+    assert_equal(T.attr_reset(), '')
+
+@aux.fork_isolation
+def test_vt100():
+    master_fd, slave_fd = pty.openpty()
+    os.dup2(slave_fd, pty.STDOUT_FILENO)
+    sys.stdout = sys.__stdout__
+    os.environ['TERM'] = 'vt100'
+    T.initialize()
+    for i in _get_colors():
+        assert_equal(T.attr_fg(i), '')
+    assert_equal(T.attr_reset(), '\x1b[m\x0f')
+
+@aux.fork_isolation
+def test_ansi():
+    master_fd, slave_fd = pty.openpty()
+    os.dup2(slave_fd, pty.STDOUT_FILENO)
+    sys.stdout = sys.__stdout__
+    os.environ['TERM'] = 'ansi'
+    T.initialize()
+    assert_equal(T.attr_fg(T.colors.black), '\x1b[30m')
+    assert_equal(T.attr_fg(T.colors.red), '\x1b[31m')
+    assert_equal(T.attr_fg(T.colors.green), '\x1b[32m')
+    assert_equal(T.attr_fg(T.colors.yellow), '\x1b[33m')
+    assert_equal(T.attr_fg(T.colors.blue), '\x1b[34m')
+    assert_equal(T.attr_fg(T.colors.magenta), '\x1b[35m')
+    assert_equal(T.attr_fg(T.colors.cyan), '\x1b[36m')
+    assert_equal(T.attr_fg(T.colors.white), '\x1b[37m')
+    assert_equal(T.attr_reset(), '\x1b[0;10m')
 
 # vim:ts=4 sw=4 et
