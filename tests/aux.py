@@ -22,7 +22,6 @@ import contextlib
 import functools
 import os
 import shutil
-import signal
 import sys
 import tempfile
 import traceback
@@ -70,14 +69,13 @@ def fork_isolation(f):
                     fp.write(s)
             # sys.exit() can't be used here, because nose catches all exceptions,
             # including SystemExit.
-            signal.signal(signal.SIGUSR1, signal.SIG_DFL)
-            os.kill(os.getpid(), signal.SIGUSR1)
+            os._exit(0)
         else:
             os.close(writefd)
             with os.fdopen(readfd, 'rb') as fp:
                 err = fp.read()
             pid, status = os.waitpid(pid, 0)
-            if status != signal.SIGUSR1:
+            if status != 0:
                 raise RuntimeError('unexpected isolated process status {}'.format(status))
             if err:
                 err = err.decode('UTF-8').rstrip('\n')
