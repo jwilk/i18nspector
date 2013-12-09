@@ -1,8 +1,8 @@
 i18nspector (0.13.1) UNRELEASED; urgency=low
 
-  * 
+  * Fix test failures with Python 3.4.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 15 Sep 2013 19:13:11 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 09 Dec 2013 08:53:47 +0100
 
 i18nspector (0.13) unstable; urgency=low
 

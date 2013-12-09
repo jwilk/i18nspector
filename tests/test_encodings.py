@@ -151,7 +151,7 @@ class test_extra_encoding:
     @aux.fork_isolation
     def test_not_allowed(self):
         def enc():
-            ''.encode('RUSCII')
+            ''.encode('TSCII')
         with assert_raises(LookupError):
             enc()
         E.install_extra_encodings()
