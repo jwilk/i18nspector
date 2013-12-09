@@ -1,10 +1,10 @@
-i18nspector (0.13.1) UNRELEASED; urgency=low
+i18nspector (0.13.1) unstable; urgency=low
 
   * Fix test failures with Python 3.4.
   * Fix stripping delay annotations from terminfo capabilities.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 09 Dec 2013 08:53:47 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 09 Dec 2013 09:11:05 +0100
 
 i18nspector (0.13) unstable; urgency=low
 
