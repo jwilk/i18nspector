@@ -19,7 +19,9 @@
 # SOFTWARE.
 
 import curses.ascii
+import sys
 
+import nose
 from nose.tools import (
     assert_equal,
     assert_false,
@@ -150,10 +152,20 @@ class test_extra_encoding:
 
     @aux.fork_isolation
     def test_not_allowed(self):
+        encoding = 'TSCII'
         def enc():
-            ''.encode('TSCII')
-        with assert_raises(LookupError):
+            ''.encode(encoding)
+        try:
             enc()
+        except LookupError:
+            pass
+        else:
+            raise nose.SkipTest(
+                'python{ver[0]}.{ver[1]} supports the {enc} encoding'.format(
+                    ver=sys.version_info,
+                    enc=encoding
+                )
+            )
         E.install_extra_encodings()
         with assert_raises(LookupError):
             enc()
