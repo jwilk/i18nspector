@@ -138,12 +138,22 @@ class test_extra_encoding:
 
     @aux.fork_isolation
     def test_install(self):
+        encoding = 'VISCII'
         def enc():
-            ''.encode('VISCII')
+            ''.encode(encoding)
         def dec():
-            b'.'.decode('VISCII')
-        with assert_raises(LookupError):
+            b'.'.decode(encoding)
+        try:
             enc()
+        except LookupError:
+            pass
+        else:
+            raise nose.SkipTest(
+                'python{ver[0]}.{ver[1]} supports the {enc} encoding'.format(
+                    ver=sys.version_info,
+                    enc=encoding
+                )
+            )
         with assert_raises(LookupError):
             dec()
         E.install_extra_encodings()
