@@ -26,6 +26,8 @@ import sys
 import tempfile
 import traceback
 
+import nose
+
 _tmp_prefix = 'i18nspector.tests.'
 
 temporary_file = functools.partial(
@@ -52,6 +54,14 @@ def _n_relevant_tb_levels(tb):
     return n
 
 def fork_isolation(f):
+
+    EXIT_EXCEPTION = 101
+    EXIT_SKIP_TEST = 102
+
+    exit = os._exit
+    # sys.exit() can't be used here, because nose catches all exceptions,
+    # including SystemExit
+
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
         readfd, writefd = os.pipe()
@@ -60,6 +70,11 @@ def fork_isolation(f):
             os.close(readfd)
             try:
                 f(*args, **kwargs)
+            except nose.SkipTest as exc:
+                s = str(exc).encode('UTF-8')
+                with os.fdopen(writefd, 'wb') as fp:
+                    fp.write(s)
+                exit(EXIT_SKIP_TEST)
             except Exception:
                 exctp, exc, tb = sys.exc_info()
                 s = traceback.format_exception(exctp, exc, tb, _n_relevant_tb_levels(tb))
@@ -67,19 +82,23 @@ def fork_isolation(f):
                 del tb
                 with os.fdopen(writefd, 'wb') as fp:
                     fp.write(s)
-            # sys.exit() can't be used here, because nose catches all exceptions,
-            # including SystemExit.
-            os._exit(0)
+                exit(EXIT_EXCEPTION)
+            exit(0)
         else:
             os.close(writefd)
             with os.fdopen(readfd, 'rb') as fp:
-                err = fp.read()
+                msg = fp.read()
+            msg = msg.decode('UTF-8').rstrip('\n')
             pid, status = os.waitpid(pid, 0)
-            if status != 0:
+            if status == (EXIT_EXCEPTION << 8):
+                raise IsolatedError('\n\n' + msg)
+            elif status == (EXIT_SKIP_TEST << 8):
+                raise nose.SkipTest(msg)
+            elif status == 0 and msg == '':
+                pass
+            else:
                 raise RuntimeError('unexpected isolated process status {}'.format(status))
-            if err:
-                err = err.decode('UTF-8').rstrip('\n')
-                raise IsolatedError('\n\n' + err)
+
     return wrapper
 
 basedir = os.path.join(
