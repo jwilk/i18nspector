@@ -1,7 +1,7 @@
 i18nspector (0.14) UNRELEASED; urgency=low
 
   * Rename --debian as --unpack-deb. Don't make it default even on
-    Debian(-like) system.
+    Debian(-like) systems.
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Mon, 09 Dec 2013 09:35:29 +0100
