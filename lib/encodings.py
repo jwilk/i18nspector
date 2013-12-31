@@ -185,7 +185,9 @@ def is_ascii_compatible_encoding(encoding):
             _interesting_ascii_bytes.decode(encoding) ==
             _interesting_ascii_str
         )
-    except UnicodeError:
+    except LookupError:
+        raise
+    except Exception:
         return False
 
 def _codec_search_function(encoding):

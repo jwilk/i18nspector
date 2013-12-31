@@ -88,6 +88,21 @@ class test_ascii_compatiblity:
         yield _test, 'UTF-7'
         yield _test, 'UTF-16'
 
+    def test_non_text(self):
+        def _test(encoding):
+            assert_false(E.is_ascii_compatible_encoding(encoding))
+        yield _test, 'base64_codec'
+        yield _test, 'bz2_codec'
+        yield _test, 'hex_codec'
+        yield _test, 'quopri_codec'
+        yield _test, 'rot_13'
+        yield _test, 'uu_codec'
+        yield _test, 'zlib_codec'
+
+    def test_missing(self):
+        with assert_raises(LookupError):
+            E.is_ascii_compatible_encoding('eggs')
+
 class test_get_character_name:
 
     def test_latin(self):

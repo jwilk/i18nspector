@@ -1,4 +1,4 @@
-# E: non-ascii-compatible-encoding UTF-7
+# E: non-ascii-compatible-encoding zlib_codec
 
 msgid ""
 msgstr ""
@@ -10,7 +10,7 @@ msgstr ""
 "Language-Team: Latin <la@li.org>\n"
 "Language: la\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-7\n"
+"Content-Type: text/plain; charset=zlib_codec\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "A quick brown fox jumps over the lazy dog."

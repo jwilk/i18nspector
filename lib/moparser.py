@@ -33,6 +33,8 @@ import sys
 
 import polib
 
+from . import encodings
+
 little_endian_magic = b'\xDE\x12\x04\x95'
 big_endian_magic = little_endian_magic[::-1]
 
@@ -149,8 +151,9 @@ class Parser(object):
                 encoding = 'ASCII'
             else:
                 try:
-                    b'charset'.decode(encoding)
-                except (LookupError, UnicodeError):
+                    if not encodings.is_ascii_compatible_encoding(encoding):
+                        encoding = 'ASCII'
+                except LookupError:
                     encoding = 'ASCII'
             self._encoding = encoding
         else:

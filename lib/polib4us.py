@@ -30,6 +30,7 @@ import re
 
 import polib
 
+from . import encodings
 from . import moparser
 
 patches = []
@@ -70,6 +71,8 @@ class Codecs(object):
     def open(self, path, mode, encoding):
         if mode != 'rU':
             raise NotImplementedError
+        if not encodings.is_ascii_compatible_encoding(encoding):
+            encoding = 'ASCII'
         with open(path, 'rb') as file:
             contents = file.read()
         contents = contents.decode(encoding)
