@@ -179,16 +179,22 @@ def propose_portable_encoding(encoding, python=True):
     assert is_portable_encoding(new_encoding, python=True)
     return new_encoding.upper()
 
-def is_ascii_compatible_encoding(encoding):
+def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
     try:
         return (
             _interesting_ascii_bytes.decode(encoding) ==
             _interesting_ascii_str
         )
-    except LookupError:
-        raise
-    except Exception:
+    except UnicodeDecodeError:
         return False
+    except LookupError:
+        pass
+    except Exception:
+        pass
+    if missing_ok:
+        return False
+    else:
+        raise EncodingLookupError(encoding)
 
 def _codec_search_function(encoding):
     if _portable_encodings.get(encoding, False) is None:

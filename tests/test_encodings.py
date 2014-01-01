@@ -73,24 +73,26 @@ class test_propose_portable_encoding:
 class test_ascii_compatiblity:
 
     def test_portable(self):
-
         def _test(encoding):
             assert_true(E.is_ascii_compatible_encoding(encoding))
-
+            assert_true(E.is_ascii_compatible_encoding(encoding, missing_ok=False))
         for encoding in E.get_portable_encodings():
             yield _test, encoding
 
     def test_incompatible(self):
-
         def _test(encoding):
             assert_false(E.is_ascii_compatible_encoding(encoding))
-
+            assert_false(E.is_ascii_compatible_encoding(encoding, missing_ok=False))
         yield _test, 'UTF-7'
         yield _test, 'UTF-16'
 
+    def _test_missing(self, encoding):
+        assert_false(E.is_ascii_compatible_encoding(encoding))
+        with assert_raises(E.EncodingLookupError):
+            E.is_ascii_compatible_encoding(encoding, missing_ok=False)
+
     def test_non_text(self):
-        def _test(encoding):
-            assert_false(E.is_ascii_compatible_encoding(encoding))
+        _test = self._test_missing
         yield _test, 'base64_codec'
         yield _test, 'bz2_codec'
         yield _test, 'hex_codec'
@@ -100,8 +102,7 @@ class test_ascii_compatiblity:
         yield _test, 'zlib_codec'
 
     def test_missing(self):
-        with assert_raises(LookupError):
-            E.is_ascii_compatible_encoding('eggs')
+        self._test_missing('eggs')
 
 class test_get_character_name:
 

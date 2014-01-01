@@ -485,8 +485,8 @@ class Checker(object, metaclass=abc.ABCMeta):
             if match:
                 encoding = match.group(2)
                 try:
-                    is_ascii_compatible = encinfo.is_ascii_compatible_encoding(encoding)
-                except LookupError:
+                    is_ascii_compatible = encinfo.is_ascii_compatible_encoding(encoding, missing_ok=False)
+                except encinfo.EncodingLookupError:
                     if encoding == 'CHARSET':
                         if not is_template:
                             self.tag('boilerplate-in-content-type', ct)

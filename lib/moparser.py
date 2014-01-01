@@ -150,10 +150,7 @@ class Parser(object):
             if encoding is None:
                 encoding = 'ASCII'
             else:
-                try:
-                    if not encodings.is_ascii_compatible_encoding(encoding):
-                        encoding = 'ASCII'
-                except LookupError:
+                if not encodings.is_ascii_compatible_encoding(encoding):
                     encoding = 'ASCII'
             self._encoding = encoding
         else:

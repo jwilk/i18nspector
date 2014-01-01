@@ -1,4 +1,4 @@
-# E: non-ascii-compatible-encoding zlib_codec
+# E: unknown-encoding zlib_codec
 
 msgid ""
 msgstr ""
