@@ -70,6 +70,7 @@ Detect question marks in unusual places.
 
 Add support for configuration files. Once it's implemented:
 
+ * Disable --debian by default.
  * Disable --pedantic by default.
 
 Add support for profiles: severity of a tag may depend on whether you are

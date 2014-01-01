@@ -1,7 +1,5 @@
 i18nspector (0.13.2) UNRELEASED; urgency=low
 
-  * Rename --debian as --unpack-deb. Don't make it default even on
-    Debian(-like) systems.
   * Reject early encodings that are not compatible with ASCII.
     http://bugs.python.org/issue19619
   * Improve the test suite.
