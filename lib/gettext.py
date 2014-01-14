@@ -178,7 +178,7 @@ class BoilerplateDate(DateSyntaxError):
 def _read_timezones():
     path = os.path.join(paths.datadir, 'timezones')
     cp = configparser.ConfigParser(interpolation=None, default_section='')
-    cp.optionxform = lambda x: x
+    cp.optionxform = str
     cp.read(path, encoding='ASCII')
     return {
         abbrev: offsets.split()
