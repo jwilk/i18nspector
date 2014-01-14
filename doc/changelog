@@ -1,3 +1,9 @@
+i18nspector (0.13.3) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 14 Jan 2014 01:33:58 +0100
+
 i18nspector (0.13.2) unstable; urgency=low
 
   * Reject early encodings that are not compatible with ASCII.
