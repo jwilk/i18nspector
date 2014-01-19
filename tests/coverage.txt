@@ -1,3 +1,5 @@
+Generated automatically by private/update-line-coverage. Do not edit.
+
 Name            Stmts   Miss  Cover   Missing
 ---------------------------------------------
 lib                 0      0   100%
