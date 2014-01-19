@@ -120,6 +120,9 @@ def _plural_exp_tokenize(s):
         if ctoken is not None:
             if pytoken == '_':  # junk
                 raise PluralExpressionSyntaxError(value)
+            if pytoken == 'not':
+                # priority of “not” in Python is too low to be used here
+                pytoken = '~'
             yield ' {} '.format(pytoken)
         elif value in {'+', '-'}:
             if prev_value in {'n', ')'} or prev_value.isdigit():

@@ -166,6 +166,10 @@ class test_plurals:
         self._pe('! n', 1, 0)
         self._pe('! n', 69, 0)
 
+    def test_plural_exp_neg_precedence(self):
+        self._pe('! 6 + 7', 0, 7)
+        self._pe('0 + ! 0')
+
     def test_plural_exp_conditional(self):
         s = 'n ? 3 : 7'
         self._pe(s, 0, 7)

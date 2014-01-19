@@ -149,7 +149,7 @@ class Evaluator(BaseEvaluator):
     # unary operators
     # ===============
 
-    def _visit_not(self, node, x):
+    def _visit_invert(self, node, x):
         return int(not x)
 
     def _visit_usub(self, node, x):
@@ -287,7 +287,7 @@ class CodomainEvaluator(BaseEvaluator):
     # unary operators
     # ===============
 
-    def _visit_not(self, node, x):
+    def _visit_invert(self, node, x):
         if x[0] > 0:
             return (0, 0)
         elif x == (0, 0):
