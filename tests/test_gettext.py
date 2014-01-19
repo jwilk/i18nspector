@@ -31,199 +31,191 @@ from nose.tools import (
     assert_true,
 )
 
-import lib.gettext
+import lib.gettext as M
 
 class test_header_fields:
 
     def test_nonempty(self):
         # XXX Update this number after editing data/header-fields:
         expected = 12
-        assert_equal(len(lib.gettext.header_fields), expected)
+        assert_equal(len(M.header_fields), expected)
 
     def test_no_x(self):
-        for field in lib.gettext.header_fields:
+        for field in M.header_fields:
             assert_false(field.startswith('X-'))
 
     def test_valid(self):
-        for field in lib.gettext.header_fields:
-            assert_true(lib.gettext.is_valid_field_name(field))
+        for field in M.header_fields:
+            assert_true(M.is_valid_field_name(field))
 
 class test_header_parser:
 
-    def test_ok(self):
-        message = 'Menu: spam\nVikings: yes\n'
-        expected = [{'Menu': 'spam'}, {'Vikings': 'yes'}]
-        parsed = list(lib.gettext.parse_header(message))
+    def t(self, message, expected):
+        parsed = list(M.parse_header(message))
         assert_equal(parsed, expected)
+
+    def test_ok(self):
+        self.t(
+            'Menu: spam\nVikings: yes\n',
+            [{'Menu': 'spam'}, {'Vikings': 'yes'}],
+        )
 
     def test_invalid_field_name(self):
-        message = 'Menu :spam\nVikings: yes\n'
-        expected = ['Menu :spam', {'Vikings': 'yes'}]
-        parsed = list(lib.gettext.parse_header(message))
-        assert_equal(parsed, expected)
+        self.t(
+            'Menu :spam\nVikings: yes\n',
+            ['Menu :spam', {'Vikings': 'yes'}],
+        )
 
     def test_no_field(self):
-        message = 'Spam\nVikings: yes\n'
-        expected = ['Spam', {'Vikings': 'yes'}]
-        parsed = list(lib.gettext.parse_header(message))
-        assert_equal(parsed, expected)
+        self.t(
+            'Spam\nVikings: yes\n',
+            ['Spam', {'Vikings': 'yes'}],
+        )
 
     def test_continuation(self):
-        message = 'Menu: spam,\n eggs\nVikings: yes\n'
-        expected = [{'Menu': 'spam,'}, ' eggs', {'Vikings': 'yes'}]
-        parsed = list(lib.gettext.parse_header(message))
-        assert_equal(parsed, expected)
+        self.t(
+            'Menu: spam,\n eggs\nVikings: yes\n',
+            [{'Menu': 'spam,'}, ' eggs', {'Vikings': 'yes'}],
+        )
 
-class test_plurals:
+class test_plural_exp:
 
-    _error = lib.gettext.PluralFormsSyntaxError
+    error = M.PluralFormsSyntaxError
 
-    def _pf(self, s):
-        return lib.gettext.parse_plural_forms(s)
-
-    def _pe(self, s, n=None, fn=None):
-        f = lib.gettext.parse_plural_expression(s)
+    def t(self, s, n=None, fn=None):
+        f = M.parse_plural_expression(s)
         if n is not None:
             assert_is_not_none(fn)
             assert_equal(f(n), fn)
 
-    def test_plural_exp_add(self):
-        self._pe('17 + n', 6, 23)
+    def test_add(self):
+        self.t('17 + n', 6, 23)
 
-    def test_plural_exp_sub(self):
-        self._pe('n - 23', 37, 14)
+    def test_sub(self):
+        self.t('n - 23', 37, 14)
 
-    def test_plural_exp_mul(self):
-        self._pe('6 * n', 7, 42)
+    def test_mul(self):
+        self.t('6 * n', 7, 42)
 
-    def test_plural_exp_div(self):
-        self._pe('105 / n', 17, 6)
+    def test_div(self):
+        self.t('105 / n', 17, 6)
 
-    def test_plural_exp_div_by_0(self):
+    def test_div_by_0(self):
         with assert_raises(ZeroDivisionError):
-            self._pe('105 / n', 0, False)
+            self.t('105 / n', 0, False)
 
-    def test_plural_exp_mod(self):
-        self._pe('105 % n', 17, 3)
+    def test_mod(self):
+        self.t('105 % n', 17, 3)
 
-    def test_plural_exp_mod_by_0(self):
+    def test_mod_by_0(self):
         with assert_raises(ZeroDivisionError):
-            self._pe('105 % n', 0, False)
+            self.t('105 % n', 0, False)
 
-    def test_plural_exp_and(self):
-        self._pe('n && 6', 7, 1)
-        self._pe('n && 6', 0, 0)
-        self._pe('n && (6 / 0)', 0, 0)  # no ZeroDivisionError
-        self._pe('n && 0', 7, 0)
-        self._pe('n && 0', 0, 0)
+    def test_and(self):
+        self.t('n && 6', 7, 1)
+        self.t('n && 6', 0, 0)
+        self.t('n && (6 / 0)', 0, 0)  # no ZeroDivisionError
+        self.t('n && 0', 7, 0)
+        self.t('n && 0', 0, 0)
 
-    def test_plural_exp_or(self):
-        self._pe('n || 6', 7, 1)
-        self._pe('n || (6 / 0)', 7, 1)  # no ZeroDivisionError
-        self._pe('n || 6', 0, 1)
-        self._pe('n || 0', 7, 1)
-        self._pe('n || 0', 0, 0)
+    def test_or(self):
+        self.t('n || 6', 7, 1)
+        self.t('n || (6 / 0)', 7, 1)  # no ZeroDivisionError
+        self.t('n || 6', 0, 1)
+        self.t('n || 0', 7, 1)
+        self.t('n || 0', 0, 0)
 
-    def test_plural_exp_gt(self):
-        self._pe('n > 37', 23, 0)
-        self._pe('n > 37', 37, 0)
-        self._pe('n > 37', 42, 1)
+    def test_gt(self):
+        self.t('n > 37', 23, 0)
+        self.t('n > 37', 37, 0)
+        self.t('n > 37', 42, 1)
 
-    def test_plural_exp_ge(self):
-        self._pe('n >= 37', 23, 0)
-        self._pe('n >= 37', 37, 1)
-        self._pe('n >= 37', 42, 1)
+    def test_ge(self):
+        self.t('n >= 37', 23, 0)
+        self.t('n >= 37', 37, 1)
+        self.t('n >= 37', 42, 1)
 
-    def test_plural_exp_lt(self):
-        self._pe('n < 37', 23, 1)
-        self._pe('n < 37', 37, 0)
-        self._pe('n < 37', 42, 0)
+    def test_lt(self):
+        self.t('n < 37', 23, 1)
+        self.t('n < 37', 37, 0)
+        self.t('n < 37', 42, 0)
 
-    def test_plural_exp_le(self):
-        self._pe('n <= 37', 23, 1)
-        self._pe('n <= 37', 37, 1)
-        self._pe('n <= 37', 42, 0)
+    def test_le(self):
+        self.t('n <= 37', 23, 1)
+        self.t('n <= 37', 37, 1)
+        self.t('n <= 37', 42, 0)
 
-    def test_plural_exp_eq(self):
-        self._pe('n == 37', 23, 0)
-        self._pe('n == 37', 37, 1)
-        self._pe('n == 37', 42, 0)
+    def test_eq(self):
+        self.t('n == 37', 23, 0)
+        self.t('n == 37', 37, 1)
+        self.t('n == 37', 42, 0)
 
-    def test_plural_exp_ne(self):
-        self._pe('n != 37', 23, 1)
-        self._pe('n != 37', 37, 0)
-        self._pe('n != 37', 42, 1)
+    def test_ne(self):
+        self.t('n != 37', 23, 1)
+        self.t('n != 37', 37, 0)
+        self.t('n != 37', 42, 1)
 
-    def test_plural_exp_multi_compare(self):
-        self._pe('1 < n == 3 <= 4', 1, 0)  # False in Python
-        self._pe('1 < n == 3 <= 4', 2, 1)  # False in Python
-        self._pe('1 < n == 3 <= 4', 3, 1)  # True in Python
-        self._pe('1 < n == 3 <= 4', 4, 1)  # False in Python
-        self._pe('2 == 2 == n', 2, 0)  # True in Python
-        self._pe('2 == 2 == n', 1, 1)  # False in Python
+    def test_multi_compare(self):
+        self.t('1 < n == 3 <= 4', 1, 0)  # False in Python
+        self.t('1 < n == 3 <= 4', 2, 1)  # False in Python
+        self.t('1 < n == 3 <= 4', 3, 1)  # True in Python
+        self.t('1 < n == 3 <= 4', 4, 1)  # False in Python
+        self.t('2 == 2 == n', 2, 0)  # True in Python
+        self.t('2 == 2 == n', 1, 1)  # False in Python
 
-    def test_plural_exp_neg(self):
-        self._pe('! n', 0, 1)
-        self._pe('! n', 1, 0)
-        self._pe('! n', 69, 0)
+    def test_neg(self):
+        self.t('! n', 0, 1)
+        self.t('! n', 1, 0)
+        self.t('! n', 69, 0)
 
-    def test_plural_exp_neg_precedence(self):
-        self._pe('! 6 + 7', 0, 7)
-        self._pe('0 + ! 0')
+    def test_neg_precedence(self):
+        self.t('! 6 + 7', 0, 7)
+        self.t('0 + ! 0')
 
-    def test_plural_exp_conditional(self):
+    def test_conditional(self):
         s = 'n ? 3 : 7'
-        self._pe(s, 0, 7)
-        self._pe(s, 1, 3)
+        self.t(s, 0, 7)
+        self.t(s, 1, 3)
 
-    def test_plural_exp_nested_conditional(self):
-        self._pe('(2 ? 3 : 7) ? 23 : 37')
+    def test_nested_conditional(self):
+        self.t('(2 ? 3 : 7) ? 23 : 37')
 
-    def test_plural_exp_unary_plus(self):
-        with assert_raises(self._error):
-            self._pe('-37')
-        with assert_raises(self._error):
-            self._pe('23 + (-37)')
+    def test_unary_plus(self):
+        with assert_raises(self.error):
+            self.t('-37')
+        with assert_raises(self.error):
+            self.t('23 + (-37)')
 
-    def test_plural_exp_unary_minus(self):
-        with assert_raises(self._error):
-            self._pe('+42')
-        with assert_raises(self._error):
-            self._pe('23 + (+37)')
+    def test_unary_minus(self):
+        with assert_raises(self.error):
+            self.t('+42')
+        with assert_raises(self.error):
+            self.t('23 + (+37)')
 
-    def test_plural_exp_unbalanced_parentheses(self):
-        with assert_raises(self._error):
-            self._pe('(6 * 7')
-        with assert_raises(self._error):
-            self._pe('6 * 7)')
+    def test_unbalanced_parentheses(self):
+        with assert_raises(self.error):
+            self.t('(6 * 7')
+        with assert_raises(self.error):
+            self.t('6 * 7)')
 
-    def test_plural_exp_dangling_binop(self):
-        with assert_raises(self._error):
-            self._pe('6 +')
+    def test_dangling_binop(self):
+        with assert_raises(self.error):
+            self.t('6 +')
 
-    def test_plural_exp_junk_token(self):
-        with assert_raises(self._error):
-            self._pe('6 # 7')
+    def test_junk_token(self):
+        with assert_raises(self.error):
+            self.t('6 # 7')
 
-    def test_plural_exp_exotic_whitespace(self):
-        with assert_raises(self._error):
-            self._pe('6 *\xA07')
+    def test_exotic_whitespace(self):
+        with assert_raises(self.error):
+            self.t('6 *\xA07')
 
-    def test_plural_forms_nplurals_0(self):
-        with assert_raises(self._error):
-            self._pf('nplurals=0; plural=0;')
+class test_codomain:
 
-    def test_plural_forms_nplurals_positive(self):
-        for i in 1, 2, 10, 42:
-            self._pf('nplurals={}; plural=0;'.format(i))
-
-    def test_plural_forms_missing_trailing_semicolon(self):
-        self._pf('nplurals=1; plural=0')
-
-    def _pc(self, s, min_, max_=None):
+    def t(self, s, min_, max_=None):
         if max_ is None:
             max_ = min_
-        f = lib.gettext.parse_plural_expression(s)
+        f = M.parse_plural_expression(s)
         cd = f.codomain()
         if min_ is None:
             assert_is_none(cd)
@@ -231,44 +223,62 @@ class test_plurals:
             assert_equal(cd, (min_, max_))
 
     def test_plural_codomain_zero_div(self):
-        self._pc('n / 0', None)
-        self._pc('(n / 0) + 23', None)
-        self._pc('23 + (n / 0)', None)
+        self.t('n / 0', None)
+        self.t('(n / 0) + 23', None)
+        self.t('23 + (n / 0)', None)
 
     def test_plural_codomain_mod(self):
-        self._pc('n % 42', 0, 41)
+        self.t('n % 42', 0, 41)
 
     def test_plural_codomain_mod_mod(self):
-        self._pc('(23 + n%15) % 42', 23, 37)
+        self.t('(23 + n%15) % 42', 23, 37)
 
     def test_plural_codomain_add(self):
-        self._pc('(6 + n%37) + (7 + n%23)', (6 + 7), 6 + 7 + 36 + 22)
+        self.t('(6 + n%37) + (7 + n%23)', (6 + 7), 6 + 7 + 36 + 22)
 
     def test_plural_codomain_sub(self):
-        self._pc('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
-        self._pc('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
+        self.t('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
+        self.t('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
 
     def test_plural_codomain_mul(self):
-        self._pc(
+        self.t(
             '(6 + n%37) * (7 + n%23)',
             6 * 7,
             (6 + 37 - 1) * (7 + 23 - 1)
         )
 
+class test_plural_forms:
+
+    error = M.PluralFormsSyntaxError
+
+    def t(self, s):
+        return M.parse_plural_forms(s)
+
+    def test_nplurals_0(self):
+        with assert_raises(self.error):
+            self.t('nplurals=0; plural=0;')
+
+    def test_nplurals_positive(self):
+        for i in 1, 2, 10, 42:
+            self.t('nplurals={}; plural=0;'.format(i))
+
+    def test_missing_trailing_semicolon(self):
+        self.t('nplurals=1; plural=0')
+
 class test_fix_date_format:
 
     def _test(self, old, expected):
         if expected is None:
-            with assert_raises(lib.gettext.DateSyntaxError):
-                lib.gettext.fix_date_format(old)
+            with assert_raises(M.DateSyntaxError):
+                M.fix_date_format(old)
         else:
-            new = lib.gettext.fix_date_format(old)
+            new = M.fix_date_format(old)
             assert_is_not_none(new)
             assert_equal(new, expected)
 
     def _test_boilerplate(self, old):
-        with assert_raises(lib.gettext.BoilerplateDate):
-            lib.gettext.fix_date_format(old)
+        with assert_raises(M.BoilerplateDate):
+            M.fix_date_format(old)
 
     def test_boilerplate(self):
         self._test_boilerplate('YEAR-MO-DA HO:MI+ZONE')
@@ -319,7 +329,7 @@ class test_fix_date_format:
 
     def test_tz_hint(self):
         assert_equal(
-            lib.gettext.fix_date_format('2002-01-01 03:05', tz_hint='+0900'),
+            M.fix_date_format('2002-01-01 03:05', tz_hint='+0900'),
             '2002-01-01 03:05+0900',
         )
 
@@ -359,10 +369,10 @@ class test_fix_date_format:
 
 class test_parse_date:
 
-    _parse = staticmethod(lib.gettext.parse_date)
+    _parse = staticmethod(M.parse_date)
 
     def test_nonexistent(self):
-        with assert_raises(lib.gettext.DateSyntaxError):
+        with assert_raises(M.DateSyntaxError):
             self._parse('2010-02-29 19:49+0200')
 
     def test_existent(self):
@@ -373,17 +383,17 @@ class test_parse_date:
 
     def test_epoch(self):
         d = self._parse('2008-04-03 16:06+0300')
-        assert_less(lib.gettext.epoch, d)
+        assert_less(M.epoch, d)
 
 class test_string_formats:
 
     def test_nonempty(self):
         # XXX Update this number after editing data/string-formats:
         expected = 27
-        assert_equal(len(lib.gettext.string_formats), expected)
+        assert_equal(len(M.string_formats), expected)
 
     def test_lowercase(self):
-        for s in lib.gettext.string_formats:
+        for s in M.string_formats:
             assert_is_instance(s, str)
             assert_true(s)
             assert_equal(s, s.lower())
