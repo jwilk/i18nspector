@@ -24,6 +24,7 @@ from nose.tools import (
     assert_equal,
     assert_false,
     assert_is_instance,
+    assert_is_none,
     assert_is_not_none,
     assert_less,
     assert_raises,
@@ -219,9 +220,20 @@ class test_plurals:
     def test_plural_forms_missing_trailing_semicolon(self):
         self._pf('nplurals=1; plural=0')
 
-    def _pc(self, s, min_, max_):
+    def _pc(self, s, min_, max_=None):
+        if max_ is None:
+            max_ = min_
         f = lib.gettext.parse_plural_expression(s)
-        assert_equal(f.codomain(), (min_, max_))
+        cd = f.codomain()
+        if min_ is None:
+            assert_is_none(cd)
+        else:
+            assert_equal(cd, (min_, max_))
+
+    def test_plural_codomain_zero_div(self):
+        self._pc('n / 0', None)
+        self._pc('(n / 0) + 23', None)
+        self._pc('23 + (n / 0)', None)
 
     def test_plural_codomain_mod(self):
         self._pc('n % 42', 0, 41)
