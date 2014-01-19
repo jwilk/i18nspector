@@ -76,9 +76,9 @@ search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTIL
 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msgl-cat.c?id=v0.18.3#n590
 # http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
-# ================
-# Plurals handling
-# ================
+# ============
+# Plural forms
+# ============
 
 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
 
