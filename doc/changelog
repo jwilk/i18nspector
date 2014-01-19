@@ -1,6 +1,9 @@
 i18nspector (0.13.3) UNRELEASED; urgency=low
 
-  * Forbid unary plus and unary minus in plural forms expressions.
+  * Fix incorrect co-domain evaluation for plural expressions involving
+    subtraction or division.
+  * Forbid unary plus and unary minus in plural expressions.
+  * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sun, 19 Jan 2014 11:44:18 +0100
 
