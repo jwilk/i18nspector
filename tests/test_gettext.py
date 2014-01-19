@@ -222,32 +222,32 @@ class test_codomain:
         else:
             assert_equal(cd, (min_, max_))
 
-    def test_plural_codomain_zero_div(self):
+    def test_zero_div(self):
         self.t('n / 0', None)
         self.t('(n / 0) + 23', None)
         self.t('23 + (n / 0)', None)
 
-    def test_plural_codomain_mod(self):
+    def test_mod(self):
         self.t('n % 42', 0, 41)
 
-    def test_plural_codomain_mod_mod(self):
+    def test_mod_mod(self):
         self.t('(23 + n%15) % 42', 23, 37)
 
-    def test_plural_codomain_add(self):
+    def test_add(self):
         self.t('(6 + n%37) + (7 + n%23)', (6 + 7), 6 + 7 + 36 + 22)
 
-    def test_plural_codomain_sub(self):
+    def test_sub(self):
         self.t('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
         self.t('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
 
-    def test_plural_codomain_mul(self):
+    def test_mul(self):
         self.t(
             '(6 + n%37) * (7 + n%23)',
             6 * 7,
             (6 + 37 - 1) * (7 + 23 - 1)
         )
 
-    def test_plural_codomain_div(self):
+    def test_div(self):
         self.t(
             '(42 + n%63) / (6 + n%7)',
             42 // (6 + 7),
