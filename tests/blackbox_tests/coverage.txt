@@ -1,5 +1,4 @@
-# This file has been generated automatically by private/update-coverage.
-# Do not edit.
+Generated automatically by private/update-tag-coverage. Do not edit.
 
 [X] ancient-date
 [X] arithmetic-error-in-plural-forms
