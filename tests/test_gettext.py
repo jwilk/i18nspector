@@ -213,6 +213,22 @@ class test_plurals:
     def test_plural_forms_missing_trailing_semicolon(self):
         self._pf('nplurals=1; plural=0')
 
+    def _pc(self, s, min_, max_):
+        f = lib.gettext.parse_plural_expression(s)
+        assert_equal(f.codomain(), (min_, max_))
+
+    def test_plural_codomain_mod(self):
+        self._pc('n % 42', 0, 41)
+
+    def test_plural_codomain_mod_mod(self):
+        self._pc('(23 + n%15) % 42', 23, 37)
+
+    def test_plural_codomain_add(self):
+        self._pc('(6 + n%37) + (7 + n%23)', (6 + 7), 6 + 7 + 36 + 22)
+
+    def test_plural_codomain_sub(self):
+        self._pc('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
+        self._pc('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
 
 class test_fix_date_format:
 
