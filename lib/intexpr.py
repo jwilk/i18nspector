@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -248,7 +248,7 @@ class CodomainEvaluator(BaseEvaluator):
 
     def _visit_sub(self, node, x, y):
         z = (
-            min(x[0] - y[1], 0),
+            max(x[0] - y[1], 0),
             x[1] - y[0]
         )
         if z[0] > z[1]:
@@ -271,7 +271,7 @@ class CodomainEvaluator(BaseEvaluator):
         assert y[1] > 0
         return (
             x[0] // y[1],
-            x[1] // min(y[0], 1),
+            x[1] // max(y[0], 1),
         )
 
     def _visit_mod(self, node, x, y):
