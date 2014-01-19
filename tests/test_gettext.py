@@ -43,6 +43,36 @@ class test_header_fields:
         for field in lib.gettext.header_fields:
             assert_false(field.startswith('X-'))
 
+    def test_valid(self):
+        for field in lib.gettext.header_fields:
+            assert_true(lib.gettext.is_valid_field_name(field))
+
+class test_header_parser:
+
+    def test_ok(self):
+        message = 'Menu: spam\nVikings: yes\n'
+        expected = [{'Menu': 'spam'}, {'Vikings': 'yes'}]
+        parsed = list(lib.gettext.parse_header(message))
+        assert_equal(parsed, expected)
+
+    def test_invalid_field_name(self):
+        message = 'Menu :spam\nVikings: yes\n'
+        expected = ['Menu :spam', {'Vikings': 'yes'}]
+        parsed = list(lib.gettext.parse_header(message))
+        assert_equal(parsed, expected)
+
+    def test_no_field(self):
+        message = 'Spam\nVikings: yes\n'
+        expected = ['Spam', {'Vikings': 'yes'}]
+        parsed = list(lib.gettext.parse_header(message))
+        assert_equal(parsed, expected)
+
+    def test_continuation(self):
+        message = 'Menu: spam,\n eggs\nVikings: yes\n'
+        expected = [{'Menu': 'spam,'}, ' eggs', {'Vikings': 'yes'}]
+        parsed = list(lib.gettext.parse_header(message))
+        assert_equal(parsed, expected)
+
 class test_plurals:
 
     _error = lib.gettext.PluralFormsSyntaxError
