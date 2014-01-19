@@ -1,8 +1,8 @@
 i18nspector (0.13.3) UNRELEASED; urgency=low
 
-  * 
+  * Forbid unary plus and unary minus in plural forms expressions.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 19 Jan 2014 02:00:08 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 19 Jan 2014 11:44:18 +0100
 
 i18nspector (0.13.2) unstable; urgency=low
 

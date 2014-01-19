@@ -59,16 +59,8 @@ class test_plurals:
     def test_plural_exp_add(self):
         self._pe('17 + n', 6, 23)
 
-    def test_plural_exp_unary_plus(self):
-        self._pe('17 + (+ n)', 6, 23)
-
     def test_plural_exp_sub(self):
         self._pe('n - 23', 37, 14)
-
-    def test_plural_exp_unary_minus(self):
-        with assert_raises(OverflowError):
-            self._pe('37 + (- n)', 23, 14)
-        self._pe('37 + (- n)', 0, 37)
 
     def test_plural_exp_mul(self):
         self._pe('6 * n', 7, 42)
@@ -149,6 +141,18 @@ class test_plurals:
 
     def test_plural_exp_nested_conditional(self):
         self._pe('(2 ? 3 : 7) ? 23 : 37')
+
+    def test_plural_exp_unary_plus(self):
+        with assert_raises(self._error):
+            self._pe('-37')
+        with assert_raises(self._error):
+            self._pe('23 + (-37)')
+
+    def test_plural_exp_unary_minus(self):
+        with assert_raises(self._error):
+            self._pe('+42')
+        with assert_raises(self._error):
+            self._pe('23 + (+37)')
 
     def test_plural_exp_unbalanced_parentheses(self):
         with assert_raises(self._error):

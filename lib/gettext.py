@@ -111,16 +111,26 @@ _plural_exp_token_re = '|'.join(
 _plural_exp_token_re = re.compile(_plural_exp_token_re)
 
 def _plural_exp_tokenize(s):
+    prev_value = ' '
     for match in _plural_exp_token_re.finditer(s):
         for pytoken, ctoken in match.groupdict().items():
             if ctoken is not None:
                 break
+        value = match.group(0)
         if ctoken is not None:
             if pytoken == '_':  # junk
-                raise PluralExpressionSyntaxError(match.group(0))
+                raise PluralExpressionSyntaxError(value)
             yield ' {} '.format(pytoken)
+        elif value in {'+', '-'}:
+            if prev_value in {'n', ')'} or prev_value.isdigit():
+                yield value
+            else:
+                # unary plus and unary minus are not supported
+                raise PluralExpressionSyntaxError(value)
         else:
-            yield match.group(0)
+            yield value
+        if not value.isspace():
+            prev_value = value
 
 _ifelse_re = re.compile(r'(.*?)[?](.*?):(.*)')
 def _subst_ifelse(match):
