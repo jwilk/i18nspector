@@ -247,6 +247,13 @@ class test_codomain:
             (6 + 37 - 1) * (7 + 23 - 1)
         )
 
+    def test_plural_codomain_div(self):
+        self.t(
+            '(42 + n%63) / (6 + n%7)',
+            42 // (6 + 7),
+            (42 + 63 - 1) // 6,
+        )
+
 class test_plural_forms:
 
     error = M.PluralFormsSyntaxError
