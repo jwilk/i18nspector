@@ -167,7 +167,9 @@ class test_plurals:
         self._pe('! n', 69, 0)
 
     def test_plural_exp_conditional(self):
-        self._pe('6 ? 7 : 42')
+        s = 'n ? 3 : 7'
+        self._pe(s, 0, 7)
+        self._pe(s, 1, 3)
 
     def test_plural_exp_nested_conditional(self):
         self._pe('(2 ? 3 : 7) ? 23 : 37')
@@ -229,6 +231,13 @@ class test_plurals:
     def test_plural_codomain_sub(self):
         self._pc('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
         self._pc('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
+
+    def test_plural_codomain_mul(self):
+        self._pc(
+            '(6 + n%37) * (7 + n%23)',
+            6 * 7,
+            (6 + 37 - 1) * (7 + 23 - 1)
+        )
 
 class test_fix_date_format:
 
