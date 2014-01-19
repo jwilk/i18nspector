@@ -39,7 +39,7 @@ class BaseEvaluator(object):
     def _visit(self, node, *args):
         try:
             fn = getattr(self, '_visit_' + type(node).__name__.lower())
-        except KeyError:
+        except KeyError:  # <no-coverage>
             raise NotImplementedError(type(node).__name__)
         return fn(node, *args)
 
@@ -226,7 +226,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit(self, node, *args):
         try:
             fn = getattr(self, '_visit_' + type(node).__name__.lower())
-        except KeyError:
+        except KeyError:  # <no-coverage>
             raise NotImplementedError(type(node).__name__)
         return fn(node, *args)
 
