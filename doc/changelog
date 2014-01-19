@@ -1,7 +1,6 @@
 i18nspector (0.13.3) UNRELEASED; urgency=low
 
-  * Fix incorrect co-domain evaluation for plural expressions involving
-    subtraction or division.
+  * Fix incorrect plural expression co-domain evaluation.
   * Forbid unary plus and unary minus in plural expressions.
   * Improve the test suite.
 

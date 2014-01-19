@@ -240,7 +240,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_add(self, node, x, y):
         z = (
             x[0] + y[0],
-            max(x[1] + y[1], self._ctxt.max - 1)
+            min(x[1] + y[1], self._ctxt.max - 1)
         )
         if z[0] > z[1]:
             return
@@ -258,7 +258,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_mult(self, node, x, y):
         z = (
             x[0] * y[0],
-            max(x[1] * y[1], self._ctxt.max - 1)
+            min(x[1] * y[1], self._ctxt.max - 1)
         )
         if z[0] > z[1]:
             return
@@ -282,7 +282,7 @@ class CodomainEvaluator(BaseEvaluator):
         if x[1] < y[0]:
             # i % j == i  if  i < j
             return x
-        return (0, max(x[1], y[1] - 1))
+        return (0, min(x[1], y[1] - 1))
 
     # unary operators
     # ===============
