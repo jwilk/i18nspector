@@ -228,8 +228,9 @@ class test_codomain:
         self.t('(n / 0) + 23', None)
         self.t('23 + (n / 0)', None)
         self.t('! (n / 0)', None)
-        self.t('0 > n/0', None)
-        self.t('n/0 > 0', None)
+        self.t('0 < n/0', None)
+        self.t('n/0 < 0', None)
+        self.t('0 < n/0 < 0', None)
 
     def test_mod(self):
         self.t('n % 42', 0, 41)
