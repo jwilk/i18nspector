@@ -218,6 +218,7 @@ class test_codomain:
         f = M.parse_plural_expression(s)
         cd = f.codomain()
         if min_ is None:
+            assert max_ is None
             assert_is_none(cd)
         else:
             assert_equal(cd, (min_, max_))
