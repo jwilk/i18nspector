@@ -88,14 +88,39 @@ class test_plural_exp:
             assert_is_not_none(fn)
             assert_equal(f(n), fn)
 
+    def test_simple_overflow(self):
+        m = (1 << 32) - 1
+        self.t(str(m), m, m)
+        with assert_raises(OverflowError):
+            self.t(str(m + 1), m + 1, False)
+            self.t(str(m + 1), m + 42, False)
+
     def test_add(self):
         self.t('17 + n', 6, 23)
+
+    def test_add_overflow(self):
+        m = (1 << 32) - 1
+        self.t('n + 42', m - 42, m)
+        with assert_raises(OverflowError):
+            self.t('n + 42', m - 41, False)
+            self.t('n + 42', m - 23, False)
 
     def test_sub(self):
         self.t('n - 23', 37, 14)
 
+    def test_sub_overflow(self):
+        with assert_raises(OverflowError):
+            self.t('n - 23', 6, False)
+
     def test_mul(self):
         self.t('6 * n', 7, 42)
+
+    def test_mul_overflow(self):
+        m = (1 << 32) - 1
+        assert m % 17 == 0
+        self.t('n * 17', m / 17, m)
+        with assert_raises(OverflowError):
+            self.t('n * 17', (m / 17) + 1, False)
 
     def test_div(self):
         self.t('105 / n', 17, 6)
