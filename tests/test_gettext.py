@@ -88,7 +88,11 @@ class test_plural_exp:
             assert_is_not_none(fn)
             assert_equal(f(n), fn)
 
-    def test_simple_overflow(self):
+    def test_const(self):
+        n = 42
+        self.t(str(n), 0, n)
+
+    def test_const_overflow(self):
         m = (1 << 32) - 1
         self.t(str(m), m, m)
         with assert_raises(OverflowError):
