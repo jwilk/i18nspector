@@ -279,6 +279,9 @@ class test_codomain:
     def test_mod_mod(self):
         self.t('(23 + n%15) % 42', 23, 37)
 
+    def test_mod_0(self):
+        self.t('n % 0', None)
+
     def test_add(self):
         self.t(
             '(6 + n%37) + (7 + n%23)',
