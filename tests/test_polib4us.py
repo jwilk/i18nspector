@@ -1,4 +1,4 @@
-# Copyright © 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -26,7 +26,7 @@ from nose.tools import (
 
 from . import aux
 
-import lib.polib4us
+import lib.polib4us as M
 
 minimal_header = r'''
 msgid ""
@@ -51,7 +51,7 @@ msgstr "b"
                 po = polib.pofile(file.name)
                 assert_true(po[-1].obsolete)
         t()
-        lib.polib4us.install_patches()
+        M.install_patches()
         t()
 
 # vim:ts=4 sw=4 et
