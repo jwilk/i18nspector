@@ -99,6 +99,17 @@ class test_plural_exp:
             self.t(str(m + 1), m + 1, False)
             self.t(str(m + 1), m + 42, False)
 
+    def test_var(self):
+        n = 42
+        self.t('n', n, n)
+
+    def test_var_overflow(self):
+        m = (1 << 32) - 1
+        self.t('n', m, m)
+        with assert_raises(OverflowError):
+            self.t('n', m + 1, False)
+        self.t('42', m + 1, 42)
+
     def test_add(self):
         self.t('17 + n', 6, 23)
 

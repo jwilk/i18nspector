@@ -198,7 +198,7 @@ class Evaluator(BaseEvaluator):
         return self._check_overflow(node.n)
 
     def _visit_name(self, node):
-        return self._ctxt.n
+        return self._check_overflow(self._ctxt.n)
 
 class CodomainEvaluator(BaseEvaluator):
 
