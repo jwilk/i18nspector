@@ -92,8 +92,6 @@ class BaseEvaluator(object):
                 left = right
             else:
                 left = self._visit(op, left, right)
-                if left is None:
-                    return
         new_vals += [left]
         assert len(new_vals) == len(new_ops) + 1
         # low priority: ==, !=
@@ -101,8 +99,6 @@ class BaseEvaluator(object):
         left = next(new_vals)
         for op, right in zip(new_ops, new_vals):
             left = self._visit(op, left, right)
-            if left is None:
-                return
         return left
 
     # boolean operators
@@ -293,30 +289,35 @@ class CodomainEvaluator(BaseEvaluator):
     # ====================
 
     def _visit_gte(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[0] >= y[1],
             x[1] >= y[0],
         )
 
     def _visit_gt(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[0] > y[1],
             x[1] > y[0],
         )
 
     def _visit_lte(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[1] <= y[0],
             x[0] <= y[1],
         )
 
     def _visit_lt(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[1] < y[0],
             x[0] < y[1],
         )
 
     def _visit_eq(self, node, x, y):
+        assert (x is not None) and (y is not None)
         if x == y:
             return (1, 1)
         if x[0] <= y[0] <= x[1]:
@@ -326,6 +327,7 @@ class CodomainEvaluator(BaseEvaluator):
         return (0, 0)
 
     def _visit_noteq(self, node, x, y):
+        assert (x is not None) and (y is not None)
         if x == y:
             return (0, 0)
         if x[0] <= y[0] <= x[1]:
