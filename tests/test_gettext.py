@@ -299,6 +299,18 @@ class test_codomain:
         self.t('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
         self.t('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
 
+    def test_sub_overflow(self):
+        self.t(
+            '(23 - n%6) - (23 + n%6)',
+            # no overflow for n=0
+            0, 0
+        )
+        self.t(
+            '(23 + n%6) - (37 + n%7)',
+            # always overflows
+            None
+        )
+
     def test_mul(self):
         self.t(
             '(6 + n%37) * (7 + n%23)',
