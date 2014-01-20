@@ -318,7 +318,7 @@ class CodomainEvaluator(BaseEvaluator):
 
     def _visit_eq(self, node, x, y):
         assert (x is not None) and (y is not None)
-        if x == y:
+        if x[0] == x[1] == y[0] == y[1]:
             return (1, 1)
         if x[0] <= y[0] <= x[1]:
             return (0, 1)
@@ -328,7 +328,7 @@ class CodomainEvaluator(BaseEvaluator):
 
     def _visit_noteq(self, node, x, y):
         assert (x is not None) and (y is not None)
-        if x == y:
+        if x[0] == x[1] == y[0] == y[1]:
             return (0, 0)
         if x[0] <= y[0] <= x[1]:
             return (0, 1)
