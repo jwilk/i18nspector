@@ -362,6 +362,47 @@ class test_codomain:
         self.t('! (6 + n % 7)', 0, 0)
         self.t('! 0', 1, 1)
 
+    def r(self, x, y, *, var='n'):
+        if x == y:
+            s = str(x)
+        else:
+            w = y - x + 1
+            assert w >= 2
+            s = '{x} + ({var})%{w}'.format(x=x, w=w, var=var)
+        self.t(s, x, y)
+        return s
+
+    def t_cmp(self, ccmp, pycmp):
+        sl = '1 + n%3'
+        for x in range(4):
+            for y in range(x, 5):
+                sr = self.r(x, y, var='n/3')
+                s = '{l} {cmp} {r}'.format(l=sl, cmp=ccmp, r=sr)
+                vals = {
+                    int(pycmp(i, j))
+                    for i in range(1, 4)
+                    for j in range(x, y + 1)
+                }
+                self.t(s, min(vals), max(vals))
+
+    def test_lt(self):
+        self.t_cmp('<', int.__lt__)
+
+    def test_le(self):
+        self.t_cmp('<=', int.__le__)
+
+    def test_gt(self):
+        self.t_cmp('>', int.__gt__)
+
+    def test_ge(self):
+        self.t_cmp('>=', int.__ge__)
+
+    def test_eq(self):
+        self.t_cmp('==', int.__eq__)
+
+    def test_ne(self):
+        self.t_cmp('!=', int.__ne__)
+
 class test_plural_forms:
 
     error = M.PluralFormsSyntaxError
