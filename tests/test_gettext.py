@@ -327,6 +327,26 @@ class test_codomain:
             (6 + 37 - 1) * (7 + 23 - 1)
         )
 
+    def test_mul_max_overflow(self):
+        m = (1 << 32) - 1
+        self.t('(n + 6) * 7', 42, m)
+
+    def test_mul_min_overflow(self):
+        m = (1 << 32) - 1
+        assert m % 17 == 0
+        self.t(
+            str(m // 17) + ' * (n + 17)',
+            m, m
+        )
+        self.t(
+            str(m // 17) + ' * (n + 18)',
+            None
+        )
+        self.t(
+            str((m + 1) // 2) + ' * (n + 2)',
+            None
+        )
+
     def test_div(self):
         self.t(
             '(42 + n%63) / (6 + n%7)',
