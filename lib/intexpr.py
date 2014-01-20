@@ -19,10 +19,147 @@
 # SOFTWARE.
 
 '''
-squeeze Python abstract syntax trees into C integer expressions semantics
+C integer expressions
 '''
 
 import ast
+import contextlib
+import functools
+import tempfile
+
+import rply
+import rply.errors
+
+LexingError = rply.errors.LexingError
+ParsingError = rply.errors.ParsingError
+
+# http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
+
+@functools.lru_cache(maxsize=None)
+def create_lexer():
+    lg = rply.LexerGenerator()
+    lg.add('IF', r'[?]')
+    lg.add('ELSE', r':')
+    lg.add('OR', r'[|][|]')
+    lg.add('AND', r'[&][&]')
+    lg.add('EQ', r'[!=]=')
+    lg.add('CMP', r'[<>]=?')
+    lg.add('ADDSUB', r'[+-]')
+    lg.add('MULDIV', r'[*/%]')
+    lg.add('NOT', r'!')
+    lg.add('LPAR', r'[(]')
+    lg.add('RPAR', r'[)]')
+    lg.add('VAR', r'n')
+    lg.add('INT', r'[0-9]+')
+    lg.ignore(r'[ \t]+')
+    return lg.build()
+
+@contextlib.contextmanager
+def _throwaway_tempdir():
+    # mitigation for RPLY's insecure use of /tmp:
+    # CVE-2014-1604, CVE-2014-1938
+    with tempfile.TemporaryDirectory(prefix='i18nspector.rply.') as new_tempdir:
+        original_tempdir = tempfile.tempdir
+        try:
+            tempfile.tempdir = new_tempdir
+            yield
+        finally:
+            tempfile.tempdir = original_tempdir
+
+@functools.lru_cache(maxsize=None)
+def create_parser(lexer):
+    pg = rply.ParserGenerator(
+        [rule.name for rule in lexer.rules],
+        precedence=[
+            ('right', ['IF', 'ELSE']),
+            ('left', ['OR']),
+            ('left', ['AND']),
+            ('left', ['EQ']),
+            ('left', ['CMP']),
+            ('left', ['ADDSUB']),
+            ('left', ['MULDIV']),
+            ('right', ['NOT']),
+        ],
+        cache_id='i18nspector-plural-forms',
+    )
+    ast_bool = {
+        '&&': ast.And(),
+        '||': ast.Or(),
+    }
+    ast_cmp = {
+        '==': ast.Eq(),
+        '!=': ast.NotEq(),
+        '<': ast.Lt(),
+        '<=': ast.LtE(),
+        '>': ast.Gt(),
+        '>=': ast.GtE(),
+    }
+    ast_arithmetic = {
+        '+': ast.Add(),
+        '-': ast.Sub(),
+        '*': ast.Mult(),
+        '/': ast.Div(),
+        '%': ast.Mod(),
+    }
+    ast_not = ast.Not()
+    @pg.production('start : exp')
+    def eval_start(p):
+        [exp] = p
+        return ast.Expr(exp)
+    @pg.production('exp : exp IF exp ELSE exp')
+    def expr_ifelse(p):
+        [cond, _, body, _, orelse] = p
+        return ast.IfExp(cond, body, orelse)
+    @pg.production('exp : exp OR exp')
+    @pg.production('exp : exp AND exp')
+    def expr_bool(p):
+        [left, tok, right] = p
+        op = ast_bool[tok.getstr()]
+        return ast.BoolOp(op, [left, right])
+    @pg.production('exp : exp EQ exp')
+    @pg.production('exp : exp CMP exp')
+    def expr_cmp(p):
+        [left, tok, right] = p
+        op = ast_cmp[tok.getstr()]
+        return ast.Compare(left, [op], [right])
+    @pg.production('exp : exp ADDSUB exp')
+    @pg.production('exp : exp MULDIV exp')
+    def expr_arithmetic(p):
+        [left, tok, right] = p
+        op = ast_arithmetic[tok.getstr()]
+        return ast.BinOp(left, op, right)
+    @pg.production('exp : NOT exp')
+    def expr_not(p):
+        [_, value] = p
+        return ast.UnaryOp(ast_not, value)
+    @pg.production('exp : LPAR exp RPAR')
+    def expr_par(p):
+        [_, exp, _] = p
+        return exp
+    @pg.production('exp : VAR')
+    def expr_var(p):
+        [tok] = p
+        ident = tok.getstr()
+        assert ident == 'n'
+        return ast.Name(ident, ast.Load())
+    @pg.production('exp : INT')
+    def expr_int(p):
+        [tok] = p
+        n = int(tok.getstr())
+        return ast.Num(n)
+    with _throwaway_tempdir():
+        return pg.build()
+
+class Parser(object):
+
+    def __init__(self):
+        self._lexer = create_lexer()
+        self._parser = create_parser(self._lexer)
+
+    def parse(self, s):
+        tokens = self._lexer.lex(s)
+        node = self._parser.parse(tokens)
+        return Expression(node)
 
 from lib import misc
 
@@ -73,34 +210,19 @@ class BaseEvaluator(object):
     # ====================
 
     def _visit_compare(self, node):
-        # This one is tricky because in C equality comparison operators have
-        # lower priority that inequality comparison operators. This is unlike
-        # Python, in which they have the same priority.
         assert len(node.comparators) == len(node.ops)
-        new_vals = []
-        new_ops = []
-        # high priority: <, <=, >, >=
-        left = self._visit(node.left)
+        if len(node.ops) != 1:
+            raise NotImplementedError
+        left = node.left
+        [op] = node.ops
+        [right] = node.comparators
+        left = self._visit(left)
         if left is None:
             return
-        for op, right in zip(node.ops, node.comparators):
-            right = self._visit(right)
-            if right is None:
-                return
-            if isinstance(op, (ast.Eq, ast.NotEq)):
-                new_vals += [left]
-                new_ops += [op]
-                left = right
-            else:
-                left = self._visit(op, left, right)
-        new_vals += [left]
-        assert len(new_vals) == len(new_ops) + 1
-        # low priority: ==, !=
-        new_vals = iter(new_vals)
-        left = next(new_vals)
-        for op, right in zip(new_ops, new_vals):
-            left = self._visit(op, left, right)
-        return left
+        right = self._visit(right)
+        if right is None:
+            return
+        return self._visit(op, left, right)
 
     # boolean operators
     # =================
@@ -143,7 +265,7 @@ class Evaluator(BaseEvaluator):
     # unary operators
     # ===============
 
-    def _visit_invert(self, node, x):
+    def _visit_not(self, node, x):
         return int(not x)
 
     # comparison operators
@@ -278,7 +400,7 @@ class CodomainEvaluator(BaseEvaluator):
     # unary operators
     # ===============
 
-    def _visit_invert(self, node, x):
+    def _visit_not(self, node, x):
         if x[0] > 0:
             return (0, 0)
         elif x == (0, 0):
@@ -413,12 +535,9 @@ class CodomainEvaluator(BaseEvaluator):
 
 class Expression(object):
 
-    def __init__(self, s):
-        module = ast.parse('({})'.format(s), filename='<intexpr>')
-        compile(module, '', 'exec')
-        assert isinstance(module, ast.Module)
-        [node] = ast.iter_child_nodes(module)
-        assert isinstance(node, ast.Expr)
+    def __init__(self, node):
+        if not isinstance(node, ast.Expr):
+            raise TypeError  # <no-coverage>
         self._node = node
 
     def __call__(self, n, *, bits=32):

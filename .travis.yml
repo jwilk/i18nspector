@@ -17,6 +17,7 @@ matrix:
 install:
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install pyflakes
+- pip install rply
 script:
 - python tests/run-tests -v
 - ./private/run-pyflakes

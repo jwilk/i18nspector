@@ -28,7 +28,6 @@ gettext header support:
 
 import configparser
 import datetime
-import functools
 import os
 import re
 
@@ -80,105 +79,20 @@ search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTIL
 # plural forms
 # ============
 
-# http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
-
 class PluralFormsSyntaxError(Exception):
     pass
 
 class PluralExpressionSyntaxError(PluralFormsSyntaxError):
     pass
 
-_plural_exp_tokens = [
-    (r'[0-9]+', None),
-    (r'[=!]=', None),
-    (r'!', 'not'),
-    (r'&&', 'and'),
-    (r'[|][|]', 'or'),
-    (r'(?<![<>])[<>]=?', None),
-    (r'(?<![*/])[*/%]', None),
-    (r'[+-]', None),
-    (r'n', None),
-    (r'[?:]', None),
-    (r'[()]', None),
-    (r'[ \t]', None),
-    (r'.', '_'),  # junk
-]
-
-_plural_exp_token_re = '|'.join(
-    chunk if repl is None else '(?P<{}>{})'.format(repl, chunk)
-    for chunk, repl in _plural_exp_tokens
-)
-_plural_exp_token_re = re.compile(_plural_exp_token_re)
-
-def _plural_exp_tokenize(s):
-    prev_value = ' '
-    for match in _plural_exp_token_re.finditer(s):
-        for pytoken, ctoken in match.groupdict().items():
-            if ctoken is not None:
-                break
-        value = match.group(0)
-        if ctoken is not None:
-            if pytoken == '_':  # junk
-                raise PluralExpressionSyntaxError(value)
-            if pytoken == 'not':
-                # priority of “not” in Python is too low to be used here
-                pytoken = '~'
-            yield ' {} '.format(pytoken)
-        elif value in {'+', '-'}:
-            if prev_value in {'n', ')'} or prev_value.isdigit():
-                yield value
-            else:
-                # unary plus and unary minus are not supported
-                raise PluralExpressionSyntaxError(value)
-        elif value == '(':
-            if prev_value in {'n', ')'} or prev_value.isdigit():
-                # function calls are not supported
-                raise PluralExpressionSyntaxError(value)
-            else:
-                yield value
-        elif (prev_value, value) == ('(', ')'):
-            raise PluralExpressionSyntaxError(value)
-        else:
-            yield value
-        if not value.isspace():
-            prev_value = value
-
-_ifelse_re = re.compile(r'(.*?)[?](.*?):(.*)')
-def _subst_ifelse(match):
-    return '({true} if {cond} else {false})'.format(
-        cond=match.group(1),
-        true=match.group(2),
-        false=_subst_ifelse(match.group(3))
-    )
-# The magic below makes _subst_ifelse() act on strings rather than match
-# objects.
-_subst_ifelse = functools.partial(_ifelse_re.sub, _subst_ifelse)
-
 def parse_plural_expression(s):
-    stack = ['']
-    for token in _plural_exp_tokenize(s):
-        if token == '(':
-            stack += ['']
-        elif token == ')':
-            if len(stack) <= 1:
-                raise PluralExpressionSyntaxError
-            s = _subst_ifelse(stack.pop())
-            if ('?' in s) or (':' in s):
-                raise PluralExpressionSyntaxError
-            stack[-1] += '({})'.format(s)
-        else:
-            stack[-1] += token
-    if len(stack) != 1:
-        raise PluralExpressionSyntaxError
-    [s] = stack
-    if (s == '') or s.isspace():
-        raise PluralExpressionSyntaxError
-    s = _subst_ifelse(s)
+    parser = intexpr.Parser()
     try:
-        fn = intexpr.Expression(s)
-    except SyntaxError:
+        return parser.parse(s)
+    except intexpr.LexingError:
         raise PluralExpressionSyntaxError
-    return fn
+    except intexpr.ParsingError:
+        raise PluralExpressionSyntaxError
 
 _parse_plural_forms = re.compile(r'^nplurals=([1-9][0-9]*);[ \t]*plural=([^;]+);?$').match
 

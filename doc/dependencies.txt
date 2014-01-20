@@ -2,7 +2,9 @@ The following software is needed to run i18nspector:
 
 * Python ≥ 3.2;
 
-* polib_ ≥ 1.0.0, a gettext catalogs manipulation library.
+* polib_ ≥ 1.0.0, a gettext catalogs manipulation library;
+
+* RPLY_, a parser generator.
 
 Additionally, the following software is needed to rebuild the manual page from
 source:
@@ -12,6 +14,8 @@ source:
 
 .. _polib:
    https://pypi.python.org/pypi/polib
+.. _RPLY:
+   https://pypi.python.org/pypi/rply
 .. _docutils:
    http://docutils.sourceforge.net/
 
