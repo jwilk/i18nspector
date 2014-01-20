@@ -267,6 +267,19 @@ class test_codomain:
     def test_add(self):
         self.t('(6 + n%37) + (7 + n%23)', (6 + 7), 6 + 7 + 36 + 22)
 
+    def test_add_max_overflow(self):
+        m = (1 << 32) - 1
+        self.t(
+            '(37 + n%4242424242) + (23 + n%4242424242)',
+            37 + 23, m
+        )
+
+    def test_add_min_overflow(self):
+        self.t(
+            '(4242424242 + n%37) + (4242424242 + n%23)',
+            None
+        )
+
     def test_sub(self):
         self.t('(6 + n%37) - (7 + n%23)', 0, 6 + 36 - 7)
         self.t('(37 + n%6) - (23 + n%7)', 37 - 23 - 6, 37 + 5 - 23)
