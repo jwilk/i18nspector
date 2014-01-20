@@ -318,7 +318,7 @@ class test_plural_forms:
 
 class test_fix_date_format:
 
-    def _test(self, old, expected):
+    def t(self, old, expected):
         if expected is None:
             with assert_raises(M.DateSyntaxError):
                 M.fix_date_format(old)
@@ -327,56 +327,56 @@ class test_fix_date_format:
             assert_is_not_none(new)
             assert_equal(new, expected)
 
-    def _test_boilerplate(self, old):
+    def tbp(self, old):
         with assert_raises(M.BoilerplateDate):
             M.fix_date_format(old)
 
     def test_boilerplate(self):
-        self._test_boilerplate('YEAR-MO-DA HO:MI+ZONE')
-        self._test_boilerplate('YEAR-MO-DA HO:MI +ZONE')
+        self.tbp('YEAR-MO-DA HO:MI+ZONE')
+        self.tbp('YEAR-MO-DA HO:MI +ZONE')
 
     def test_partial_boilerplate(self):
-        self._test_boilerplate('2000-05-15 22:MI+0200')
-        self._test_boilerplate('2002-10-15 HO:MI+ZONE')
-        self._test_boilerplate('2003-07-DA 11:31+0100')
-        self._test_boilerplate('2004-MO-DA HO:MI+ZONE')
-        self._test_boilerplate('2006-10-24 18:00+ZONE')
-        self._test_boilerplate('2010-11-01 HO:MI+0000')
+        self.tbp('2000-05-15 22:MI+0200')
+        self.tbp('2002-10-15 HO:MI+ZONE')
+        self.tbp('2003-07-DA 11:31+0100')
+        self.tbp('2004-MO-DA HO:MI+ZONE')
+        self.tbp('2006-10-24 18:00+ZONE')
+        self.tbp('2010-11-01 HO:MI+0000')
 
     def test_okay(self):
         d = '2010-10-13 01:27+0200'
-        self._test(d, d)
+        self.t(d, d)
 
     def test_double_space(self):
         d = '2011-11-08  16:49+0200'
-        self._test(d, d.replace('  ', ' '))
+        self.t(d, d.replace('  ', ' '))
 
     def test_space_before_tz(self):
-        self._test(
+        self.t(
             '2010-05-12 18:36 -0400',
             '2010-05-12 18:36-0400',
         )
 
     def test_seconds(self):
-        self._test(
+        self.t(
             '2010-03-27 12:44:19+0100',
             '2010-03-27 12:44+0100',
         )
 
     def test_colon_in_tz(self):
-        self._test(
+        self.t(
             '2001-06-25 18:55+02:00',
             '2001-06-25 18:55+0200',
         )
 
     def test_t_seperator(self):
-        self._test(
+        self.t(
             '2003-04-01T09:08+0500',
             '2003-04-01 09:08+0500',
         )
 
     def test_missing_tz(self):
-        self._test('2002-01-01 03:05', None)
+        self.t('2002-01-01 03:05', None)
 
     def test_tz_hint(self):
         assert_equal(
@@ -385,55 +385,55 @@ class test_fix_date_format:
         )
 
     def test_gmt_before_tz(self):
-        self._test(
+        self.t(
             '2001-07-28 11:19GMT+0200',
             '2001-07-28 11:19+0200',
         )
-        self._test(
+        self.t(
             '2001-12-20 17:22UTC+0100',
             '2001-12-20 17:22+0100',
         )
 
     def test_pygettext(self):
-        self._test(
+        self.t(
             '2004-04-20 13:24+CEST',
             '2004-04-20 13:24+0200',
         )
-        self._test('2004-04-14 21:35+CDT', None)  # ambiguous
-        self._test('2005-12-20 10:33+JEST', None)  # nonexistent
+        self.t('2004-04-14 21:35+CDT', None)  # ambiguous
+        self.t('2005-12-20 10:33+JEST', None)  # nonexistent
 
     def test_abbrev(self):
-        self._test(
+        self.t(
             '2010-02-17 13:11 PST',
             '2010-02-17 13:11-0800',
         )
-        self._test(
+        self.t(
             '2001-01-06 12:12GMT',
             '2001-01-06 12:12+0000',
         )
 
     def test_only_date(self):
-        self._test('2008-01-09', None)
+        self.t('2008-01-09', None)
 
     def test_nonexistent(self):
-        self._test('2010-02-29 19:49+0200', None)
+        self.t('2010-02-29 19:49+0200', None)
 
 class test_parse_date:
 
-    _parse = staticmethod(M.parse_date)
+    t = staticmethod(M.parse_date)
 
     def test_nonexistent(self):
         with assert_raises(M.DateSyntaxError):
-            self._parse('2010-02-29 19:49+0200')
+            self.t('2010-02-29 19:49+0200')
 
     def test_existent(self):
-        d = self._parse('2003-09-08 21:26+0200')
+        d = self.t('2003-09-08 21:26+0200')
         assert_equal(d.second, 0)
         assert_is_instance(d, datetime.datetime)
         assert_equal(str(d), '2003-09-08 21:26:00+02:00')
 
     def test_epoch(self):
-        d = self._parse('2008-04-03 16:06+0300')
+        d = self.t('2008-04-03 16:06+0300')
         assert_less(M.epoch, d)
 
 class test_string_formats:
