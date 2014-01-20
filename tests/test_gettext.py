@@ -357,6 +357,11 @@ class test_codomain:
             (42 + 63 - 1) // 6,
         )
 
+    def test_not(self):
+        self.t('! (n % 7)', 0, 1)
+        self.t('! (6 + n % 7)', 0, 0)
+        self.t('! 0', 1, 1)
+
 class test_plural_forms:
 
     error = M.PluralFormsSyntaxError
