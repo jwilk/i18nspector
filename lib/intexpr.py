@@ -363,7 +363,7 @@ class CodomainEvaluator(BaseEvaluator):
             x = self._visit(arg)
             if x is None:
                 if r == (0, 1):
-                    return (0, 0)
+                    return (1, 1)
                 else:
                     return
             elif x[0] >= 1:
