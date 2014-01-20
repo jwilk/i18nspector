@@ -342,6 +342,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_and(self, node, *args):
         r = (1, 1)
         for arg in args:
+            assert r != (0, 0)
             x = self._visit(arg)
             if x is None:
                 if r == (0, 1):
@@ -360,6 +361,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_or(self, node, *args):
         r = (0, 0)
         for arg in args:
+            assert r != (1, 1)
             x = self._visit(arg)
             if x is None:
                 if r == (0, 1):
