@@ -442,6 +442,31 @@ class test_codomain:
         self.t('n || (n / 0) || 1', 1, 1)  # doesn't raise exception for n>0
         self.t('0 || (n / 0) || 1', None)  # always raises exception
 
+    def test_cond_error(self):
+        self.t('(n / 0) ? 37 : 42', None)
+
+    def test_cond_always_true(self):
+        self.t('1 ? 37 : n', 37, 37)
+
+    def test_cond_always_false(self):
+        self.t('0 ? n : 37', 37, 37)
+
+    def test_cond_true_branch_error(self):
+        self.t('n ? (n / 0) : 37', 37, 37)
+
+    def test_cond_false_branch_error(self):
+        self.t('n ? 37 : (n / 0)', 37, 37)
+
+    def test_cond_both_branches_error(self):
+        self.t('n ? (n / 0) : (n / 0)', None)
+
+    def test_cond_both_braches_ok(self):
+        self.t('n ? 37 : 42', 37, 42)
+        self.t(
+            'n ? (6 + n%23) : (7 + n%37)',
+            6, 37 + 7 - 1
+        )
+
 class test_plural_forms:
 
     error = M.PluralFormsSyntaxError
