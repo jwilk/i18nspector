@@ -42,7 +42,7 @@ E = lib.encodings
 
 class test_fix_codes:
 
-    def _test(self, l1, l2):
+    def t(self, l1, l2):
         lang = L.parse_language(l1)
         assert_equal(str(lang), l1)
         if l1 == l2:
@@ -52,28 +52,28 @@ class test_fix_codes:
         assert_equal(str(lang), l2)
 
     def test_2_to_2(self):
-        self._test('grc', 'grc')
-        self._test('grc_GR', 'grc_GR')
+        self.t('grc', 'grc')
+        self.t('grc_GR', 'grc_GR')
 
     def test_1_to_1(self):
-        self._test('el', 'el')
-        self._test('el_GR', 'el_GR')
+        self.t('el', 'el')
+        self.t('el_GR', 'el_GR')
 
     def test_2t_to_1(self):
-        self._test('ell', 'el')
-        self._test('ell_GR', 'el_GR')
+        self.t('ell', 'el')
+        self.t('ell_GR', 'el_GR')
 
     def test_2b_to_1(self):
-        self._test('gre', 'el')
-        self._test('gre_GR', 'el_GR')
+        self.t('gre', 'el')
+        self.t('gre_GR', 'el_GR')
 
     def test_ll_not_found(self):
-        with assert_raises(lib.ling.FixingLanguageCodesFailed):
-            self._test('ry', '')
+        with assert_raises(L.FixingLanguageCodesFailed):
+            self.t('ry', '')
 
     def test_cc_not_found(self):
-        with assert_raises(lib.ling.FixingLanguageCodesFailed):
-            self._test('el_RY', '')
+        with assert_raises(L.FixingLanguageCodesFailed):
+            self.t('el_RY', '')
 
 class test_language_equality:
 
@@ -115,7 +115,7 @@ class test_language_equality:
 
 class test_remove_encoding:
 
-    def _test(self, l1, l2):
+    def t(self, l1, l2):
         lang = L.parse_language(l1)
         assert_equal(str(lang), l1)
         if l1 == l2:
@@ -125,14 +125,14 @@ class test_remove_encoding:
         assert_equal(str(lang), l2)
 
     def test_without_encoding(self):
-        self._test('el', 'el')
+        self.t('el', 'el')
 
     def test_with_encoding(self):
-        self._test('el.UTF-8', 'el')
+        self.t('el.UTF-8', 'el')
 
 class test_remove_nonlinguistic_modifier:
 
-    def _test(self, l1, l2):
+    def t(self, l1, l2):
         lang = L.parse_language(l1)
         assert_equal(str(lang), l1)
         if l1 == l2:
@@ -142,14 +142,14 @@ class test_remove_nonlinguistic_modifier:
         assert_equal(str(lang), l2)
 
     def test_quot(self):
-        self._test('en@quot', 'en@quot')
-        self._test('en@boldquot', 'en@boldquot')
+        self.t('en@quot', 'en@quot')
+        self.t('en@boldquot', 'en@boldquot')
 
     def test_latin(self):
-        self._test('sr@latin', 'sr@latin')
+        self.t('sr@latin', 'sr@latin')
 
     def test_euro(self):
-        self._test('de_AT@euro', 'de_AT')
+        self.t('de_AT@euro', 'de_AT')
 
 class test_lookup_territory_code:
 
@@ -163,32 +163,32 @@ class test_lookup_territory_code:
 
 class test_get_language_for_name:
 
-    def _test(self, name, expected):
+    def t(self, name, expected):
         lang = L.get_language_for_name(name)
         assert_is_instance(lang, T)
         assert_equal(str(lang), expected)
 
     def test_found(self):
-        self._test('Greek', 'el')
+        self.t('Greek', 'el')
 
     def test_found_multi(self):
-        self._test('Old Church Slavonic', 'cu')
+        self.t('Old Church Slavonic', 'cu')
 
     def test_found_as_ascii(self):
-        self._test('Norwegian Bokmål', 'nb')
+        self.t('Norwegian Bokmål', 'nb')
 
     def test_found_semicolon(self):
-        self._test('Chichewa; Nyanja', 'ny')
+        self.t('Chichewa; Nyanja', 'ny')
 
     def test_found_comma(self):
-        self._test('Ndebele, South', 'nr')
+        self.t('Ndebele, South', 'nr')
 
     def test_found_comma_as_semicolon(self):
-        self._test('Pashto, Pushto', 'ps')
+        self.t('Pashto, Pushto', 'ps')
 
     def test_not_found(self):
         with assert_raises(LookupError):
-            self._test('Nadsat', None)
+            self.t('Nadsat', None)
 
 class test_parse_language:
 
@@ -228,7 +228,7 @@ class test_parse_language:
         assert_equal(lang.modifier, 'quot')
 
     def test_syntax_error(self):
-        with assert_raises(lib.ling.LanguageSyntaxError):
+        with assert_raises(L.LanguageSyntaxError):
             L.parse_language('GR')
 
 class test_get_primary_languages:
@@ -242,48 +242,48 @@ class test_get_primary_languages:
         assert_not_in('ry', langs)
 
     def test_iso_639(self):
-        def _test(lang_str):
+        def t(lang_str):
             lang = L.parse_language(lang_str)
             assert_is_none(lang.fix_codes())
             assert_equal(str(lang), lang_str)
         for lang_str in L.get_primary_languages():
-            yield _test, lang_str
+            yield t, lang_str
 
 class test_get_plural_forms:
 
-    def _get(self, lang):
+    def t(self, lang):
         lang = L.parse_language(lang)
         return lang.get_plural_forms()
 
     def test_found_ll(self):
         assert_equal(
-            self._get('el'),
+            self.t('el'),
             ['nplurals=2; plural=n != 1;']
         )
 
     def test_found_ll_cc(self):
         assert_equal(
-            self._get('el_GR'),
+            self.t('el_GR'),
             ['nplurals=2; plural=n != 1;']
         )
 
     def test_en_ca(self):
         assert_equal(
-            self._get('en'),
-            self._get('en_CA'),
+            self.t('en'),
+            self.t('en_CA'),
         )
 
     def test_pt_br(self):
         assert_not_equal(
-            self._get('pt'),
-            self._get('pt_BR'),
+            self.t('pt'),
+            self.t('pt_BR'),
         )
 
     def test_not_known(self):
-        assert_is_none(self._get('la'))
+        assert_is_none(self.t('la'))
 
     def test_not_found(self):
-        assert_is_none(self._get('ry'))
+        assert_is_none(self.t('ry'))
 
 class test_principal_territory:
 
