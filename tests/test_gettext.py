@@ -121,6 +121,7 @@ class test_plural_exp:
         self.t('n * 17', m / 17, m)
         with assert_raises(OverflowError):
             self.t('n * 17', (m / 17) + 1, False)
+            self.t('n * 2', (m + 1) / 2, False)
 
     def test_div(self):
         self.t('105 / n', 17, 6)
