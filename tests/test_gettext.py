@@ -406,6 +406,29 @@ class test_codomain:
     def test_ne(self):
         self.t_cmp('!=', int.__ne__)
 
+    def t_bool(self, cop, pyop):
+        sl = '1 + n%3'
+        for x in range(0, 4):
+            for y in range(x, 5):
+                sr = self.r(x, y, var='n/3')
+                s = '{l} {op} {r}'.format(l=sl, op=cop, r=sr)
+                vals = {
+                    int(pyop(i, j))
+                    for i in range(1, 4)
+                    for j in range(x, y + 1)
+                }
+                self.t(s, min(vals), max(vals))
+
+    def test_and(self):
+        def op_and(x, y):
+            return bool(x and y)
+        self.t_bool('&&', op_and)
+
+    def test_or(self):
+        def op_or(x, y):
+            return bool(x or y)
+        self.t_bool('||', op_or)
+
 class test_plural_forms:
 
     error = M.PluralFormsSyntaxError
