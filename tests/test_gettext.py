@@ -424,10 +424,18 @@ class test_codomain:
             return bool(x and y)
         self.t_bool('&&', op_and)
 
+    def test_and_error(self):
+        self.t('n && (n / 0) && 0', 0, 0)  # doesn't raise exception for n==0
+        self.t('1 && (n / 0) && 0', None)  # always raises exception
+
     def test_or(self):
         def op_or(x, y):
             return bool(x or y)
         self.t_bool('||', op_or)
+
+    def test_or_error(self):
+        self.t('n || (n / 0) || 1', 1, 1)  # doesn't raise exception for n>0
+        self.t('0 || (n / 0) || 1', None)  # always raises exception
 
 class test_plural_forms:
 
