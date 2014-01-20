@@ -68,9 +68,6 @@ class BaseEvaluator(object):
             return
         return self._visit(node.op, x)
 
-    def _visit_uadd(self, node, x):
-        return x
-
     # comparison operators
     # ====================
 
@@ -151,9 +148,6 @@ class Evaluator(BaseEvaluator):
 
     def _visit_invert(self, node, x):
         return int(not x)
-
-    def _visit_usub(self, node, x):
-        return self._check_overflow(-x)
 
     # comparison operators
     # ====================
@@ -294,13 +288,6 @@ class CodomainEvaluator(BaseEvaluator):
             return (1, 1)
         else:
             return (0, 1)
-
-    def _visit_usub(self, node, x):
-        if x == (0, 0):
-            return x
-        else:
-            # integer overflow
-            return
 
     # comparison operators
     # ====================
