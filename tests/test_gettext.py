@@ -407,15 +407,20 @@ class test_codomain:
         self.t_cmp('!=', int.__ne__)
 
     def t_bool(self, cop, pyop):
-        sl = '1 + n%3'
-        for x in range(0, 4):
-            for y in range(x, 5):
-                sr = self.r(x, y, var='n/3')
+        ranges = [
+            (x, y)
+            for x in range(0, 3)
+            for y in range(x, 3)
+        ]
+        for lx, ly in ranges:
+            sl = self.r(lx, ly, var='n%3')
+            for rx, ry in ranges:
+                sr = self.r(rx, ry, var='n/3')
                 s = '{l} {op} {r}'.format(l=sl, op=cop, r=sr)
                 vals = {
                     int(pyop(i, j))
-                    for i in range(1, 4)
-                    for j in range(x, y + 1)
+                    for i in range(lx, ly + 1)
+                    for j in range(rx, ry + 1)
                 }
                 self.t(s, min(vals), max(vals))
 
