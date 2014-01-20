@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import lib.tags
+import lib.tags as M
 
 from nose.tools import (
     assert_equal,
@@ -26,28 +26,28 @@ from nose.tools import (
 
 class test_escape:
 
-    _esc = staticmethod(lib.tags._escape)  # FIXME: _escape is private
+    esc = staticmethod(M._escape)  # FIXME: _escape is private
 
-    def _test(self, s, expected):
+    def t(self, s, expected):
         assert_equal(
-            self._esc(s),
+            self.esc(s),
             expected
         )
 
     def test_safe(self):
         s = 'fox'
-        self._test(s, s)
+        self.t(s, s)
 
     def test_trailing_newline(self):
         s = 'fox\n'
-        self._test(s, repr(s))
+        self.t(s, repr(s))
 
     def test_colon(self):
         s = 'fox:'
-        self._test(s, repr(s))
+        self.t(s, repr(s))
 
     def test_space(self):
         s = 'brown fox'
-        self._test(s, repr(s))
+        self.t(s, repr(s))
 
 # vim:ts=4 sw=4 et

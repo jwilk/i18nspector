@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -39,7 +39,7 @@ class BaseEvaluator(object):
     def _visit(self, node, *args):
         try:
             fn = getattr(self, '_visit_' + type(node).__name__.lower())
-        except KeyError:
+        except KeyError:  # <no-coverage>
             raise NotImplementedError(type(node).__name__)
         return fn(node, *args)
 
@@ -68,9 +68,6 @@ class BaseEvaluator(object):
             return
         return self._visit(node.op, x)
 
-    def _visit_uadd(self, node, x):
-        return x
-
     # comparison operators
     # ====================
 
@@ -95,8 +92,6 @@ class BaseEvaluator(object):
                 left = right
             else:
                 left = self._visit(op, left, right)
-                if left is None:
-                    return
         new_vals += [left]
         assert len(new_vals) == len(new_ops) + 1
         # low priority: ==, !=
@@ -104,8 +99,6 @@ class BaseEvaluator(object):
         left = next(new_vals)
         for op, right in zip(new_ops, new_vals):
             left = self._visit(op, left, right)
-            if left is None:
-                return
         return left
 
     # boolean operators
@@ -149,11 +142,8 @@ class Evaluator(BaseEvaluator):
     # unary operators
     # ===============
 
-    def _visit_not(self, node, x):
+    def _visit_invert(self, node, x):
         return int(not x)
-
-    def _visit_usub(self, node, x):
-        return self._check_overflow(-x)
 
     # comparison operators
     # ====================
@@ -208,7 +198,7 @@ class Evaluator(BaseEvaluator):
         return self._check_overflow(node.n)
 
     def _visit_name(self, node):
-        return self._ctxt.n
+        return self._check_overflow(self._ctxt.n)
 
 class CodomainEvaluator(BaseEvaluator):
 
@@ -226,7 +216,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit(self, node, *args):
         try:
             fn = getattr(self, '_visit_' + type(node).__name__.lower())
-        except KeyError:
+        except KeyError:  # <no-coverage>
             raise NotImplementedError(type(node).__name__)
         return fn(node, *args)
 
@@ -240,7 +230,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_add(self, node, x, y):
         z = (
             x[0] + y[0],
-            max(x[1] + y[1], self._ctxt.max - 1)
+            min(x[1] + y[1], self._ctxt.max - 1)
         )
         if z[0] > z[1]:
             return
@@ -248,7 +238,7 @@ class CodomainEvaluator(BaseEvaluator):
 
     def _visit_sub(self, node, x, y):
         z = (
-            min(x[0] - y[1], 0),
+            max(x[0] - y[1], 0),
             x[1] - y[0]
         )
         if z[0] > z[1]:
@@ -258,7 +248,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_mult(self, node, x, y):
         z = (
             x[0] * y[0],
-            max(x[1] * y[1], self._ctxt.max - 1)
+            min(x[1] * y[1], self._ctxt.max - 1)
         )
         if z[0] > z[1]:
             return
@@ -271,7 +261,7 @@ class CodomainEvaluator(BaseEvaluator):
         assert y[1] > 0
         return (
             x[0] // y[1],
-            x[1] // min(y[0], 1),
+            x[1] // max(y[0], 1),
         )
 
     def _visit_mod(self, node, x, y):
@@ -282,12 +272,12 @@ class CodomainEvaluator(BaseEvaluator):
         if x[1] < y[0]:
             # i % j == i  if  i < j
             return x
-        return (0, max(x[1], y[1] - 1))
+        return (0, min(x[1], y[1] - 1))
 
     # unary operators
     # ===============
 
-    def _visit_not(self, node, x):
+    def _visit_invert(self, node, x):
         if x[0] > 0:
             return (0, 0)
         elif x == (0, 0):
@@ -295,42 +285,40 @@ class CodomainEvaluator(BaseEvaluator):
         else:
             return (0, 1)
 
-    def _visit_usub(self, node, x):
-        if x == (0, 0):
-            return x
-        else:
-            # integer overflow
-            return
-
     # comparison operators
     # ====================
 
     def _visit_gte(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[0] >= y[1],
             x[1] >= y[0],
         )
 
     def _visit_gt(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[0] > y[1],
             x[1] > y[0],
         )
 
     def _visit_lte(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[1] <= y[0],
             x[0] <= y[1],
         )
 
     def _visit_lt(self, node, x, y):
+        assert (x is not None) and (y is not None)
         return (
             x[1] < y[0],
             x[0] < y[1],
         )
 
     def _visit_eq(self, node, x, y):
-        if x == y:
+        assert (x is not None) and (y is not None)
+        if x[0] == x[1] == y[0] == y[1]:
             return (1, 1)
         if x[0] <= y[0] <= x[1]:
             return (0, 1)
@@ -339,7 +327,8 @@ class CodomainEvaluator(BaseEvaluator):
         return (0, 0)
 
     def _visit_noteq(self, node, x, y):
-        if x == y:
+        assert (x is not None) and (y is not None)
+        if x[0] == x[1] == y[0] == y[1]:
             return (0, 0)
         if x[0] <= y[0] <= x[1]:
             return (0, 1)
@@ -353,6 +342,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_and(self, node, *args):
         r = (1, 1)
         for arg in args:
+            assert r != (0, 0)
             x = self._visit(arg)
             if x is None:
                 if r == (0, 1):
@@ -371,6 +361,7 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_or(self, node, *args):
         r = (0, 0)
         for arg in args:
+            assert r != (1, 1)
             x = self._visit(arg)
             if x is None:
                 if r == (0, 1):
@@ -378,7 +369,7 @@ class CodomainEvaluator(BaseEvaluator):
                 else:
                     return
             elif x[0] >= 1:
-                return
+                return (1, 1)
             elif x == (0, 0):
                 pass
             else:
@@ -425,8 +416,7 @@ class Expression(object):
         module = ast.parse('({})'.format(s), filename='<intexpr>')
         assert isinstance(module, ast.Module)
         [node] = ast.iter_child_nodes(module)
-        if not isinstance(node, ast.Expr):
-            raise TypeError
+        assert isinstance(node, ast.Expr)
         self._node = node
 
     def __call__(self, n, *, bits=32):

@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -33,7 +33,7 @@ from nose.tools import (
 
 from . import aux
 
-import lib.misc
+import lib.misc as M
 
 def sorted_iterable():
     yield 1
@@ -49,54 +49,54 @@ class test_is_sorted:
 
     def test_sorted(self):
         iterable = sorted_iterable()
-        is_sorted = lib.misc.is_sorted(iterable)
+        is_sorted = M.is_sorted(iterable)
         assert_true(is_sorted)
 
     def test_not_sorted(self):
         iterable = unsorted_iterable()
-        is_sorted = lib.misc.is_sorted(iterable)
+        is_sorted = M.is_sorted(iterable)
         assert_false(is_sorted)
 
 class test_check_sorted:
 
     def test_sorted(self):
         iterable = sorted_iterable()
-        lib.misc.check_sorted(iterable)
+        M.check_sorted(iterable)
 
     def test_not_sorted(self):
         iterable = unsorted_iterable()
-        with assert_raises(lib.misc.DataIntegrityError):
-            lib.misc.check_sorted(iterable)
+        with assert_raises(M.DataIntegrityError):
+            M.check_sorted(iterable)
 
 def test_utc_now():
-    now = lib.misc.utc_now()
+    now = M.utc_now()
     assert_is_instance(now, datetime.datetime)
     assert_is_not_none(now.tzinfo)
     assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
 
 class test_format_range:
 
-    def _test(self, x, y, max, expected):
+    def t(self, x, y, max, expected):
         assert_equal(
-            lib.misc.format_range(range(x, y), max=max),
+            M.format_range(range(x, y), max=max),
             expected
         )
 
     def test_max_is_lt_4(self):
         with assert_raises(ValueError):
-            self._test(5, 10, 3, None)
+            self.t(5, 10, 3, None)
 
     def test_len_lt_max(self):
-        self._test(5, 10, 4, '5, 6, ..., 9')
-        self._test(23, 43, 6, '23, 24, 25, 26, ..., 42')
+        self.t(5, 10, 4, '5, 6, ..., 9')
+        self.t(23, 43, 6, '23, 24, 25, 26, ..., 42')
 
     def test_len_eq_max(self):
-        self._test(5, 10, 5, '5, 6, 7, 8, 9')
+        self.t(5, 10, 5, '5, 6, 7, 8, 9')
 
     def test_len_gt_max(self):
-        self._test(5, 10, 6, '5, 6, 7, 8, 9')
+        self.t(5, 10, 6, '5, 6, 7, 8, 9')
 
     def test_huge(self):
-        self._test(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
+        self.t(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
 
 # vim:ts=4 sw=4 et

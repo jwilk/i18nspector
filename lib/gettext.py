@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -76,9 +76,9 @@ search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTIL
 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msgl-cat.c?id=v0.18.3#n590
 # http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
-# ================
-# Plurals handling
-# ================
+# ============
+# Plural forms
+# ============
 
 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
 
@@ -111,16 +111,29 @@ _plural_exp_token_re = '|'.join(
 _plural_exp_token_re = re.compile(_plural_exp_token_re)
 
 def _plural_exp_tokenize(s):
+    prev_value = ' '
     for match in _plural_exp_token_re.finditer(s):
         for pytoken, ctoken in match.groupdict().items():
             if ctoken is not None:
                 break
+        value = match.group(0)
         if ctoken is not None:
             if pytoken == '_':  # junk
-                raise PluralExpressionSyntaxError(match.group(0))
+                raise PluralExpressionSyntaxError(value)
+            if pytoken == 'not':
+                # priority of “not” in Python is too low to be used here
+                pytoken = '~'
             yield ' {} '.format(pytoken)
+        elif value in {'+', '-'}:
+            if prev_value in {'n', ')'} or prev_value.isdigit():
+                yield value
+            else:
+                # unary plus and unary minus are not supported
+                raise PluralExpressionSyntaxError(value)
         else:
-            yield match.group(0)
+            yield value
+        if not value.isspace():
+            prev_value = value
 
 _ifelse_re = re.compile(r'(.*?)[?](.*?):(.*)')
 def _subst_ifelse(match):
@@ -178,7 +191,7 @@ class BoilerplateDate(DateSyntaxError):
 def _read_timezones():
     path = os.path.join(paths.datadir, 'timezones')
     cp = configparser.ConfigParser(interpolation=None, default_section='')
-    cp.optionxform = lambda x: x
+    cp.optionxform = str
     cp.read(path, encoding='ASCII')
     return {
         abbrev: offsets.split()
