@@ -26,6 +26,7 @@
 import codecs
 import configparser
 import contextlib
+import encodings.aliases as encoding_aliases
 import errno
 import functools
 import itertools
@@ -214,6 +215,10 @@ def _codec_search_function(encoding):
 @functools.lru_cache(maxsize=1)
 def install_extra_encodings():
     codecs.register(_codec_search_function)
+    for enc_name in _portable_encodings:
+        if enc_name.startswith('iso-'):
+            suffix = enc_name[4:].replace('-', '_')
+            encoding_aliases.aliases.setdefault(suffix, 'iso' + suffix)
 
 def get_character_name(ch):
     try:

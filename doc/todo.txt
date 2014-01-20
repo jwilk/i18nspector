@@ -103,10 +103,6 @@ Test-cases:
  * http://sources.debian.net/data/main/m/mtpaint/3.40-1/po/de.po
  * http://sources.debian.net/data/main/y/yaboot-installer/1.1.26/debian/po/hi.po
 
-Correct encoding ``8859-``\ *n* → ``ISO-8859-``\ *n*. Test-case:
-
- * http://sources.debian.net/data/main/v/vnc4/4.1.1+X4.3.0-37.1/unix/xc/extras/FreeType/po/nl.po
-
 Split missing-timezone-in-date from invalid-date.
 
 Check for non-ASCII (translated?) project id. Test-case:

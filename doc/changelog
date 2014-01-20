@@ -1,8 +1,8 @@
 i18nspector (0.13.4) UNRELEASED; urgency=low
 
-  * 
+  * Recognize “8859-n” (without the “ISO-” prefix) as encoding names.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 20 Jan 2014 20:12:41 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 20 Jan 2014 23:27:22 +0100
 
 i18nspector (0.13.3) unstable; urgency=low
 
