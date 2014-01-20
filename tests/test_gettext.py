@@ -384,6 +384,9 @@ class test_codomain:
                     for j in range(x, y + 1)
                 }
                 self.t(s, min(vals), max(vals))
+        n = 42
+        s = '{l} {cmp} {r}'.format(l=n, cmp=ccmp, r=n)
+        self.t(s, pycmp(n, n), pycmp(n, n))
 
     def test_lt(self):
         self.t_cmp('<', int.__lt__)
