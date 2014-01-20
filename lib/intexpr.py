@@ -416,8 +416,7 @@ class Expression(object):
         module = ast.parse('({})'.format(s), filename='<intexpr>')
         assert isinstance(module, ast.Module)
         [node] = ast.iter_child_nodes(module)
-        if not isinstance(node, ast.Expr):
-            raise TypeError
+        assert isinstance(node, ast.Expr)
         self._node = node
 
     def __call__(self, n, *, bits=32):
