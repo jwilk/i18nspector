@@ -264,6 +264,14 @@ class test_codomain:
         else:
             assert_equal(cd, (min_, max_))
 
+    def test_num(self):
+        self.t('0', 0, 0)
+        self.t('42', 42, 42)
+        m = (1 << 32) - 1
+        self.t(str(m), m, m)  # no overflow
+        self.t(str(m + 1), None)  # overflow
+        self.t(str(m + 23), None)  # overflow
+
     def test_zero_div(self):
         self.t('n / 0', None)
         self.t('(n / 0) + 23', None)
