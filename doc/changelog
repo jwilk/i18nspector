@@ -1,4 +1,4 @@
-i18nspector (0.13.3) UNRELEASED; urgency=low
+i18nspector (0.13.3) unstable; urgency=low
 
   * Fix incorrect plural expression co-domain evaluation.
   * Fix incorrect precedence of the boolean not operator in plural
@@ -6,7 +6,7 @@ i18nspector (0.13.3) UNRELEASED; urgency=low
   * Forbid unary plus and unary minus in plural expressions.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 19 Jan 2014 20:23:27 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 20 Jan 2014 20:04:22 +0100
 
 i18nspector (0.13.2) unstable; urgency=low
 
