@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -33,7 +33,7 @@ from nose.tools import (
 
 from . import aux
 
-import lib.misc
+import lib.misc as M
 
 def sorted_iterable():
     yield 1
@@ -49,29 +49,29 @@ class test_is_sorted:
 
     def test_sorted(self):
         iterable = sorted_iterable()
-        is_sorted = lib.misc.is_sorted(iterable)
+        is_sorted = M.is_sorted(iterable)
         assert_true(is_sorted)
 
     def test_not_sorted(self):
         iterable = unsorted_iterable()
-        is_sorted = lib.misc.is_sorted(iterable)
+        is_sorted = M.is_sorted(iterable)
         assert_false(is_sorted)
 
 class test_check_sorted:
 
     def test_sorted(self):
         iterable = sorted_iterable()
-        lib.misc.check_sorted(iterable)
+        M.check_sorted(iterable)
 
     def test_not_sorted(self):
         iterable = unsorted_iterable()
-        with assert_raises(lib.misc.DataIntegrityError):
-            lib.misc.check_sorted(iterable)
+        with assert_raises(M.DataIntegrityError):
+            M.check_sorted(iterable)
 
 class test_os_release:
 
     def _test(self, path, **like):
-        os_release = lib.misc.OSRelease(path=path)
+        os_release = M.OSRelease(path=path)
         for opsys, expected in like.items():
             if expected:
                 assert_true(os_release.is_like(opsys))
@@ -144,12 +144,12 @@ class test_os_release:
 
     def test_none(self):
         with self._tmpfile('') as file:
-            os_release = lib.misc.OSRelease(path=file.name)
+            os_release = M.OSRelease(path=file.name)
             with assert_raises(TypeError):
                 os_release.is_like(None)
 
 def test_utc_now():
-    now = lib.misc.utc_now()
+    now = M.utc_now()
     assert_is_instance(now, datetime.datetime)
     assert_is_not_none(now.tzinfo)
     assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
@@ -158,7 +158,7 @@ class test_format_range:
 
     def _test(self, x, y, max, expected):
         assert_equal(
-            lib.misc.format_range(range(x, y), max=max),
+            M.format_range(range(x, y), max=max),
             expected
         )
 
