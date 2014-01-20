@@ -70,7 +70,7 @@ class test_check_sorted:
 
 class test_os_release:
 
-    def _test(self, path, **like):
+    def t(self, path, **like):
         os_release = M.OSRelease(path=path)
         for opsys, expected in like.items():
             if expected:
@@ -88,7 +88,7 @@ class test_os_release:
 
     def test_nonexistent(self):
         with aux.temporary_directory() as tmpdir:
-            self._test(os.path.join(tmpdir, 'nonexistent'),
+            self.t(os.path.join(tmpdir, 'nonexistent'),
                debian=False,
                ubuntu=False,
                pld=False,
@@ -100,11 +100,11 @@ class test_os_release:
         with self._tmpfile('') as file:
             os.chmod(file.name, 0)
             with assert_raises(IOError):
-                self._test(file.name)
+                self.t(file.name)
 
     def test_syntax_error(self):
         with self._tmpfile('ID="debian\n') as file:
-            self._test(file.name,
+            self.t(file.name,
                 debian=False,
                 ubuntu=False,
                 pld=False,
@@ -112,7 +112,7 @@ class test_os_release:
 
     def test_empty(self):
         with self._tmpfile('') as file:
-            self._test(file.name,
+            self.t(file.name,
                 debian=False,
                 ubuntu=False,
                 pld=False,
@@ -120,7 +120,7 @@ class test_os_release:
 
     def test_debian(self):
         with self._tmpfile('ID="debian"\n') as file:
-            self._test(file.name,
+            self.t(file.name,
                 debian=True,
                 ubuntu=False,
                 pld=False,
@@ -128,7 +128,7 @@ class test_os_release:
 
     def test_debian_derivative(self):
         with self._tmpfile('ID="ubuntu"\nID_LIKE="debian"') as file:
-            self._test(file.name,
+            self.t(file.name,
                 debian=True,
                 ubuntu=True,
                 pld=False,
@@ -136,7 +136,7 @@ class test_os_release:
 
     def test_non_debian(self):
         with self._tmpfile('ID="pld"\n') as file:
-            self._test(file.name,
+            self.t(file.name,
                 debian=False,
                 ubuntu=False,
                 pld=True,
@@ -156,7 +156,7 @@ def test_utc_now():
 
 class test_format_range:
 
-    def _test(self, x, y, max, expected):
+    def t(self, x, y, max, expected):
         assert_equal(
             M.format_range(range(x, y), max=max),
             expected
@@ -164,19 +164,19 @@ class test_format_range:
 
     def test_max_is_lt_4(self):
         with assert_raises(ValueError):
-            self._test(5, 10, 3, None)
+            self.t(5, 10, 3, None)
 
     def test_len_lt_max(self):
-        self._test(5, 10, 4, '5, 6, ..., 9')
-        self._test(23, 43, 6, '23, 24, 25, 26, ..., 42')
+        self.t(5, 10, 4, '5, 6, ..., 9')
+        self.t(23, 43, 6, '23, 24, 25, 26, ..., 42')
 
     def test_len_eq_max(self):
-        self._test(5, 10, 5, '5, 6, 7, 8, 9')
+        self.t(5, 10, 5, '5, 6, 7, 8, 9')
 
     def test_len_gt_max(self):
-        self._test(5, 10, 6, '5, 6, 7, 8, 9')
+        self.t(5, 10, 6, '5, 6, 7, 8, 9')
 
     def test_huge(self):
-        self._test(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
+        self.t(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
 
 # vim:ts=4 sw=4 et
