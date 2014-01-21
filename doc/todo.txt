@@ -155,6 +155,8 @@ Test-case:
 Recognize more special-use domain names:
 
  * http://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml
+ * http://tools.ietf.org/html/rfc3596#section-2.5
+ * http://tools.ietf.org/html/rfc1035#section-3.5
  * http://tools.ietf.org/html/rfc6761
  * http://tools.ietf.org/html/rfc6762
 
