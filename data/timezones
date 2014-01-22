@@ -1,6 +1,6 @@
 # This file has been generated automatically by private/update-timezones.
 # Do not edit.
-# Last update: 2013-07-01
+# Last update: 2014-01-22
 
 [timezones]
 ACT = -0500
@@ -42,7 +42,6 @@ CHAST = +1245
 CHOST = +1000
 CHOT = +0800 +0900
 CHUT = +1000
-CIT = +0800
 CKT = -1000
 CLST = -0300
 CLT = -0400
@@ -63,7 +62,6 @@ EEST = +0300
 EET = +0200
 EGST = +0000
 EGT = -0100
-EIT = +0900
 EST = +1000 +1100 -0500
 FET = +0300
 FJST = +1300
@@ -206,7 +204,9 @@ WET = +0000
 WFT = +1200
 WGST = -0200
 WGT = -0300
-WIT = +0700
+WIB = +0700
+WIT = +0900
+WITA = +0800
 WSDT = +1400 -1000
 WST = +0800 +0900 +1300 -1100
 YAKST = +1000
