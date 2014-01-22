@@ -106,7 +106,7 @@ def generate_iso_639():
             raise Panic('unknown scope: {!r}'.format(scope))
         status = element.get('status')
         if status == 'Active':
-            major = True
+            pass
         elif status == 'Retired':
             continue
         else:
