@@ -25,7 +25,6 @@
 
 import codecs
 import configparser
-import contextlib
 import encodings.aliases as encoding_aliases
 import errno
 import functools
