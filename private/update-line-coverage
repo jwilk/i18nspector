@@ -26,7 +26,6 @@ import sys
 import io
 
 import nose
-import nose.core
 import nose.plugins.cover
 
 class Coverage(nose.plugins.cover.Coverage):
