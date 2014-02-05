@@ -597,7 +597,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 uri = urllib.parse.urlparse(report_msgid_bugs_to)
                 if uri.scheme == '':
                     self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
-            elif domains.is_reserved_email(email_address):
+            elif domains.is_email_in_special_domain(email_address):
                 self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
             elif email_address == 'EMAIL@ADDRESS':
                 self.tag('boilerplate-in-report-msgid-bugs-to', report_msgid_bugs_to)
@@ -617,7 +617,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             translator_emails.add(translator_email)
             if '@' not in translator_email:
                 self.tag('invalid-last-translator', translator)
-            elif domains.is_reserved_email(translator_email):
+            elif domains.is_email_in_special_domain(translator_email):
                 self.tag('invalid-last-translator', translator)
             elif translator_email == 'EMAIL@ADDRESS':
                 if not is_template:
@@ -635,7 +635,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 # TODO: An URL is also allowed here.
                 # self.tag('invalid-language-team', translator)
                 pass
-            elif domains.is_reserved_email(team_email):
+            elif domains.is_email_in_special_domain(team_email):
                 self.tag('invalid-language-team', team)
             elif team_email in {'LL@li.org', 'EMAIL@ADDRESS'}:
                 if not is_template:

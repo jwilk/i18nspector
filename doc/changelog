@@ -1,8 +1,9 @@
 i18nspector (0.13.4) UNRELEASED; urgency=low
 
   * Recognize “8859-n” (without the “ISO-” prefix) as encoding names.
+  * Recognize *.local, *.in-addr.arpa and *.ip6.arpa as special domain names.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 20 Jan 2014 23:27:22 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 23 Jan 2014 13:22:29 +0100
 
 i18nspector (0.13.3) unstable; urgency=low
 
