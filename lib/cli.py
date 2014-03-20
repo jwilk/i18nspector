@@ -37,7 +37,7 @@ from . import paths
 from . import tags
 from . import terminal
 
-__version__ = '0.13.4'
+__version__ = '0.13.5'
 
 def initialize_terminal():
     if sys.stdout.isatty():
