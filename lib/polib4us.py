@@ -59,6 +59,7 @@ def default_encoding_patch():
 # - newline decoding: http://bugs.debian.org/692283
 # - trailing comment parsing: https://bitbucket.org/izi/polib/issue/51
 # - atypical comment parsing
+# - parsing of empty files: https://bitbucket.org/izi/polib/issue/59
 
 class Codecs(object):
 
@@ -77,6 +78,7 @@ class Codecs(object):
             contents = file.read()
         contents = contents.decode(encoding)
         pending_comments = []
+        empty = True
         for line in self._iterlines(contents):
             if self._atypical_comment(line):
                 line = '# ' + line[1:]
@@ -87,6 +89,9 @@ class Codecs(object):
                     yield comment_line
                 pending_comments = []
                 yield line
+                empty = False
+        if empty:
+            yield '# '
 
 @register_patch
 def codecs_patch():
