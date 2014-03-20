@@ -1,12 +1,13 @@
 i18nspector (0.13.4) UNRELEASED; urgency=low
 
+  * Regenerate the timezone information file using tzdata 2014a.
   * Recognize “8859-n” (without the “ISO-” prefix) as encoding names.
   * Recognize *.local, *.in-addr.arpa and *.ip6.arpa as special domain names.
   * Fix compatibility with polib 1.0.4.
     http://bugs.debian.org/742162
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 20 Mar 2014 12:14:20 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 20 Mar 2014 13:03:58 +0100
 
 i18nspector (0.13.3) unstable; urgency=low
 
