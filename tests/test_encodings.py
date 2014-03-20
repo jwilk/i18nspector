@@ -177,6 +177,13 @@ class test_extra_encoding:
         dec()
 
     @aux.fork_isolation
+    def test_8859(self):
+        E.install_extra_encodings()
+        encoding = '8859-2'
+        portable_encoding = E.propose_portable_encoding(encoding)
+        assert_equal('ISO-' + encoding, portable_encoding)
+
+    @aux.fork_isolation
     def test_not_allowed(self):
         encoding = 'TSCII'
         def enc():
