@@ -69,7 +69,7 @@ class Codecs(object):
         return getattr(codecs, attr)
 
     def open(self, path, mode, encoding):
-        if mode != 'rU':
+        if mode not in {'rU', 'rt'}:
             raise NotImplementedError
         if not encodings.is_ascii_compatible_encoding(encoding):
             encoding = 'ASCII'
@@ -90,7 +90,7 @@ class Codecs(object):
 
 @register_patch
 def codecs_patch():
-    polib.codecs = Codecs()
+    polib.codecs = polib.io = Codecs()
 
 # polib.POFile.find()
 # ===================
