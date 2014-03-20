@@ -320,17 +320,6 @@ def test_os_error_permission_denied():
         expected = etags_from_tagstring(this(), path)
         assert_emit_tags(path, expected)
 
-@tagstring('''
-E: invalid-mo-file unexpected magic
-''')
-def test_empty_mo_file():
-    with aux.temporary_directory() as tmpdir:
-        path = os.path.join(tmpdir, 'empty-mo-file.mo')
-        with open(path, 'wb'):
-            pass
-        expected = etags_from_tagstring(this(), path)
-        assert_emit_tags(path, expected)
-
 # ----------------------------------------
 
 def get_coverage():
