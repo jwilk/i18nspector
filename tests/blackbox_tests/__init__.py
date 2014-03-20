@@ -221,8 +221,7 @@ def assert_emit_tags(path, etags, *, options=()):
     elif expected_failure:
         raise AssertionError('unexpected success')
 
-def _test_file(path):
-    path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
+def _parse_test_headers(path):
     options = []
     etags = []
     try:
@@ -245,26 +244,17 @@ def _test_file(path):
                     continue
                 break
             etags += [etag]
+    return etags, options
+
+def _test_file(path):
+    path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
+    options = []
+    etags, options = _parse_test_headers(path)
     assert_emit_tags(path, etags, options=options)
 
 def get_coverage_for_file(path):
-    try:
-        file = open(path + '.gen', encoding='ASCII', errors='ignore')
-    except IOError as exc:
-        if exc.errno == errno.ENOENT:
-            file = open(path, 'rt', encoding='ASCII', errors='ignore')
-        else:
-            raise
-    with file:
-        for n, line in enumerate(file):
-            if n == 0 and line.startswith('#!'):
-                continue
-            if not line.startswith('# '):
-                break
-            etag = parse_etag(line, '')
-            if etag is None:
-                continue
-            yield etag.tag
+    etags, options = _parse_test_headers(path)
+    return (t.tag for t in etags)
 
 def get_coverage_for_function(fn):
     for etag in etags_from_tagstring(fn, ''):
