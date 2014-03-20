@@ -46,7 +46,7 @@ def this():
 
 # ----------------------------------------
 
-_parse_etag = re.compile('# ([A-Z]): (([\w-]+).*)').match
+_parse_etag = re.compile('([A-Z]): (([\w-]+).*)').match
 
 def parse_etag(contents, path, multi_line=False):
     match = _parse_etag(contents)
@@ -221,30 +221,55 @@ def assert_emit_tags(path, etags, *, options=()):
     elif expected_failure:
         raise AssertionError('unexpected success')
 
-def _parse_test_headers(path):
-    options = []
+class TestFileSyntaxError(Exception):
+    pass
+
+def _parse_test_header_file(file, path, *, comments_only):
     etags = []
+    options = []
+    for n, line in enumerate(file):
+        orig_line = line
+        if comments_only:
+            if n == 0 and line.startswith('#!'):
+                continue
+            if line.startswith('# '):
+                line = line[2:]
+            else:
+                break
+        if line.startswith('--'):
+            options += shlex.split(line)
+        else:
+            etag = parse_etag(line, path)
+            if etag is None:
+                if comments_only:
+                    break
+                else:
+                    raise TestFileSyntaxError(orig_line)
+            etags += [etag]
+    return etags, options
+
+def _parse_test_headers(path):
+    # <path>.tags:
+    try:
+        file = open(path + '.tags', encoding='ASCII')
+    except IOError as exc:
+        if exc.errno != errno.ENOENT:
+            raise
+    else:
+        with file:
+            return _parse_test_header_file(file, path, comments_only=False)
+    # <path>.gen:
     try:
         file = open(path + '.gen', encoding='ASCII', errors='ignore')
     except IOError as exc:
-        if exc.errno == errno.ENOENT:
-            file = open(path, 'rt', encoding='ASCII', errors='ignore')
-        else:
+        if exc.errno != errno.ENOENT:
             raise
-    with file:
-        for n, line in enumerate(file):
-            if n == 0 and line.startswith('#!'):
-                continue
-            if not line.startswith('# '):
-                break
-            etag = parse_etag(line, path)
-            if etag is None:
-                if line.startswith('# --'):
-                    options += shlex.split(line[2:])
-                    continue
-                break
-            etags += [etag]
-    return etags, options
+    else:
+        with file:
+            return _parse_test_header_file(file, path, comments_only=True)
+    # <path>:
+    with open(path, 'rt', encoding='ASCII', errors='ignore') as file:
+        return _parse_test_header_file(file, path, comments_only=True)
 
 def _test_file(path):
     path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
@@ -273,7 +298,7 @@ def test_file():
         yield _test_file, path
 
 @tagstring('''
-# E: os-error No such file or directory
+E: os-error No such file or directory
 ''')
 def test_os_error_no_such_file():
     with aux.temporary_directory() as tmpdir:
@@ -282,7 +307,7 @@ def test_os_error_no_such_file():
         assert_emit_tags(path, expected)
 
 @tagstring('''
-# E: os-error Permission denied
+E: os-error Permission denied
 ''')
 def test_os_error_permission_denied():
     if os.getuid() == 0:
@@ -296,7 +321,7 @@ def test_os_error_permission_denied():
         assert_emit_tags(path, expected)
 
 @tagstring('''
-# E: invalid-mo-file unexpected magic
+E: invalid-mo-file unexpected magic
 ''')
 def test_empty_mo_file():
     with aux.temporary_directory() as tmpdir:
