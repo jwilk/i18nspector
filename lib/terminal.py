@@ -84,7 +84,7 @@ def initialize():
     try:
         _curses.tparm(b'x')
     except TypeError:
-        # http://bugs.python.org/issue10570
+        # https://bug.python.org/issue10570
         _curses = _dummy_curses
         return
     for key, value in vars(_curses).items():

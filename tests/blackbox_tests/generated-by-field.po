@@ -3,7 +3,7 @@
 # pygettext[0] and Babel[1]. Emitting unknown-header-field would be
 # counter-productive.
 #
-# [0] http://docs.python.org/3/library/gettext.html#internationalizing-your-programs-and-modules
+# [0] https://docs.python.org/3/library/gettext.html#internationalizing-your-programs-and-modules
 # [1] http://babel.edgewall.org/
 
 msgid ""

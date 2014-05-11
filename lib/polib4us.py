@@ -56,7 +56,7 @@ def default_encoding_patch():
 # polib.codecs
 # ============
 # Work around a few PO parsing bugs:
-# - newline decoding: http://bugs.debian.org/692283
+# - newline decoding: https://bugs.debian.org/692283
 # - trailing comment parsing: https://bitbucket.org/izi/polib/issue/51
 # - atypical comment parsing
 # - parsing of empty files: https://bitbucket.org/izi/polib/issue/59

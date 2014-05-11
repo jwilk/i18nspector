@@ -22,21 +22,21 @@
 special-use domain names
 '''
 
-# http://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml
+# https://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml
 
 import re
 
 _regexps = [
-    # RFC 1035, §3.5 <http://tools.ietf.org/html/rfc1035#section-3.5>:
+    # RFC 1035, §3.5 <https://tools.ietf.org/html/rfc1035#section-3.5>:
     '.+[.]in-addr[.]arpa',
-    # RFC 3596, §2.5 <http://tools.ietf.org/html/rfc3596#section-2.5>:
+    # RFC 3596, §2.5 <https://tools.ietf.org/html/rfc3596#section-2.5>:
     '.+[.]ip6[.]arpa',
-    # RFC 6761, §6 <http://tools.ietf.org/html/rfc6761#section-6>:
+    # RFC 6761, §6 <https://tools.ietf.org/html/rfc6761#section-6>:
     '(.+[.])?test',
     '(.+[.])?localhost',
     '(.+[.])?invalid',
     '(.+[.])?example([.](com|net|org))?',
-    # RFC 6762, §3 <http://tools.ietf.org/html/rfc6762#section-3>:
+    # RFC 6762, §3 <https://tools.ietf.org/html/rfc6762#section-3>:
     '(.+[.])local',
 ]
 

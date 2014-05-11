@@ -57,7 +57,7 @@ header_fields = _read_header_fields()
 # ==========================
 
 is_valid_field_name = re.compile(r'^[\x21-\x39\x3b-\x7e]+$').match
-# http://tools.ietf.org/html/rfc5322#section-3.6.8
+# https://tools.ietf.org/html/rfc5322#section-3.6.8
 
 def parse_header(s):
     lines = s.split('\n')
@@ -74,7 +74,7 @@ def parse_header(s):
 
 search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTILINE).search
 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/msgl-cat.c?id=v0.18.3#n590
-# http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
+# https://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
 # ============
 # Plural forms

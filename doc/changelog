@@ -1,8 +1,8 @@
 i18nspector (0.13.5) UNRELEASED; urgency=low
 
-  * 
+  * Use HTTPS URLs when they are available, in documentation and code.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 21 Mar 2014 00:16:14 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 11 May 2014 08:22:32 +0200
 
 i18nspector (0.13.4) unstable; urgency=low
 
@@ -10,7 +10,7 @@ i18nspector (0.13.4) unstable; urgency=low
   * Recognize “8859-n” (without the “ISO-” prefix) as encoding names.
   * Recognize *.local, *.in-addr.arpa and *.ip6.arpa as special domain names.
   * Fix compatibility with polib 1.0.4.
-    http://bugs.debian.org/742162
+    https://bugs.debian.org/742162
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 20 Mar 2014 13:54:53 +0100
@@ -206,7 +206,7 @@ i18nspector (0.9.1) unstable; urgency=low
   * Brown paper bag release.
   * Don't complain about leading/trailing newlines in fuzzy messages.
     Thanks to Guillem Jover for the bug report.
-    http://bugs.debian.org/708586
+    https://bugs.debian.org/708586
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Fri, 17 May 2013 15:23:30 +0200
@@ -449,7 +449,7 @@ gettext-inspector (0.3) unstable; urgency=low
     - replacement character (U+FFFD);
     - inverted question mark (U+00BF) directly after a letter.
   * Work around a newline decoding bug in polib.
-    http://bugs.debian.org/692283
+    https://bugs.debian.org/692283
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 22 Nov 2012 23:50:05 +0100

@@ -11,7 +11,7 @@ source:
 
 
 .. _polib:
-   http://pypi.python.org/pypi/polib
+   https://pypi.python.org/pypi/polib
 .. _docutils:
    http://docutils.sourceforge.net/
 

@@ -14,7 +14,7 @@ description =
  Computing a plural form value triggers division by zero or integer overflow.
  This normally indicates an error in the plural form expression.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [arithmetic-error-in-unused-plural-forms]
 severity = normal
@@ -24,7 +24,7 @@ description =
  (But there are no translated messages which use plural forms.)
  This normally indicates an error in the plural form expression.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [boilerplate-in-content-type]
 severity = important
@@ -33,7 +33,7 @@ description =
  The Content-Type header field contains xgettext boilerplate.
  It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-date]
 severity = normal
@@ -51,7 +51,7 @@ description =
  It should contain English name of the language, and the email address or
  homepage URL of the language team.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-last-translator]
 severity = normal
@@ -60,7 +60,7 @@ description =
  The Last-Translator header field contains xgettext boilerplate.
  It should contain the last translator's name and email address.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-project-id-version]
 severity = minor
@@ -69,7 +69,7 @@ description =
  The Project-Id-Version header field contains xgettext boilerplate.
  It should contain the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [boilerplate-in-report-msgid-bugs-to]
 severity = normal
@@ -79,7 +79,7 @@ description =
  It should contain an email address or URL where one can report bugs in the
  untranslated strings.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [broken-encoding]
 severity = serious
@@ -92,8 +92,8 @@ description =
  Note that in the absence of encoding declaration, i18nspector assumes ASCII
  encoding.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2045#section-5
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2045#section-5
 
 [codomain-error-in-plural-forms]
 severity = serious
@@ -103,7 +103,7 @@ description =
  within the declared range can never be reached.
  This normally indicates an error in the plural form expression.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [codomain-error-in-unused-plural-forms]
 severity = normal
@@ -114,7 +114,7 @@ description =
  (But there are no translated messages which use plural forms.)
  This normally indicates an error in the plural form expression.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [conflict-marker-in-header-entry]
 severity = serious
@@ -123,7 +123,7 @@ description =
  The header contains a conflict marker (``#-#-#-#-#`` *…* ``#-#-#-#-#``).
  The conflict will have to be resolved manually.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
+ https://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
 [conflict-marker-in-translation]
 severity = serious
@@ -133,7 +133,7 @@ description =
  (``#-#-#-#-#`` *…* ``#-#-#-#-#``).
  The conflict will have to be resolved manually.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
+ https://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
 [conflicting-message-flags]
 severity = important
@@ -141,7 +141,7 @@ certainty = possible
 description =
  Two flags with conflicting meanings are associated with one of the messages.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [date-from-future]
 severity = normal
@@ -281,7 +281,7 @@ description =
  The language header field contains encoding declaration. Such information
  shouldn't be included in this field.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [fuzzy-header-entry]
 severity = pedantic
@@ -307,8 +307,8 @@ description =
  Number of plural forms in a message definition doesn't match number of plural
  forms declared in another message definition.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
- http://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
 
 [inconsistent-trailing-newlines]
 severity = important
@@ -324,8 +324,8 @@ description =
  Number of plural forms in a message definition doesn't match number of plural
  forms declared in the header.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
- http://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
 
 [incorrect-plural-forms]
 severity = serious
@@ -349,8 +349,8 @@ description =
  Value of the Content-Transfer-Encoding header field is invalid.
  It should be ``8bit``.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2045#section-6.1
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2045#section-6.1
 
 [invalid-content-type]
 severity = important
@@ -359,8 +359,8 @@ description =
  Value of the Content-Type header field should is invalid.
  It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2045#section-5
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2045#section-5
 
 [invalid-date]
 severity = normal
@@ -369,7 +369,7 @@ description =
  The date is invalid or in an invalid format. The format should be
  ``YYYY-MM-DD hh:mm+ZZzz``, e.g. ``2011-11-05 10:14+0100``.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [invalid-language]
 severity = important
@@ -378,7 +378,7 @@ description =
  The Language header field couldn't be parsed, or it contains an unknown
  language.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [invalid-language-team]
 severity = normal
@@ -387,7 +387,7 @@ description =
  The Language-Team header field contains an e-mail address that uses a
  reserved domain name.
 references =
- http://tools.ietf.org/html/rfc2606
+ https://tools.ietf.org/html/rfc2606
 
 [invalid-last-translator]
 severity = normal
@@ -396,8 +396,8 @@ description =
  The Last-Translator header field could neither be parsed as an e-mail,
  or the e-mail address uses a reserved domain name.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2606
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2606
 
 [invalid-mime-version]
 severity = pedantic
@@ -405,7 +405,7 @@ certainty = certain
 description =
  Value of the MIME-Version header field is invalid. It should be ``1.0``.
 references =
- http://tools.ietf.org/html/rfc2045#section-4
+ https://tools.ietf.org/html/rfc2045#section-4
 
 [invalid-mo-file]
 severity = serious
@@ -422,7 +422,7 @@ description =
  The syntax is ``range:``\  *min*\ ``..``\ *max*, where both values are
  non-negative integers.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [invalid-report-msgid-bugs-to]
 severity = normal
@@ -431,8 +431,8 @@ description =
  The Report-Msgid-Bugs-To header field could neither be parsed as an e-mail nor
  as a URL, or the e-mail address uses a reserved domain name.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2606
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2606
 
 [language-disparity]
 severity = normal
@@ -455,7 +455,7 @@ description =
  The Language header field contains a variant designator that is not relevant
  for the message translation.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-content-transfer-encoding-header-field]
 severity = pedantic
@@ -464,8 +464,8 @@ description =
  The Content-Transfer-Encoding header field doesn't exist. It should be set to
  ``8bit``.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2045#section-6.1
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2045#section-6.1
 
 [no-content-type-header-field]
 severity = important
@@ -477,8 +477,8 @@ description =
  Note that in the absence of encoding declaration, i18nspector assumes ASCII
  encoding.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- http://tools.ietf.org/html/rfc2045#section-5
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://tools.ietf.org/html/rfc2045#section-5
 
 [no-date-header-field]
 severity = minor
@@ -486,7 +486,7 @@ certainty = certain
 description =
  The date header field doesn't exist.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-language-header-field]
 severity = pedantic
@@ -494,7 +494,7 @@ certainty = certain
 description =
  The Language header field doesn't exist.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-language-team-header-field]
 severity = pedantic
@@ -504,7 +504,7 @@ description =
  It should contain English name of the language, and the email address or
  homepage URL of the language team.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-last-translator-header-field]
 severity = normal
@@ -513,7 +513,7 @@ description =
  The Last-Translator header field doesn't exist.
  It should contain the last translator's name and email address.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-mime-version-header-field]
 severity = pedantic
@@ -521,7 +521,7 @@ certainty = certain
 description =
  The MIME-Version header field does't exist. It should be to set to ``1.0``.
 references =
- http://tools.ietf.org/html/rfc2045#section-4
+ https://tools.ietf.org/html/rfc2045#section-4
 
 [no-package-name-in-project-id-version]
 severity = minor
@@ -530,7 +530,7 @@ description =
  The Project-Id-Version header field doesn't appear to contain any name.
  It should contain both the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-plural-forms-header-field]
 severity = minor
@@ -539,7 +539,7 @@ description =
  The Plural-Forms header field does not exist, even though some of the messages
  use plural forms (although none of them have been translated).
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [no-project-id-version-header-field]
 severity = minor
@@ -548,7 +548,7 @@ description =
  The Project-Id-Version header field does not exist.
  It should contain the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-report-msgid-bugs-to-header-field]
 severity = normal
@@ -558,7 +558,7 @@ description =
  It should contain an email address or URL where one can report bugs in the
  untranslated strings.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [no-required-plural-forms-header-field]
 severity = serious
@@ -567,7 +567,7 @@ description =
  The Plural-Forms header field does not exist, even though some of the
  translated messages use plural forms.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [no-version-in-project-id-version]
 severity = pedantic
@@ -576,7 +576,7 @@ description =
  The Project-Id-Version header field doesn't appear to contain any version.
  It should contain both the name and the version of the package.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [non-ascii-compatible-encoding]
 severity = serious
@@ -590,7 +590,7 @@ certainty = certain
 description =
  This file uses an encoding that is not widely supported by software.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
 [os-error]
 severity = serious
@@ -606,7 +606,7 @@ description =
  A ``range:`` flag is associated with a message that doesn't have plural string.
  ``range:`` flags only make sense for translations involving plural forms.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [redundant-message-flag]
 severity = pedantic
@@ -615,7 +615,7 @@ description =
  A flags associated with one of the messages is redundant, because it's implied
  by another flag.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [stray-header-line]
 severity = important
@@ -624,7 +624,7 @@ description =
  The headers contains a line that does not belong to any header.
  Note that RFC-822-style folding of long headers is not supported.
 references =
- http://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
+ https://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
 
 [syntax-error-in-plural-forms]
 severity = serious
@@ -633,7 +633,7 @@ description =
  Value of the Plural-Forms header field could not be parsed.
  It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [syntax-error-in-po-file]
 severity = serious
@@ -642,8 +642,8 @@ description =
  This file couldn't be parsed a PO file.
  In some rare cases this is due to incorrect or missing encoding declaration.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
- http://bugs.debian.org/692283
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://bugs.debian.org/692283
 
 [syntax-error-in-unused-plural-forms]
 severity = important
@@ -653,7 +653,7 @@ description =
  translated messages which use plural forms.)
  It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
 [unable-to-determine-language]
 severity = normal
@@ -669,7 +669,7 @@ description =
  An unexpected flag is associated with the header entry.
  The only flag that makes sense for the header entry is ``fuzzy``.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [unknown-encoding]
 severity = important
@@ -695,7 +695,7 @@ description =
  It might be a typo or a capitalization error (header field names are
  case-sensitive).
 references =
- http://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
+ https://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
 
 [unknown-message-flag]
 severity = normal
@@ -704,7 +704,7 @@ description =
  An unknown flag is associated with one of the messages.
  It might be a typo.
 references =
- http://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
 [unknown-poedit-language]
 severity = minor

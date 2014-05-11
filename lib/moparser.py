@@ -25,7 +25,7 @@ MO file parser
 # MO file format documentation:
 # * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/gmo.h?id=v0.18.3
 # * http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/read-mo.c?id=v0.18.3
-# * http://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
+# * https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
 
 import re
 import struct
@@ -52,7 +52,7 @@ class Parser(object):
         view = memoryview(contents)
         if len(view) > 0:
             if sys.version_info >= (3, 3):
-                # http://docs.python.org/3.3/whatsnew/3.3.html#pep-3118-new-memoryview-implementation-and-buffer-protocol-documentation
+                # https://docs.python.org/3.3/whatsnew/3.3.html#pep-3118-new-memoryview-implementation-and-buffer-protocol-documentation
                 # “Accessing a memoryview element with format ‘B’ (unsigned bytes)
                 # now returns an integer […]. For returning a bytes object the view
                 # must be cast to ‘c’ first.”
