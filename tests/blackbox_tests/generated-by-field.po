@@ -4,7 +4,7 @@
 # counter-productive.
 #
 # [0] https://docs.python.org/3/library/gettext.html#internationalizing-your-programs-and-modules
-# [1] http://babel.edgewall.org/
+# [1] http://babel.pocoo.org/
 
 msgid ""
 msgstr ""
