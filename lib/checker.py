@@ -859,7 +859,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     )
                     self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
                     found_unusual_characters |= uc
-                if conflict_marker is None:
+                if (not fuzzy) and (conflict_marker is None):
                     conflict_marker = gettext.search_for_conflict_marker(msgstr)
                     if conflict_marker is not None:
                         conflict_marker = conflict_marker.group(0)
