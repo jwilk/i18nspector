@@ -1,6 +1,7 @@
 # This file has been generated automatically by private/update-timezones.
 # Do not edit.
-# Last update: 2014-03-20
+# Timezone database version: 2014e
+# Last update: 2014-07-07
 
 [timezones]
 ACT = -0500

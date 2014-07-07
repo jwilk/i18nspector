@@ -23,6 +23,7 @@
 import collections
 import datetime
 import os
+import subprocess as ipc
 import sys
 
 import pytz
@@ -31,6 +32,16 @@ basedir = '{here}/..'.format(here=os.path.dirname(__file__))
 sys.path[:0] = [basedir]
 
 import lib.gettext as gettext
+
+def get_tzdata_version():
+    version = pytz.OLSON_VERSION
+    if os.path.exists('/etc/debian_version'):
+        # On Debian systems, pytz uses the system timezone database,
+        # so pytz.OLSON_VERSION is not reliable.
+        version = ipc.check_output(['dpkg-query', '-Wf', '${Version}', 'tzdata'])
+        version = version.decode('ASCII')
+        version, revision = version.rsplit('-', 1)
+    return version
 
 def main():
     minyear = gettext.epoch.year
@@ -57,8 +68,12 @@ def main():
     print('''\
 # This file has been generated automatically by private/update-timezones.
 # Do not edit.
+# Timezone database version: {version}
 # Last update: {today}
-'''.format(today=datetime.date.today()))
+'''.format(
+        version=get_tzdata_version(),
+        today=datetime.date.today(),
+    ))
     print('[timezones]')
     for code, offsets in sorted(tzdata.items()):
         print('{code} = {offsets}'.format(code=code, offsets=' '.join(sorted(offsets))))
