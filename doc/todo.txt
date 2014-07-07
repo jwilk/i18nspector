@@ -42,7 +42,7 @@ Correct ``Language`` with both a natural language and a language code, e.g.
 
 Guess language from ``Language-Team``.
 
- * http://translationproject.org/team/
+ * https://translationproject.org/team/
 
 Add ``characters=``\ … for more languages. Document how the current values were
 obtained.
