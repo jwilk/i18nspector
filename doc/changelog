@@ -1,8 +1,9 @@
 i18nspector (0.13.6) UNRELEASED; urgency=low
 
-  * 
+  * Check for duplicate messages, for problems with message flags, and for
+    empty files even when encoding is broken or unknown.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 07 Jul 2014 15:23:16 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jul 2014 14:36:58 +0200
 
 i18nspector (0.13.5) unstable; urgency=low
 

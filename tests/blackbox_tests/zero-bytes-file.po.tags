@@ -9,3 +9,4 @@ W: no-project-id-version-header-field
 W: no-report-msgid-bugs-to-header-field
 W: no-last-translator-header-field
 P: no-language-team-header-field
+W: empty-file

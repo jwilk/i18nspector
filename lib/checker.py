@@ -723,8 +723,6 @@ class Checker(object, metaclass=abc.ABCMeta):
         del file.metadata_is_fuzzy
 
     def check_messages(self, file, *, encoding):
-        if encoding is None:
-            return
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
         messages = [msg for msg in file if not is_header_entry(msg)]
@@ -734,6 +732,11 @@ class Checker(object, metaclass=abc.ABCMeta):
             if is_header_entry(message):
                 continue
             fuzzy = self._check_message_flags(message)
+            msgid_counter[message.msgid, message.msgctxt] += 1
+            if msgid_counter[message.msgid, message.msgctxt] == 2:
+                self.tag('duplicate-message-definition', message_repr(message))
+            if encoding is None:
+                continue
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]
@@ -770,9 +773,6 @@ class Checker(object, metaclass=abc.ABCMeta):
                     if conflict_marker is not None:
                         conflict_marker = conflict_marker.group(0)
                         self.tag('conflict-marker-in-translation', message_repr(message), conflict_marker)
-            msgid_counter[message.msgid, message.msgctxt] += 1
-            if msgid_counter[message.msgid, message.msgctxt] == 2:
-                self.tag('duplicate-message-definition', message_repr(message))
         if len(msgid_counter) == 0:
             possible_hidden_strings = False
             if isinstance(file, polib.MOFile):
