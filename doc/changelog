@@ -9,8 +9,9 @@ i18nspector (0.14) UNRELEASED; urgency=low
     empty files even when encoding is broken or unknown.
   * Check for inconsistent leading/trailing newlines between msgid and
     msgid_plural even when encoding in unknown or broken.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 14:57:48 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 15:26:30 +0200
 
 i18nspector (0.13.5) unstable; urgency=low
 
