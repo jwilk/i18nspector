@@ -1,4 +1,4 @@
-# E: inconsistent-leading-newlines msgid '\nA quick brown fox jumps over the lazy dog.'
+# E: inconsistent-trailing-newlines msgid 'A quick brown fox jumps over the lazy dog.'
 
 msgid ""
 msgstr ""
@@ -13,5 +13,5 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "\nA quick brown fox jumps over the lazy dog."
-msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis."
+msgid "A quick brown fox jumps over the lazy dog."
+msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis.\n"
