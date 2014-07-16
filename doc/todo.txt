@@ -82,8 +82,6 @@ Add option for disabling/forcing colored output.
 
 Use `blessings <https://pypi.python.org/pypi/blessings/>`_ for colored output.
 
-Check for POT files containing translations.
-
 Run ``msgfmt --check-format`` on PO files.
 
 Reimplement the EUC-TW codec with PyICU.
