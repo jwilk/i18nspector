@@ -175,13 +175,12 @@ class Checker(object, metaclass=abc.ABCMeta):
             pass
         ctx.file = file
         ctx.is_template = is_template
-        self.ctx = ctx
         self.check_headers(ctx)
         self.check_language(ctx)
         self.check_plurals(ctx)
         self.check_mime(ctx)
         if broken_encoding:
-            self.ctx.encoding = None
+            ctx.encoding = None
         self.check_dates(ctx)
         self.check_project(ctx)
         self.check_translator(ctx)
