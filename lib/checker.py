@@ -740,12 +740,10 @@ class Checker(object, metaclass=abc.ABCMeta):
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
-            if ctx.encoding is None:
-                continue
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]
-            if not fuzzy:
+            if (not fuzzy) and (ctx.encoding is not None):
                 strings += [message.msgstr]
                 strings += message.msgstr_plural.values()
             strings = [s for s in strings if s != '']
@@ -757,6 +755,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                 if s.endswith('\n') != trailing_lf:
                     self.tag('inconsistent-trailing-newlines', message_repr(message))
                     break
+            if ctx.encoding is None:
+                continue
             msgid_uc = (
                 set(find_unusual_characters(message.msgid)) |
                 set(find_unusual_characters(message.msgid_plural))

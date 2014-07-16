@@ -2,8 +2,10 @@ i18nspector (0.13.6) UNRELEASED; urgency=low
 
   * Check for duplicate messages, for problems with message flags, and for
     empty files even when encoding is broken or unknown.
+  * Check for inconsistent leading/trailing newlines between msgid and
+    msgid_plural even when encoding in unknown or broken.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Jul 2014 14:36:58 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 13:06:00 +0200
 
 i18nspector (0.13.5) unstable; urgency=low
 
