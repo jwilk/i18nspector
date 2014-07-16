@@ -740,6 +740,13 @@ class Checker(object, metaclass=abc.ABCMeta):
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
+            if ctx.is_template:
+                has_translations = (
+                    message.msgstr or
+                    any(message.msgstr_plural.values())
+                )
+                if has_translations:
+                    self.tag('translation-in-template', message_repr(message))
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             strings = [message.msgid_plural]

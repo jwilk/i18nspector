@@ -79,6 +79,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] syntax-error-in-plural-forms
 [X] syntax-error-in-po-file
 [X] syntax-error-in-unused-plural-forms
+[X] translation-in-template
 [X] unable-to-determine-language
 [X] unexpected-flag-for-header-entry
 [X] unknown-encoding

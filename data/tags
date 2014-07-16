@@ -655,6 +655,12 @@ description =
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
+[translation-in-template]
+severity = minor
+certainty = certain
+description =
+ The PO template file contains a translated message.
+
 [unable-to-determine-language]
 severity = normal
 certainty = wild-guess

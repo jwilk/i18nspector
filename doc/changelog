@@ -1,11 +1,16 @@
 i18nspector (0.13.6) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - translation-in-template
+
+  * Check for PO template files containing translated messages.
   * Check for duplicate messages, for problems with message flags, and for
     empty files even when encoding is broken or unknown.
   * Check for inconsistent leading/trailing newlines between msgid and
     msgid_plural even when encoding in unknown or broken.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 13:06:00 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 14:52:45 +0200
 
 i18nspector (0.13.5) unstable; urgency=low
 
