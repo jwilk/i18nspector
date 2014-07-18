@@ -33,12 +33,12 @@ import urllib.parse
 
 import polib
 
+from . import domains
 from . import encodings as encinfo
 from . import gettext
 from . import ling
 from . import misc
 from . import polib4us
-from . import domains
 from . import tags
 
 class EnvironmentNotPatched(RuntimeError):
