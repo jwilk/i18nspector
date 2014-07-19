@@ -2,5 +2,6 @@ syntax: glob
 
 __pycache__/
 doc/*.1
+doc/rtd/*.txt
 doc/tags.txt
 .coverage
