@@ -46,6 +46,7 @@ with open(tags_rst, 'wb') as file:
 exclude_patterns = [os.path.basename(tags_rst)]
 
 html_use_smartypants = False
+html_theme = 'sphinxdoc'
 html_theme_options = dict(nosidebar=True)
 html_show_copyright = False
 html_show_sphinx = False
