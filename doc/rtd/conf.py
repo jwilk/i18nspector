@@ -5,6 +5,7 @@ Sphinx configuration file for readthedocs.org
 import os
 import re
 import shutil
+import subprocess as ipc
 
 _header_re = re.compile(r'''
 -+\n
@@ -34,11 +35,15 @@ content = _header_re.sub('', content, count=1)
 with open(path, 'wb') as file:
     file.write(content)
 del content
-shutil.copy(
-    os.path.join(here, os.pardir, 'tags.txt'),
-    os.path.join(here, 'tags.txt'),
-)
-exclude_patterns = ['tags.txt']
+
+tags_rst = os.path.join(here, 'tags' + source_suffix)
+with open(tags_rst, 'wb') as file:
+    generator_path = os.path.join(
+        os.pardir, os.pardir,
+        'private', 'tags-as-rst',
+    )
+    ipc.check_call([generator_path], stdout=file)
+exclude_patterns = [os.path.basename(tags_rst)]
 
 html_use_smartypants = False
 html_theme_options = dict(nosidebar=True)
