@@ -60,6 +60,12 @@ class test_header_parser:
             [{'Menu': 'spam'}, {'Vikings': 'yes'}],
         )
 
+    def test_no_trailing_nl(self):
+        self.t(
+            'Menu: spam\nVikings: yes',
+            [{'Menu': 'spam'}, {'Vikings': 'yes'}],
+        )
+
     def test_invalid_field_name(self):
         self.t(
             'Menu :spam\nVikings: yes\n',

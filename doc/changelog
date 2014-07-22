@@ -5,8 +5,9 @@ i18nspector (0.15) UNRELEASED; urgency=low
       - c-format-string-error
 
   * Check for errors in C format strings.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jul 2014 14:31:11 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jul 2014 23:03:57 +0200
 
 i18nspector (0.14) unstable; urgency=low
 
