@@ -183,12 +183,15 @@ class test_invalid_length:
 
 class test_numeration:
 
-    def test_void(self):
-        # FIXME: should be an error
-        for c in 'm%':
-            fmt = M.FormatString('%1$' + c)
-            assert_equal(len(fmt), 1)
-            assert_equal(len(fmt.arguments), 0)
+    def test_percent(self):
+        with assert_raises(M.FormatError):
+            M.FormatString('%1$%')
+
+    def test_errno(self):
+        # FIXME?
+        fmt = M.FormatString('%1$m')
+        assert_equal(len(fmt), 1)
+        assert_equal(len(fmt.arguments), 0)
 
     def test_swapped(self):
         fmt = M.FormatString('%2$s%1$d')
@@ -255,7 +258,7 @@ class test_expected_flag():
 
     def test_other(self):
         for flag in '- +I':
-            for c in 'diouxXaAeEfFgGcCsSpnm%':
+            for c in 'diouxXaAeEfFgGcCsSpnm':
                 yield self.t, ('%' + flag + c)
 
 class test_unexpected_flag():
@@ -276,6 +279,10 @@ class test_unexpected_flag():
         for c in 'oxXaAeEcCsSnpm%':
             yield self.t, ("%'" + c)
 
+    def test_other(self):
+        for flag in '- +I':
+            yield self.t, ('%' + flag + '%')
+
 class test_width():
 
     def test_ok(self):
@@ -284,9 +291,13 @@ class test_width():
             assert_equal(len(fmt), 1)
         for c in 'diouxXaAeEfFgGcCsSp':
             yield t, ('%1' + c)
-        for c in 'nm%':
+        for c in 'nm':
             # FIXME?
             yield t, ('%1' + c)
+
+    def test_invalid(self):
+        with assert_raises(M.FormatError):
+            M.FormatString('%1%')
 
     def test_too_large(self):
         fmt = M.FormatString('%{0}d'.format(M.INT_MAX))

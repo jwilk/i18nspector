@@ -224,6 +224,9 @@ class Conversion(object):
                 if conversion not in i.dec_cvt:
                     raise FormatFlagError('unexpected format flag', s, flag)
             else:
+                if conversion == '%':
+                    raise FormatFlagError('unexpected format flag', s, flag)
+                # TODO: warn for %n
                 # TODO: warn if “-” overrides “0”
                 # TODO: warn if “+” overrides space
                 assert flag in {'-', ' ', '+', 'I'}
@@ -242,6 +245,12 @@ class Conversion(object):
                 if varwidth_index > NL_ARGMAX:
                     raise FormatError(s, 'width argument index too small')
             parent.add_argument(varwidth_index, VariableWidth(self))
+            width = ...
+        if width is not None:
+            if conversion == '%':
+                raise FormatError(s, 'unexpected width')
+            # Although not specifically forbidden, width for %n doesn't make
+            # any sense. TODO: Emit a warning.
         # precision:
         precision = match.group('precision')
         if precision is not None:
@@ -273,11 +282,13 @@ class Conversion(object):
                 raise FormatError(s, 'argument index too small')
         if tp == 'void':
             if index is not None:
-                # XXX Although not specifically forbidden, having an argument
-                # index for a format that doesn't consume any argument doesn't
-                # make any sense.
-                # TODO: emit a warning
-                pass
+                if conversion == '%':
+                    raise FormatError(s, 'argument index not allowed')
+                else:
+                    # Although not specifically forbidden, having an argument index
+                    # for %m (which doesn't consume any argument) doesn't make any
+                    # sense. TODO: Emit a warning.
+                    pass
             # XXX The printf(3) manpage says that numbered arguments can be
             # mixed only with %%. But practically, mixing them with %m (which
             # also doesn't consume any argument) must be also allowed.
