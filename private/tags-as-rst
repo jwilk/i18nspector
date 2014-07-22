@@ -22,6 +22,7 @@
 
 import io
 import os
+import re
 import sys
 
 basedir = os.path.join(
@@ -46,6 +47,9 @@ def output_tags_rst(tags):
         if tag.references:
             print('References:', end='\n\n')
             for ref in tag.references:
+                match = re.match(r'\A(?P<name>[\w-]+)[(](?P<section>[0-9])[)]\Z', ref)
+                if match is not None:
+                    ref = r'**{name}**\ ({section})'.format(**match.groupdict())
                 print(' ', ref)
                 print()
         print('Severity, certainty:', end='\n\n')
