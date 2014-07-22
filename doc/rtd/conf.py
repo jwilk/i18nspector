@@ -4,7 +4,6 @@ Sphinx configuration file for readthedocs.org
 
 import os
 import re
-import shutil
 import subprocess as ipc
 
 _header_re = re.compile(r'''
