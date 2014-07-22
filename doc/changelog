@@ -1,8 +1,12 @@
 i18nspector (0.14.1) UNRELEASED; urgency=low
 
-  * 
+  * Summary of tag changes:
+    + Added:
+      - c-format-string-error
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 15:36:00 +0200
+  * Check for errors in C format strings.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jul 2014 14:24:14 +0200
 
 i18nspector (0.14) unstable; urgency=low
 

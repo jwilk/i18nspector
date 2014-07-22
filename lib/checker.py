@@ -41,6 +41,8 @@ from . import misc
 from . import polib4us
 from . import tags
 
+from .strformat import c as strformat_c
+
 class EnvironmentNotPatched(RuntimeError):
     pass
 
@@ -735,7 +737,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             if is_header_entry(message):
                 continue
-            fuzzy = self._check_message_flags(message)
+            flags = self._check_message_flags(message)
+            fuzzy = 'fuzzy' in flags
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
@@ -763,6 +766,16 @@ class Checker(object, metaclass=abc.ABCMeta):
                     break
             if ctx.encoding is None:
                 continue
+            if 'c-format' in flags:
+                for s in strings:
+                    try:
+                        strformat_c.FormatString(s)
+                    except strformat_c.FormatError as exc:
+                        self.tag('c-format-string-error',
+                            message_repr(message),
+                            tags.safestr(exc.args[0]),
+                            *exc.args[1:]
+                        )
             msgid_uc = (
                 set(find_unusual_characters(message.msgid)) |
                 set(find_unusual_characters(message.msgid_plural))
@@ -793,13 +806,12 @@ class Checker(object, metaclass=abc.ABCMeta):
 
     def _check_message_flags(self, message):
         flags = collections.Counter(resplit_flags(message.flags))
-        fuzzy = False
         wrap = None
         format_flags = collections.defaultdict(dict)
         for flag, n in sorted(flags.items()):
             known_flag = True
             if flag == 'fuzzy':
-                fuzzy = True
+                pass
             elif flag in {'wrap', 'no-wrap'}:
                 new_wrap = flag == 'wrap'
                 if wrap == (not new_wrap):
@@ -887,7 +899,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 possible_format_flags[fmt],
                 tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
             )
-        return fuzzy
+        return flags
 
 __all__ = ['Checker']
 
