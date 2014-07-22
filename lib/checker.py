@@ -902,7 +902,7 @@ def resplit_flags(flags):
         flag.strip(' \t\r\f\v')
         for subflags in flags
         for flag in subflags.split(',')
-    ) # work-around for https://bitbucket.org/izi/polib/issue/46
+    )  # work-around for https://bitbucket.org/izi/polib/issue/46
 
 def message_repr(message, template='{}'):
     subtemplate = 'msgid {id}'
