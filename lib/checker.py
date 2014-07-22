@@ -910,11 +910,14 @@ def is_header_entry(entry):
     )
 
 def resplit_flags(flags):
+    # polib (<< 1.0.4) incorrectly requires that the flag splitting comma is
+    # followed by a space: https://bitbucket.org/izi/polib/issue/46
+    # Let's work around this bug.
     return (
         flag.strip(' \t\r\f\v')
         for subflags in flags
         for flag in subflags.split(',')
-    )  # work-around for https://bitbucket.org/izi/polib/issue/46
+    )
 
 def message_repr(message, template='{}'):
     subtemplate = 'msgid {id}'
