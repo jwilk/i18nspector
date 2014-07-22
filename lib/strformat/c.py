@@ -110,7 +110,7 @@ class FormatString(object):
         last_pos = 0
         for match in _directive_re.finditer(s):
             if match.start() != last_pos:
-                raise FormatError(s[last_pos:], 'invalid conversion specification')
+                raise FormatError('invalid conversion specification', s[last_pos:])
             last_pos = match.end()
             literal = match.group('literal')
             if literal is not None:
@@ -118,7 +118,7 @@ class FormatString(object):
             else:
                 items += [Conversion(self, match)]
         if last_pos != len(s):
-            raise FormatError(s[last_pos:], 'invalid conversion specification')
+            raise FormatError('invalid conversion specification', s[last_pos:])
         self.arguments = []
         for i in range(1, NL_ARGMAX + 1):
             if not self._argument_map:
@@ -126,7 +126,7 @@ class FormatString(object):
             try:
                 args = self._argument_map.pop(i)
             except KeyError:
-                raise FormatError(s, 'missing argument', i)
+                raise FormatError('missing argument', s, i)
             self.arguments += [args]
         assert not self._argument_map
         self._argument_map = None
@@ -207,7 +207,7 @@ class Conversion(object):
             # should not happen
             assert 0  # <no-coverage>
         if tp is None:
-            raise FormatError(s, 'invalid length modifier')
+            raise FormatError('invalid length modifier', s)
         self.type = tp
         # flags:
         flags = collections.Counter(match.group('flags'))
@@ -235,20 +235,20 @@ class Conversion(object):
         if width is not None:
             width = int(width)
             if width > INT_MAX:
-                raise FormatError(s, 'field width too large')
+                raise FormatError('field width too large', s)
         elif match.group('varwidth'):
             varwidth_index = match.group('varwidth_index')
             if varwidth_index is not None:
                 varwidth_index = int(varwidth_index.rstrip('$'))
                 if varwidth_index <= 0:
-                    raise FormatError(s, 'width argument index too large')
+                    raise FormatError('width argument index too large', s)
                 if varwidth_index > NL_ARGMAX:
-                    raise FormatError(s, 'width argument index too small')
+                    raise FormatError('width argument index too small', s)
             parent.add_argument(varwidth_index, VariableWidth(self))
             width = ...
         if width is not None:
             if conversion == '%':
-                raise FormatError(s, 'unexpected width')
+                raise FormatError('unexpected width', s)
             # Although not specifically forbidden, width for %n doesn't make
             # any sense. TODO: Emit a warning.
         # precision:
@@ -256,34 +256,34 @@ class Conversion(object):
         if precision is not None:
             precision = int(precision or '0')
             if precision > INT_MAX:
-                raise FormatError(s, 'precision too large')
+                raise FormatError('precision too large', s)
         elif match.group('varprec'):
             varprec_index = match.group('varprec_index')
             if varprec_index is not None:
                 varprec_index = int(varprec_index.rstrip('$'))
                 if varprec_index > NL_ARGMAX:
-                    raise FormatError(s, 'precision argument index too large')
+                    raise FormatError('precision argument index too large', s)
                 if varprec_index <= 0:
-                    raise FormatError(s, 'precision argument index too small')
+                    raise FormatError('precision argument index too small', s)
             parent.add_argument(varprec_index, VariablePrecision(self))
             precision = ...
         if precision is not None:
             if conversion in i.int_cvt + i.float_cvt + i.str_cvt:
                 pass
             else:
-                raise FormatError(s, 'unexpected precision')
+                raise FormatError('unexpected precision', s)
         # index:
         index = match.group('index')
         if index is not None:
             index = int(index.rstrip('$'))
             if index > NL_ARGMAX:
-                raise FormatError(s, 'argument index too large')
+                raise FormatError('argument index too large', s)
             if index <= 0:
-                raise FormatError(s, 'argument index too small')
+                raise FormatError('argument index too small', s)
         if tp == 'void':
             if index is not None:
                 if conversion == '%':
-                    raise FormatError(s, 'argument index not allowed')
+                    raise FormatError('argument index not allowed', s)
                 else:
                     # Although not specifically forbidden, having an argument index
                     # for %m (which doesn't consume any argument) doesn't make any
@@ -296,7 +296,7 @@ class Conversion(object):
             try:
                 parent.add_argument(index, self)
             except IndexError:
-                raise FormatError(s, 'mixed numbered and unnumbered arguments')
+                raise FormatError('mixed numbered and unnumbered arguments', s)
 
 # FIXME: add support for inttypes.h macros, such as %<PRId32>.
 
