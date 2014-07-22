@@ -26,7 +26,7 @@ path = os.path.join(here, os.pardir, project + source_suffix)
 with open(path, 'rb') as file:
     content = file.read()
 path = os.path.join(here, master_doc + source_suffix)
-match =_header_re.search(content)
+match = _header_re.search(content)
 section = int(match.group('section'))
 release = version = match.group('version')
 description = match.group('description')
