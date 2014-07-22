@@ -3,8 +3,8 @@ branch = true
 
 [report]
 exclude_lines =
-	\s+raise misc[.]DataIntegrityError\b
-	\s+raise NotImplementedError\b
+	\A\s+raise misc[.]DataIntegrityError\b
+	\A\s+raise NotImplementedError\b
 	<no-coverage>
 
 # vim:ft=dosini
