@@ -24,7 +24,7 @@ import argparse
 import os
 import xml.etree.cElementTree as etree
 
-iso_codes_dir = '/usr/share/xml/iso-codes/';
+iso_codes_dir = '/usr/share/xml/iso-codes/'
 
 def main():
     ap = argparse.ArgumentParser()
