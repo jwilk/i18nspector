@@ -5,6 +5,7 @@ branch = true
 exclude_lines =
 	\A\s+raise misc[.]DataIntegrityError\b
 	\A\s+raise NotImplementedError\b
+	\A\s+pass\Z
 	<no-coverage>
 
 # vim:ft=dosini
