@@ -54,7 +54,7 @@ def do_plurals():
             our_plural_forms = language.get_plural_forms()
             if our_plural_forms != [gettext_plural_forms]:
                 print('[{}]'.format(language))
-                if our_plural_forms != None:
+                if our_plural_forms is not None:
                     if len(our_plural_forms) == 1:
                         print('# plural-forms =', our_plural_forms)
                     else:
