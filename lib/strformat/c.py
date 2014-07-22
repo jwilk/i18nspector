@@ -287,4 +287,6 @@ class Conversion(object):
             except IndexError:
                 raise FormatError(s, 'mixed numbered and unnumbered arguments')
 
+# FIXME: add support for inttypes.h macros, such as %<PRId32>.
+
 # vim:ts=4 sw=4 et
