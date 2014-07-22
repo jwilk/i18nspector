@@ -40,11 +40,14 @@ _directive_re = re.compile('''
                 (?P<varprec> [*] ) (?P<varprec_index> [0-9]+[$] )?
             )
         )?
-        (?P<length>
-            hh? | ll? | [qjzZt] | L
-        )?
-        (?P<conversion>
-            [diouxXeEfFgGaAcsCSpnm%]
+        (?:
+            (?P<length>
+                hh? | ll? | [qjzZt] | L
+            )?
+            (?P<conversion>
+                [diouxXeEfFgGaAcsCSpnm%]
+            ) |
+            < (?: PRI (?P<c99conv>[diouxX]) (?P<c99len> (?:LEAST|FAST)?(?:8|16|32|64)|MAX|PTR) ) >
         )
     )
 ''', re.VERBOSE)
@@ -164,10 +167,27 @@ class Conversion(object):
         i = _info
         self._s = s = match.string[slice(*match.span())]
         # length and conversion:
+        c99conversion = match.group('c99conv')
+        c99length = match.group('c99len')
         length = match.group('length')
         conversion = match.group('conversion')
         tp = None
-        if conversion in i.int_cvt + 'n':
+        if c99conversion is not None:
+            assert c99length is not None
+            if c99conversion in 'di':
+                tp = 'int'
+            elif c99conversion in 'ouxX':
+                tp = 'uint'
+            else:
+                # should not happen
+                assert 0  # <no-coverage>
+            conversion = c99conversion
+            if c99length.startswith(('LEAST', 'FAST')):
+                tp += '_' + c99length.lower()
+            else:
+                tp += c99length.lower()
+            tp += '_t'
+        elif conversion in i.int_cvt + 'n':
             tp = i.int_types.get(length or '')
             # TODO: “q” and “t” are obsolete; emit a warning
             if tp is not None:
@@ -297,7 +317,5 @@ class Conversion(object):
                 parent.add_argument(index, self)
             except IndexError:
                 raise FormatError('mixed numbered and unnumbered arguments', s)
-
-# FIXME: add support for inttypes.h macros, such as %<PRId32>.
 
 # vim:ts=4 sw=4 et

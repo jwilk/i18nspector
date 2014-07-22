@@ -147,6 +147,22 @@ class test_types:
         yield t, '%m', 'void'
         yield t, '%%', 'void'
 
+    def test_c99_macros(self):
+        def t(s, tp):
+            return (
+                self.t,
+                '%<{macro}>'.format(macro=s.format(c=c, n=n)),
+                ('u' if unsigned else '') + tp.format(n=n)
+            )
+        for c in 'diouxX':
+            unsigned = c not in 'di'
+            for n in {8, 16, 32, 64}:
+                yield t('PRI{c}{n}', 'int{n}_t')
+                yield t('PRI{c}LEAST{n}', 'int_least{n}_t')
+                yield t('PRI{c}FAST{n}', 'int_fast{n}_t')
+            yield t('PRI{c}MAX', 'intmax_t')
+            yield t('PRI{c}PTR', 'intptr_t')
+
 class test_invalid_length:
     def t(self, s):
         with assert_raises(M.FormatError):
