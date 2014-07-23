@@ -33,6 +33,7 @@ except ImportError:
 import nose
 from nose.tools import (
     assert_equal,
+    assert_greater,
     assert_is_instance,
     assert_raises,
 )
@@ -435,6 +436,26 @@ class test_precision():
                 M.FormatString(s)
         t('%1$.*f')
         t('%.*1$f')
+
+class test_type_compatibility:
+
+    def test_okay(self):
+        def t(s, tp):
+            fmt = M.FormatString(s)
+            [args] = fmt.arguments
+            assert_greater(len(args), 1)
+            for arg in args:
+                assert_equal(arg.type, tp)
+        t('%1$d%1$d', 'int')
+        t('%1$d%1$i', 'int')
+
+    def test_mismatch(self):
+        def t(s):
+            with assert_raises(M.FormatError):
+                M.FormatString(s)
+        t('%1$d%1$hd')
+        t('%1$d%1$u')
+        t('%1$d%1$s')
 
 # TODO: index out of range for unnumbered arguments
 

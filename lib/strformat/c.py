@@ -90,6 +90,9 @@ class FormatError(Exception):
 class FormatFlagError(FormatError):
     pass
 
+class FormatTypeMismatch(FormatError):
+    pass
+
 class VariableWidth(object):
 
     type = 'int'
@@ -133,6 +136,10 @@ class FormatString(object):
             self.arguments += [args]
         assert not self._argument_map
         self._argument_map = None
+        for i, args in enumerate(self.arguments, start=1):
+            types = frozenset(a.type for a in args)
+            if len(types) > 1:
+                raise FormatTypeMismatch('argument type mismatch', i, types)
 
     def add_argument(self, n, value):
         if self._argument_map is None:
