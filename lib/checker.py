@@ -773,8 +773,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                     except strformat_c.FormatError as exc:
                         self.tag('c-format-string-error',
                             message_repr(message),
-                            tags.safestr(exc.args[0]),
-                            *exc.args[1:]
+                            tags.safestr(exc.message),
+                            *exc.args
                         )
             msgid_uc = (
                 set(find_unusual_characters(message.msgid)) |

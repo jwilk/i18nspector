@@ -166,7 +166,7 @@ class test_types:
 
 class test_invalid_length:
     def t(self, s):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.LengthError):
             M.FormatString(s)
 
     _lengths = ['hh', 'h', 'l', 'll', 'q', 'j', 'z', 't', 'L']
@@ -201,7 +201,7 @@ class test_invalid_length:
 class test_numeration:
 
     def test_percent(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ForbiddenArgumentIndex):
             M.FormatString('%1$%')
 
     def test_errno(self):
@@ -217,16 +217,16 @@ class test_numeration:
         assert_equal(a1.type, 'int')
         assert_equal(a2.type, 'const char *')
 
-    def test_numbered_and_unnumbered_args(self):
+    def test_numbering_mixture(self):
         def t(s):
-            with assert_raises(M.FormatError):
+            with assert_raises(M.ArgumentNumberingMixture):
                 M.FormatString(s)
         t('%s%2$s')
         t('%2$s%s')
 
     @small_NL_ARGMAX
     def test_index_out_of_range(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ArgumentRangeError):
             M.FormatString('%0$d')
         def fs(n):
             s = ''.join(
@@ -237,20 +237,20 @@ class test_numeration:
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX)
         assert_equal(len(fmt.arguments), M.NL_ARGMAX)
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ArgumentRangeError):
             fs(M.NL_ARGMAX + 1)
 
     def test_initial_gap(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.MissingArgument):
             M.FormatString('%2$d')
 
     def test_gap(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.MissingArgument):
             M.FormatString('%3$d%1$d')
 
 def test_duplicate_flag():
     def t(s):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.DuplicateFlag):
             M.FormatString(s)
     t('%007d')
     t('%-+-o')
@@ -281,7 +281,7 @@ class test_expected_flag():
 class test_unexpected_flag():
 
     def t(self, s):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.FlagError):
             M.FormatString(s)
 
     def test_hash(self):
@@ -313,14 +313,14 @@ class test_width():
             yield t, ('%1' + c)
 
     def test_invalid(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.WidthError):
             M.FormatString('%1%')
 
     def test_too_large(self):
         fmt = M.FormatString('%{0}d'.format(M.INT_MAX))
         assert_equal(len(fmt), 1)
         assert_equal(len(fmt.arguments), 1)
-        with assert_raises(M.FormatError):
+        with assert_raises(M.WidthRangeError):
             M.FormatString('%{0}d'.format(M.INT_MAX + 1))
 
     def test_variable(self):
@@ -348,7 +348,7 @@ class test_width():
 
     @small_NL_ARGMAX
     def test_index_out_of_range(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ArgumentRangeError):
             M.FormatString('%1$*0$s')
         def fs(n):
             s = ''.join(
@@ -359,12 +359,12 @@ class test_width():
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX - 1)
         assert_equal(len(fmt.arguments), M.NL_ARGMAX)
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ArgumentRangeError):
             fs(M.NL_ARGMAX + 1)
 
-    def test_numbered_and_unnumbered(self):
+    def test_numbering_mixture(self):
         def t(s):
-            with assert_raises(M.FormatError):
+            with assert_raises(M.ArgumentNumberingMixture):
                 M.FormatString(s)
         t('%1$*s')
         t('%*1$s')
@@ -380,7 +380,7 @@ class test_precision():
 
     def test_unexpected(self):
         def t(s):
-            with assert_raises(M.FormatError):
+            with assert_raises(M.PrecisionError):
                 M.FormatString(s)
         for c in 'cCpnm%':
             yield t, ('%.1' + c)
@@ -388,7 +388,7 @@ class test_precision():
     def test_too_large(self):
         fmt = M.FormatString('%.{0}f'.format(M.INT_MAX))
         assert_equal(len(fmt), 1)
-        with assert_raises(M.FormatError):
+        with assert_raises(M.PrecisionRangeError):
             M.FormatString('%.{0}f'.format(M.INT_MAX + 1))
 
     def test_variable(self):
@@ -416,7 +416,7 @@ class test_precision():
 
     @small_NL_ARGMAX
     def test_index_out_of_range(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ArgumentRangeError):
             M.FormatString('%1$.*0$f')
         def fs(n):
             s = ''.join(
@@ -427,12 +427,12 @@ class test_precision():
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX - 1)
         assert_equal(len(fmt.arguments), M.NL_ARGMAX)
-        with assert_raises(M.FormatError):
+        with assert_raises(M.ArgumentRangeError):
             fs(M.NL_ARGMAX + 1)
 
-    def test_numbered_and_unnumbered(self):
+    def test_numbering_mixture(self):
         def t(s):
-            with assert_raises(M.FormatError):
+            with assert_raises(M.ArgumentNumberingMixture):
                 M.FormatString(s)
         t('%1$.*f')
         t('%.*1$f')
@@ -451,7 +451,7 @@ class test_type_compatibility:
 
     def test_mismatch(self):
         def t(s):
-            with assert_raises(M.FormatError):
+            with assert_raises(M.ArgumentTypeMismatch):
                 M.FormatString(s)
         t('%1$d%1$hd')
         t('%1$d%1$u')
