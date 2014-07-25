@@ -338,6 +338,8 @@ class Conversion(object):
                 pass
             else:
                 raise PrecisionError(s)
+            # Precision in a numeric conversion overrides the “0” flag.
+            # TODO: Emit a warning.
         # index:
         index = match.group('index')
         if index is not None:
