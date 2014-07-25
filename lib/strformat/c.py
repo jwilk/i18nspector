@@ -283,6 +283,8 @@ class Conversion(object):
         for flag, count in flags.items():
             if count != 1:
                 raise DuplicateFlag(s, flag)
+            if conversion == 'n':
+                raise FlagError(s, flag)
             if flag == '#':
                 if conversion not in i.oct_cvt + i.hex_cvt + i.float_cvt:
                     raise FlagError(s, flag)
@@ -295,8 +297,6 @@ class Conversion(object):
             else:
                 if conversion == '%':
                     raise FlagError(s, flag)
-                # Although not specifically forbidden, flags for %n don't make
-                # any sense. TODO: Emit a warning.
                 # TODO: warn if “-” overrides “0”
                 # TODO: warn if “+” overrides space
                 assert flag in {'-', ' ', '+', 'I'}
@@ -315,10 +315,8 @@ class Conversion(object):
             parent.add_argument(varwidth_index, VariableWidth(self))
             width = ...
         if width is not None:
-            if conversion == '%':
+            if conversion in '%n':
                 raise WidthError(s)
-            # Although not specifically forbidden, width for %n doesn't make
-            # any sense. TODO: Emit a warning.
         # precision:
         precision = match.group('precision')
         if precision is not None:
