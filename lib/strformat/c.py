@@ -295,7 +295,8 @@ class Conversion(object):
             else:
                 if conversion == '%':
                     raise FlagError(s, flag)
-                # TODO: warn for %n
+                # Although not specifically forbidden, flags for %n don't make
+                # any sense. TODO: Emit a warning.
                 # TODO: warn if “-” overrides “0”
                 # TODO: warn if “+” overrides space
                 assert flag in {'-', ' ', '+', 'I'}
