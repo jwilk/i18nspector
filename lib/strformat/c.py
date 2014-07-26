@@ -21,8 +21,6 @@
 import collections
 import re
 
-from .. import misc
-
 _directive_re = re.compile('''
     (?P<literal> [^%]+ ) |
     (

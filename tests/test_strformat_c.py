@@ -38,8 +38,6 @@ from nose.tools import (
     assert_raises,
 )
 
-from . import aux
-
 import lib.strformat.c as M
 
 def test_INT_MAX():
