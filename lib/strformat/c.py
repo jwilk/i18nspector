@@ -200,6 +200,9 @@ class FormatString(object):
                 raise IndexError
         self._argument_map[n] += [value]
 
+    def warn(self, exc_type, *args, **kwargs):
+        self.warnings += [exc_type(*args, **kwargs)]
+
     def __iter__(self):
         return iter(self._items)
 
@@ -281,7 +284,7 @@ class Conversion(object):
         flags = collections.Counter(match.group('flags'))
         for flag, count in flags.items():
             if count != 1:
-                parent.warnings += [RedundantFlag(s, flag, flag)]
+                parent.warn(RedundantFlag, s, flag, flag)
             if conversion == 'n':
                 raise FlagError(s, flag)
             if flag == '#':
@@ -299,7 +302,7 @@ class Conversion(object):
                 assert flag in {'-', ' ', '+', 'I'}
         for f1, f2 in [('-', '0'), ('+', ' ')]:
             if (f1 in flags) and (f2 in flags):
-                parent.warnings += [RedundantFlag(s, f1, f2)]
+                parent.warn(RedundantFlag, s, f1, f2)
         # width:
         width = match.group('width')
         if width is not None:
@@ -337,7 +340,7 @@ class Conversion(object):
             else:
                 raise PrecisionError(s)
             if '0' in flags:
-                parent.warnings += [RedundantFlag(s, '0')]
+                parent.warn(RedundantFlag, s, '0')
         # index:
         index = match.group('index')
         if index is not None:
