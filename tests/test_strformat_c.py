@@ -259,7 +259,7 @@ class test_numeration:
         with assert_raises(M.MissingArgument):
             M.FormatString('%3$d%1$d')
 
-class test_redundant_flag():
+class test_redundant_flag:
 
     def t(self, s):
         fmt = M.FormatString(s)
@@ -278,7 +278,7 @@ class test_redundant_flag():
     def test_zero_prec(self):
         self.t('%0.17d')
 
-class test_expected_flag():
+class test_expected_flag:
 
     def t(self, s):
         fmt = M.FormatString(s)
@@ -301,7 +301,7 @@ class test_expected_flag():
             for c in 'diouxXaAeEfFgGcCsSpm':
                 yield self.t, ('%' + flag + c)
 
-class test_unexpected_flag():
+class test_unexpected_flag:
 
     def t(self, s):
         with assert_raises(M.FlagError):
@@ -324,7 +324,7 @@ class test_unexpected_flag():
             for flag in '- +I':
                 yield self.t, ('%' + flag + c)
 
-class test_width():
+class test_width:
 
     def test_ok(self):
         def t(s):
@@ -392,7 +392,7 @@ class test_width():
         t('%1$*s')
         t('%*1$s')
 
-class test_precision():
+class test_precision:
 
     def test_ok(self):
         def t(s):
