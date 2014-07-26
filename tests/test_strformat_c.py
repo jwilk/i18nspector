@@ -87,7 +87,7 @@ def test_text():
 
 class test_types:
 
-    def t(self, s, type):
+    def _t(self, s, type):
         fmt = M.FormatString(s)
         [conv] = fmt
         assert_is_instance(conv, M.Conversion)
@@ -97,9 +97,20 @@ class test_types:
         else:
             [[arg]] = fmt.arguments
             assert_equal(arg.type, type)
+        return fmt
+
+    def t(self, s, type):
+        fmt = self._t(s, type)
+        assert_equal(fmt.warnings, [])
+
+    def d(self, s, type):
+        fmt = self._t(s, type)
+        [exc] = fmt.warnings
+        assert_is_instance(exc, M.DeprecatedLength)
 
     def test_integer(self):
         t = self.t
+        d = self.d
         for c in 'din':
             if c == 'n':
                 suffix = ' *'
@@ -110,9 +121,11 @@ class test_types:
             yield t, ('%' + c), ('int' + suffix)
             yield t, ('%l' + c), ('long int' + suffix)
             yield t, ('%ll' + c), ('long long int' + suffix)
-            yield t, ('%q' + c), ('long long int' + suffix)
+            yield d, ('%L' + c), ('long long int' + suffix)
+            yield d, ('%q' + c), ('long long int' + suffix)
             yield t, ('%j' + c), ('intmax_t' + suffix)
             yield t, ('%z' + c), ('ssize_t' + suffix)
+            yield d, ('%Z' + c), ('ssize_t' + suffix)
             yield t, ('%t' + c), ('ptrdiff_t' + suffix)
         for c in 'ouxX':
             yield t, ('%hh' + c), 'unsigned char'
@@ -120,9 +133,11 @@ class test_types:
             yield t, ('%' + c), 'unsigned int'
             yield t, ('%l' + c), 'unsigned long int'
             yield t, ('%ll' + c), 'unsigned long long int'
-            yield t, ('%q' + c), 'unsigned long long int'
+            yield d, ('%L' + c), 'unsigned long long int'
+            yield d, ('%q' + c), 'unsigned long long int'
             yield t, ('%j' + c), 'uintmax_t'
             yield t, ('%z' + c), 'size_t'
+            yield d, ('%Z' + c), 'size_t'
             yield t, ('%t' + c), '[unsigned ptrdiff_t]'
 
     def test_double(self):
@@ -168,11 +183,6 @@ class test_invalid_length:
             M.FormatString(s)
 
     _lengths = ['hh', 'h', 'l', 'll', 'q', 'j', 'z', 't', 'L']
-
-    def test_integer(self):
-        t = self.t
-        for c in 'diouxXn':
-            yield t, ('%L' + c)
 
     def test_double(self):
         t = self.t

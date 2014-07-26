@@ -65,18 +65,21 @@ class _info:
     h = short int | unsigned short int
     l = long int | unsigned long int
     ll = long long int | unsigned long long int
-    q = long long int | unsigned long long int
     j = intmax_t | uintmax_t
     z = ssize_t | size_t
-    Z = ssize_t | size_t
     t = ptrdiff_t | [unsigned ptrdiff_t]
     = int | unsigned int
     '''
-    # FIXME: GNU libc seems to allow Ld (and friends), contrary to POSIX
     int_types = dict(
         (key, tuple(str.strip(v) for v in values.split('|')))
         for line in int_types.strip().splitlines()
         for key, values in [map(str.strip, line.split('='))]
+    )
+
+    portable_lengths = dict(
+        L='ll',  # XXX not documented in the printf(3) manpage
+        q='ll',
+        Z='z',
     )
 
 INT_MAX = (1 << 31) - 1  # on most architectures
@@ -106,6 +109,9 @@ class ArgumentNumberingMixture(FormatError):
 
 class LengthError(FormatError):
     message = 'invalid length modifier'
+
+class DeprecatedLength(FormatError):
+    message = 'deprecated length modifier'
 
 # errors in flag characters:
 
@@ -238,12 +244,14 @@ class Conversion(object):
                 tp += c99length.lower()
             tp += '_t'
         elif conversion in i.int_cvt + 'n':
-            tp = i.int_types.get(length or '')
-            # TODO: “q” and “t” are obsolete; emit a warning
-            if tp is not None:
-                tp = tp[conversion in i.uint_cvt]
-                if conversion == 'n':
-                    tp += ' *'
+            plength = i.portable_lengths.get(length, length)
+            if plength != length:
+                parent.warn(DeprecatedLength, length, plength)
+            tp = i.int_types.get(plength or '')
+            assert tp is not None
+            tp = tp[conversion in i.uint_cvt]
+            if conversion == 'n':
+                tp += ' *'
         elif conversion in i.float_cvt:
             if length is None:
                 tp = 'double'
