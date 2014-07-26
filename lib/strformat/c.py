@@ -114,8 +114,8 @@ class LengthError(FormatError):
 class FlagError(FormatError):
     message = 'unexpected format flag character'
 
-class DuplicateFlag(FormatError):
-    message = 'duplicate flag character'
+class RedundantFlag(FormatError):
+    message = 'redundant flag character'
 
 # errors in field width:
 
@@ -154,6 +154,7 @@ class FormatString(object):
         self._items = items = []
         self._argument_map = collections.defaultdict(list)
         self._next_arg_index = 1
+        self.warnings = []
         last_pos = 0
         for match in _directive_re.finditer(s):
             if match.start() != last_pos:
@@ -282,7 +283,7 @@ class Conversion(object):
         flags = collections.Counter(match.group('flags'))
         for flag, count in flags.items():
             if count != 1:
-                raise DuplicateFlag(s, flag)
+                parent.warnings += [RedundantFlag(s, flag, flag)]
             if conversion == 'n':
                 raise FlagError(s, flag)
             if flag == '#':
@@ -297,9 +298,10 @@ class Conversion(object):
             else:
                 if conversion == '%':
                     raise FlagError(s, flag)
-                # TODO: warn if “-” overrides “0”
-                # TODO: warn if “+” overrides space
                 assert flag in {'-', ' ', '+', 'I'}
+        for f1, f2 in [('-', '0'), ('+', ' ')]:
+            if (f1 in flags) and (f2 in flags):
+                parent.warnings += [RedundantFlag(s, f1, f2)]
         # width:
         width = match.group('width')
         if width is not None:
@@ -336,8 +338,8 @@ class Conversion(object):
                 pass
             else:
                 raise PrecisionError(s)
-            # Precision in a numeric conversion overrides the “0” flag.
-            # TODO: Emit a warning.
+            if '0' in flags:
+                parent.warnings += [RedundantFlag(s, '0')]
         # index:
         index = match.group('index')
         if index is not None:

@@ -248,12 +248,24 @@ class test_numeration:
         with assert_raises(M.MissingArgument):
             M.FormatString('%3$d%1$d')
 
-def test_duplicate_flag():
-    def t(s):
-        with assert_raises(M.DuplicateFlag):
-            M.FormatString(s)
-    t('%007d')
-    t('%-+-o')
+class test_redundant_flag():
+
+    def t(self, s):
+        fmt = M.FormatString(s)
+        [exc] = fmt.warnings
+        assert_is_instance(exc, M.RedundantFlag)
+
+    def test_duplicate(self):
+        self.t('%--17d')
+
+    def test_minus_zero(self):
+        self.t('%-017d')
+
+    def test_plus_space(self):
+        self.t('%+ d')
+
+    def test_zero_prec(self):
+        self.t('%0.17d')
 
 class test_expected_flag():
 
