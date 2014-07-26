@@ -36,6 +36,7 @@ from nose.tools import (
     assert_greater,
     assert_is_instance,
     assert_raises,
+    assert_sequence_equal,
 )
 
 import lib.strformat.c as M
@@ -93,7 +94,7 @@ class test_types:
         assert_is_instance(conv, M.Conversion)
         assert_equal(conv.type, type)
         if type == 'void':
-            assert_equal(len(fmt.arguments), 0)
+            assert_sequence_equal(fmt.arguments, [])
         else:
             [[arg]] = fmt.arguments
             assert_equal(arg.type, type)
@@ -101,7 +102,7 @@ class test_types:
 
     def t(self, s, type):
         fmt = self._t(s, type)
-        assert_equal(fmt.warnings, [])
+        assert_sequence_equal(fmt.warnings, [])
 
     def d(self, s, type):
         fmt = self._t(s, type)
