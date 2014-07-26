@@ -110,25 +110,27 @@ class test_types:
         assert_is_instance(exc, M.DeprecatedLength)
 
     def test_integer(self):
-        t = self.t
-        d = self.d
+        def t(s, tp):
+            self.t(s, tp + suffix)
+        def d(s, tp):
+            self.d(s, tp + suffix)
         for c in 'din':
+            suffix = ''
             if c == 'n':
                 suffix = ' *'
-            else:
-                suffix = ''
-            yield t, ('%hh' + c), ('signed char' + suffix)
-            yield t, ('%h' + c), ('short int' + suffix)
-            yield t, ('%' + c), ('int' + suffix)
-            yield t, ('%l' + c), ('long int' + suffix)
-            yield t, ('%ll' + c), ('long long int' + suffix)
-            yield d, ('%L' + c), ('long long int' + suffix)
-            yield d, ('%q' + c), ('long long int' + suffix)
-            yield t, ('%j' + c), ('intmax_t' + suffix)
-            yield t, ('%z' + c), ('ssize_t' + suffix)
-            yield d, ('%Z' + c), ('ssize_t' + suffix)
-            yield t, ('%t' + c), ('ptrdiff_t' + suffix)
+            yield t, ('%hh' + c), 'signed char'
+            yield t, ('%h' + c), 'short int'
+            yield t, ('%' + c), 'int'
+            yield t, ('%l' + c), 'long int'
+            yield t, ('%ll' + c), 'long long int'
+            yield d, ('%L' + c), 'long long int'
+            yield d, ('%q' + c), 'long long int'
+            yield t, ('%j' + c), 'intmax_t'
+            yield t, ('%z' + c), 'ssize_t'
+            yield d, ('%Z' + c), 'ssize_t'
+            yield t, ('%t' + c), 'ptrdiff_t'
         for c in 'ouxX':
+            suffix = ''
             yield t, ('%hh' + c), 'unsigned char'
             yield t, ('%h' + c), 'unsigned short int'
             yield t, ('%' + c), 'unsigned int'
