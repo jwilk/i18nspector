@@ -10,7 +10,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] boilerplate-in-project-id-version
 [X] boilerplate-in-report-msgid-bugs-to
 [X] broken-encoding
-[ ] c-format-string-error
+[X] c-format-string-error
 [X] codomain-error-in-plural-forms
 [X] codomain-error-in-unused-plural-forms
 [X] conflict-marker-in-header-entry
