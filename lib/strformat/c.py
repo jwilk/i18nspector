@@ -88,6 +88,9 @@ NL_ARGMAX = 4096  # on GNU/Linux
 class FormatError(Exception):
     message = 'invalid conversion specification'
 
+class DeprecatedConversion(FormatError):
+    message = 'deprecated conversion specifier'
+
 # errors in argument indexing:
 
 class ForbiddenArgumentIndex(FormatError):
@@ -263,8 +266,8 @@ class Conversion(object):
             elif length == 'l':
                 tp = 'wint_t'
         elif conversion == 'C':
-            # TODO: “C” is obsolete; emit a warning
             if length is None:
+                parent.warn(DeprecatedConversion, '%C', '%lc')
                 tp = 'wint_t'
         elif conversion == 's':
             if length is None:
@@ -272,8 +275,8 @@ class Conversion(object):
             elif length == 'l':
                 tp = 'const wchar_t *'
         elif conversion == 'S':
-            # TODO: “S” is obsolete; emit a warning
             if length is None:
+                parent.warn(DeprecatedConversion, '%S', '%ls')
                 tp = 'const wchar_t *'
         elif conversion == 'p':
             if length is None:

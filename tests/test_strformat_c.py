@@ -88,7 +88,7 @@ def test_text():
 
 class test_types:
 
-    def _t(self, s, type):
+    def t(self, s, type, warn_type=None):
         fmt = M.FormatString(s)
         [conv] = fmt
         assert_is_instance(conv, M.Conversion)
@@ -98,22 +98,15 @@ class test_types:
         else:
             [[arg]] = fmt.arguments
             assert_equal(arg.type, type)
-        return fmt
-
-    def t(self, s, type):
-        fmt = self._t(s, type)
-        assert_sequence_equal(fmt.warnings, [])
-
-    def d(self, s, type):
-        fmt = self._t(s, type)
-        [exc] = fmt.warnings
-        assert_is_instance(exc, M.DeprecatedLength)
+        if warn_type is None:
+            assert_sequence_equal(fmt.warnings, [])
+        else:
+            [warning] = fmt.warnings
+            assert_is_instance(warning, warn_type)
 
     def test_integer(self):
-        def t(s, tp):
-            self.t(s, tp + suffix)
-        def d(s, tp):
-            self.d(s, tp + suffix)
+        def t(s, tp, warn_type=None):
+            self.t(s, tp + suffix, warn_type)
         for c in 'din':
             suffix = ''
             if c == 'n':
@@ -123,11 +116,11 @@ class test_types:
             yield t, ('%' + c), 'int'
             yield t, ('%l' + c), 'long int'
             yield t, ('%ll' + c), 'long long int'
-            yield d, ('%L' + c), 'long long int'
-            yield d, ('%q' + c), 'long long int'
+            yield t, ('%L' + c), 'long long int', M.DeprecatedLength
+            yield t, ('%q' + c), 'long long int', M.DeprecatedLength
             yield t, ('%j' + c), 'intmax_t'
             yield t, ('%z' + c), 'ssize_t'
-            yield d, ('%Z' + c), 'ssize_t'
+            yield t, ('%Z' + c), 'ssize_t', M.DeprecatedLength
             yield t, ('%t' + c), 'ptrdiff_t'
         for c in 'ouxX':
             suffix = ''
@@ -136,11 +129,11 @@ class test_types:
             yield t, ('%' + c), 'unsigned int'
             yield t, ('%l' + c), 'unsigned long int'
             yield t, ('%ll' + c), 'unsigned long long int'
-            yield d, ('%L' + c), 'unsigned long long int'
-            yield d, ('%q' + c), 'unsigned long long int'
+            yield t, ('%L' + c), 'unsigned long long int', M.DeprecatedLength
+            yield t, ('%q' + c), 'unsigned long long int', M.DeprecatedLength
             yield t, ('%j' + c), 'uintmax_t'
             yield t, ('%z' + c), 'size_t'
-            yield d, ('%Z' + c), 'size_t'
+            yield t, ('%Z' + c), 'size_t', M.DeprecatedLength
             yield t, ('%t' + c), '[unsigned ptrdiff_t]'
 
     def test_double(self):
@@ -153,10 +146,10 @@ class test_types:
         t = self.t
         yield t, '%c', '[int converted to unsigned char]'
         yield t, '%lc', 'wint_t'
-        yield t, '%C', 'wint_t'
+        yield t, '%C', 'wint_t', M.DeprecatedConversion
         yield t, '%s', 'const char *'
         yield t, '%ls', 'const wchar_t *'
-        yield t, '%S', 'const wchar_t *'
+        yield t, '%S', 'const wchar_t *', M.DeprecatedConversion
 
     def test_void(self):
         t = self.t
