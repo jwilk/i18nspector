@@ -772,7 +772,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                         strformat_c.FormatString(s)
                     except strformat_c.FormatError as exc:
                         self.tag('c-format-string-error',
-                            message_repr(message),
+                            message_repr(message, template='{}:'),
                             tags.safestr(exc.message),
                             *exc.args
                         )
