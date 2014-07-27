@@ -767,6 +767,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             if ctx.encoding is None:
                 continue
             if 'c-format' in flags:
+                # TODO: Check also msgid/msgid_plural.
                 for s in strings:
                     try:
                         strformat_c.FormatString(s)
