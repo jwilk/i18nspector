@@ -188,7 +188,7 @@ class FormatString(object):
         for i, args in enumerate(self.arguments, start=1):
             types = frozenset(a.type for a in args)
             if len(types) > 1:
-                raise ArgumentTypeMismatch(i, types)
+                raise ArgumentTypeMismatch(s, i, types)
 
     def add_argument(self, n, value):
         if self._argument_map is None:

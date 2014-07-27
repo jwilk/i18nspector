@@ -771,6 +771,19 @@ class Checker(object, metaclass=abc.ABCMeta):
                 for s in strings:
                     try:
                         strformat_c.FormatString(s)
+                    except strformat_c.MissingArgument as exc:
+                        self.tag('c-format-string-error',
+                            message_repr(message, template='{}:'),
+                            tags.safestr(exc.message),
+                            tags.safestr('{1}$'.format(*exc.args)),
+                        )
+                    except strformat_c.ArgumentTypeMismatch as exc:
+                        self.tag('c-format-string-error',
+                            message_repr(message, template='{}:'),
+                            tags.safestr(exc.message),
+                            tags.safestr('{1}$'.format(*exc.args)),
+                            tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
+                        )
                     except strformat_c.FormatError as exc:
                         self.tag('c-format-string-error',
                             message_repr(message, template='{}:'),
