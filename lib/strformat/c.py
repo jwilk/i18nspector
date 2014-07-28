@@ -258,9 +258,14 @@ class Conversion(object):
         elif conversion in i.float_cvt:
             if length is None:
                 tp = 'double'
+            elif length == 'l':
+                # XXX C99 says that the “l” length is no-op for floating-point
+                # conversions, but this is not documented in the printf(3)
+                # manpage.
+                parent.warn(NonStandardLength, 'l', '')
+                tp = 'double'
             elif length == 'L':
                 tp = 'long double'
-            # TODO: add support for %lf
         elif conversion == 'c':
             if length is None:
                 tp = '[int converted to unsigned char]'

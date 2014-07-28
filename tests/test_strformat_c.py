@@ -140,6 +140,7 @@ class test_types:
         t = self.t
         for c in 'aefgAEFG':
             yield t, ('%' + c), 'double'
+            yield t, ('%l' + c), 'double', M.NonStandardLength
             yield t, ('%L' + c), 'long double'
 
     def test_char(self):
@@ -184,7 +185,7 @@ class test_invalid_length:
         t = self.t
         for c in 'aefgAEFG':
             for l in self._lengths:
-                if l == 'L':
+                if l in 'lL':
                     continue
                 yield t, ('%' + l + c)
 
