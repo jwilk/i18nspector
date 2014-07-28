@@ -899,27 +899,35 @@ class Checker(object, metaclass=abc.ABCMeta):
         if 'fuzzy' in flags:
             return
         strings = [message.msgstr] + sorted(message.msgstr_plural.values())
+        prefix = message_repr(message, template='{}:')
         for s in strings:
             try:
                 strformat_c.FormatString(s)
             except strformat_c.MissingArgument as exc:
                 self.tag('c-format-string-error',
-                    message_repr(message, template='{}:'),
+                    prefix,
                     tags.safestr(exc.message),
                     tags.safestr('{1}$'.format(*exc.args)),
                 )
             except strformat_c.ArgumentTypeMismatch as exc:
                 self.tag('c-format-string-error',
-                    message_repr(message, template='{}:'),
+                    prefix,
                     tags.safestr(exc.message),
                     tags.safestr('{1}$'.format(*exc.args)),
                     tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
                 )
+            except strformat_c.FlagError as exc:
+                [conv, flag] = exc.args
+                self.tag('c-format-string-error',
+                    prefix,
+                    tags.safestr(exc.message),
+                    flag, tags.safestr('in'), conv
+                )
             except strformat_c.FormatError as exc:
                 self.tag('c-format-string-error',
-                    message_repr(message, template='{}:'),
+                    prefix,
                     tags.safestr(exc.message),
-                    *exc.args
+                    *exc.args[:1]
                 )
 
 __all__ = ['Checker']
