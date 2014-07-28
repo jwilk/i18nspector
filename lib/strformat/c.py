@@ -88,7 +88,7 @@ NL_ARGMAX = 4096  # on GNU/Linux
 class FormatError(Exception):
     message = 'invalid conversion specification'
 
-class DeprecatedConversion(FormatError):
+class NonStandardConversion(FormatError):
     message = 'deprecated conversion specifier'
 
 # errors in argument indexing:
@@ -113,8 +113,8 @@ class ArgumentNumberingMixture(FormatError):
 class LengthError(FormatError):
     message = 'invalid length modifier'
 
-class DeprecatedLength(FormatError):
-    message = 'deprecated length modifier'
+class NonStandardLength(FormatError):
+    message = 'non-portable length modifier'
 
 # errors in flag characters:
 
@@ -249,7 +249,7 @@ class Conversion(object):
         elif conversion in i.int_cvt + 'n':
             plength = i.portable_lengths.get(length, length)
             if plength != length:
-                parent.warn(DeprecatedLength, length, plength)
+                parent.warn(NonStandardLength, length, plength)
             tp = i.int_types.get(plength or '')
             assert tp is not None
             tp = tp[conversion in i.uint_cvt]
@@ -268,7 +268,7 @@ class Conversion(object):
                 tp = 'wint_t'
         elif conversion == 'C':
             if length is None:
-                parent.warn(DeprecatedConversion, '%C', '%lc')
+                parent.warn(NonStandardConversion, '%C', '%lc')
                 tp = 'wint_t'
         elif conversion == 's':
             if length is None:
@@ -277,7 +277,7 @@ class Conversion(object):
                 tp = 'const wchar_t *'
         elif conversion == 'S':
             if length is None:
-                parent.warn(DeprecatedConversion, '%S', '%ls')
+                parent.warn(NonStandardConversion, '%S', '%ls')
                 tp = 'const wchar_t *'
         elif conversion == 'p':
             if length is None:

@@ -116,11 +116,11 @@ class test_types:
             yield t, ('%' + c), 'int'
             yield t, ('%l' + c), 'long int'
             yield t, ('%ll' + c), 'long long int'
-            yield t, ('%L' + c), 'long long int', M.DeprecatedLength
-            yield t, ('%q' + c), 'long long int', M.DeprecatedLength
+            yield t, ('%L' + c), 'long long int', M.NonStandardLength
+            yield t, ('%q' + c), 'long long int', M.NonStandardLength
             yield t, ('%j' + c), 'intmax_t'
             yield t, ('%z' + c), 'ssize_t'
-            yield t, ('%Z' + c), 'ssize_t', M.DeprecatedLength
+            yield t, ('%Z' + c), 'ssize_t', M.NonStandardLength
             yield t, ('%t' + c), 'ptrdiff_t'
         for c in 'ouxX':
             suffix = ''
@@ -129,11 +129,11 @@ class test_types:
             yield t, ('%' + c), 'unsigned int'
             yield t, ('%l' + c), 'unsigned long int'
             yield t, ('%ll' + c), 'unsigned long long int'
-            yield t, ('%L' + c), 'unsigned long long int', M.DeprecatedLength
-            yield t, ('%q' + c), 'unsigned long long int', M.DeprecatedLength
+            yield t, ('%L' + c), 'unsigned long long int', M.NonStandardLength
+            yield t, ('%q' + c), 'unsigned long long int', M.NonStandardLength
             yield t, ('%j' + c), 'uintmax_t'
             yield t, ('%z' + c), 'size_t'
-            yield t, ('%Z' + c), 'size_t', M.DeprecatedLength
+            yield t, ('%Z' + c), 'size_t', M.NonStandardLength
             yield t, ('%t' + c), '[unsigned ptrdiff_t]'
 
     def test_double(self):
@@ -146,10 +146,10 @@ class test_types:
         t = self.t
         yield t, '%c', '[int converted to unsigned char]'
         yield t, '%lc', 'wint_t'
-        yield t, '%C', 'wint_t', M.DeprecatedConversion
+        yield t, '%C', 'wint_t', M.NonStandardConversion
         yield t, '%s', 'const char *'
         yield t, '%ls', 'const wchar_t *'
-        yield t, '%S', 'const wchar_t *', M.DeprecatedConversion
+        yield t, '%S', 'const wchar_t *', M.NonStandardConversion
 
     def test_void(self):
         t = self.t
