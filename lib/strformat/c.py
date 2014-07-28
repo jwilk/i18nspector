@@ -260,6 +260,7 @@ class Conversion(object):
                 tp = 'double'
             elif length == 'L':
                 tp = 'long double'
+            # TODO: add support for %lf
         elif conversion == 'c':
             if length is None:
                 tp = '[int converted to unsigned char]'
