@@ -739,6 +739,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             flags = self._check_message_flags(message)
             fuzzy = 'fuzzy' in flags
+            self._check_message_formats(message, flags=flags)
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
@@ -766,30 +767,6 @@ class Checker(object, metaclass=abc.ABCMeta):
                     break
             if ctx.encoding is None:
                 continue
-            if 'c-format' in flags:
-                # TODO: Check also msgid/msgid_plural.
-                for s in strings:
-                    try:
-                        strformat_c.FormatString(s)
-                    except strformat_c.MissingArgument as exc:
-                        self.tag('c-format-string-error',
-                            message_repr(message, template='{}:'),
-                            tags.safestr(exc.message),
-                            tags.safestr('{1}$'.format(*exc.args)),
-                        )
-                    except strformat_c.ArgumentTypeMismatch as exc:
-                        self.tag('c-format-string-error',
-                            message_repr(message, template='{}:'),
-                            tags.safestr(exc.message),
-                            tags.safestr('{1}$'.format(*exc.args)),
-                            tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
-                        )
-                    except strformat_c.FormatError as exc:
-                        self.tag('c-format-string-error',
-                            message_repr(message, template='{}:'),
-                            tags.safestr(exc.message),
-                            *exc.args
-                        )
             msgid_uc = (
                 set(find_unusual_characters(message.msgid)) |
                 set(find_unusual_characters(message.msgid_plural))
@@ -914,6 +891,36 @@ class Checker(object, metaclass=abc.ABCMeta):
                 tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
             )
         return flags
+
+    def _check_message_formats(self, message, *, flags):
+        if 'c-format' not in flags:
+            return
+        # TODO: Check also msgid/msgid_plural.
+        if 'fuzzy' in flags:
+            return
+        strings = [message.msgstr] + sorted(message.msgstr_plural.values())
+        for s in strings:
+            try:
+                strformat_c.FormatString(s)
+            except strformat_c.MissingArgument as exc:
+                self.tag('c-format-string-error',
+                    message_repr(message, template='{}:'),
+                    tags.safestr(exc.message),
+                    tags.safestr('{1}$'.format(*exc.args)),
+                )
+            except strformat_c.ArgumentTypeMismatch as exc:
+                self.tag('c-format-string-error',
+                    message_repr(message, template='{}:'),
+                    tags.safestr(exc.message),
+                    tags.safestr('{1}$'.format(*exc.args)),
+                    tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
+                )
+            except strformat_c.FormatError as exc:
+                self.tag('c-format-string-error',
+                    message_repr(message, template='{}:'),
+                    tags.safestr(exc.message),
+                    *exc.args
+                )
 
 __all__ = ['Checker']
 
