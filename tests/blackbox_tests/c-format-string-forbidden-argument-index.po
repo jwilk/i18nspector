@@ -1,4 +1,4 @@
-# E: c-format-string-error msgid '100%% quick brown foxes jumps over the lazy %s.': argument index not allowed '%1$%'
+# E: c-format-string-error msgid '100%% of quick brown foxes jump over the lazy %s.': argument index not allowed '%1$%'
 
 msgid ""
 msgstr ""
