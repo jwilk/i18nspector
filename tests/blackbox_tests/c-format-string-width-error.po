@@ -1,4 +1,4 @@
-# E: c-format-string-error msgid 'A quick brown fox jumps over the lazy dog.%42n': unexpected width '%24n'
+# E: c-format-string-error msgid 'A quick brown fox jumps over the lazy dog.%n': unexpected width '%24n'
 
 msgid ""
 msgstr ""
@@ -14,5 +14,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "A quick brown fox jumps over the lazy dog.%42n"
+msgid "A quick brown fox jumps over the lazy dog.%n"
 msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis.%24n"

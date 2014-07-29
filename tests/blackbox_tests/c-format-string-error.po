@@ -1,4 +1,4 @@
-# E: c-format-string-error msgid 'A quick brown fox jumps over the lazy dog%': invalid conversion specification '%'
+# E: c-format-string-error msgid 'A quick brown fox jumps over the lazy dog.': invalid conversion specification '%'
 
 msgid ""
 msgstr ""
@@ -14,5 +14,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "A quick brown fox jumps over the lazy dog%"
+msgid "A quick brown fox jumps over the lazy dog."
 msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis%"

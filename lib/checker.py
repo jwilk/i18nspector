@@ -739,7 +739,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             flags = self._check_message_flags(message)
             fuzzy = 'fuzzy' in flags
-            self._check_message_formats(message, flags=flags)
+            self._check_message_formats(ctx, message, flags=flags)
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
@@ -892,13 +892,23 @@ class Checker(object, metaclass=abc.ABCMeta):
             )
         return flags
 
-    def _check_message_formats(self, message, *, flags):
+    def _check_message_formats(self, ctx, message, *, flags):
         if 'c-format' not in flags:
             return
-        # TODO: Check also msgid/msgid_plural.
-        if 'fuzzy' in flags:
-            return
-        strings = [message.msgstr] + sorted(message.msgstr_plural.values())
+        strings = [message.msgid, message.msgid_plural]
+        if not ctx.is_template:
+            for s in strings:
+                try:
+                    strformat_c.FormatString(s)
+                except strformat_c.FormatError:
+                    # If msgid isn't even a valid format string, then
+                    # reporting errors against msgstr is not worth the trouble.
+                    return
+            strings = []
+        fuzzy = 'fuzzy' in flags
+        if (not fuzzy) and (ctx.encoding is not None):
+            strings += [message.msgstr]
+            strings += sorted(message.msgstr_plural.values())
         prefix = message_repr(message, template='{}:')
         for s in strings:
             fmt = None

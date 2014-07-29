@@ -1,4 +1,4 @@
-# E: c-format-string-error msgid 'A quick brown %hs jumps over the lazy dog.': invalid length modifier '%hs'
+# E: c-format-string-error msgid 'A quick brown %s jumps over the lazy dog.': invalid length modifier '%hs'
 
 msgid ""
 msgstr ""
@@ -14,5 +14,5 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "A quick brown %hs jumps over the lazy dog."
+msgid "A quick brown %s jumps over the lazy dog."
 msgstr "Sic fugiens, %hs, zelotypos, quam Karus haberis."
