@@ -150,4 +150,6 @@ Test-case:
 
  * http://sources.debian.net/src/evolution/3.4.4-3/shell/main.c#L579
 
+Check for the ``I`` C format string flag in msgid.
+
 .. vim:ft=rst
