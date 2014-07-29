@@ -99,7 +99,7 @@ references =
 severity = serious
 certainty = possible
 description =
- The C format string could not be parsed.
+ A C format string could not be parsed.
 references =
  printf(3)
 
