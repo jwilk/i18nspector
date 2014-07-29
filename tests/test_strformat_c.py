@@ -385,6 +385,8 @@ class test_width:
                 M.FormatString(s)
         t('%1$*s')
         t('%*1$s')
+        t('%s%1$*2$s')
+        t('%1$*2$s%s')
 
 class test_precision:
 
@@ -470,6 +472,8 @@ class test_precision:
                 M.FormatString(s)
         t('%1$.*f')
         t('%.*1$f')
+        t('%f%2$.*1$f')
+        t('%2$.*1$f%f')
 
 class test_type_compatibility:
 
@@ -491,6 +495,15 @@ class test_type_compatibility:
         t('%1$d%1$u')
         t('%1$d%1$s')
 
-# TODO: index out of range for unnumbered arguments
+def test_too_many_conversions():
+    def t(s):
+        with assert_raises(M.ArgumentRangeError):
+            fmt = M.FormatString(s)
+    s = M.NL_ARGMAX * '%d'
+    fmt = M.FormatString(s)
+    assert_equal(len(fmt), M.NL_ARGMAX)
+    t(s + '%f')
+    t(s + '%*f')
+    t(s + '%.*f')
 
 # vim:ts=4 sw=4 et

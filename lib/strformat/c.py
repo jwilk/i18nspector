@@ -204,6 +204,8 @@ class FormatString(object):
                 self._next_arg_index = None
             else:
                 raise IndexError
+        if n > NL_ARGMAX:
+            raise OverflowError(n)
         self._argument_map[n] += [value]
 
     def warn(self, exc_type, *args, **kwargs):
@@ -335,7 +337,12 @@ class Conversion(object):
                 varwidth_index = int(varwidth_index.rstrip('$'))
                 if not (0 < varwidth_index <= NL_ARGMAX):
                     raise ArgumentRangeError(s, varwidth_index)
-            parent.add_argument(varwidth_index, VariableWidth(self))
+            try:
+                parent.add_argument(varwidth_index, VariableWidth(self))
+            except IndexError:
+                raise ArgumentNumberingMixture(s)
+            except OverflowError as exc:
+                raise ArgumentRangeError(s, '{}$'.format(exc))
             width = ...
         if width is not None:
             if conversion in '%n':
@@ -352,7 +359,12 @@ class Conversion(object):
                 varprec_index = int(varprec_index.rstrip('$'))
                 if not (0 < varprec_index <= NL_ARGMAX):
                     raise ArgumentRangeError(s, varprec_index)
-            parent.add_argument(varprec_index, VariablePrecision(self))
+            try:
+                parent.add_argument(varprec_index, VariablePrecision(self))
+            except IndexError:
+                raise ArgumentNumberingMixture(s)
+            except OverflowError as exc:
+                raise ArgumentRangeError(s, '{}$'.format(exc))
             precision = ...
         if precision is not None:
             if conversion in i.int_cvt + i.float_cvt + i.str_cvt:
@@ -384,5 +396,7 @@ class Conversion(object):
                 parent.add_argument(index, self)
             except IndexError:
                 raise ArgumentNumberingMixture(s)
+            except OverflowError as exc:
+                raise ArgumentRangeError(s, '{}$'.format(exc))
 
 # vim:ts=4 sw=4 et
