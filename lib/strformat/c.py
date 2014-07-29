@@ -89,7 +89,7 @@ class FormatError(Exception):
     message = 'invalid conversion specification'
 
 class NonStandardConversion(FormatError):
-    message = 'deprecated conversion specifier'
+    message = 'non-standard conversion specifier'
 
 # errors in argument indexing:
 
@@ -114,7 +114,7 @@ class LengthError(FormatError):
     message = 'invalid length modifier'
 
 class NonStandardLength(FormatError):
-    message = 'non-portable length modifier'
+    message = 'non-standard length modifier'
 
 # errors in flag characters:
 
