@@ -110,8 +110,8 @@ description =
  A C format string uses a conversion specified or length modifier,
  for which a more portable replacement exists:
  .
- * For integer conversions, use the ``ll`` length modifier instead of ``L`` or ``q``.
- * For floating-point conversions, don't use the ``l`` length modifier.
+ * For integer conversions (``%d``, ``%i``, ``%o``, ``%u``, ``%x``, and ``%X``), use the ``ll`` length modifier instead of ``L`` or ``q``.
+ * For floating-point conversions (``%a``, ``%A``, ``%e``, ``%E``, ``%f``, ``%F``, ``%g``, and ``%G``), don't use the ``l`` length modifier.
  * Use the ``z`` length modifier instead of ``Z``.
  * Use ``%lc`` instead of ``%C``.
  * Use ``%ls`` instead of ``%S``.
@@ -127,7 +127,7 @@ description =
  .
  * The ``+`` flag overrides the *space* flag.
  * The ``-`` flag overrides the ``0`` flag.
- * If a precision is given, the ``0`` flag has no effect on numeric conversions (``d``, ``i``, ``o``, ``u``, ``x``, and ``X``).
+ * If a precision is given, the ``0`` flag has no effect on integer conversions (``%d``, ``%i``, ``%o``, ``%u``, ``%x``, and ``%X``).
 references =
  printf(3)
 
