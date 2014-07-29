@@ -89,7 +89,7 @@ class FormatError(Exception):
     message = 'invalid conversion specification'
 
 class NonStandardConversion(FormatError):
-    message = 'non-standard conversion specifier'
+    message = 'non-standard conversion specifier or length modifier'
 
 # errors in argument indexing:
 
@@ -112,9 +112,6 @@ class ArgumentNumberingMixture(FormatError):
 
 class LengthError(FormatError):
     message = 'invalid length modifier'
-
-class NonStandardLength(FormatError):
-    message = 'non-standard length modifier'
 
 # errors in flag characters:
 
@@ -249,7 +246,10 @@ class Conversion(object):
         elif conversion in i.int_cvt + 'n':
             plength = i.portable_lengths.get(length, length)
             if plength != length:
-                parent.warn(NonStandardLength, length, plength)
+                parent.warn(NonStandardConversion, s,
+                    '%' + length + conversion,
+                    '%' + plength + conversion
+                )
             tp = i.int_types.get(plength or '')
             assert tp is not None
             tp = tp[conversion in i.uint_cvt]
@@ -262,7 +262,10 @@ class Conversion(object):
                 # XXX C99 says that the “l” length is no-op for floating-point
                 # conversions, but this is not documented in the printf(3)
                 # manpage.
-                parent.warn(NonStandardLength, 'l', '')
+                parent.warn(NonStandardConversion, s,
+                    '%l' + conversion,
+                    '%' + conversion
+                )
                 tp = 'double'
             elif length == 'L':
                 tp = 'long double'
@@ -273,7 +276,7 @@ class Conversion(object):
                 tp = 'wint_t'
         elif conversion == 'C':
             if length is None:
-                parent.warn(NonStandardConversion, '%C', '%lc')
+                parent.warn(NonStandardConversion, s, '%C', '%lc')
                 tp = 'wint_t'
         elif conversion == 's':
             if length is None:
@@ -282,7 +285,7 @@ class Conversion(object):
                 tp = 'const wchar_t *'
         elif conversion == 'S':
             if length is None:
-                parent.warn(NonStandardConversion, '%S', '%ls')
+                parent.warn(NonStandardConversion, s, '%S', '%ls')
                 tp = 'const wchar_t *'
         elif conversion == 'p':
             if length is None:

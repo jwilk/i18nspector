@@ -949,7 +949,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                         prefix,
                         *args
                     )
-                except strformat_c.FormatError as exc:
+                except strformat_c.NonStandardConversion as exc:
                     # TODO: DeprecatedConversion
                     # TODO: DeprecatedLength
                     pass

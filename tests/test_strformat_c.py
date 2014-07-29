@@ -116,11 +116,11 @@ class test_types:
             yield t, ('%' + c), 'int'
             yield t, ('%l' + c), 'long int'
             yield t, ('%ll' + c), 'long long int'
-            yield t, ('%L' + c), 'long long int', M.NonStandardLength
-            yield t, ('%q' + c), 'long long int', M.NonStandardLength
+            yield t, ('%L' + c), 'long long int', M.NonStandardConversion
+            yield t, ('%q' + c), 'long long int', M.NonStandardConversion
             yield t, ('%j' + c), 'intmax_t'
             yield t, ('%z' + c), 'ssize_t'
-            yield t, ('%Z' + c), 'ssize_t', M.NonStandardLength
+            yield t, ('%Z' + c), 'ssize_t', M.NonStandardConversion
             yield t, ('%t' + c), 'ptrdiff_t'
         for c in 'ouxX':
             suffix = ''
@@ -129,18 +129,18 @@ class test_types:
             yield t, ('%' + c), 'unsigned int'
             yield t, ('%l' + c), 'unsigned long int'
             yield t, ('%ll' + c), 'unsigned long long int'
-            yield t, ('%L' + c), 'unsigned long long int', M.NonStandardLength
-            yield t, ('%q' + c), 'unsigned long long int', M.NonStandardLength
+            yield t, ('%L' + c), 'unsigned long long int', M.NonStandardConversion
+            yield t, ('%q' + c), 'unsigned long long int', M.NonStandardConversion
             yield t, ('%j' + c), 'uintmax_t'
             yield t, ('%z' + c), 'size_t'
-            yield t, ('%Z' + c), 'size_t', M.NonStandardLength
+            yield t, ('%Z' + c), 'size_t', M.NonStandardConversion
             yield t, ('%t' + c), '[unsigned ptrdiff_t]'
 
     def test_double(self):
         t = self.t
         for c in 'aefgAEFG':
             yield t, ('%' + c), 'double'
-            yield t, ('%l' + c), 'double', M.NonStandardLength
+            yield t, ('%l' + c), 'double', M.NonStandardConversion
             yield t, ('%L' + c), 'long double'
 
     def test_char(self):
