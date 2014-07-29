@@ -356,7 +356,7 @@ class Conversion(object):
                 pass
             else:
                 raise PrecisionError(s)
-            if '0' in flags:
+            if (conversion in i.int_cvt) and ('0' in flags):
                 parent.warn(RedundantFlag, s, '0')
         # index:
         index = match.group('index')

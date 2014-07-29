@@ -395,6 +395,23 @@ class test_precision:
         for c in 'diouxXaAeEfFgGsS':
             yield t, ('%.1' + c)
 
+    def test_redundant_0(self):
+        def t(s):
+            fmt = M.FormatString(s)
+            assert_equal(len(fmt), 1)
+            [warning] = fmt.warnings
+            assert_is_instance(warning, M.RedundantFlag)
+        for c in 'diouxX':
+            yield t, ('%0.1' + c)
+
+    def test_non_redundant_0(self):
+        def t(s):
+            fmt = M.FormatString(s)
+            assert_equal(len(fmt), 1)
+            assert_sequence_equal(fmt.warnings, [])
+        for c in 'aAeEfFgG':
+            yield t, ('%0.1' + c)
+
     def test_unexpected(self):
         def t(s):
             with assert_raises(M.PrecisionError):
