@@ -3,11 +3,12 @@ i18nspector (0.15) UNRELEASED; urgency=low
   * Summary of tag changes:
     + Added:
       - c-format-string-error
+      - c-format-string-redundant-flag
 
   * Check for errors in C format strings.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Jul 2014 23:03:57 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 29 Jul 2014 09:22:52 +0200
 
 i18nspector (0.14) unstable; urgency=low
 

@@ -901,8 +901,9 @@ class Checker(object, metaclass=abc.ABCMeta):
         strings = [message.msgstr] + sorted(message.msgstr_plural.values())
         prefix = message_repr(message, template='{}:')
         for s in strings:
+            fmt = None
             try:
-                strformat_c.FormatString(s)
+                fmt = strformat_c.FormatString(s)
             except strformat_c.MissingArgument as exc:
                 self.tag('c-format-string-error',
                     prefix,
@@ -929,6 +930,29 @@ class Checker(object, metaclass=abc.ABCMeta):
                     tags.safestr(exc.message),
                     *exc.args[:1]
                 )
+            if fmt is None:
+                continue
+            for warn in fmt.warnings:
+                try:
+                    raise warn
+                except strformat_c.RedundantFlag as exc:
+                    if len(exc.args) == 2:
+                        [s, *args] = exc.args
+                    else:
+                        [s, a1, a2] = exc.args
+                        if a1 == a2:
+                            args = ['duplicate', a1]
+                        else:
+                            args = [a1, tags.safe_format('overridden by {}', a2)]
+                    args += ['in', s]
+                    self.tag('c-format-string-redundant-flag',
+                        prefix,
+                        *args
+                    )
+                except strformat_c.FormatError as exc:
+                    # TODO: DeprecatedConversion
+                    # TODO: DeprecatedLength
+                    pass
 
 __all__ = ['Checker']
 

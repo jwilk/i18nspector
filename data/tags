@@ -103,6 +103,19 @@ description =
 references =
  printf(3)
 
+[c-format-string-redundant-flag]
+severity = pedantic
+certainty = possible
+description =
+ A C format string includes a redundant character flag.
+ Either it's a duplicate, or it has no effect:
+ .
+ * The ``+`` flag overrides the *space* flag.
+ * The ``-`` flag overrides the ``0`` flag.
+ * If a precision is given, the ``0`` flag has no effect on numeric conversions (``d``, ``i``, ``o``, ``u``, ``x``, and ``X``).
+references =
+ printf(3)
+
 [codomain-error-in-plural-forms]
 severity = serious
 certainty = possible
