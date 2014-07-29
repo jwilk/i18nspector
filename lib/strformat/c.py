@@ -88,8 +88,8 @@ NL_ARGMAX = 4096  # on GNU/Linux
 class FormatError(Exception):
     message = 'invalid conversion specification'
 
-class NonStandardConversion(FormatError):
-    message = 'non-standard conversion specifier or length modifier'
+class NonPortableConversion(FormatError):
+    message = 'non-portable conversion specifier or length modifier'
 
 # errors in argument indexing:
 
@@ -246,7 +246,7 @@ class Conversion(object):
         elif conversion in i.int_cvt + 'n':
             plength = i.portable_lengths.get(length, length)
             if plength != length:
-                parent.warn(NonStandardConversion, s,
+                parent.warn(NonPortableConversion, s,
                     '%' + length + conversion,
                     '%' + plength + conversion
                 )
@@ -262,7 +262,7 @@ class Conversion(object):
                 # XXX C99 says that the “l” length is no-op for floating-point
                 # conversions, but this is not documented in the printf(3)
                 # manpage.
-                parent.warn(NonStandardConversion, s,
+                parent.warn(NonPortableConversion, s,
                     '%l' + conversion,
                     '%' + conversion
                 )
@@ -276,7 +276,7 @@ class Conversion(object):
                 tp = 'wint_t'
         elif conversion == 'C':
             if length is None:
-                parent.warn(NonStandardConversion, s, '%C', '%lc')
+                parent.warn(NonPortableConversion, s, '%C', '%lc')
                 tp = 'wint_t'
         elif conversion == 's':
             if length is None:
@@ -285,7 +285,7 @@ class Conversion(object):
                 tp = 'const wchar_t *'
         elif conversion == 'S':
             if length is None:
-                parent.warn(NonStandardConversion, s, '%S', '%ls')
+                parent.warn(NonPortableConversion, s, '%S', '%ls')
                 tp = 'const wchar_t *'
         elif conversion == 'p':
             if length is None:

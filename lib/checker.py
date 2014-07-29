@@ -949,10 +949,12 @@ class Checker(object, metaclass=abc.ABCMeta):
                         prefix,
                         *args
                     )
-                except strformat_c.NonStandardConversion as exc:
-                    # TODO: DeprecatedConversion
-                    # TODO: DeprecatedLength
-                    pass
+                except strformat_c.NonPortableConversion as exc:
+                    [s, c1, c2] = exc.args
+                    self.tag('c-format-string-non-portable-conversion',
+                        prefix,
+                        c1, '=>', c2, 'in', s,
+                    )
 
 __all__ = ['Checker']
 

@@ -1,0 +1,19 @@
+# P: c-format-string-non-portable-conversion msgid '%zd%% of quick brown foxes jump over the lazy %S.': '%S' => '%ls' in '%2$S'
+# P: c-format-string-non-portable-conversion msgid '%zd%% of quick brown foxes jump over the lazy %S.': '%Zd' => '%zd' in '%1$Zd'
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Gizmo Enhancer 1.0\n"
+"Report-Msgid-Bugs-To: gizmoenhancer@jwilk.net\n"
+"POT-Creation-Date: 2012-11-01 14:42+0100\n"
+"PO-Revision-Date: 2012-11-01 14:42+0100\n"
+"Last-Translator: Jakub Wilk <jwilk@jwilk.net>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%zd%% of quick brown foxes jump over the lazy %S."
+msgstr "Mężny bądź, chroń %2$S twój i %1$Zd flag."

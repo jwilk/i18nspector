@@ -103,6 +103,21 @@ description =
 references =
  printf(3)
 
+[c-format-string-non-portable-conversion]
+severity = pedantic
+certainty = possible
+description =
+ A C format string uses a conversion specified or length modifier,
+ for which a more portable replacement exists:
+ .
+ * For integer conversions, use the ``ll`` length modifier instead of ``L`` or ``q``.
+ * For floating-point conversions, don't use the ``l`` length modifier.
+ * Use the ``z`` length modifier instead of ``Z``.
+ * Use ``%lc`` instead of ``%C``.
+ * Use ``%ls`` instead of ``%S``.
+references =
+ printf(3)
+
 [c-format-string-redundant-flag]
 severity = pedantic
 certainty = possible
