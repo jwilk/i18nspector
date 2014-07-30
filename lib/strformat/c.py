@@ -76,7 +76,7 @@ class _info:
         for key, values in [map(str.strip, line.split('='))]
     )
 
-    portable_lengths = dict(
+    portable_int_lengths = dict(
         L='ll',  # XXX not documented in the printf(3) manpage
         q='ll',
         Z='z',
@@ -246,7 +246,7 @@ class Conversion(object):
                 tp += c99length.lower()
             tp += '_t'
         elif conversion in i.int_cvt + 'n':
-            plength = i.portable_lengths.get(length, length)
+            plength = i.portable_int_lengths.get(length, length)
             if plength != length:
                 parent.warn(NonPortableConversion, s,
                     '%' + length + conversion,
