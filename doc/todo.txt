@@ -44,6 +44,10 @@ Guess language from ``Language-Team``.
 
  * https://translationproject.org/team/
 
+Guess language from the filename even when it includes encoding. Test-cases:
+
+ * http://sources.debian.net/src/vim/2:7.3.547-7/src/po
+
 Add ``characters=``\ … for more languages. Document how the current values were
 obtained.
 
