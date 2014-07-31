@@ -220,6 +220,7 @@ class FormatString(object):
 class Conversion(object):
 
     type = None
+    integer = None
 
     def __init__(self, parent, match):
         i = _info
@@ -230,6 +231,7 @@ class Conversion(object):
         length = match.group('length')
         conversion = match.group('conversion')
         tp = None
+        self.integer = False
         if c99conversion is not None:
             assert c99length is not None
             if c99conversion in 'di':
@@ -245,6 +247,7 @@ class Conversion(object):
             else:
                 tp += c99length.lower()
             tp += '_t'
+            self.integer = True
         elif conversion in i.int_cvt + 'n':
             plength = i.portable_int_lengths.get(length, length)
             if plength != length:
@@ -257,6 +260,8 @@ class Conversion(object):
             tp = tp[conversion in i.uint_cvt]
             if conversion == 'n':
                 tp += ' *'
+            else:
+                self.integer = True
         elif conversion in i.float_cvt:
             if length is None:
                 tp = 'double'

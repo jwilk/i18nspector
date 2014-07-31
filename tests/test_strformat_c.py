@@ -88,7 +88,7 @@ def test_text():
 
 class test_types:
 
-    def t(self, s, type, warn_type=None):
+    def t(self, s, type, warn_type=None, integer=False):
         fmt = M.FormatString(s)
         [conv] = fmt
         assert_is_instance(conv, M.Conversion)
@@ -103,10 +103,12 @@ class test_types:
         else:
             [warning] = fmt.warnings
             assert_is_instance(warning, warn_type)
+        assert_equal(conv.integer, integer)
 
     def test_integer(self):
         def t(s, tp, warn_type=None):
-            self.t(s, tp + suffix, warn_type)
+            integer = not suffix
+            self.t(s, tp + suffix, warn_type, integer)
         for c in 'din':
             suffix = ''
             if c == 'n':
@@ -159,9 +161,11 @@ class test_types:
         yield t, '%%', 'void'
 
     def test_c99_macros(self):
+        def _t(s, tp):
+            return self.t(s, tp, integer=True)
         def t(s, tp):
             return (
-                self.t,
+                _t,
                 '%<{macro}>'.format(macro=s.format(c=c, n=n)),
                 ('u' if unsigned else '') + tp.format(n=n)
             )
