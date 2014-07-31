@@ -314,6 +314,9 @@ class Conversion(object):
             if count != 1:
                 parent.warn(RedundantFlag, s, flag, flag)
             if conversion == 'n':
+                # C99 says that the “n” conversion cannot include any flags,
+                # but this is not documented in the printf(3) manpage.
+                # https://bugs.debian.org/756602
                 raise FlagError(s, flag)
             if flag == '#':
                 if conversion not in i.oct_cvt + i.hex_cvt + i.float_cvt:
@@ -352,6 +355,9 @@ class Conversion(object):
             width = ...
         if width is not None:
             if conversion in '%n':
+                # C99 says that the “n” conversion cannot include a field width,
+                # but this is not documented in the printf(3) manpage.
+                # https://bugs.debian.org/756602
                 raise WidthError(s)
         # precision:
         precision = match.group('precision')
@@ -376,6 +382,9 @@ class Conversion(object):
             if conversion in i.int_cvt + i.float_cvt + i.str_cvt:
                 pass
             else:
+                # XXX C99 says that precision for the other conversion is
+                # undefined behavior, but this is not documented in the
+                # printf(3) manpage.
                 raise PrecisionError(s)
             if (conversion in i.int_cvt) and ('0' in flags):
                 parent.warn(RedundantFlag, s, '0')
