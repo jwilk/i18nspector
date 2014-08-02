@@ -156,4 +156,9 @@ Test-case:
 
 Check for the ``I`` C format string flag in msgid.
 
+Distinguish between missing ``msgid_plural`` and ``msgid_plural`` being empty
+string.
+
+Check for ``msgstr_plural`` without ``msgstr[N]``, and other way round.
+
 .. vim:ft=rst
