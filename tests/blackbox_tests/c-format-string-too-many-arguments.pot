@@ -1,5 +1,6 @@
 # E: c-format-string-too-many-arguments msgid '%d quick brown fox jumps over the lazy dog.': 1 (msgid) > 0 (msgid_plural)
 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"

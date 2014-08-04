@@ -1,5 +1,6 @@
 # E: inconsistent-leading-newlines msgid '\n%d quick brown fox jumps over the lazy dog.'
 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"

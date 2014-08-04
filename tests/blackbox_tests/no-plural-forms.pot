@@ -1,5 +1,6 @@
 # W: no-plural-forms-header-field 'nplurals=INTEGER; plural=EXPRESSION;'
 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"

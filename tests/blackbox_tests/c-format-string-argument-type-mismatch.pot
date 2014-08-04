@@ -1,5 +1,6 @@
 # E: c-format-string-argument-type-mismatch int (msgid) != long int (msgid_plural)
 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"
