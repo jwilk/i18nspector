@@ -2,14 +2,16 @@ i18nspector (0.15) UNRELEASED; urgency=low
 
   * Summary of tag changes:
     + Added:
+      - c-format-string-argument-type-mismatch
       - c-format-string-error
       - c-format-string-non-portable-conversion
       - c-format-string-redundant-flag
+      - c-format-string-too-many-arguments
 
   * Check for errors in C format strings.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 29 Jul 2014 20:23:47 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Aug 2014 12:42:19 +0200
 
 i18nspector (0.14) unstable; urgency=low
 

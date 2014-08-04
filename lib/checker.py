@@ -895,21 +895,52 @@ class Checker(object, metaclass=abc.ABCMeta):
     def _check_message_formats(self, ctx, message, *, flags):
         if 'c-format' not in flags:
             return
-        strings = [message.msgid, message.msgid_plural]
-        if not ctx.is_template:
-            for s in strings:
-                try:
-                    strformat_c.FormatString(s)
-                except strformat_c.FormatError:
-                    # If msgid isn't even a valid format string, then
-                    # reporting errors against msgstr is not worth the trouble.
+        msgids = [message.msgid]
+        if message.msgid_plural:
+            msgids += [message.msgid_plural]
+        msgid_fmts = []
+        for s in msgids:
+            try:
+                fmt = strformat_c.FormatString(s)
+            except strformat_c.FormatError:
+                # If msgid isn't even a valid format string, then
+                # reporting errors against msgstr is not worth the trouble.
+                if not ctx.is_template:
                     return
+            else:
+                msgid_fmts += [fmt]
+        prefix = message_repr(message, template='{}:')
+        broken_msgid_types = False
+        if len(msgid_fmts) == 2:
+            msgid_args = [fmt.arguments for fmt in msgid_fmts]
+            if len(msgid_args[0]) > len(msgid_args[1]):
+                # Normally, msgid should not have more arguments than msgid_plural.
+                # OTOH, msgid having less arguments than msgid_plural is quite
+                # common.
+                if ctx.is_template:
+                    self.tag('c-format-string-too-many-arguments', prefix,
+                        len(msgid_args[0]), tags.safestr('(msgid)'), '>',
+                        len(msgid_args[1]), tags.safestr('(msgid_plural)')
+                    )
+                broken_msgid_types = True
+            for args1, args2 in zip(*msgid_args):
+                arg1 = args1[0]
+                arg2 = args2[0]
+                if ctx.is_template:
+                    if arg1.type != arg2.type:
+                        self.tag('c-format-string-argument-type-mismatch',
+                            tags.safestr(arg1.type), tags.safestr('(msgid)'), '!=',
+                            tags.safestr(arg2.type), tags.safestr('(msgid_plural)')
+                        )
+                        broken_msgid_types = True
+        if ctx.is_template:
+            strings = list(msgids)
+        else:
             strings = []
         fuzzy = 'fuzzy' in flags
         if (not fuzzy) and (ctx.encoding is not None):
             strings += [message.msgstr]
             strings += sorted(message.msgstr_plural.values())
-        prefix = message_repr(message, template='{}:')
         for s in strings:
             fmt = None
             try:
