@@ -75,6 +75,10 @@ class _info:
         for line in int_types.strip().splitlines()
         for key, values in [map(str.strip, line.split('='))]
     )
+    # FIXME: The printf(3) manpage says that the type for signed integer with
+    # “z“ size is ssize_t.
+    # But SUSv3 says it's a signed integer type corresponding to size_t,
+    # which is not necessarily the same thing as ssize_t.
 
     # https://www.gnu.org/software/libc/manual/html_node/Integer-Conversions.html
     portable_int_lengths = dict(
