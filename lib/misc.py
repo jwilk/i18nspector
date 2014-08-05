@@ -39,6 +39,13 @@ def check_sorted(iterable, exception=DataIntegrityError):
     if not is_sorted(iterable):
         raise exception()
 
+def sorted_vk(d):
+    '''
+    iterate over d.values() in the key order
+    '''
+    for k, v in sorted(d.items()):
+        yield v
+
 class OSRelease(object):
 
     '''

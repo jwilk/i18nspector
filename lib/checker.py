@@ -755,7 +755,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             strings = [message.msgid_plural]
             if (not fuzzy) and (ctx.encoding is not None):
                 strings += [message.msgstr]
-                strings += message.msgstr_plural.values()
+                strings += message.msgstr_plural.values()  # the order doesn't matter here
             strings = [s for s in strings if s != '']
             for s in strings:
                 if s.startswith('\n') != leading_lf:
@@ -771,7 +771,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                 set(find_unusual_characters(message.msgid)) |
                 set(find_unusual_characters(message.msgid_plural))
             )
-            strings = [message.msgstr] + sorted(message.msgstr_plural.values())
+            strings = [message.msgstr]
+            strings += misc.sorted_vk(message.msgstr_plural)
             conflict_marker = None
             for msgstr in strings:
                 msgstr_uc = set(find_unusual_characters(msgstr))
@@ -939,7 +940,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         fuzzy = 'fuzzy' in flags
         if (not fuzzy) and (ctx.encoding is not None):
             strings += [message.msgstr]
-            strings += sorted(message.msgstr_plural.values())
+            strings += misc.sorted_vk(message.msgstr_plural)
         for s in strings:
             self._check_c_format_string(message, s)
 

@@ -68,6 +68,14 @@ class test_check_sorted:
         with assert_raises(M.DataIntegrityError):
             M.check_sorted(iterable)
 
+def test_sorted_vk():
+    lst = ['eggs', 'spam', 'ham']
+    d = dict(enumerate(lst))
+    assert_equal(
+        lst,
+        list(M.sorted_vk(d))
+    )
+
 class test_os_release:
 
     def t(self, path, **like):
