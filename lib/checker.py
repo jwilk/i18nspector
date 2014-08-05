@@ -348,6 +348,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             if message.msgid_plural:
                 has_plurals = True
                 if not message.translated():
+                    # FIXME: translated() is not reliable.
                     continue
                 expected_nplurals[len(message.msgstr_plural)] = message
                 if len(expected_nplurals) > 1:
