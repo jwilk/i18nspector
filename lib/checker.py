@@ -900,14 +900,15 @@ class Checker(object, metaclass=abc.ABCMeta):
             msgids += [message.msgid_plural]
         msgid_fmts = []
         for s in msgids:
-            try:
-                fmt = strformat_c.FormatString(s)
-            except strformat_c.FormatError:
-                # If msgid isn't even a valid format string, then
-                # reporting errors against msgstr is not worth the trouble.
-                if not ctx.is_template:
-                    return
+            if ctx.is_template:
+                self._check_c_format_string(message, s)
             else:
+                try:
+                    fmt = strformat_c.FormatString(s)
+                except strformat_c.FormatError:
+                    # If msgid isn't even a valid format string, then
+                    # reporting errors against msgstr is not worth the trouble.
+                    return
                 msgid_fmts += [fmt]
         prefix = message_repr(message, template='{}:')
         broken_msgid_types = False
@@ -933,69 +934,71 @@ class Checker(object, metaclass=abc.ABCMeta):
                             tags.safestr(arg2.type), tags.safestr('(msgid_plural)')
                         )
                         broken_msgid_types = True
-        if ctx.is_template:
-            strings = list(msgids)
-        else:
-            strings = []
+        strings = []
         fuzzy = 'fuzzy' in flags
         if (not fuzzy) and (ctx.encoding is not None):
             strings += [message.msgstr]
             strings += sorted(message.msgstr_plural.values())
         for s in strings:
-            fmt = None
+            self._check_c_format_string(message, s)
+
+    def _check_c_format_string(self, message, s):
+        prefix = message_repr(message, template='{}:')
+        fmt = None
+        try:
+            fmt = strformat_c.FormatString(s)
+        except strformat_c.MissingArgument as exc:
+            self.tag('c-format-string-error',
+                prefix,
+                tags.safestr(exc.message),
+                tags.safestr('{1}$'.format(*exc.args)),
+            )
+        except strformat_c.ArgumentTypeMismatch as exc:
+            self.tag('c-format-string-error',
+                prefix,
+                tags.safestr(exc.message),
+                tags.safestr('{1}$'.format(*exc.args)),
+                tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
+            )
+        except strformat_c.FlagError as exc:
+            [conv, flag] = exc.args
+            self.tag('c-format-string-error',
+                prefix,
+                tags.safestr(exc.message),
+                flag, tags.safestr('in'), conv
+            )
+        except strformat_c.FormatError as exc:
+            self.tag('c-format-string-error',
+                prefix,
+                tags.safestr(exc.message),
+                *exc.args[:1]
+            )
+        if fmt is None:
+            return
+        for warn in fmt.warnings:
             try:
-                fmt = strformat_c.FormatString(s)
-            except strformat_c.MissingArgument as exc:
-                self.tag('c-format-string-error',
-                    prefix,
-                    tags.safestr(exc.message),
-                    tags.safestr('{1}$'.format(*exc.args)),
-                )
-            except strformat_c.ArgumentTypeMismatch as exc:
-                self.tag('c-format-string-error',
-                    prefix,
-                    tags.safestr(exc.message),
-                    tags.safestr('{1}$'.format(*exc.args)),
-                    tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
-                )
-            except strformat_c.FlagError as exc:
-                [conv, flag] = exc.args
-                self.tag('c-format-string-error',
-                    prefix,
-                    tags.safestr(exc.message),
-                    flag, tags.safestr('in'), conv
-                )
-            except strformat_c.FormatError as exc:
-                self.tag('c-format-string-error',
-                    prefix,
-                    tags.safestr(exc.message),
-                    *exc.args[:1]
-                )
-            if fmt is None:
-                continue
-            for warn in fmt.warnings:
-                try:
-                    raise warn
-                except strformat_c.RedundantFlag as exc:
-                    if len(exc.args) == 2:
-                        [s, *args] = exc.args
+                raise warn
+            except strformat_c.RedundantFlag as exc:
+                if len(exc.args) == 2:
+                    [s, *args] = exc.args
+                else:
+                    [s, a1, a2] = exc.args
+                    if a1 == a2:
+                        args = ['duplicate', a1]
                     else:
-                        [s, a1, a2] = exc.args
-                        if a1 == a2:
-                            args = ['duplicate', a1]
-                        else:
-                            args = [a1, tags.safe_format('overridden by {}', a2)]
-                    args += ['in', s]
-                    self.tag('c-format-string-redundant-flag',
-                        prefix,
-                        *args
-                    )
-                except strformat_c.NonPortableConversion as exc:
-                    [s, c1, c2] = exc.args
-                    self.tag('c-format-string-non-portable-conversion',
-                        prefix,
-                        c1, '=>', c2, 'in', s,
-                    )
+                        args = [a1, tags.safe_format('overridden by {}', a2)]
+                args += ['in', s]
+                self.tag('c-format-string-redundant-flag',
+                    prefix,
+                    *args
+                )
+            except strformat_c.NonPortableConversion as exc:
+                [s, c1, c2] = exc.args
+                self.tag('c-format-string-non-portable-conversion',
+                    prefix,
+                    c1, '=>', c2, 'in', s,
+                )
+        return fmt
 
 __all__ = ['Checker']
 
