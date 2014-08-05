@@ -155,7 +155,7 @@ class Plugin(nose.plugins.Plugin):
         yield TestCase(path)
 
     def wantFunction(self, func):
-        # If the plugin is being used, test_file() is reduntant.
+        # If the plugin is being used, test_file() is redundant.
         # We can't just check whether "func is test_file", because some
         # versions of nose (at least 1.1.2) reload the module.
         if func.__name__ == 'test_file' and func.__module__ == test_file.__module__:
