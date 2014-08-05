@@ -1,4 +1,4 @@
-# E: c-format-string-argument-type-mismatch int (msgid) != long int (msgid_plural)
+# E: c-format-string-argument-type-mismatch msgid '%d quick brown fox jumps over the lazy dog.': int (msgid) != long int (msgid_plural)
 
 #, fuzzy
 msgid ""
