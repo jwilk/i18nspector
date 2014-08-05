@@ -901,7 +901,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         msgid_fmts = []
         for s in msgids:
             if ctx.is_template:
-                self._check_c_format_string(message, s)
+                fmt = self._check_c_format_string(message, s)
             else:
                 try:
                     fmt = strformat_c.FormatString(s)
@@ -909,6 +909,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     # If msgid isn't even a valid format string, then
                     # reporting errors against msgstr is not worth the trouble.
                     return
+            if fmt is not None:
                 msgid_fmts += [fmt]
         prefix = message_repr(message, template='{}:')
         broken_msgid_types = False
