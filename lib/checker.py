@@ -345,10 +345,9 @@ class Checker(object, metaclass=abc.ABCMeta):
         for message in ctx.file:
             if message.obsolete:
                 continue
-            if message.msgid_plural:
+            if message.msgid_plural is not None:
                 has_plurals = True
                 if not message.translated():
-                    # FIXME: translated() is not reliable.
                     continue
                 expected_nplurals[len(message.msgstr_plural)] = message
                 if len(expected_nplurals) > 1:
@@ -665,13 +664,14 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('empty-msgid-message-with-source-code-references',
                     *(':'.join((path, line)) for path, line in entry.occurrences)
                 )
-            if entry.msgid_plural or entry.msgstr_plural:
+            if entry.msgid_plural is not None:
                 self.tag('empty-msgid-message-with-plural-forms')
             try:
                 msgstr = entry.msgstr_plural['0']
                 # https://bitbucket.org/izi/polib/issue/49
             except LookupError:
                 msgstr = entry.msgstr_plural.get(0, entry.msgstr)
+                assert msgstr is not None
             for line in gettext.parse_header(msgstr):
                 if isinstance(line, dict):
                     [(key, value)] = line.items()
@@ -743,20 +743,21 @@ class Checker(object, metaclass=abc.ABCMeta):
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
+            has_msgstr = bool(message.msgstr)
+            has_msgstr_plural = any(message.msgstr_plural.values())
             if ctx.is_template:
-                has_translations = (
-                    message.msgstr or
-                    any(message.msgstr_plural.values())
-                )
-                if has_translations:
+                if has_msgstr or has_msgstr_plural:
                     self.tag('translation-in-template', message_repr(message))
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
-            strings = [message.msgid_plural]
+            strings = []
+            if message.msgid_plural is not None:
+                strings += [message.msgid_plural]
             if (not fuzzy) and (ctx.encoding is not None):
-                strings += [message.msgstr]
-                strings += message.msgstr_plural.values()  # the order doesn't matter here
-            strings = [s for s in strings if s != '']
+                if has_msgstr:
+                    strings += [message.msgstr]
+                if has_msgstr_plural:
+                    strings += message.msgstr_plural.values()  # the order doesn't matter here
             for s in strings:
                 if s.startswith('\n') != leading_lf:
                     self.tag('inconsistent-leading-newlines', message_repr(message))
@@ -769,10 +770,13 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             msgid_uc = (
                 set(find_unusual_characters(message.msgid)) |
-                set(find_unusual_characters(message.msgid_plural))
+                set(find_unusual_characters(message.msgid_plural or ''))
             )
-            strings = [message.msgstr]
-            strings += misc.sorted_vk(message.msgstr_plural)
+            strings = []
+            if has_msgstr:
+                strings += [message.msgstr]
+            if has_msgstr_plural:
+                strings += misc.sorted_vk(message.msgstr_plural)
             conflict_marker = None
             for msgstr in strings:
                 msgstr_uc = set(find_unusual_characters(msgstr))
@@ -814,7 +818,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 else:
                     wrap = new_wrap
             elif flag.startswith('range:'):
-                if not message.msgid_plural:
+                if message.msgid_plural is None:
                     self.tag('range-flag-without-plural-string')
                 match = re.match('([0-9]+)[.][.]([0-9]+)', flag[6:].strip(' \t\r\f\v'))
                 if match is not None:
@@ -896,7 +900,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         if 'c-format' not in message.flags:
             return
         msgids = [message.msgid]
-        if message.msgid_plural:
+        if message.msgid_plural is not None:
             msgids += [message.msgid_plural]
         msgid_fmts = {}
         valid_msgid_types = True
@@ -922,11 +926,15 @@ class Checker(object, metaclass=abc.ABCMeta):
                 'msgid', msgid_fmts[0],
                 silent=(not ctx.is_template)
             )
-        strings = []
         fuzzy = 'fuzzy' in message.flags
+        has_msgstr = bool(message.msgstr)
+        has_msgstr_plural = any(message.msgstr_plural.values())
+        strings = []
         if (not fuzzy) and (ctx.encoding is not None):
-            strings += [message.msgstr]
-            strings += misc.sorted_vk(message.msgstr_plural)
+            if has_msgstr:
+                strings += [message.msgstr]
+            if has_msgstr_plural:
+                strings += misc.sorted_vk(message.msgstr_plural)
         for s in strings:
             self._check_c_format_string(message, s)
 

@@ -191,4 +191,36 @@ def poentry_init_patch():
     original = polib.POEntry.__init__
     polib.POEntry.__init__ = init
 
+# polib._BaseEntry.__init__()
+# ===========================
+# Distinguish between empty and non-existent msgid_plural.
+# Distinguish between empty and non-existent msgstr.
+
+@register_patch
+def base_entry_init_patch():
+    def init(self, *args, **kwargs):
+        original(self, *args, **kwargs)
+        if 'msgid_plural' not in kwargs:
+            self.msgid_plural = None
+        if 'msgstr' not in kwargs:
+            self.msgstr = None
+    original = polib._BaseEntry.__init__
+    polib._BaseEntry.__init__ = init
+
+# polib.POEntry.translated()
+# ==========================
+
+@register_patch
+def poentry_translated_patch():
+    def translated(self):
+        if self.obsolete:
+            return False
+        if 'fuzzy' in self.flags:
+            return False
+        return (
+            self.msgstr or
+            any(self.msgstr_plural.values())
+        )
+    polib.POEntry.translated = translated
+
 # vim:ts=4 sw=4 et
