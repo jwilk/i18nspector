@@ -795,6 +795,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                         conflict_marker = conflict_marker.group(0)
                         self.tag('conflict-marker-in-translation', message_repr(message), conflict_marker)
                         break
+                if has_msgstr_plural and not all(message.msgstr_plural):
+                    self.tag('partially-translated-message', message_repr(message))
         if len(msgid_counter) == 0:
             possible_hidden_strings = False
             if isinstance(ctx.file, polib.MOFile):

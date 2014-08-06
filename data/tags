@@ -654,6 +654,12 @@ description =
  An input/output error or another operating system error occurred while
  checking this file.
 
+[partially-translated-message]
+severity = serious
+certainty = possible
+description =
+ Translation is missing for some plural forms of a message.
+
 [range-flag-without-plural-string]
 severity = normal
 certainty = certain
