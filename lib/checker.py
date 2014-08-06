@@ -738,9 +738,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             if is_header_entry(message):
                 continue
-            flags = self._check_message_flags(message)
-            fuzzy = 'fuzzy' in flags
-            self._check_message_formats(ctx, message, flags=flags)
+            self._check_message_flags(message)
+            fuzzy = 'fuzzy' in message.flags
+            self._check_message_formats(ctx, message)
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
@@ -892,10 +892,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                 possible_format_flags[fmt],
                 tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
             )
-        return flags
 
-    def _check_message_formats(self, ctx, message, *, flags):
-        if 'c-format' not in flags:
+    def _check_message_formats(self, ctx, message):
+        if 'c-format' not in message.flags:
             return
         msgids = [message.msgid]
         if message.msgid_plural:
@@ -925,7 +924,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 silent=(not ctx.is_template)
             )
         strings = []
-        fuzzy = 'fuzzy' in flags
+        fuzzy = 'fuzzy' in message.flags
         if (not fuzzy) and (ctx.encoding is not None):
             strings += [message.msgstr]
             strings += misc.sorted_vk(message.msgstr_plural)
