@@ -111,8 +111,8 @@ def pofile_find_patch():
 
 # polib.unescape()
 # ================
-# Work around an escape sequence decoding bug
-# <https://bitbucket.org/izi/polib/issue/31>.
+# Work around an escape sequence decoding bug.
+# https://bitbucket.org/izi/polib/issue/31
 
 _escapes_re = re.compile(r''' ( \\
 (?: [ntbrfva]
