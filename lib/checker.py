@@ -732,8 +732,7 @@ class Checker(object, metaclass=abc.ABCMeta):
     def check_messages(self, ctx):
         found_unusual_characters = set()
         msgid_counter = collections.Counter()
-        messages = [msg for msg in ctx.file if not is_header_entry(msg)]
-        for message in messages:
+        for message in ctx.file:
             if message.obsolete:
                 continue
             if is_header_entry(message):
