@@ -172,4 +172,23 @@ def detect_encoding_patch():
     original = polib.detect_encoding
     polib.detect_encoding = detect_encoding
 
+# polib.POEntry.__init__()
+# ========================
+# Fix flag splitting.
+# polib (<< 1.0.4) incorrectly requires that the flag-splitting comma is
+# followed by a space.
+# https://bitbucket.org/izi/polib/issue/46
+
+@register_patch
+def poentry_init_patch():
+    def init(self, *args, **kwargs):
+        original(self, *args, **kwargs)
+        self.flags = [
+            flag.strip(' \t\r\f\v')
+            for subflags in self.flags
+            for flag in subflags.flags.split(',')
+        ]
+    original = polib.POEntry.__init__
+    polib.POEntry.__init__ = init
+
 # vim:ts=4 sw=4 et

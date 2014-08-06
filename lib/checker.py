@@ -678,7 +678,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     metadata[key] += [value]
                 else:
                     strays += [line]
-            flags = collections.Counter(resplit_flags(entry.flags))
+            flags = collections.Counter(entry.flags)
             for flag, n in sorted(flags.items()):
                 if flag == 'fuzzy':
                     if not ctx.is_template:
@@ -798,7 +798,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('empty-file')
 
     def _check_message_flags(self, message):
-        flags = collections.Counter(resplit_flags(message.flags))
+        flags = collections.Counter(message.flags)
         wrap = None
         format_flags = collections.defaultdict(dict)
         for flag, n in sorted(flags.items()):
@@ -1020,16 +1020,6 @@ def is_header_entry(entry):
     return (
         entry.msgid == '' and
         entry.msgctxt is None
-    )
-
-def resplit_flags(flags):
-    # polib (<< 1.0.4) incorrectly requires that the flag splitting comma is
-    # followed by a space: https://bitbucket.org/izi/polib/issue/46
-    # Let's work around this bug.
-    return (
-        flag.strip(' \t\r\f\v')
-        for subflags in flags
-        for flag in subflags.split(',')
     )
 
 def message_repr(message, template='{}'):
