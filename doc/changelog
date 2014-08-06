@@ -9,9 +9,12 @@ i18nspector (0.15) UNRELEASED; urgency=low
       - c-format-string-too-many-arguments
 
   * Check for errors in C format strings.
+  * Check for inconsistent leading/trailing newlines in translations even when
+    encoding in broken.
+  * Check for conflict markers in translations even when encoding is broken.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Aug 2014 12:42:19 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 06 Aug 2014 13:46:48 +0200
 
 i18nspector (0.14) unstable; urgency=low
 

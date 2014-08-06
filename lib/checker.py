@@ -753,7 +753,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             strings = []
             if message.msgid_plural is not None:
                 strings += [message.msgid_plural]
-            if (not fuzzy) and (ctx.encoding is not None):
+            if not fuzzy:
                 if has_msgstr:
                     strings += [message.msgstr]
                 if has_msgstr_plural:
@@ -766,33 +766,33 @@ class Checker(object, metaclass=abc.ABCMeta):
                 if s.endswith('\n') != trailing_lf:
                     self.tag('inconsistent-trailing-newlines', message_repr(message))
                     break
-            if ctx.encoding is None:
-                continue
-            msgid_uc = (
-                set(find_unusual_characters(message.msgid)) |
-                set(find_unusual_characters(message.msgid_plural or ''))
-            )
             strings = []
             if has_msgstr:
                 strings += [message.msgstr]
             if has_msgstr_plural:
                 strings += misc.sorted_vk(message.msgstr_plural)
-            conflict_marker = None
-            for msgstr in strings:
-                msgstr_uc = set(find_unusual_characters(msgstr))
-                uc = msgstr_uc - msgid_uc - found_unusual_characters
-                if uc:
-                    names = ', '.join(
-                        'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
-                        for ch in sorted(uc)
-                    )
-                    self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
-                    found_unusual_characters |= uc
-                if (not fuzzy) and (conflict_marker is None):
+            if ctx.encoding is not None:
+                msgid_uc = (
+                    set(find_unusual_characters(message.msgid)) |
+                    set(find_unusual_characters(message.msgid_plural or ''))
+                )
+                for msgstr in strings:
+                    msgstr_uc = set(find_unusual_characters(msgstr))
+                    uc = msgstr_uc - msgid_uc - found_unusual_characters
+                    if uc:
+                        names = ', '.join(
+                            'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                            for ch in sorted(uc)
+                        )
+                        self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
+                        found_unusual_characters |= uc
+            if not fuzzy:
+                for msgstr in strings:
                     conflict_marker = gettext.search_for_conflict_marker(msgstr)
                     if conflict_marker is not None:
                         conflict_marker = conflict_marker.group(0)
                         self.tag('conflict-marker-in-translation', message_repr(message), conflict_marker)
+                        break
         if len(msgid_counter) == 0:
             possible_hidden_strings = False
             if isinstance(ctx.file, polib.MOFile):
