@@ -1,6 +1,6 @@
 # E: invalid-content-type 'application/x-publican; charset=UTF-8' => 'text/plain; charset=UTF-8'
-# W: invalid-date POT-Creation-Date: '2012-11-01T13:42' => '2012-11-01 13:42+0000'
-# W: invalid-date PO-Revision-Date: '2012-11-01T13:42' => '2012-11-01 13:42+0000'
+# W: invalid-date POT-Creation-Date: '2012-11-01T13:42' => '2012-11-01 13:42-0000'
+# W: invalid-date PO-Revision-Date: '2012-11-01T13:42' => '2012-11-01 13:42-0000'
 
 msgid ""
 msgstr ""
