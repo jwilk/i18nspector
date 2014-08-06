@@ -156,8 +156,6 @@ Test-case:
 
 Check for the ``I`` C format string flag in msgid.
 
-Check for partially-translated messages.
-
 Check for ``msgstr_plural`` without ``msgstr[N]``, and other way round.
 
 .. vim:ft=rst
