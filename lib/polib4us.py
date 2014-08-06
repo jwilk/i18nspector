@@ -172,8 +172,8 @@ def detect_encoding_patch():
     original = polib.detect_encoding
     polib.detect_encoding = detect_encoding
 
-# polib.POEntry.__init__()
-# ========================
+# polib.POEntry.flags
+# ===================
 # Fix flag splitting.
 # polib (<< 1.0.4) incorrectly requires that the flag-splitting comma is
 # followed by a space.
@@ -181,15 +181,15 @@ def detect_encoding_patch():
 
 @register_patch
 def poentry_init_patch():
-    def init(self, *args, **kwargs):
-        original(self, *args, **kwargs)
-        self.flags = [
+    def get_flags(self):
+        return self._i18nspector_flags
+    def set_flags(self, flags):
+        self._i18nspector_flags = [
             flag.strip(' \t\r\f\v')
-            for subflags in self.flags
-            for flag in subflags.flags.split(',')
+            for subflags in flags
+            for flag in subflags.split(',')
         ]
-    original = polib.POEntry.__init__
-    polib.POEntry.__init__ = init
+    polib.POEntry.flags = property(get_flags, set_flags)
 
 # polib._BaseEntry.__init__()
 # ===========================
