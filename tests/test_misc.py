@@ -20,9 +20,11 @@
 
 import datetime
 import os
+import time
 
 import nose
 from nose.tools import (
+    assert_almost_equal,
     assert_equal,
     assert_false,
     assert_is_instance,
@@ -156,11 +158,24 @@ class test_os_release:
             with assert_raises(TypeError):
                 os_release.is_like(None)
 
-def test_utc_now():
-    now = M.utc_now()
-    assert_is_instance(now, datetime.datetime)
-    assert_is_not_none(now.tzinfo)
-    assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
+class test_utc_now:
+
+    def test_types(self):
+        now = M.utc_now()
+        assert_is_instance(now, datetime.datetime)
+        assert_is_not_none(now.tzinfo)
+        assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
+
+    @aux.fork_isolation
+    def test_tz_resistance(self):
+        def t(tz):
+            os.environ['TZ'] = tz
+            time.tzset()
+            return M.utc_now()
+        now1 = t('Etc/GMT-4')
+        now2 = t('Etc/GMT+2')
+        tdelta = (now1 - now2).total_seconds()
+        assert_almost_equal(tdelta, 0, places=1)
 
 class test_format_range:
 

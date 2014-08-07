@@ -96,9 +96,9 @@ def utc_now():
     '''
     timezone-aware variant of datetime.now()
     '''
-    now = datetime.datetime.now()
-    now = now.replace(tzinfo=datetime.timezone.utc)
-    return now
+    return datetime.datetime.now(
+        datetime.timezone.utc
+    )
 
 def format_range(rng, *, max):
     last = rng[-1]

@@ -9,6 +9,7 @@ i18nspector (0.15) UNRELEASED; urgency=low
       - c-format-string-too-many-arguments
       - partially-translated-message
 
+  * Fix calculation of current time.
   * Check for errors in C format strings.
   * Check for inconsistent leading/trailing newlines in translations even when
     encoding in broken.
@@ -22,7 +23,7 @@ i18nspector (0.15) UNRELEASED; urgency=low
     RFC 5322 §3.3.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Aug 2014 11:54:48 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Aug 2014 13:45:43 +0200
 
 i18nspector (0.14) unstable; urgency=low
 
