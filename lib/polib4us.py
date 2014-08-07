@@ -209,6 +209,7 @@ def base_entry_init_patch():
 
 # polib.POEntry.translated()
 # ==========================
+# Consider the message translated if any msgstr[N] is non-empty.
 
 @register_patch
 def poentry_translated_patch():
