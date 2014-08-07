@@ -781,16 +781,17 @@ class Checker(object, metaclass=abc.ABCMeta):
                 for msgstr in strings:
                     msgstr_uc = set(find_unusual_characters(msgstr))
                     uc = msgstr_uc - msgid_uc - found_unusual_characters
-                    if uc:
-                        names = ', '.join(
-                            'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
-                            for ch in sorted(uc)
-                        )
-                        self.tag('unusual-character-in-translation',
-                            message_repr(message, template='{}:'),
-                            tags.safestr(names)
-                        )
-                        found_unusual_characters |= uc
+                    if not uc:
+                        continue
+                    names = ', '.join(
+                        'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                        for ch in sorted(uc)
+                    )
+                    self.tag('unusual-character-in-translation',
+                        message_repr(message, template='{}:'),
+                        tags.safestr(names)
+                    )
+                    found_unusual_characters |= uc
             if not fuzzy:
                 for msgstr in strings:
                     conflict_marker = gettext.search_for_conflict_marker(msgstr)
