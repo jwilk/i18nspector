@@ -927,6 +927,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             else:
                 msgid_fmts[i] = fmt
         if len(msgid_fmts) == 2:
+            assert valid_msgid_types
             valid_msgid_types = self._check_c_format_args(
                 message,
                 'msgid_plural', msgid_fmts[1],
