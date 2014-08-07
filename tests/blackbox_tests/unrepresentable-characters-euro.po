@@ -1,6 +1,6 @@
 # I: language-variant-does-not-affect-translation 'pl@euro'
 # E: unrepresentable-characters ISO-8859-1 <...>
-# E: unusual-character-in-translation U+00BF INVERTED QUESTION MARK: '<...>'
+# E: unusual-character-in-translation msgid 'A quick brown fox jumps over the lazy dog.': U+00BF INVERTED QUESTION MARK
 
 msgid ""
 msgstr ""

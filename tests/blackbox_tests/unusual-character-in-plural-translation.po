@@ -1,4 +1,4 @@
-# E: unusual-character-in-translation U+FFFF non-character: '<...> flag\uffff'
+# E: unusual-character-in-translation msgid '%d quick brown fox jumps over the lazy dog.': U+FFFF non-character
 
 msgid ""
 msgstr ""

@@ -786,7 +786,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                             'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
                             for ch in sorted(uc)
                         )
-                        self.tag('unusual-character-in-translation', tags.safestr(names + ':'), msgstr)
+                        self.tag('unusual-character-in-translation',
+                            message_repr(message, template='{}:'),
+                            tags.safestr(names)
+                        )
                         found_unusual_characters |= uc
             if not fuzzy:
                 for msgstr in strings:

@@ -14,12 +14,15 @@ i18nspector (0.15) UNRELEASED; urgency=low
     encoding in broken.
   * Check for conflict markers in translations even when encoding is broken.
   * Check for incomplete translations in messages with plural forms.
+  * When emitting unusual-character-in-translation, don't output the
+    translated string (which is likely to contain mojibake), but only the
+    message identifier.
   * Suggest using “-0000” (rather than “+0000”) to indicate that the offset to
     local time is unknown. This convention is inspired by RFC 3339 §4.3 and
     RFC 5322 §3.3.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 06 Aug 2014 19:14:15 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Aug 2014 11:54:48 +0200
 
 i18nspector (0.14) unstable; urgency=low
 
