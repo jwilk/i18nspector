@@ -1,4 +1,4 @@
-# E: c-format-string-too-many-arguments msgid 'A quick brown %s jumps over the lazy dog.': 2 (msgstr) > 1 (msgid)
+# E: c-format-string-excess-arguments msgid 'A quick brown %s jumps over the lazy dog.': 2 (msgstr) > 1 (msgid)
 
 msgid ""
 msgstr ""

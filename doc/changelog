@@ -4,9 +4,9 @@ i18nspector (0.15) UNRELEASED; urgency=low
     + Added:
       - c-format-string-argument-type-mismatch
       - c-format-string-error
+      - c-format-string-excess-arguments
       - c-format-string-non-portable-conversion
       - c-format-string-redundant-flag
-      - c-format-string-too-many-arguments
       - partially-translated-message
 
   * Fix calculation of current time.

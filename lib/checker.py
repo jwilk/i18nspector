@@ -1039,7 +1039,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         src_args = src_fmt.arguments
         dst_args = dst_fmt.arguments
         if len(dst_args) > len(src_args):
-            self.tag('c-format-string-too-many-arguments', prefix,
+            self.tag('c-format-string-excess-arguments', prefix,
                 len(dst_args), tags.safestr('({})'.format(dst_loc)), '>',
                 len(src_args), tags.safestr('({})'.format(src_loc)),
             )

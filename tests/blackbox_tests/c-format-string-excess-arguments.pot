@@ -1,4 +1,4 @@
-# E: c-format-string-too-many-arguments msgid '%d quick brown fox jumps over the lazy dog.': 1 (msgid) > 0 (msgid_plural)
+# E: c-format-string-excess-arguments msgid '%d quick brown fox jumps over the lazy dog.': 1 (msgid) > 0 (msgid_plural)
 
 #, fuzzy
 msgid ""
