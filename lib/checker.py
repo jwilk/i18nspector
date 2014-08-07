@@ -435,16 +435,12 @@ class Checker(object, metaclass=abc.ABCMeta):
             codomain = expr.codomain()
             if codomain is not None:
                 (x, y) = codomain
+                rngs = []
                 if x > 0:
-                    rng = range(0, x)
-                    rng = misc.format_range(rng, max=5)
-                    message = tags.safestr('f(x) != {}'.format(rng))
-                    if has_plurals:
-                        self.tag('codomain-error-in-plural-forms', message)
-                    else:
-                        self.tag('codomain-error-in-unused-plural-forms', message)
+                    rngs += [range(0, x)]
                 if y + 1 < n:
-                    rng = range(y + 1, n)
+                    rngs += [range(y + 1, n)]
+                for rng in rngs:
                     rng = misc.format_range(rng, max=5)
                     message = tags.safestr('f(x) != {}'.format(rng))
                     if has_plurals:
