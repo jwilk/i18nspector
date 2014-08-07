@@ -326,6 +326,7 @@ class Checker(object, metaclass=abc.ABCMeta):
 
     @checks_header_fields('Plural-Forms')
     def check_plurals(self, ctx):
+        ctx.singular_index = None
         plural_forms = ctx.metadata['Plural-Forms']
         if len(plural_forms) > 1:
             self.tag('duplicate-header-field-plural-forms')
@@ -414,6 +415,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                         else:
                             self.tag('codomain-error-in-unused-plural-forms', message)
                         break
+                    elif i == 1:
+                        ctx.singular_index = fi
                     if n == locally_correct_n and fi != locally_correct_expr(i):
                         if has_plurals:
                             self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
@@ -907,7 +910,6 @@ class Checker(object, metaclass=abc.ABCMeta):
         if message.msgid_plural is not None:
             msgids += [message.msgid_plural]
         msgid_fmts = {}
-        valid_msgid_types = True
         for i, s in enumerate(msgids):
             if ctx.is_template:
                 fmt = self._check_c_format_string(message, s)
@@ -918,17 +920,13 @@ class Checker(object, metaclass=abc.ABCMeta):
                     # If msgid isn't even a valid format string, then
                     # reporting errors against msgstr is not worth the trouble.
                     return
-            if fmt is None:
-                valid_msgid_types = False
-            else:
+            if fmt is not None:
                 msgid_fmts[i] = fmt
-        if len(msgid_fmts) == 2:
-            assert valid_msgid_types
-            valid_msgid_types = self._check_c_format_args(
+        if ctx.is_template and (len(msgid_fmts) == 2):
+            self._check_c_format_args(
                 message,
                 'msgid_plural', msgid_fmts[1],
                 'msgid', msgid_fmts[0],
-                silent=(not ctx.is_template)
             )
         fuzzy = 'fuzzy' in message.flags
         has_msgstr = bool(message.msgstr)
@@ -936,11 +934,47 @@ class Checker(object, metaclass=abc.ABCMeta):
         strings = []
         if (not fuzzy) and (ctx.encoding is not None):
             if has_msgstr:
-                strings += [message.msgstr]
+                d = dict(
+                    src_loc='msgid',
+                    src_fmt=msgid_fmts.get(0),
+                    dst_loc='msgstr',
+                    dst=message.msgstr,
+                )
+                strings += [d]
             if has_msgstr_plural:
-                strings += misc.sorted_vk(message.msgstr_plural)
-        for s in strings:
-            self._check_c_format_string(message, s)
+                for i, s in sorted(message.msgstr_plural.items()):
+                    d = dict(
+                        src_loc=None,
+                        src_fmt=None,
+                        dst_loc='msgstr[{}]'.format(i),
+                        dst=s,
+                    )
+                    if ctx.singular_index is None:
+                        pass
+                    elif ctx.singular_index == i:
+                        d.update(
+                            src_loc='msgid',
+                            src_fmt=msgid_fmts.get(0),
+                        )
+                    else:
+                        d.update(
+                            src_loc='msgid_plural',
+                            src_fmt=msgid_fmts.get(1),
+                        )
+                    strings += [d]
+        for d in strings:
+            dst_fmt = self._check_c_format_string(message, d['dst'])
+            if dst_fmt is None:
+                continue
+            if d['src_fmt'] is None:
+                continue
+            d.update(dst_fmt=dst_fmt)
+            del d['dst']
+            assert all(
+                (x is not None)
+                for x in d.values()
+            )
+            self._check_c_format_args(message, **d)
 
     def _check_c_format_string(self, message, s):
         prefix = message_repr(message, template='{}:')
@@ -1000,29 +1034,23 @@ class Checker(object, metaclass=abc.ABCMeta):
                 )
         return fmt
 
-    def _check_c_format_args(self, message, src_location, src_format, dst_location, dst_format, *, silent=False):
+    def _check_c_format_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt):
         prefix = message_repr(message, template='{}:')
-        ok = True
-        src_args = src_format.arguments
-        dst_args = dst_format.arguments
+        src_args = src_fmt.arguments
+        dst_args = dst_fmt.arguments
         if len(dst_args) > len(src_args):
-            if not silent:
-                self.tag('c-format-string-too-many-arguments', prefix,
-                    len(dst_args), tags.safestr('({})'.format(dst_location)), '>',
-                    len(src_args), tags.safestr('({})'.format(src_location)),
-                )
-            ok = False
+            self.tag('c-format-string-too-many-arguments', prefix,
+                len(dst_args), tags.safestr('({})'.format(dst_loc)), '>',
+                len(src_args), tags.safestr('({})'.format(src_loc)),
+            )
         for src_arg, dst_arg in zip(*[src_args, dst_args]):
             src_arg = src_arg[0]
             dst_arg = dst_arg[0]
-            if not silent:
-                if src_arg.type != dst_arg.type:
-                    self.tag('c-format-string-argument-type-mismatch', prefix,
-                        tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_location)), '!=',
-                        tags.safestr(src_arg.type), tags.safestr('({})'.format(src_location)),
-                    )
-            ok = False
-        return ok
+            if src_arg.type != dst_arg.type:
+                self.tag('c-format-string-argument-type-mismatch', prefix,
+                    tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_loc)), '!=',
+                    tags.safestr(src_arg.type), tags.safestr('({})'.format(src_loc)),
+                )
 
 __all__ = ['Checker']
 
