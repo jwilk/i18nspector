@@ -37,7 +37,7 @@ from . import misc
 from . import paths
 
 # =============
-# Header fields
+# header fields
 # =============
 
 def _read_header_fields():
@@ -53,7 +53,7 @@ def _read_header_fields():
 header_fields = _read_header_fields()
 
 # ==========================
-# Header and message parsing
+# header and message parsing
 # ==========================
 
 is_valid_field_name = re.compile(r'^[\x21-\x39\x3b-\x7e]+$').match
@@ -77,7 +77,7 @@ search_for_conflict_marker = re.compile(r'^#-#-#-#-#  .+  #-#-#-#-#$', re.MULTIL
 # https://www.gnu.org/software/gettext/manual/html_node/Creating-Compendia.html#Creating-Compendia
 
 # ============
-# Plural forms
+# plural forms
 # ============
 
 # http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
@@ -261,7 +261,7 @@ def parse_date(s):
 epoch = datetime.datetime(1995, 7, 2, tzinfo=datetime.timezone.utc)
 
 # ==============
-# String formats
+# string formats
 # ==============
 
 def _read_string_formats():
