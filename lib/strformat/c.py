@@ -285,7 +285,10 @@ class Conversion(object):
                 tp = 'long double'
         elif conversion == 'c':
             if length is None:
-                tp = '[int converted to unsigned char]'
+                tp = 'char'
+                # C99 says it's an int, which is then converted to unsigned char.
+                # We don't want “int” here, so that %c and %d have distinct types.
+                # Mere “char” is not very precise, but it should be good enough.
             elif length == 'l':
                 tp = 'wint_t'
         elif conversion == 'C':

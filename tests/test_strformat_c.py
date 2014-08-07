@@ -147,7 +147,7 @@ class test_types:
 
     def test_char(self):
         t = self.t
-        yield t, '%c', '[int converted to unsigned char]'
+        yield t, '%c', 'char'
         yield t, '%lc', 'wint_t'
         yield t, '%C', 'wint_t', M.NonPortableConversion
         yield t, '%s', 'const char *'
