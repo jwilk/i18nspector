@@ -27,6 +27,9 @@ import errno
 import shlex
 
 def is_sorted(iterable):
+    '''
+    is the iterable sorted?
+    '''
     # It's not very efficient, but should be enough for our purposes.
     lst1 = list(iterable)
     lst2 = sorted(lst1)
@@ -36,6 +39,9 @@ class DataIntegrityError(Exception):
     pass
 
 def check_sorted(iterable, exception=DataIntegrityError):
+    '''
+    raise exception if the iterable is not sorted
+    '''
     if not is_sorted(iterable):
         raise exception()
 
@@ -87,6 +93,9 @@ class OSRelease(object):
         return ident in self._id_like
 
 def utc_now():
+    '''
+    timezone-aware variant of datetime.now()
+    '''
     now = datetime.datetime.now()
     now = now.replace(tzinfo=datetime.timezone.utc)
     return now
