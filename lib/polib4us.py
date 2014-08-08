@@ -180,7 +180,7 @@ def detect_encoding_patch():
 # https://bitbucket.org/izi/polib/issue/46
 
 @register_patch
-def poentry_init_patch():
+def poentry_flags_patch():
     def get_flags(self):
         return self._i18nspector_flags
     def set_flags(self, flags):
