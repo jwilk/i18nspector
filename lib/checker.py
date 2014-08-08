@@ -173,8 +173,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     broken_encoding.encoding.upper(),
                 )
                 broken_encoding = True
-        class ctx:
-            pass
+        ctx = misc.Namespace()
         ctx.file = file
         ctx.is_template = is_template
         self.check_headers(ctx)
@@ -934,56 +933,45 @@ class Checker(object, metaclass=abc.ABCMeta):
         strings = []
         if (not fuzzy) and (ctx.encoding is not None):
             if has_msgstr:
-                d = dict(
-                    src_loc='msgid',
-                    src_fmt=msgid_fmts.get(0),
-                    dst_loc='msgstr',
-                    dst=message.msgstr,
-                )
+                d = misc.Namespace()
+                d.src_loc = 'msgid'
+                d.src_fmt = msgid_fmts.get(0)
+                d.dst_loc = 'msgstr'
+                d.dst = message.msgstr
                 strings += [d]
             if has_msgstr_plural:
                 for i, s in sorted(message.msgstr_plural.items()):
-                    d = dict(
-                        src_loc=None,
-                        src_fmt=None,
-                        dst_loc='msgstr[{}]'.format(i),
-                        dst=s,
-                    )
+                    d = misc.Namespace()
+                    d.src_loc = None
+                    d.src_fmt = None
+                    d.dst_loc = 'msgstr[{}]'.format(i)
+                    d.dst = s
+                    msgid_fmt = msgid_fmts.get(0)
+                    msgid_plural_fmt = msgid_fmts.get(1)
                     if ctx.singular_index is None:
                         pass
                     elif ctx.singular_index == i:
-                        msgid_fmt = msgid_fmts.get(0)
-                        msgid_plural_fmt = msgid_fmts.get(1)
-                        d.update(
-                            src_loc='msgid',
-                            src_fmt=msgid_fmts.get(0),
-                        )
+                        d.src_loc = 'msgid'
+                        d.src_fmt = msgid_fmt
                         more_plural_arguments = (
                             msgid_fmt is not None and
                             msgid_plural_fmt is not None and
                             len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
                         )
                         if more_plural_arguments:
-                            d.update(
-                                alt_src_loc='msgid_plural',
-                                alt_src_fmt=msgid_plural_fmt,
-                            )
+                            d.alt_src_loc = 'msgid_plural'
+                            d.alt_src_fmt = msgid_plural_fmt
                     else:
-                        d.update(
-                            src_loc='msgid_plural',
-                            src_fmt=msgid_fmts.get(1),
-                        )
+                        d.src_loc = 'msgid_plural'
+                        d.src_fmt = msgid_plural_fmt
                     strings += [d]
         for d in strings:
-            dst_fmt = self._check_c_format_string(message, d['dst'])
-            if dst_fmt is None:
+            d.dst_fmt = self._check_c_format_string(message, d.dst)
+            if d.dst_fmt is None:
                 continue
-            if d['src_fmt'] is None:
+            if d.src_fmt is None:
                 continue
-            alt_src_loc = d.pop('alt_src_loc', None)
-            alt_src_fmt = d.pop('alt_src_fmt', None)
-            excess_arguments = len(dst_fmt.arguments) > len(d['src_fmt'].arguments)
-            if (alt_src_loc is not None) and excess_arguments:
+            if len(d.dst_fmt.arguments) > len(d.src_fmt.arguments):
                 # XXX In theory, the singular msgstr[N] should not have more
                 # arguments than msgid. In practice, it's not uncommon to see
                 # something like this:
@@ -1003,17 +991,18 @@ class Checker(object, metaclass=abc.ABCMeta):
                 # Plural-Forms, such that there is a separate value for n=1.
                 #
                 # See also: https://bugs.debian.org/753946
-                d.update(
-                    src_loc=alt_src_loc,
-                    src_fmt=alt_src_fmt
-                )
-            d.update(dst_fmt=dst_fmt)
-            del d['dst']
-            assert all(
-                (x is not None)
-                for x in d.values()
+                try:
+                    d.src_fmt = d.alt_src_fmt
+                except AttributeError:
+                    pass
+                else:
+                    d.src_loc = d.alt_src_loc
+            assert d.src_loc is not None
+            assert d.dst_loc is not None
+            self._check_c_format_args(message,
+                d.src_loc, d.src_fmt,
+                d.dst_loc, d.dst_fmt
             )
-            self._check_c_format_args(message, **d)
 
     def _check_c_format_string(self, message, s):
         prefix = message_repr(message, template='{}:')
