@@ -1028,9 +1028,12 @@ class Checker(object, metaclass=abc.ABCMeta):
                 )
             except strformat_c.NonPortableConversion as exc:
                 [s, c1, c2] = exc.args
+                args = [c1, '=>', c2]
+                if s != c1:
+                    args += ['in', s]
                 self.tag('c-format-string-non-portable-conversion',
                     prefix,
-                    c1, '=>', c2, 'in', s,
+                    *args
                 )
         return fmt
 
