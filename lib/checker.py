@@ -952,10 +952,22 @@ class Checker(object, metaclass=abc.ABCMeta):
                     if ctx.singular_index is None:
                         pass
                     elif ctx.singular_index == i:
+                        msgid_fmt = msgid_fmts.get(0)
+                        msgid_plural_fmt = msgid_fmts.get(1)
                         d.update(
                             src_loc='msgid',
                             src_fmt=msgid_fmts.get(0),
                         )
+                        more_plural_arguments = (
+                            msgid_fmt is not None and
+                            msgid_plural_fmt is not None and
+                            len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
+                        )
+                        if more_plural_arguments:
+                            d.update(
+                                alt_src_loc='msgid_plural',
+                                alt_src_fmt=msgid_plural_fmt,
+                            )
                     else:
                         d.update(
                             src_loc='msgid_plural',
@@ -968,6 +980,33 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             if d['src_fmt'] is None:
                 continue
+            alt_src_loc = d.pop('alt_src_loc', None)
+            alt_src_fmt = d.pop('alt_src_fmt', None)
+            excess_arguments = len(dst_fmt.arguments) > len(d['src_fmt'].arguments)
+            if (alt_src_loc is not None) and excess_arguments:
+                # XXX In theory, the singular msgstr[N] should not have more
+                # arguments than msgid. In practice, it's not uncommon to see
+                # something like this:
+                #
+                # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+                # ...
+                # msgid "Message repeated once."
+                # msgid_plural "Message repeated %d times."
+                # msgstr[0] "Πoвiдoмлeння пoвтopeнo %d paз."
+                # msgstr[1] "Πoвiдoмлeння пoвтopeнo %d paзи."
+                # msgstr[2] "Πoвiдoмлeння пoвтopeнo %d paзiв."
+                #
+                # Here %d in msgstr[0] cannot be omitted, because it is used
+                # not only for n=1, but also for n=21, n=31, and so on.
+                #
+                # To be pedantically correct, one could use a different
+                # Plural-Forms, such that there is a separate value for n=1.
+                #
+                # See also: https://bugs.debian.org/753946
+                d.update(
+                    src_loc=alt_src_loc,
+                    src_fmt=alt_src_fmt
+                )
             d.update(dst_fmt=dst_fmt)
             del d['dst']
             assert all(
