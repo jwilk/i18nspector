@@ -668,7 +668,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 msgstr = entry.msgstr_plural['0']
                 # https://bitbucket.org/izi/polib/issue/49
             except LookupError:
-                msgstr = entry.msgstr_plural.get(0, entry.msgstr) or ''
+                msgstr = entry.msgstr_plural.get(0, entry.msgstr)
                 # At least in polib 1.0.0, if the source PO file is empty,
                 # msgstr for the header entry is None.
                 msgstr = msgstr or ''
