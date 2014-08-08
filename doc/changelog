@@ -1,4 +1,4 @@
-i18nspector (0.15) UNRELEASED; urgency=low
+i18nspector (0.15) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -23,7 +23,7 @@ i18nspector (0.15) UNRELEASED; urgency=low
     RFC 5322 §3.3.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Aug 2014 13:45:43 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 08 Aug 2014 23:00:29 +0200
 
 i18nspector (0.14) unstable; urgency=low
 
