@@ -12,9 +12,9 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] broken-encoding
 [X] c-format-string-argument-type-mismatch
 [X] c-format-string-error
+[X] c-format-string-excess-arguments
 [X] c-format-string-non-portable-conversion
 [X] c-format-string-redundant-flag
-[X] c-format-string-too-many-arguments
 [X] codomain-error-in-plural-forms
 [X] codomain-error-in-unused-plural-forms
 [X] conflict-marker-in-header-entry
@@ -78,6 +78,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] non-ascii-compatible-encoding
 [X] non-portable-encoding
 [X] os-error
+[X] partially-translated-message
 [X] range-flag-without-plural-string
 [X] redundant-message-flag
 [X] stray-header-line
