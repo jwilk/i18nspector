@@ -664,14 +664,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                 )
             if entry.msgid_plural is not None:
                 self.tag('empty-msgid-message-with-plural-forms')
-            try:
-                msgstr = entry.msgstr_plural['0']
-                # https://bitbucket.org/izi/polib/issue/49
-            except LookupError:
-                msgstr = entry.msgstr_plural.get(0, entry.msgstr)
-                # At least in polib 1.0.0, if the source PO file is empty,
-                # msgstr for the header entry is None.
-                msgstr = msgstr or ''
+            msgstr = entry.msgstr_plural.get(0, entry.msgstr)
+            # At least in polib 1.0.0, if the source PO file is empty,
+            # msgstr for the header entry is None.
+            msgstr = msgstr or ''
             for line in gettext.parse_header(msgstr):
                 if isinstance(line, dict):
                     [(key, value)] = line.items()
@@ -941,6 +937,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 strings += [d]
             if has_msgstr_plural:
                 for i, s in sorted(message.msgstr_plural.items()):
+                    assert isinstance(i, int)
                     d = misc.Namespace()
                     d.src_loc = None
                     d.src_fmt = None

@@ -191,6 +191,31 @@ def poentry_flags_patch():
         ]
     polib.POEntry.flags = property(get_flags, set_flags)
 
+# polib.POEntry.msgstr_plural
+# ===========================
+# Force msgstr_plural keys to be integers.
+# polib (<< 1.0.4) uses strings there instead.
+# https://bitbucket.org/izi/polib/issue/49
+
+class IntDict(dict):
+
+    def __setitem__(self, key, value):
+        super().__setitem__(int(key), value)
+
+    def __getitem__(self, key):
+        return super().__getitem__(int(key))
+
+@register_patch
+def poentry_msgstr_plural_patch():
+    def get_msgstr_plural(self):
+        return self._i18nspector_msgstr_plural
+    def set_msgstr_plural(self, d):
+        self._i18nspector_msgstr_plural = IntDict(d)
+    polib.POEntry.msgstr_plural = property(
+        get_msgstr_plural,
+        set_msgstr_plural,
+    )
+
 # polib._BaseEntry.__init__()
 # ===========================
 # Distinguish between empty and non-existent msgid_plural.
