@@ -202,4 +202,11 @@ class test_format_range:
     def test_huge(self):
         self.t(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
 
+def test_namespace():
+    ns = M.Namespace()
+    with assert_raises(AttributeError):
+        ns.eggs
+    ns.eggs = 37
+    assert_equal(ns.eggs, 37)
+
 # vim:ts=4 sw=4 et

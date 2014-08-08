@@ -113,4 +113,10 @@ def format_range(rng, *, max):
             break
     return ', '.join(map(str, result))
 
+class Namespace(object):
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.__dict__.update(kwargs)
+
 # vim:ts=4 sw=4 et
