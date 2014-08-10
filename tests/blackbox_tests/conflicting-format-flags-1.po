@@ -1,4 +1,4 @@
-# E: conflicting-message-flags msgid 'A quick brown fox jumps over the lazy dog.': c-format python-format
+# E: conflicting-message-flags msgid 'A quick brown fox jumps over the lazy dog.': c-format lisp-format
 
 msgid ""
 msgstr ""
@@ -13,6 +13,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, c-format, python-format
+#, c-format, lisp-format
 msgid "A quick brown fox jumps over the lazy dog."
 msgstr "Sic fugiens, dux, zelotypos, quam Karus haberis."

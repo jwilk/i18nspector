@@ -2,8 +2,14 @@ i18nspector (0.15.1) UNRELEASED; urgency=medium
 
   * Never consider non-ASCII characters and control-characters as part of C
     format string conversion.
+  * Temper checks for conflicting and redundant message flags:
+    + Don't complain about two different format flags applied to the same
+      message when the formats compatible are (to some extent) compatible.
+    + Don't complain when a positive format flag (<lang1>-format) and a
+      negative format flag (no-<lang2>-format) apply to the same message. The
+      negative format flag might be still a useful hint for the translator.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 10 Aug 2014 09:15:49 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 10 Aug 2014 19:24:13 +0200
 
 i18nspector (0.15) unstable; urgency=low
 

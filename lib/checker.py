@@ -856,27 +856,18 @@ class Checker(object, metaclass=abc.ABCMeta):
                     flag
                 )
         positive_format_flags = format_flags['']
-        if len(positive_format_flags) > 1:
-            self.tag('conflicting-message-flags',
-                message_repr(message, template='{}:'),
-                *sorted(positive_format_flags.values())
-            )
-        elif len(positive_format_flags) == 1:
-            [[positive_format, positive_format_flag]] = positive_format_flags.items()
-            negative_format_flags = sorted(
-                format_flag
-                for fmt, format_flag in
-                format_flags['no'].items()
-                if fmt != positive_format
-            )
-            if negative_format_flags:
-                args = (
-                    negative_format_flags +
-                    [tags.safe_format('(implied by {flag})'.format(flag=positive_format_flag))]
-                )
-                self.tag('redundant-message-flag',
+        for fmt1, flag1 in sorted(positive_format_flags.items()):
+            for fmt2, flag2 in sorted(positive_format_flags.items()):
+                if fmt1 >= fmt2:
+                    continue
+                fmt_ex1 = gettext.string_formats[fmt1]
+                fmt_ex2 = gettext.string_formats[fmt2]
+                if fmt_ex1 & fmt_ex2:
+                    # the formats are, at least to some extent, compatible
+                    continue
+                self.tag('conflicting-message-flags',
                     message_repr(message, template='{}:'),
-                    *args
+                    flag1, flag2
                 )
         for positive_key, negative_key in [('', 'no'), ('', 'impossible'), ('possible', 'impossible')]:
             positive_format_flags = format_flags[positive_key]
