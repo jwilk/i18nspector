@@ -1,8 +1,9 @@
 i18nspector (0.15.1) UNRELEASED; urgency=medium
 
-  * 
+  * Never consider non-ASCII characters and control-characters as part of C
+    format string conversion.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 08 Aug 2014 23:06:55 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 10 Aug 2014 09:15:49 +0200
 
 i18nspector (0.15) unstable; urgency=low
 

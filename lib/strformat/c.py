@@ -50,6 +50,9 @@ _directive_re = re.compile('''
     )
 ''', re.VERBOSE)
 
+def _printable_prefix(s, r=re.compile('[ -\x7e]+')):
+    return r.match(s).group()
+
 class _info:
 
     oct_cvt = 'o'
@@ -169,7 +172,9 @@ class FormatString(object):
         last_pos = 0
         for match in _directive_re.finditer(s):
             if match.start() != last_pos:
-                raise FormatError(s[last_pos:])
+                raise FormatError(
+                    _printable_prefix(s[last_pos:])
+                )
             last_pos = match.end()
             literal = match.group('literal')
             if literal is not None:
@@ -177,7 +182,9 @@ class FormatString(object):
             else:
                 items += [Conversion(self, match)]
         if last_pos != len(s):
-            raise FormatError(s[last_pos:])
+            raise FormatError(
+                _printable_prefix(s[last_pos:])
+            )
         self.arguments = []
         for i in range(1, NL_ARGMAX + 1):
             if not self._argument_map:
