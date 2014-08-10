@@ -25,6 +25,8 @@ miscellanea
 import datetime
 import errno
 import shlex
+import sys
+import types
 
 def is_sorted(iterable):
     '''
@@ -114,9 +116,14 @@ def format_range(rng, *, max):
     return ', '.join(map(str, result))
 
 class Namespace(object):
-
+    '''
+    simple attribute-based namespace
+    '''
     def __init__(self, **kwargs):
         super().__init__()
         self.__dict__.update(kwargs)
+
+if sys.version_info >= (3, 3):
+    Namespace = types.SimpleNamespace
 
 # vim:ts=4 sw=4 et
