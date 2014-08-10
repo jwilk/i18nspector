@@ -138,7 +138,7 @@ def do_string_formats():
         else:
             print('{fmt} = # TODO'.format(fmt=fmt))
     n_okay = len(our_formats - difference)
-    print('# No changes required for {n} string formats'.format(n=n_okay))
+    print('# No changes required for {} string formats'.format(n_okay))
     print()
 
 def main():
