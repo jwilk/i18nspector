@@ -266,13 +266,14 @@ epoch = datetime.datetime(1995, 7, 2, tzinfo=datetime.timezone.utc)
 
 def _read_string_formats():
     path = os.path.join(paths.datadir, 'string-formats')
-    with open(path, 'rt', encoding='ASCII') as file:
-        fields = [
-            s.rstrip() for s in file
-            if s.rstrip() and not s.startswith('#')
-        ]
-    misc.check_sorted(fields)
-    return frozenset(fields)
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='ASCII')
+    section = cp['formats']
+    misc.check_sorted(section)
+    return {
+        name: frozenset(examples.split())
+        for name, examples in section.items()
+    }
 
 string_formats = _read_string_formats()
 

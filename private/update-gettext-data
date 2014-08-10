@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright © 2012, 2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -32,6 +32,7 @@ basedir = os.path.join(
 )
 sys.path[:0] = [basedir]
 
+from lib import gettext
 from lib import ling
 
 def strip_plural_forms(s):
@@ -113,12 +114,6 @@ def do_languages():
     print('# No principal-territory changes required for {} languages'.format(n_okay))
     print()
 
-template = '''\
-# This file has been generated automatically by private/update-gettext-data.
-# Do not edit.
-# Last update: {today}
-'''
-
 def do_string_formats():
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/message.c'
     with urllib.request.urlopen(url) as file:
@@ -129,14 +124,22 @@ def do_string_formats():
     contents = match.group(1)
     contents = re.compile(br'/[*].*?[*]/', re.DOTALL).sub(b'', contents)
     contents = contents.decode('ASCII')
-    formats = re.findall('"([\w-]+)"', contents)
-    path = os.path.join(basedir, 'data', 'string-formats')
-    with open(path + '.tmp', 'wt', encoding='ASCII') as stdout:
-        print(template.format(today=datetime.date.today()), file=stdout)
-        for item in sorted(formats):
-            print(item, file=stdout)
-    os.rename(path + '.tmp', path)
-    print('# Saved {} string formats'.format(len(formats)))
+    their_formats = frozenset(
+        re.findall('"([\w-]+)"', contents)
+    )
+    our_formats = frozenset(
+        gettext.string_formats.keys()
+    )
+    difference = their_formats ^ our_formats
+    print('[formats]')
+    for fmt in difference:
+        if fmt in our_formats:
+            print('# MISSING: {fmt} = ...'.format(fmt=fmt))
+        else:
+            print('{fmt} = # TODO'.format(fmt=fmt))
+    n_okay = len(our_formats - difference)
+    print('# No changes required for {n} string formats'.format(n=n_okay))
+    print()
 
 def main():
     do_plurals()

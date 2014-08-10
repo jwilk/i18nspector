@@ -1,31 +1,86 @@
-# This file has been generated automatically by private/update-gettext-data.
-# Do not edit.
-# Last update: 2013-07-27
+[formats]
+# <name> = <example> [example...]
 
-awk
-boost
-c
-csharp
-elisp
-gcc-internal
-gfc-internal
-java
-javascript
-kde
-librep
-lisp
-lua
-objc
-object-pascal
-perl
-perl-brace
-php
-python
-python-brace
-qt
-qt-plural
-scheme
-sh
-smalltalk
-tcl
-ycp
+awk = %d
+# https://www.gnu.org/software/gawk/manual/html_node/Printf.html
+
+boost = %d
+# http://www.boost.org/libs/format/doc/format.html
+
+c = %d
+# http://man7.org/linux/man-pages/man3/printf.3.html
+
+csharp = {0}
+# http://msdn.microsoft.com/en-us/library/txafckwd%28v=vs.110%29.aspx
+
+elisp = %d
+# https://www.gnu.org/software/emacs/manual/html_node/elisp/Formatting-Strings.html
+
+gcc-internal = %d
+# https://www.gnu.org/software/gettext/manual/html_node/gcc_002dinternal_002dformat.html
+
+gfc-internal = %d
+# https://www.gnu.org/software/gettext/manual/html_node/gfc_002dinternal_002dformat.html
+
+java = {0}
+# http://docs.oracle.com/javase/7/docs/api/java/text/MessageFormat.html
+
+javascript = %d
+# https://www.gnu.org/software/gettext/manual/html_node/javascript_002dformat.html
+# http://nodejs.org/api/util.html#util_util_format_format
+
+kde = %1
+# https://techbase.kde.org/Development/Tutorials/Localization/i18n
+
+librep = %d
+# http://librep.sourceforge.net/librep-manual.html#Formatted%20Output
+
+lisp = ~A
+# http://www.lispworks.com/documentation/HyperSpec/Body/22_c.htm
+
+lua = %d
+# http://www.lua.org/manual/5.2/manual.html#pdf-string.format
+
+objc = %d
+# https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
+
+object-pascal = %d
+# http://www.freepascal.org/docs-html/rtl/sysutils/format.html
+
+perl = %d
+# http://perldoc.perl.org/functions/sprintf.html
+
+perl-brace = {var}
+# https://metacpan.org/pod/Locale::TextDomain
+
+php = %d
+# http://php.net/manual/en/function.sprintf.php
+
+python = %d
+# https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+python-brace = {0} {var}
+# https://docs.python.org/2/library/string.html#formatstrings
+
+qt = %1
+# http://qt-project.org/doc/qt-5/qstring.html#arg
+
+qt-plural = %n
+# http://qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
+
+scheme = ~A
+# http://people.csail.mit.edu/jaffer/slib/Format-Specification.html#Format-Specification
+
+sh = $var
+# https://www.gnu.org/software/gettext/manual/html_node/sh_002dformat.html
+
+smalltalk = %1
+# https://www.gnu.org/software/smalltalk/manual-base/html_node/CharacterArray_002dstring-processing.html
+
+tcl = %d
+# http://www.tcl.tk/man/tcl8.6/TclCmd/format.htm
+
+ycp = %1
+# http://doc.opensuse.org/projects/YaST/SLES11/tdg/sformat.html
+
+# vim:ft=dosini
