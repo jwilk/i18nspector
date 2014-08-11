@@ -157,4 +157,10 @@ distinguishes singular and plural forms.
 
  * https://bugs.debian.org/703815
 
+SHIFT_JIS and JOHAB encodings are broken in Python; or at least they
+are not compatible with glibc. Implement a work-around. Test-case::
+
+    assert b'\\'.decode('SHIFT_JIS') == '\N{YEN SIGN}'
+    assert b'\\'.decode('JOHAB') == '\N{WON SIGN}'
+
 .. vim:ft=rst
