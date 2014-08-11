@@ -135,12 +135,6 @@ Add support for MediaWiki Translate's ``invalid-plural`` flag. Test-case:
 
 Add support for pygettext's ``docstring`` flag.
 
-Apparently some versions of ``xgettext`` incorrectly produce entries with
-incompatible format flags. Find out and document which versions are affected.
-Test-case:
-
- * http://sources.debian.net/src/recode/3.6-20/i18n/recode.pot#L324
-
 Check .desktop files:
 
  * http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
