@@ -158,4 +158,9 @@ Check for the ``I`` C format string flag in msgid.
 
 Check for ``msgstr_plural`` without ``msgstr[N]``, and other way round.
 
+Verify that if *n* = plural(1) = plural(i) for some *i* > 1, then msgstr[*n*]
+distinguishes singular and plural forms.
+
+ * https://bugs.debian.org/703815
+
 .. vim:ft=rst
