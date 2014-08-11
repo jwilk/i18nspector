@@ -25,7 +25,7 @@ i18nspector (0.15) unstable; urgency=low
   * Fix calculation of current time.
   * Check for errors in C format strings.
   * Check for inconsistent leading/trailing newlines in translations even when
-    encoding in broken.
+    encoding is unknown or broken.
   * Check for conflict markers in translations even when encoding is broken.
   * Check for incomplete translations in messages with plural forms.
   * When emitting unusual-character-in-translation, don't output the
@@ -46,9 +46,9 @@ i18nspector (0.14) unstable; urgency=low
 
   * Check for PO template files containing translated messages.
   * Check for duplicate messages, for problems with message flags, and for
-    empty files even when encoding is broken or unknown.
+    empty files even when encoding is unknown or broken.
   * Check for inconsistent leading/trailing newlines between msgid and
-    msgid_plural even when encoding in unknown or broken.
+    msgid_plural even when encoding is unknown or broken.
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 16 Jul 2014 15:28:40 +0200
