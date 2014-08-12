@@ -8,8 +8,9 @@ i18nspector (0.15.1) UNRELEASED; urgency=medium
     + Don't complain when a positive format flag (<lang1>-format) and a
       negative format flag (no-<lang2>-format) apply to the same message. The
       negative format flag might be still a useful hint for the translator.
+  * Regenerate the timezone information file using tzdata 2014f.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 10 Aug 2014 19:24:13 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 12 Aug 2014 10:16:36 +0200
 
 i18nspector (0.15) unstable; urgency=low
 
