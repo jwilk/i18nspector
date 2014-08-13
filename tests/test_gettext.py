@@ -577,15 +577,12 @@ class test_fix_date_format:
             '2001-12-20 17:22+0100',
         )
 
-    def test_pygettext(self):
+    def test_abbrev(self):
+        # OK:
         self.t(
             '2004-04-20 13:24+CEST',
             '2004-04-20 13:24+0200',
         )
-        self.t('2004-04-14 21:35+CDT', None)  # ambiguous
-        self.t('2005-12-20 10:33+JEST', None)  # nonexistent
-
-    def test_abbrev(self):
         self.t(
             '2010-02-17 13:11 PST',
             '2010-02-17 13:11-0800',
@@ -594,6 +591,17 @@ class test_fix_date_format:
             '2001-01-06 12:12GMT',
             '2001-01-06 12:12+0000',
         )
+
+    def test_abbrev_ambiguous(self):
+        self.t('2004-04-14 21:35+CDT', None)
+        self.t('2000-06-14 23:23+EST', None)
+        # XXX In tzdata 2014f, EST stands only for (US) Eastern Time Zone, i.e.
+        # -0500. But in the previous version of tzdata it could also stand for
+        # (Australian) Eastern Standard/Summer Time.
+        # http://mm.icann.org/pipermail/tz/2014-June/021089.html
+
+    def test_abbrev_nonexistent(self):
+        self.t('2005-12-20 10:33+JEST', None)
 
     def test_only_date(self):
         self.t('2008-01-09', None)
