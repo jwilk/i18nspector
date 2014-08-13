@@ -157,6 +157,38 @@ distinguishes singular and plural forms.
 
  * https://bugs.debian.org/703815
 
+Add support for more string formats (in popularity order):
+
+ * python-format
+ * kde-format
+ * perl-format
+ * csharp-format
+ * sh-format
+ * qt-format
+ * php-format
+ * perl-brace-format
+ * java-format
+ * tcl-format
+ * boost-format
+ * lisp-format
+ * scheme-format
+ * qt-plural-format
+ * ycp-format
+
+and unused:
+
+ * awk-format
+ * elisp-format
+ * gcc-internal-format
+ * gfc-internal-format
+ * javascript-format
+ * librep-format
+ * lua-format
+ * objc-format
+ * object-pascal-format
+ * python-brace-format
+ * smalltalk-format
+
 SHIFT_JIS and JOHAB encodings are broken in Python; or at least they
 are not compatible with glibc. Implement a work-around. Test-case::
 
