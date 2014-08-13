@@ -59,9 +59,11 @@ php = %d
 
 python = %d
 # https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+# https://docs.python.org/3/library/stdtypes.html#old-string-formatting
 
 python-brace = {0} {var}
 # https://docs.python.org/2/library/string.html#formatstrings
+# https://docs.python.org/3/library/string.html#formatstrings
 
 qt = %1
 # http://qt-project.org/doc/qt-5/qstring.html#arg
