@@ -189,6 +189,10 @@ and unused:
  * python-brace-format
  * smalltalk-format
 
+Check for useless use of ``%n`` in C format strings. Test-case:
+
+ * http://sources.debian.net/src/clementine/1.0.1%2Bdfsg-2/src/translations/translations.pot/#L113
+
 SHIFT_JIS and JOHAB encodings are broken in Python; or at least they
 are not compatible with glibc. Implement a work-around. Test-case::
 
