@@ -663,6 +663,19 @@ certainty = possible
 description =
  Translation is missing for some plural forms of a message.
 
+[qt-plural-format-mistaken-for-c-format]
+severity = important
+certainty = possible
+description =
+ A ``c-format`` flag is associated with the message, but ``qt-plural-format``
+ should be used instead.
+ .
+ The only C format directive that the message uses is ``%n``. It is very
+ atypical to use it alone in a C format string.
+references =
+ http://qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
+ printf(3)
+
 [range-flag-without-plural-string]
 severity = normal
 certainty = certain

@@ -1,5 +1,9 @@
 i18nspector (0.16) UNRELEASED; urgency=medium
 
+  * Summary of tag changes:
+    + Added:
+      - qt-plural-format-mistaken-for-c-format
+
   * Never consider non-ASCII characters and control-characters as part of C
     format string conversion.
   * Temper checks for conflicting and redundant message flags:
@@ -8,9 +12,10 @@ i18nspector (0.16) UNRELEASED; urgency=medium
     + Don't complain when a positive format flag (<lang1>-format) and a
       negative format flag (no-<lang2>-format) apply to the same message. The
       negative format flag might be still a useful hint for the translator.
+  * Check for plural Qt format string mistakenly tagged as C format strings.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 15 Aug 2014 00:32:29 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 15 Aug 2014 00:48:16 +0200
 
 i18nspector (0.15) unstable; urgency=low
 

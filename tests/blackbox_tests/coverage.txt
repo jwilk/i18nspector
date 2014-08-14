@@ -79,6 +79,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] non-portable-encoding
 [X] os-error
 [X] partially-translated-message
+[X] qt-plural-format-mistaken-for-c-format
 [X] range-flag-without-plural-string
 [X] redundant-message-flag
 [X] stray-header-line

@@ -922,6 +922,14 @@ class Checker(object, metaclass=abc.ABCMeta):
                 'msgid_plural', msgid_fmts[1],
                 'msgid', msgid_fmts[0],
             )
+        if msgid_fmts.get(0) is not None:
+            try:
+                [[arg]] = msgid_fmts[0].arguments
+            except ValueError:
+                pass
+            else:
+                if arg.type == 'int *':
+                    self.tag('qt-plural-format-mistaken-for-c-format', message_repr(message))
         if 'fuzzy' in message.flags:
             return
         if ctx.encoding is None:
