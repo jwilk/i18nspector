@@ -21,12 +21,15 @@
 import difflib
 import errno
 import inspect
+import io
+import multiprocessing as mp
 import os
 import re
 import shlex
 import signal
 import subprocess as ipc
 import sys
+import traceback
 import unittest
 
 import nose
@@ -179,19 +182,48 @@ class SubprocessError(Exception):
 def run_i18nspector(options, path):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
+        # We cheat here a bit, becausing excec(3)ing is very expensive.
+        # Let's load the needed Python modules, and use multiprocessing to
+        # “emulate” the command execution.
+        import lib.cli
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
         commandline = [sys.executable, prog]
+        queue = mp.Queue()
+        child = mp.Process(
+            target=_mp_run_i18nspector,
+            args=(prog, options, path, queue)
+        )
+        child.start()
+        try:
+            timeout = 10
+            # FIXME: Ideally, we should wait until either the object appears in
+            # the queue, or the process terminates.
+            # Unfortunately multiproces.Queue.get() will block if the process
+            # terminated before putting the object into the queue.
+            [stdout, stderr] = (
+                s.encode('ASCII', 'backslashreplace').decode().splitlines()
+                for s in queue.get(timeout=timeout)
+            )
+        except mp.queues.Empty as exc:
+            empty_queue = exc
+            stdout = stderr = ''
+        else:
+            empty_queue = None
+        child.join()
+        rc = child.exitcode
+        if rc == 0 and empty_queue is not None:
+            raise empty_queue
     else:
         commandline = shlex.split(commandline)
-    commandline += options
-    commandline += [path]
-    fixed_env = dict(os.environ, LC_ALL='C')
-    child = ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env)
-    stdout, stderr = (
-        s.decode().splitlines()
-        for s in child.communicate()
-    )
-    rc = child.poll()
+        commandline += options
+        commandline += [path]
+        fixed_env = dict(os.environ, LC_ALL='C')
+        child = ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env)
+        stdout, stderr = (
+            s.decode().splitlines()
+            for s in child.communicate()
+        )
+        rc = child.poll()
     if rc == 0:
         return stdout
     if rc < 0:
@@ -210,6 +242,39 @@ def run_i18nspector(options, path):
     else:
         message += ['stderr: (empty)']
     raise SubprocessError('\n'.join(message))
+
+def _mp_run_i18nspector(prog, options, path, queue):
+    with open(prog, 'rt', encoding='UTF-8') as file:
+        code = file.read()
+    sys.argv = [prog] + list(options) + [path]
+    orig_stdout = sys.stdout
+    orig_stderr = sys.stderr
+    __file__ = prog
+    code = compile(code, prog, 'exec')
+    io_stdout = io.StringIO()
+    io_stderr = io.StringIO()
+    (sys.stdout, sys.stderr) = (io_stdout, io_stderr)
+    try:
+        try:
+            exec(code)
+        finally:
+            (sys.stdout, sys.stderr) = (orig_stdout, orig_stderr)
+            stdout = io_stdout.getvalue()
+            stderr = io_stderr.getvalue()
+    except SystemExit:
+        queue.put([stdout, stderr])
+        raise
+    except:
+        exctp, exc, tb = sys.exc_info()
+        stderr += ''.join(
+            traceback.format_exception(exctp, exc, tb)
+        )
+        del tb
+        queue.put([stdout, stderr])
+        sys.exit(1)
+    else:
+        queue.put([stdout, stderr])
+        sys.exit(0)
 
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
