@@ -123,6 +123,8 @@ class Namespace(object):
         super().__init__()
         self.__dict__.update(kwargs)
 
+Namespace()  # make pyflakes and coverage.py happy
+
 if sys.version_info >= (3, 3):
     Namespace = types.SimpleNamespace
 
