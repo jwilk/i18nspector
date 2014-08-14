@@ -890,8 +890,16 @@ class Checker(object, metaclass=abc.ABCMeta):
             )
 
     def _check_message_formats(self, ctx, message):
-        if 'c-format' not in message.flags:
-            return
+        for flag in sorted(message.flags):
+            if flag.endswith('-format') and (flag[:-7] in gettext.string_formats):
+                method = '_check_message_' + flag.replace('-', '_')
+                try:
+                    method = getattr(self, method)
+                except AttributeError:
+                    continue
+                method(ctx, message)
+
+    def _check_message_c_format(self, ctx, message):
         msgids = [message.msgid]
         if message.msgid_plural is not None:
             msgids += [message.msgid_plural]
