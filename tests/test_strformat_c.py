@@ -503,7 +503,7 @@ class test_type_compatibility:
 def test_too_many_conversions():
     def t(s):
         with assert_raises(M.ArgumentRangeError):
-            fmt = M.FormatString(s)
+            M.FormatString(s)
     s = M.NL_ARGMAX * '%d'
     fmt = M.FormatString(s)
     assert_equal(len(fmt), M.NL_ARGMAX)
