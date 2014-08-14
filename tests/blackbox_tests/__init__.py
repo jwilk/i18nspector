@@ -179,6 +179,22 @@ class TestCase(unittest.TestCase):
 class SubprocessError(Exception):
     pass
 
+def queue_get(queue, process):
+    '''
+    Remove and return an item from the queue.
+    Block until the process terminates.
+    '''
+    while True:
+        try:
+            return queue.get(timeout=1)
+            # This semi-active waiting is ugly, but here doesn't seem be any
+            # obvious better way.
+        except mp.queues.Empty:
+            if process.exitcode is None:
+                continue
+            else:
+                raise
+
 def run_i18nspector(options, path):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
@@ -194,25 +210,12 @@ def run_i18nspector(options, path):
             args=(prog, options, path, queue)
         )
         child.start()
-        try:
-            timeout = 10
-            # FIXME: Ideally, we should wait until either the object appears in
-            # the queue, or the process terminates.
-            # Unfortunately multiproces.Queue.get() will block if the process
-            # terminated before putting the object into the queue.
-            [stdout, stderr] = (
-                s.splitlines()
-                for s in queue.get(timeout=timeout)
-            )
-        except mp.queues.Empty as exc:
-            empty_queue = exc
-            stdout = stderr = ''
-        else:
-            empty_queue = None
+        [stdout, stderr] = (
+            s.splitlines()
+            for s in queue_get(queue, child)
+        )
         child.join()
         rc = child.exitcode
-        if rc == 0 and empty_queue is not None:
-            raise empty_queue
     else:
         commandline = shlex.split(commandline)
         commandline += options
