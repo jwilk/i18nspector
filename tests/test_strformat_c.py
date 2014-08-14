@@ -499,6 +499,7 @@ class test_type_compatibility:
         t('%1$d%1$u')
         t('%1$d%1$s')
 
+@small_NL_ARGMAX
 def test_too_many_conversions():
     def t(s):
         with assert_raises(M.ArgumentRangeError):
