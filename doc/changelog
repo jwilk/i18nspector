@@ -26,7 +26,8 @@ i18nspector (0.15) unstable; urgency=low
   * Check for errors in C format strings.
   * Check for inconsistent leading/trailing newlines in translations even when
     encoding is unknown or broken.
-  * Check for conflict markers in translations even when encoding is broken.
+  * Check for conflict markers in translations even when encoding is unknown
+    or broken.
   * Check for incomplete translations in messages with plural forms.
   * When emitting unusual-character-in-translation, don't output the
     translated string (which is likely to contain mojibake), but only the
