@@ -1,4 +1,4 @@
-i18nspector (0.15.1) UNRELEASED; urgency=medium
+i18nspector (0.16) UNRELEASED; urgency=medium
 
   * Never consider non-ASCII characters and control-characters as part of C
     format string conversion.
@@ -10,7 +10,7 @@ i18nspector (0.15.1) UNRELEASED; urgency=medium
       negative format flag might be still a useful hint for the translator.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 14 Aug 2014 19:22:53 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 15 Aug 2014 00:32:29 +0200
 
 i18nspector (0.15) unstable; urgency=low
 
