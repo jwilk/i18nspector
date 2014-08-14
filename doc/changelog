@@ -8,8 +8,9 @@ i18nspector (0.15.1) UNRELEASED; urgency=medium
     + Don't complain when a positive format flag (<lang1>-format) and a
       negative format flag (no-<lang2>-format) apply to the same message. The
       negative format flag might be still a useful hint for the translator.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 13 Aug 2014 15:49:19 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 14 Aug 2014 19:22:53 +0200
 
 i18nspector (0.15) unstable; urgency=low
 
