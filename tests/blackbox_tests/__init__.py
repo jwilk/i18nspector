@@ -173,8 +173,10 @@ class TestCase(unittest.TestCase):
     def __str__(self):
         return os.path.relpath(self.path)
 
-def assert_emit_tags(path, etags, *, options=()):
-    etags = list(etags)
+class SubprocessError(Exception):
+    pass
+
+def run_i18nspector(options, path):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
@@ -190,23 +192,28 @@ def assert_emit_tags(path, etags, *, options=()):
         for s in child.communicate()
     )
     rc = child.poll()
-    if rc != 0:
-        if rc < 0:
-            message = ['command was interrupted by signal {sig}'.format(sig=get_signal_name(-rc))]
-        else:
-            message = ['command exited with status {rc}'.format(rc=rc)]
-        message += ['']
-        if stdout:
-            message += ['stdout:']
-            message += ['| ' + s for s in stdout] + ['']
-        else:
-            message += ['stdout: (empty)']
-        if stderr:
-            message += ['stderr:']
-            message += ['| ' + s for s in stderr]
-        else:
-            message += ['stderr: (empty)']
-        raise AssertionError('\n'.join(message))
+    if rc == 0:
+        return stdout
+    if rc < 0:
+        message = ['command was interrupted by signal {sig}'.format(sig=get_signal_name(-rc))]
+    else:
+        message = ['command exited with status {rc}'.format(rc=rc)]
+    message += ['']
+    if stdout:
+        message += ['stdout:']
+        message += ['| ' + s for s in stdout] + ['']
+    else:
+        message += ['stdout: (empty)']
+    if stderr:
+        message += ['stderr:']
+        message += ['| ' + s for s in stderr]
+    else:
+        message += ['stderr: (empty)']
+    raise SubprocessError('\n'.join(message))
+
+def assert_emit_tags(path, etags, *, options=()):
+    etags = list(etags)
+    stdout = run_i18nspector(options, path)
     expected_failure = os.path.basename(path).startswith('xfail-')
     if stdout != etags:
         if expected_failure:
