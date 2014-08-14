@@ -1072,7 +1072,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 len(dst_args), tags.safestr('({})'.format(dst_loc)), '>',
                 len(src_args), tags.safestr('({})'.format(src_loc)),
             )
-        for src_arg, dst_arg in zip(*[src_args, dst_args]):
+        for src_arg, dst_arg in zip(src_args, dst_args):
             src_arg = src_arg[0]
             dst_arg = dst_arg[0]
             if src_arg.type != dst_arg.type:
