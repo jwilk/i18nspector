@@ -914,45 +914,47 @@ class Checker(object, metaclass=abc.ABCMeta):
                 'msgid_plural', msgid_fmts[1],
                 'msgid', msgid_fmts[0],
             )
-        fuzzy = 'fuzzy' in message.flags
+        if 'fuzzy' in message.flags:
+            return
+        if ctx.encoding is None:
+            return
         has_msgstr = bool(message.msgstr)
         has_msgstr_plural = any(message.msgstr_plural.values())
         strings = []
-        if (not fuzzy) and (ctx.encoding is not None):
-            if has_msgstr:
+        if has_msgstr:
+            d = misc.Namespace()
+            d.src_loc = 'msgid'
+            d.src_fmt = msgid_fmts.get(0)
+            d.dst_loc = 'msgstr'
+            d.dst = message.msgstr
+            strings += [d]
+        if has_msgstr_plural:
+            for i, s in sorted(message.msgstr_plural.items()):
+                assert isinstance(i, int)
                 d = misc.Namespace()
-                d.src_loc = 'msgid'
-                d.src_fmt = msgid_fmts.get(0)
-                d.dst_loc = 'msgstr'
-                d.dst = message.msgstr
+                d.src_loc = None
+                d.src_fmt = None
+                d.dst_loc = 'msgstr[{}]'.format(i)
+                d.dst = s
+                msgid_fmt = msgid_fmts.get(0)
+                msgid_plural_fmt = msgid_fmts.get(1)
+                if ctx.singular_index is None:
+                    pass
+                elif ctx.singular_index == i:
+                    d.src_loc = 'msgid'
+                    d.src_fmt = msgid_fmt
+                    more_plural_arguments = (
+                        msgid_fmt is not None and
+                        msgid_plural_fmt is not None and
+                        len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
+                    )
+                    if more_plural_arguments:
+                        d.alt_src_loc = 'msgid_plural'
+                        d.alt_src_fmt = msgid_plural_fmt
+                else:
+                    d.src_loc = 'msgid_plural'
+                    d.src_fmt = msgid_plural_fmt
                 strings += [d]
-            if has_msgstr_plural:
-                for i, s in sorted(message.msgstr_plural.items()):
-                    assert isinstance(i, int)
-                    d = misc.Namespace()
-                    d.src_loc = None
-                    d.src_fmt = None
-                    d.dst_loc = 'msgstr[{}]'.format(i)
-                    d.dst = s
-                    msgid_fmt = msgid_fmts.get(0)
-                    msgid_plural_fmt = msgid_fmts.get(1)
-                    if ctx.singular_index is None:
-                        pass
-                    elif ctx.singular_index == i:
-                        d.src_loc = 'msgid'
-                        d.src_fmt = msgid_fmt
-                        more_plural_arguments = (
-                            msgid_fmt is not None and
-                            msgid_plural_fmt is not None and
-                            len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
-                        )
-                        if more_plural_arguments:
-                            d.alt_src_loc = 'msgid_plural'
-                            d.alt_src_fmt = msgid_plural_fmt
-                    else:
-                        d.src_loc = 'msgid_plural'
-                        d.src_fmt = msgid_plural_fmt
-                    strings += [d]
         for d in strings:
             d.dst_fmt = self._check_c_format_string(message, d.dst)
             if d.dst_fmt is None:
