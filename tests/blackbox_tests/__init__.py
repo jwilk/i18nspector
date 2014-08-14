@@ -201,7 +201,7 @@ def run_i18nspector(options, path):
             # Unfortunately multiproces.Queue.get() will block if the process
             # terminated before putting the object into the queue.
             [stdout, stderr] = (
-                s.encode('ASCII', 'backslashreplace').decode().splitlines()
+                s.splitlines()
                 for s in queue.get(timeout=timeout)
             )
         except mp.queues.Empty as exc:
@@ -217,10 +217,10 @@ def run_i18nspector(options, path):
         commandline = shlex.split(commandline)
         commandline += options
         commandline += [path]
-        fixed_env = dict(os.environ, LC_ALL='C')
+        fixed_env = dict(os.environ, PYTHONIOENCODING='UTF-8')
         child = ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env)
         stdout, stderr = (
-            s.decode().splitlines()
+            s.decode('UTF-8').splitlines()
             for s in child.communicate()
         )
         rc = child.poll()
@@ -323,7 +323,7 @@ def _parse_test_header_file(file, path, *, comments_only):
 def _parse_test_headers(path):
     # <path>.tags:
     try:
-        file = open(path + '.tags', encoding='ASCII')
+        file = open(path + '.tags', encoding='UTF-8')
     except IOError as exc:
         if exc.errno != errno.ENOENT:
             raise
@@ -332,7 +332,7 @@ def _parse_test_headers(path):
             return _parse_test_header_file(file, path, comments_only=False)
     # <path>.gen:
     try:
-        file = open(path + '.gen', encoding='ASCII', errors='ignore')
+        file = open(path + '.gen', encoding='UTF-8', errors='ignore')
     except IOError as exc:
         if exc.errno != errno.ENOENT:
             raise
@@ -340,7 +340,7 @@ def _parse_test_headers(path):
         with file:
             return _parse_test_header_file(file, path, comments_only=True)
     # <path>:
-    with open(path, 'rt', encoding='ASCII', errors='ignore') as file:
+    with open(path, 'rt', encoding='UTF-8', errors='ignore') as file:
         return _parse_test_header_file(file, path, comments_only=True)
 
 def _test_file(path):

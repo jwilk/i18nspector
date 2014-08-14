@@ -1,4 +1,4 @@
-# E: duplicate-message-definition msgid '\x07\x07\x08\x08\x0c\x0c\t\t\x0b\x0b\r\u2026\n'
+# E: duplicate-message-definition msgid '\x07\x07\x08\x08\x0c\x0c\t\t\x0b\x0b\r…\n'
 
 msgid ""
 msgstr ""
