@@ -200,4 +200,6 @@ meaning over time: http://mm.icann.org/pipermail/tz/2014-June/021089.html
 
 Check for ``#| msgid`` comments for messages that are not marked fuzzy.
 
+Check XML syntax is the message looks like an XML fragment.
+
 .. vim:ft=rst
