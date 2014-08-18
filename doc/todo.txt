@@ -202,4 +202,6 @@ Check for ``#| msgid`` comments for messages that are not marked fuzzy.
 
 Check XML syntax is the message looks like an XML fragment.
 
+Check for capitalization inconsistencies.
+
 .. vim:ft=rst
