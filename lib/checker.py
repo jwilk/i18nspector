@@ -942,7 +942,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             d.src_loc = 'msgid'
             d.src_fmt = msgid_fmts.get(0)
             d.dst_loc = 'msgstr'
-            d.dst = message.msgstr
+            d.dst_fmt = self._check_c_format_string(message, message.msgstr)
             strings += [d]
         if has_msgstr_plural:
             for i, s in sorted(message.msgstr_plural.items()):
@@ -951,7 +951,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                 d.src_loc = None
                 d.src_fmt = None
                 d.dst_loc = 'msgstr[{}]'.format(i)
-                d.dst = s
+                d.dst_fmt = self._check_c_format_string(message, s)
+                if d.dst_fmt is None:
+                    continue
                 msgid_fmt = msgid_fmts.get(0)
                 msgid_plural_fmt = msgid_fmts.get(1)
                 if ctx.singular_index is None:
@@ -962,47 +964,39 @@ class Checker(object, metaclass=abc.ABCMeta):
                     more_plural_arguments = (
                         msgid_fmt is not None and
                         msgid_plural_fmt is not None and
-                        len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
+                        len(d.dst_fmt.arguments) == len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
                     )
                     if more_plural_arguments:
-                        d.alt_src_loc = 'msgid_plural'
-                        d.alt_src_fmt = msgid_plural_fmt
+                        # XXX In theory, the singular msgstr[N] should not have more
+                        # arguments than msgid. In practice, it's not uncommon to see
+                        # something like this:
+                        #
+                        # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2
+                        # ...
+                        # msgid "Message repeated once."
+                        # msgid_plural "Message repeated %d times."
+                        # msgstr[0] "Paziņojums atkārtots %d reizi."
+                        # msgstr[1] "Paziņojums atkārtots %d reizes."
+                        # msgstr[2] "Paziņojums atkārtots %d reižu."
+                        #
+                        # Here %d in msgstr[0] cannot be omitted, because it is used
+                        # not only for n=1, but also for n=21, n=31, and so on.
+                        #
+                        # To be pedantically correct, one could use a different
+                        # Plural-Forms, such that there is a separate value for n=1.
+                        #
+                        # See also: https://bugs.debian.org/753946
+                        d.src_loc = 'msgid_plural'
+                        d.src_fmt = msgid_plural_fmt
                 else:
                     d.src_loc = 'msgid_plural'
                     d.src_fmt = msgid_plural_fmt
                 strings += [d]
         for d in strings:
-            d.dst_fmt = self._check_c_format_string(message, d.dst)
             if d.dst_fmt is None:
                 continue
             if d.src_fmt is None:
                 continue
-            if len(d.dst_fmt.arguments) > len(d.src_fmt.arguments):
-                # XXX In theory, the singular msgstr[N] should not have more
-                # arguments than msgid. In practice, it's not uncommon to see
-                # something like this:
-                #
-                # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2
-                # ...
-                # msgid "Message repeated once."
-                # msgid_plural "Message repeated %d times."
-                # msgstr[0] "Paziņojums atkārtots %d reizi."
-                # msgstr[1] "Paziņojums atkārtots %d reizes."
-                # msgstr[2] "Paziņojums atkārtots %d reižu."
-                #
-                # Here %d in msgstr[0] cannot be omitted, because it is used
-                # not only for n=1, but also for n=21, n=31, and so on.
-                #
-                # To be pedantically correct, one could use a different
-                # Plural-Forms, such that there is a separate value for n=1.
-                #
-                # See also: https://bugs.debian.org/753946
-                try:
-                    d.src_fmt = d.alt_src_fmt
-                except AttributeError:
-                    pass
-                else:
-                    d.src_loc = d.alt_src_loc
             assert d.src_loc is not None
             assert d.dst_loc is not None
             self._check_c_format_args(message,
