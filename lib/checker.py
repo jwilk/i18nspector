@@ -706,19 +706,22 @@ class Checker(object, metaclass=abc.ABCMeta):
         header_fields = frozenset(gettext.header_fields)
         header_fields_lc = {str.lower(s): s for s in header_fields}
         for key, values in sorted(metadata.items()):
-            if not key.startswith('X-'):
-                if key not in header_fields:
-                    hint = header_fields_lc.get(key.lower())
-                    if hint is None:
-                        hints = difflib.get_close_matches(key, header_fields, n=1, cutoff=0.8)
-                        if hints:
-                            [hint] = hints
-                    if hint in metadata:
-                        hint = None
-                    if hint is None:
-                        self.tag('unknown-header-field', key)
-                    else:
-                        self.tag('unknown-header-field', key, '=>', hint)
+            if key.startswith('X-'):
+                pass  # ok
+            elif key in header_fields:
+                pass  # ok
+            else:
+                hint = header_fields_lc.get(key.lower())
+                if hint is None:
+                    hints = difflib.get_close_matches(key, header_fields, n=1, cutoff=0.8)
+                    if hints:
+                        [hint] = hints
+                if hint in metadata:
+                    hint = None
+                if hint is None:
+                    self.tag('unknown-header-field', key)
+                else:
+                    self.tag('unknown-header-field', key, '=>', hint)
             if len(values) > 1 and key not in header_fields_with_dedicated_checks:
                 self.tag('duplicate-header-field', key)
         ctx.metadata = metadata
