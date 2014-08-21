@@ -706,7 +706,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         header_fields = frozenset(gettext.header_fields)
         header_fields_lc = {str.lower(s): s for s in header_fields}
         for key, values in sorted(metadata.items()):
-            if key.startswith('X-'):
+            if key.startswith(('X-', 'x-')):
                 pass  # ok
             elif key in header_fields:
                 pass  # ok

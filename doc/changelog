@@ -12,10 +12,11 @@ i18nspector (0.16) UNRELEASED; urgency=medium
     + Don't complain when a positive format flag (<lang1>-format) and a
       negative format flag (no-<lang2>-format) apply to the same message. The
       negative format flag might be still a useful hint for the translator.
+  * Don't complain about unknown header fields starting with lowercase “x-”.
   * Check for plural Qt format string mistakenly tagged as C format strings.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 15 Aug 2014 00:48:16 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Aug 2014 11:39:57 +0200
 
 i18nspector (0.15) unstable; urgency=low
 

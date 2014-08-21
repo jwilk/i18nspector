@@ -204,7 +204,4 @@ Check XML syntax is the message looks like an XML fragment.
 
 Check for capitalization inconsistencies.
 
-Don't emit ``unknown-header-field`` for fields starting with (lowercase)
-``x-``.
-
 .. vim:ft=rst
