@@ -125,6 +125,17 @@ references =
  printf(3)
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
+[c-format-string-missing-arguments]
+severity = serious
+certainty = possible
+description =
+ A C format string for ``msgid`` consumes less arguments than ``msgid_plural``;
+ or ``msgstr`` consumes less arguments than ``msgid``;
+ or ``msgstr[``\ *N*\ ``]`` consumes less arguments than ``msgid`` or ``msgid_plural``.
+references =
+ printf(3)
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
 [c-format-string-non-portable-conversion]
 severity = pedantic
 certainty = possible

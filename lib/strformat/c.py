@@ -225,6 +225,39 @@ class FormatString(object):
     def warn(self, exc_type, *args, **kwargs):
         self.warnings += [exc_type(*args, **kwargs)]
 
+    def get_last_integer_conversion(self, *, n):
+        '''
+        return the integer conversion that consumes the last n arguments,
+        or None
+        '''
+        if n > len(self):
+            raise IndexError
+        if n <= 0:
+            raise IndexError
+        conv = vconv = None
+        for i in range(len(self.arguments) - n, len(self.arguments)):
+            assert i >= 0
+            for arg in self.arguments[i]:
+                if isinstance(arg, (VariableWidth, VariablePrecision)):
+                    if vconv is None:
+                        vconv = arg.parent
+                    if vconv is not arg.parent:
+                        return
+                elif isinstance(arg, Conversion):
+                    if vconv is None:
+                        vconv = arg
+                    if (conv is None) and (vconv is arg):
+                        conv = arg
+                    if conv is not arg:
+                        return
+                else:
+                    assert 0, 'type(arg) == {!r}'.format(type(arg))
+        if conv is None:
+            return
+        if not conv.integer:
+            return
+        return conv
+
     def __iter__(self):
         return iter(self._items)
 

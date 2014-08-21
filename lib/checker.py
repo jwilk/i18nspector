@@ -325,7 +325,7 @@ class Checker(object, metaclass=abc.ABCMeta):
 
     @checks_header_fields('Plural-Forms')
     def check_plurals(self, ctx):
-        ctx.singular_index = None
+        ctx.plural_preimage = None
         plural_forms = ctx.metadata['Plural-Forms']
         if len(plural_forms) > 1:
             self.tag('duplicate-header-field-plural-forms')
@@ -404,6 +404,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                         self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
                 elif len(locally_correct_plural_forms) == 1:
                     [[locally_correct_n, locally_correct_expr]] = locally_correct_plural_forms
+            plural_preimage = collections.defaultdict(list)
             try:
                 for i in range(200):
                     fi = expr(i)
@@ -414,14 +415,15 @@ class Checker(object, metaclass=abc.ABCMeta):
                         else:
                             self.tag('codomain-error-in-unused-plural-forms', message)
                         break
-                    elif i == 1:
-                        ctx.singular_index = fi
+                    plural_preimage[fi] += [i]
                     if n == locally_correct_n and fi != locally_correct_expr(i):
                         if has_plurals:
                             self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
                         else:
                             self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
                         break
+                else:
+                    ctx.plural_preimage = dict(plural_preimage)
             except OverflowError:
                 message = tags.safe_format('f({}): integer overflow', i)
                 if has_plurals:
@@ -931,6 +933,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 message,
                 'msgid_plural', msgid_fmts[1],
                 'msgid', msgid_fmts[0],
+                omitted_numeral_ok=True,
             )
         if msgid_fmts.get(0) is not None:
             try:
@@ -953,54 +956,65 @@ class Checker(object, metaclass=abc.ABCMeta):
             d.src_fmt = msgid_fmts.get(0)
             d.dst_loc = 'msgstr'
             d.dst_fmt = self._check_c_format_string(message, message.msgstr)
+            d.omitted_numeral_ok = False
             strings += [d]
-        if has_msgstr_plural:
+        if has_msgstr_plural and ctx.plural_preimage:
             for i, s in sorted(message.msgstr_plural.items()):
                 assert isinstance(i, int)
                 d = misc.Namespace()
-                d.src_loc = None
-                d.src_fmt = None
+                msgid_fmt = msgid_fmts.get(0)
+                msgid_plural_fmt = msgid_fmts.get(1)
+                d.src_loc = 'msgid_plural'
+                d.src_fmt = msgid_plural_fmt
                 d.dst_loc = 'msgstr[{}]'.format(i)
                 d.dst_fmt = self._check_c_format_string(message, s)
                 if d.dst_fmt is None:
                     continue
-                msgid_fmt = msgid_fmts.get(0)
-                msgid_plural_fmt = msgid_fmts.get(1)
-                if ctx.singular_index is None:
-                    pass
-                elif ctx.singular_index == i:
+                try:
+                    preimage = ctx.plural_preimage[i]
+                except KeyError:
+                    # broken plural forms
+                    continue
+                # XXX In theory, the msgstr[] corresponding to n=1 should
+                # not have more arguments than msgid. In practice, it's not
+                # uncommon to see something like this:
+                #
+                # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2
+                # ...
+                # msgid "Message repeated once."
+                # msgid_plural "Message repeated %d times."
+                # msgstr[0] "Paziņojums atkārtots %d reizi."
+                # msgstr[1] "Paziņojums atkārtots %d reizes."
+                # msgstr[2] "Paziņojums atkārtots %d reižu."
+                #
+                # Here %d in msgstr[0] cannot be omitted, because it is used
+                # not only for n=1, but also for n=21, n=31, and so on.
+                #
+                # To be pedantically correct, one could use a different
+                # Plural-Forms, such that there is a separate value for n=1.
+                #
+                # See also: https://bugs.debian.org/753946
+                if preimage == [1]:
+                    # FIXME: “preimage” is not necessarily complete.
+                    # So it's theoretically possible that this msgstr[]
+                    # corresponds to both n=1 and another n.
                     d.src_loc = 'msgid'
                     d.src_fmt = msgid_fmt
-                    more_plural_arguments = (
+                    d.omitted_numeral_ok = (
                         msgid_fmt is not None and
                         msgid_plural_fmt is not None and
-                        len(d.dst_fmt.arguments) == len(msgid_plural_fmt.arguments) > len(msgid_fmt.arguments)
+                        len(msgid_fmt) == len(msgid_plural_fmt)
                     )
-                    if more_plural_arguments:
-                        # XXX In theory, the singular msgstr[N] should not have more
-                        # arguments than msgid. In practice, it's not uncommon to see
-                        # something like this:
-                        #
-                        # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2
-                        # ...
-                        # msgid "Message repeated once."
-                        # msgid_plural "Message repeated %d times."
-                        # msgstr[0] "Paziņojums atkārtots %d reizi."
-                        # msgstr[1] "Paziņojums atkārtots %d reizes."
-                        # msgstr[2] "Paziņojums atkārtots %d reižu."
-                        #
-                        # Here %d in msgstr[0] cannot be omitted, because it is used
-                        # not only for n=1, but also for n=21, n=31, and so on.
-                        #
-                        # To be pedantically correct, one could use a different
-                        # Plural-Forms, such that there is a separate value for n=1.
-                        #
-                        # See also: https://bugs.debian.org/753946
-                        d.src_loc = 'msgid_plural'
-                        d.src_fmt = msgid_plural_fmt
+                elif len(preimage) == 1:
+                    d.omitted_numeral_ok = True
+                elif len(preimage) == 2 and preimage[0] == 0:
+                    # XXX In theory, the numeral should not be omitted in the
+                    # msgstr[] corresponding to both n=0 and another n.
+                    # In practice, it's sometimes obvious from context that the
+                    # message will never be used for n=0.
+                    d.omitted_numeral_ok = True
                 else:
-                    d.src_loc = 'msgid_plural'
-                    d.src_fmt = msgid_plural_fmt
+                    d.omitted_numeral_ok = False
                 strings += [d]
         for d in strings:
             if d.dst_fmt is None:
@@ -1011,7 +1025,8 @@ class Checker(object, metaclass=abc.ABCMeta):
             assert d.dst_loc is not None
             self._check_c_format_args(message,
                 d.src_loc, d.src_fmt,
-                d.dst_loc, d.dst_fmt
+                d.dst_loc, d.dst_fmt,
+                omitted_numeral_ok=d.omitted_numeral_ok,
             )
 
     def _check_c_format_string(self, message, s):
@@ -1075,7 +1090,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 )
         return fmt
 
-    def _check_c_format_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt):
+    def _check_c_format_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_numeral_ok=False):
         prefix = message_repr(message, template='{}:')
         src_args = src_fmt.arguments
         dst_args = dst_fmt.arguments
@@ -1084,6 +1099,15 @@ class Checker(object, metaclass=abc.ABCMeta):
                 len(dst_args), tags.safestr('({})'.format(dst_loc)), '>',
                 len(src_args), tags.safestr('({})'.format(src_loc)),
             )
+        elif len(dst_args) < len(src_args):
+            if omitted_numeral_ok:
+                n_args_omitted = len(src_args) - len(dst_args)
+                omitted_numeral_ok = src_fmt.get_last_integer_conversion(n=n_args_omitted)
+            if not omitted_numeral_ok:
+                self.tag('c-format-string-missing-arguments', prefix,
+                    len(dst_args), tags.safestr('({})'.format(dst_loc)), '<',
+                    len(src_args), tags.safestr('({})'.format(src_loc)),
+                )
         for src_arg, dst_arg in zip(src_args, dst_args):
             src_arg = src_arg[0]
             dst_arg = dst_arg[0]

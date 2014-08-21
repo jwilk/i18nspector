@@ -2,6 +2,7 @@ i18nspector (0.16) UNRELEASED; urgency=medium
 
   * Summary of tag changes:
     + Added:
+      - c-format-string-missing-arguments
       - qt-plural-format-mistaken-for-c-format
       - stray-previous-msgid
 
@@ -17,9 +18,12 @@ i18nspector (0.16) UNRELEASED; urgency=medium
   * Check for plural Qt format string mistakenly tagged as C format strings.
   * Check for previous msgid annotations (#| msgid ...) attached to non-fuzzy
     messages.
+  * Check for C format strings in msgstr/msgstr_plural[N] consuming less
+    arguments than corresponding msgid/msgid_plural.
+    https://bugs.debian.org/753946
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Aug 2014 13:37:02 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Aug 2014 14:53:48 +0200
 
 i18nspector (0.15) unstable; urgency=low
 

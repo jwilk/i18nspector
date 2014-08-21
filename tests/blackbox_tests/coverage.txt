@@ -13,6 +13,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] c-format-string-argument-type-mismatch
 [X] c-format-string-error
 [X] c-format-string-excess-arguments
+[X] c-format-string-missing-arguments
 [X] c-format-string-non-portable-conversion
 [X] c-format-string-redundant-flag
 [X] codomain-error-in-plural-forms
