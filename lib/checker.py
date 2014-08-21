@@ -738,8 +738,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                 continue
             if is_header_entry(message):
                 continue
-            self._check_message_flags(message)
-            self._check_message_formats(ctx, message)
+            flags = self._check_message_flags(message)
+            self._check_message_formats(ctx, message, flags)
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
                 self.tag('duplicate-message-definition', message_repr(message))
@@ -750,18 +750,17 @@ class Checker(object, metaclass=abc.ABCMeta):
                     self.tag('translation-in-template', message_repr(message))
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
-            fuzzy = 'fuzzy' in message.flags
             has_previous_msgid = any(s is not None for s in [
                 message.previous_msgctxt,
                 message.previous_msgid,
                 message.previous_msgid_plural,
             ])
-            if has_previous_msgid and not fuzzy:
+            if has_previous_msgid and not flags.fuzzy:
                 self.tag('stray-previous-msgid', message_repr(message))
             strings = []
             if message.msgid_plural is not None:
                 strings += [message.msgid_plural]
-            if not fuzzy:
+            if not flags.fuzzy:
                 if has_msgstr:
                     strings += [message.msgstr]
                 if has_msgstr_plural:
@@ -798,7 +797,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                         tags.safestr(names)
                     )
                     found_unusual_characters |= uc
-            if not fuzzy:
+            if not flags.fuzzy:
                 for msgstr in strings:
                     conflict_marker = gettext.search_for_conflict_marker(msgstr)
                     if conflict_marker is not None:
@@ -815,13 +814,18 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('empty-file')
 
     def _check_message_flags(self, message):
+        info = misc.Namespace()
+        info.fuzzy = False
+        info.range_min = 0
+        info.range_max = 1e999  # +inf
+        info.formats = None
         flags = collections.Counter(message.flags)
         wrap = None
         format_flags = collections.defaultdict(dict)
         for flag, n in sorted(flags.items()):
             known_flag = True
             if flag == 'fuzzy':
-                pass
+                info.fuzzy = True
             elif flag in {'wrap', 'no-wrap'}:
                 new_wrap = flag == 'wrap'
                 if wrap == (not new_wrap):
@@ -837,7 +841,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                 match = re.match('([0-9]+)[.][.]([0-9]+)', flag[6:].strip(' \t\r\f\v'))
                 if match is not None:
                     i, j = map(int, match.groups())
-                    if i >= j:
+                    if i < j:
+                        info.range_min = i
+                        info.range_max = j
+                    else:
                         match = None
                 if match is None:
                     self.tag('invalid-range-flag',
@@ -868,6 +875,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     flag
                 )
         positive_format_flags = format_flags['']
+        info.formats = frozenset(positive_format_flags)
         for fmt1, flag1 in sorted(positive_format_flags.items()):
             for fmt2, flag2 in sorted(positive_format_flags.items()):
                 if fmt1 >= fmt2:
@@ -900,18 +908,18 @@ class Checker(object, metaclass=abc.ABCMeta):
                 possible_format_flags[fmt],
                 tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
             )
+        return info
 
-    def _check_message_formats(self, ctx, message):
-        for flag in sorted(message.flags):
-            if flag.endswith('-format') and (flag[:-7] in gettext.string_formats):
-                method = '_check_message_' + flag.replace('-', '_')
-                try:
-                    method = getattr(self, method)
-                except AttributeError:
-                    continue
-                method(ctx, message)
+    def _check_message_formats(self, ctx, message, flags):
+        for format in sorted(flags.formats):
+            method = '_check_message_{fmt}_format'.format(fmt=format.replace('-', '_'))
+            try:
+                method = getattr(self, method)
+            except AttributeError:
+                continue
+            method(ctx, message, flags)
 
-    def _check_message_c_format(self, ctx, message):
+    def _check_message_c_format(self, ctx, message, flags):
         msgids = [message.msgid]
         if message.msgid_plural is not None:
             msgids += [message.msgid_plural]
@@ -943,7 +951,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             else:
                 if arg.type == 'int *':
                     self.tag('qt-plural-format-mistaken-for-c-format', message_repr(message))
-        if 'fuzzy' in message.flags:
+        if flags.fuzzy:
             return
         if ctx.encoding is None:
             return
@@ -975,6 +983,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                 except KeyError:
                     # broken plural forms
                     continue
+                preimage = [
+                    x for x in preimage
+                    if flags.range_min <= x <= flags.range_max
+                ]
                 # XXX In theory, the msgstr[] corresponding to n=1 should
                 # not have more arguments than msgid. In practice, it's not
                 # uncommon to see something like this:
@@ -1005,7 +1017,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                         msgid_plural_fmt is not None and
                         len(msgid_fmt) == len(msgid_plural_fmt)
                     )
-                elif len(preimage) == 1:
+                elif len(preimage) <= 1:
                     d.omitted_numeral_ok = True
                 elif len(preimage) == 2 and preimage[0] == 0:
                     # XXX In theory, the numeral should not be omitted in the
