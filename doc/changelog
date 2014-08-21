@@ -20,6 +20,7 @@ i18nspector (0.16) UNRELEASED; urgency=medium
     messages.
   * Check for C format strings in msgstr/msgstr_plural[N] consuming less
     arguments than corresponding msgid/msgid_plural.
+    Thanks to Guillem Jover for the bug report.
     https://bugs.debian.org/753946
   * Improve the test suite.
 
