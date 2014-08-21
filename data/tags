@@ -703,6 +703,17 @@ description =
 references =
  https://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
 
+[stray-previous-msgid]
+severity = minor
+certainty = certain
+description =
+ The message entry contains annotations about previous untranslated string
+ (``#| msgid ``\ *...*), even though the message is not marked as fuzzy.
+ These annotations are only useful for fuzzy messages, and should be removed
+ when unfuzzying.
+references =
+ https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+
 [syntax-error-in-plural-forms]
 severity = serious
 certainty = possible

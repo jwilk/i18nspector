@@ -3,6 +3,7 @@ i18nspector (0.16) UNRELEASED; urgency=medium
   * Summary of tag changes:
     + Added:
       - qt-plural-format-mistaken-for-c-format
+      - stray-previous-msgid
 
   * Never consider non-ASCII characters and control-characters as part of C
     format string conversion.
@@ -14,9 +15,11 @@ i18nspector (0.16) UNRELEASED; urgency=medium
       negative format flag might be still a useful hint for the translator.
   * Don't complain about unknown header fields starting with lowercase “x-”.
   * Check for plural Qt format string mistakenly tagged as C format strings.
+  * Check for previous msgid annotations (#| msgid ...) attached to non-fuzzy
+    messages.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Aug 2014 11:39:57 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Aug 2014 13:37:02 +0200
 
 i18nspector (0.15) unstable; urgency=low
 

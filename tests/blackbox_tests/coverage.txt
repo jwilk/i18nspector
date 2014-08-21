@@ -83,6 +83,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] range-flag-without-plural-string
 [X] redundant-message-flag
 [X] stray-header-line
+[X] stray-previous-msgid
 [X] syntax-error-in-plural-forms
 [X] syntax-error-in-po-file
 [X] syntax-error-in-unused-plural-forms

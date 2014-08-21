@@ -179,6 +179,9 @@ class Parser(object):
         entry.occurrences = ()
         entry.flags = ()  # https://bitbucket.org/izi/polib/issue/47
         entry.translated = lambda: True
+        entry.previous_msgctxt = None
+        entry.previous_msgid = None
+        entry.previous_msgid_plural = None
         return entry
 
 __all__ = ['Parser', 'SyntaxError']

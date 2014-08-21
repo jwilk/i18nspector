@@ -749,6 +749,13 @@ class Checker(object, metaclass=abc.ABCMeta):
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
             fuzzy = 'fuzzy' in message.flags
+            has_previous_msgid = any(s is not None for s in [
+                message.previous_msgctxt,
+                message.previous_msgid,
+                message.previous_msgid_plural,
+            ])
+            if has_previous_msgid and not fuzzy:
+                self.tag('stray-previous-msgid', message_repr(message))
             strings = []
             if message.msgid_plural is not None:
                 strings += [message.msgid_plural]
