@@ -737,7 +737,6 @@ class Checker(object, metaclass=abc.ABCMeta):
             if is_header_entry(message):
                 continue
             self._check_message_flags(message)
-            fuzzy = 'fuzzy' in message.flags
             self._check_message_formats(ctx, message)
             msgid_counter[message.msgid, message.msgctxt] += 1
             if msgid_counter[message.msgid, message.msgctxt] == 2:
@@ -749,6 +748,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     self.tag('translation-in-template', message_repr(message))
             leading_lf = message.msgid.startswith('\n')
             trailing_lf = message.msgid.endswith('\n')
+            fuzzy = 'fuzzy' in message.flags
             strings = []
             if message.msgid_plural is not None:
                 strings += [message.msgid_plural]
