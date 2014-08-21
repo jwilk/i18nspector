@@ -199,4 +199,6 @@ Check XML syntax is the message looks like an XML fragment.
 
 Check for capitalization inconsistencies.
 
+Check for duplicate ``range:`` flags.
+
 .. vim:ft=rst
