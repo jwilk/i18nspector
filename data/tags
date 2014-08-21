@@ -99,9 +99,9 @@ references =
 severity = serious
 certainty = possible
 description =
- There's a type mismatch between a C format argument in ``msgid`` and the
- corresponding format argument in ``msgid_plural``; or between a C format
- argument in ``msgstr[``\ *N*\ ``]`` and either ``msgid`` or ``msgid_plural``.
+ There's a type mismatch between a C format argument in ``msgid`` and the corresponding format argument in ``msgid_plural``;
+ or between a C format argument in ``msgstr`` and ``msgid``;
+ or between a C format argument in ``msgstr[``\ *N*\ ``]`` and ``msgid`` or ``msgid_plural``.
 references =
  printf(3)
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
@@ -118,9 +118,9 @@ references =
 severity = serious
 certainty = possible
 description =
- A C format string for ``msgid`` takes more arguments that ``msgid_plural``;
- or ``msgstr[``\ *N*\ ``]`` takes more arguments than ``msgid`` or
- ``msgid_plural``.
+ A C format string for ``msgid`` consumes more arguments than ``msgid_plural``;
+ or ``msgstr`` consumes more arguments than ``msgid``;
+ or ``msgstr[``\ *N*\ ``]`` consumes more arguments than ``msgid`` or ``msgid_plural``.
 references =
  printf(3)
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
