@@ -11,7 +11,9 @@
 # W: no-last-translator-header-field
 # P: no-language-team-header-field
 
-msgid "header imitation"
+# This msgid should sort first asciibetically,
+# so that the entry ends up first in the MO file, too.
+msgid "(header imitation)"
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
 msgid "A quick brown fox jumps over the lazy dog."
