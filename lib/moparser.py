@@ -77,7 +77,7 @@ class Parser(object):
         begin = at
         end = at + 4 * n
         view = self._view
-        if end > len(self._view):
+        if end > len(view):
             raise SyntaxError('truncated file')
         return struct.unpack(
             self._endian + 'I' * n,
