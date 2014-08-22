@@ -2,8 +2,8 @@
 severity = normal
 certainty = certain
 description =
- The date refers to the time before the first GNU gettext release. As such,
- it's extremely unlikely to be correct.
+ The date refers to the time before the first GNU gettext release.
+ As such, it's extremely unlikely to be correct.
 references =
  http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
@@ -48,8 +48,8 @@ severity = minor
 certainty = certain
 description =
  The Language-Team header field contains xgettext boilerplate.
- It should contain English name of the language, and the email address or
- homepage URL of the language team.
+ It should contain English name of the language,
+ and the email address or homepage URL of the language team.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -76,8 +76,8 @@ severity = normal
 certainty = certain
 description =
  The Report-Msgid-Bugs-To header field contains xgettext boilerplate.
- It should contain an email address or URL where one can report bugs in the
- untranslated strings.
+ It should contain an email address
+ or URL where one can report bugs in the untranslated strings.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -85,12 +85,11 @@ references =
 severity = serious
 certainty = possible
 description =
- Header fields and messages contained by this file couldn't be decoded to
- Unicode.
+ Header fields and messages contained by this file couldn't be decoded to Unicode.
  The usual cause of this is incorrect or missing encoding declaration.
  .
- Note that in the absence of encoding declaration, i18nspector assumes ASCII
- encoding.
+ Note that in the absence of encoding declaration,
+ i18nspector assumes ASCII encoding.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  https://tools.ietf.org/html/rfc2045#section-5
@@ -168,8 +167,8 @@ references =
 severity = serious
 certainty = possible
 description =
- Either a plural form value is outside the declared range, or some values
- within the declared range can never be reached.
+ Either a plural form value is outside the declared range,
+ or some values within the declared range can never be reached.
  This normally indicates an error in the plural form expression.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
@@ -178,8 +177,8 @@ references =
 severity = normal
 certainty = possible
 description =
- Either a plural form value is outside the declared range, or some values
- within the declared range can never be reached.
+ Either a plural form value is outside the declared range,
+ or some values within the declared range can never be reached.
  (But there are no translated messages which use plural forms.)
  This normally indicates an error in the plural form expression.
 references =
@@ -216,7 +215,8 @@ references =
 severity = normal
 certainty = certain
 description =
- The date refers to the future. As such, it's extremely unlikely to be correct.
+ The date refers to the future.
+ As such, it's extremely unlikely to be correct.
 
 [distant-header-entry]
 severity = important
@@ -332,23 +332,23 @@ severity = serious
 certainty = certain
 description =
  The message with empty msgid contains plural forms.
- Such messages are reserved by GNU gettext for header entries, and your code
- should not call ``ngettext("", …)``.
+ Such messages are reserved by GNU gettext for header entries,
+ and your code should not call ``ngettext("", …)``.
 
 [empty-msgid-message-with-source-code-references]
 severity = serious
 certainty = possible
 description =
  The message with empty msgid contains plural forms.
- Such messages are reserved by GNU gettext for header entries, and your code
- should not call ``gettext("")``.
+ Such messages are reserved by GNU gettext for header entries,
+ and your code should not call ``gettext("")``.
 
 [encoding-in-language-header-field]
 severity = minor
 certainty = certain
 description =
- The language header field contains encoding declaration. Such information
- shouldn't be included in this field.
+ The language header field contains encoding declaration.
+ Such information shouldn't be included in this field.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -373,8 +373,7 @@ description =
 severity = serious
 certainty = certain
 description =
- Number of plural forms in a message definition doesn't match number of plural
- forms declared in another message definition.
+ Number of plural forms in a message definition doesn't match number of plural forms declared in another message definition.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
  https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
@@ -390,8 +389,7 @@ description =
 severity = serious
 certainty = certain
 description =
- Number of plural forms in a message definition doesn't match number of plural
- forms declared in the header.
+ Number of plural forms in a message definition doesn't match number of plural forms declared in the header.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
  https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
@@ -400,15 +398,15 @@ references =
 severity = serious
 certainty = possible
 description =
- The Plural-Forms declaration is incorrect, according to i18nspector's
- linguistic data.
+ The Plural-Forms declaration is incorrect,
+ according to i18nspector's linguistic data.
 
 [incorrect-unused-plural-forms]
 severity = normal
 certainty = possible
 description =
- The Plural-Forms declaration is incorrect, according to i18nspector's
- linguistic data.
+ The Plural-Forms declaration is incorrect,
+ according to i18nspector's linguistic data.
  (But there are no translated messages which use plural forms.)
 
 [invalid-content-transfer-encoding]
@@ -435,8 +433,9 @@ references =
 severity = normal
 certainty = certain
 description =
- The date is invalid or in an invalid format. The format should be
- ``YYYY-MM-DD hh:mm+ZZzz``, e.g. ``2011-11-05 10:14+0100``.
+ The date is invalid or in an invalid format.
+ The format should be ``YYYY-MM-DD hh:mm+ZZzz``,
+ e.g. ``2011-11-05 10:14+0100``.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -444,8 +443,8 @@ references =
 severity = important
 certainty = possible
 description =
- The Language header field couldn't be parsed, or it contains an unknown
- language.
+ The Language header field couldn't be parsed,
+ or it contains an unknown language.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -453,8 +452,8 @@ references =
 severity = normal
 certainty = possible
 description =
- The Language-Team header field contains an e-mail address that uses a
- reserved domain name.
+ The Language-Team header field contains an e-mail address
+ that uses a reserved domain name.
 references =
  https://tools.ietf.org/html/rfc2606
 
@@ -472,7 +471,8 @@ references =
 severity = pedantic
 certainty = certain
 description =
- Value of the MIME-Version header field is invalid. It should be ``1.0``.
+ Value of the MIME-Version header field is invalid.
+ It should be ``1.0``.
 references =
  https://tools.ietf.org/html/rfc2045#section-4
 
@@ -486,10 +486,8 @@ description =
 severity = important
 certainty = certain
 description =
- A ``range:`` flag couldn't be parsed, or the designated range contained less
- than two numbers.
- The syntax is ``range:``\  *min*\ ``..``\ *max*, where both values are
- non-negative integers.
+ A ``range:`` flag couldn't be parsed, or the designated range contained less than two numbers.
+ The syntax is ``range:``\  *min*\ ``..``\ *max*, where both values are non-negative integers.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
@@ -497,8 +495,8 @@ references =
 severity = normal
 certainty = possible
 description =
- The Report-Msgid-Bugs-To header field could neither be parsed as an e-mail nor
- as a URL, or the e-mail address uses a reserved domain name.
+ The Report-Msgid-Bugs-To header field could neither be parsed as an e-mail nor as a URL,
+ or the e-mail address uses a reserved domain name.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  https://tools.ietf.org/html/rfc2606
@@ -507,22 +505,20 @@ references =
 severity = normal
 certainty = possible
 description =
- Language of this file has been declared in multiple places, but the
- declarations don't match.
+ Language of this file has been declared in multiple places,
+ but the declarations don't match.
 
 [language-team-equal-to-last-translator]
 severity = minor
 certainty = possible
 description =
- Language-Team and Last-Translator header fields contain the same e-mail
- address.
+ Language-Team and Last-Translator header fields contain the same e-mail address.
 
 [language-variant-does-not-affect-translation]
 severity = minor
 certainty = possible
 description =
- The Language header field contains a variant designator that is not relevant
- for the message translation.
+ The Language header field contains a variant designator that is not relevant for the message translation.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -530,8 +526,8 @@ references =
 severity = pedantic
 certainty = certain
 description =
- The Content-Transfer-Encoding header field doesn't exist. It should be set to
- ``8bit``.
+ The Content-Transfer-Encoding header field doesn't exist.
+ It should be set to ``8bit``.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  https://tools.ietf.org/html/rfc2045#section-6.1
@@ -540,11 +536,11 @@ references =
 severity = important
 certainty = certain
 description =
- The Content-Type header field doesn't exist. It should be set to
- ``text/plain; charset=``\ *encoding*.
+ The Content-Type header field doesn't exist.
+ It should be set to ``text/plain; charset=``\ *encoding*.
  .
- Note that in the absence of encoding declaration, i18nspector assumes ASCII
- encoding.
+ Note that in the absence of encoding declaration,
+ i18nspector assumes ASCII encoding.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
  https://tools.ietf.org/html/rfc2045#section-5
@@ -570,8 +566,8 @@ severity = pedantic
 certainty = certain
 description =
  The Language-Team header field does not exist.
- It should contain English name of the language, and the email address or
- homepage URL of the language team.
+ It should contain English name of the language,
+ and the email address or homepage URL of the language team.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -588,7 +584,8 @@ references =
 severity = pedantic
 certainty = certain
 description =
- The MIME-Version header field does't exist. It should be to set to ``1.0``.
+ The MIME-Version header field does't exist.
+ It should be to set to ``1.0``.
 references =
  https://tools.ietf.org/html/rfc2045#section-4
 
@@ -605,8 +602,9 @@ references =
 severity = minor
 certainty = certain
 description =
- The Plural-Forms header field does not exist, even though some of the messages
- use plural forms (although none of them have been translated).
+ The Plural-Forms header field does not exist,
+ even though some of the messages use plural forms
+ (although none of them have been translated).
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
@@ -624,8 +622,7 @@ severity = normal
 certainty = certain
 description =
  The Report-Msgid-Bugs-To header field does not exist or it is empty.
- It should contain an email address or URL where one can report bugs in the
- untranslated strings.
+ It should contain an email address or URL where one can report bugs in the untranslated strings.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
@@ -633,8 +630,8 @@ references =
 severity = serious
 certainty = certain
 description =
- The Plural-Forms header field does not exist, even though some of the
- translated messages use plural forms.
+ The Plural-Forms header field does not exist,
+ even though some of the translated messages use plural forms.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 
@@ -665,8 +662,7 @@ references =
 severity = serious
 certainty = certain
 description =
- An input/output error or another operating system error occurred while
- checking this file.
+ An input/output error or another operating system error occurred while checking this file.
 
 [partially-translated-message]
 severity = serious
@@ -678,11 +674,11 @@ description =
 severity = important
 certainty = possible
 description =
- A ``c-format`` flag is associated with the message, but ``qt-plural-format``
- should be used instead.
+ A ``c-format`` flag is associated with the message,
+ but ``qt-plural-format`` should be used instead.
  .
- The only C format directive that the message uses is ``%n``. It is very
- atypical to use it alone in a C format string.
+ The only C format directive that the message uses is ``%n``.
+ It is very atypical to use it alone in a C format string.
 references =
  http://qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
  printf(3)
@@ -700,8 +696,8 @@ references =
 severity = pedantic
 certainty = certain
 description =
- A flag associated with one of the messages is redundant, because it's implied
- by another flag.
+ A flag associated with one of the messages is redundant,
+ because it's implied by another flag.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
@@ -719,9 +715,10 @@ severity = minor
 certainty = certain
 description =
  The message entry contains annotations about previous untranslated string
- (``#| msgid ``\ *...*), even though the message is not marked as fuzzy.
- These annotations are only useful for fuzzy messages, and should be removed
- when unfuzzying.
+ (``#| msgid ``\ *...*),
+ even though the message is not marked as fuzzy.
+ These annotations are only useful for fuzzy messages,
+ and should be removed when unfuzzying.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
 
@@ -748,8 +745,8 @@ references =
 severity = important
 certainty = possible
 description =
- Value of the Plural-Forms header field could not be parsed. (But there are no
- translated messages which use plural forms.)
+ Value of the Plural-Forms header field could not be parsed.
+ (But there are no translated messages which use plural forms.)
  It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
@@ -797,8 +794,8 @@ severity = minor
 certainty = wild-guess
 description =
  The header field name is unknown to i18nspector.
- It might be a typo or a capitalization error (header field names are
- case-sensitive).
+ It might be a typo or a capitalization error
+ (header field names are case-sensitive).
 references =
  https://lists.gnu.org/archive/html/bug-gettext/2012-12/msg00010.html
 
@@ -822,8 +819,7 @@ description =
 severity = serious
 certainty = possible
 description =
- The declared encoding cannot represent all characters commonly used in this
- language.
+ The declared encoding cannot represent all characters commonly used in this language.
  This is a strong indication that the declared encoding is incorrect.
 
 [unusual-character-in-header-entry]
