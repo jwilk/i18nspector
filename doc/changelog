@@ -23,6 +23,7 @@ i18nspector (0.16) UNRELEASED; urgency=low
   * Never consider non-ASCII characters and control-characters as part of C
     format string conversion.
   * Don't complain about unknown header fields starting with lowercase “x-”.
+  * Improve descriptions of a few tags.
 
   * Improve the test suite.
 
