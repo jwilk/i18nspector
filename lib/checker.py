@@ -991,13 +991,13 @@ class Checker(object, metaclass=abc.ABCMeta):
                 # not have more arguments than msgid. In practice, it's not
                 # uncommon to see something like this:
                 #
-                # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2
-                # ...
-                # msgid "Message repeated once."
-                # msgid_plural "Message repeated %d times."
-                # msgstr[0] "Paziņojums atkārtots %d reizi."
-                # msgstr[1] "Paziņojums atkārtots %d reizes."
-                # msgstr[2] "Paziņojums atkārtots %d reižu."
+                # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+                #
+                # msgid "one byte"
+                # msgid_plural "%d bytes"
+                # msgstr[0] "%d bajt"
+                # msgstr[1] "%d bajta"
+                # msgstr[2] "%d bajtova"
                 #
                 # Here %d in msgstr[0] cannot be omitted, because it is used
                 # not only for n=1, but also for n=21, n=31, and so on.
