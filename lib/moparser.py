@@ -194,7 +194,8 @@ def main():
     options = ap.parse_args()
     for path in options.files:
         parser = Parser(path)
-        print(parser.parse())
+        for entry in parser.parse():
+            print(entry)
 
 if __name__ == '__main__':
     main()
