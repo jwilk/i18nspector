@@ -1,4 +1,5 @@
 #!/bin/sh
+# E: broken-encoding '<...>' cannot be decoded as ASCII
 # P: no-language-header-field
 # I: unable-to-determine-language
 # P: no-mime-version-header-field MIME-Version: 1.0
