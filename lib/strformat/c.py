@@ -153,14 +153,14 @@ class VariableWidth(object):
     type = 'int'
 
     def __init__(self, parent):
-        self._parent = parent
+        self.parent = parent
 
 class VariablePrecision(object):
 
     type = 'int'
 
     def __init__(self, parent):
-        self._parent = parent
+        self.parent = parent
 
 class FormatString(object):
 
@@ -230,7 +230,7 @@ class FormatString(object):
         return the integer conversion that consumes the last n arguments,
         or None
         '''
-        if n > len(self):
+        if n > len(self.arguments):
             raise IndexError
         if n <= 0:
             raise IndexError
