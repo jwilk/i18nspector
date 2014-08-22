@@ -251,7 +251,7 @@ class FormatString(object):
                     if conv is not arg:
                         return
                 else:
-                    assert 0, 'type(arg) == {!r}'.format(type(arg))
+                    assert 0, 'type(arg) == {!r}'.format(type(arg))  # <no-coverage>
         if conv is None:
             return
         if not conv.integer:

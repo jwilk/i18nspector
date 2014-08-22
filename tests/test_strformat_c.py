@@ -35,6 +35,7 @@ from nose.tools import (
     assert_equal,
     assert_greater,
     assert_is_instance,
+    assert_is_none,
     assert_raises,
     assert_sequence_equal,
 )
@@ -510,5 +511,45 @@ def test_too_many_conversions():
     t(s + '%f')
     t(s + '%*f')
     t(s + '%.*f')
+
+class test_get_last_integer_conversion:
+
+    def test_overflow(self):
+        fmt = M.FormatString('%s%d')
+        for n in [-1, 0, 3]:
+            with assert_raises(IndexError):
+                fmt.get_last_integer_conversion(n=n)
+
+    def t(self, s, n, tp=M.Conversion):
+        fmt = M.FormatString(s)
+        conv = fmt.get_last_integer_conversion(n=n)
+        if tp is None:
+            tp = type(tp)
+        assert_is_instance(conv, tp)
+        return conv
+
+    def test_okay(self):
+        self.t('%d', 1)
+        self.t('%s%d', 1)
+
+    def test_non_integer(self):
+        self.t('%s', 1, None)
+        self.t('%c', 1, None)
+
+    def test_too_many(self):
+        self.t('%s%d', 2, None)
+        self.t('%d%d', 2, None)
+
+    def test_var(self):
+        self.t('%*d', 1)
+        self.t('%*d', 2)
+        self.t('%.*d', 2)
+        self.t('%1$*2$d', 2)
+        self.t('%2$*3$.*1$d', 3)
+
+    def test_broken_var(self):
+        self.t('%1$*2$d', 1, None)
+        self.t('%1$*2$d%3$d', 2, None)
+        self.t('%1$*3$d%2$d', 2, None)
 
 # vim:ts=4 sw=4 et
