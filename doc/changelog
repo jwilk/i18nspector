@@ -6,22 +6,24 @@ i18nspector (0.16) UNRELEASED; urgency=medium
       - qt-plural-format-mistaken-for-c-format
       - stray-previous-msgid
 
-  * Never consider non-ASCII characters and control-characters as part of C
-    format string conversion.
+  * Check for C format strings in msgstr/msgstr_plural[N] consuming less
+    arguments than corresponding msgid/msgid_plural.
+    Thanks to Guillem Jover for the bug report.
+    https://bugs.debian.org/753946
+  * Check for previous msgid annotations (#| msgid ...) attached to non-fuzzy
+    messages.
+  * Check for plural Qt format string mistakenly tagged as C format strings.
+
   * Temper checks for conflicting and redundant message flags:
     + Don't complain about two different format flags applied to the same
       message when the formats compatible are (to some extent) compatible.
     + Don't complain when a positive format flag (<lang1>-format) and a
       negative format flag (no-<lang2>-format) apply to the same message. The
       negative format flag might be still a useful hint for the translator.
+  * Never consider non-ASCII characters and control-characters as part of C
+    format string conversion.
   * Don't complain about unknown header fields starting with lowercase “x-”.
-  * Check for plural Qt format string mistakenly tagged as C format strings.
-  * Check for previous msgid annotations (#| msgid ...) attached to non-fuzzy
-    messages.
-  * Check for C format strings in msgstr/msgstr_plural[N] consuming less
-    arguments than corresponding msgid/msgid_plural.
-    Thanks to Guillem Jover for the bug report.
-    https://bugs.debian.org/753946
+
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Aug 2014 14:53:48 +0200
@@ -37,19 +39,21 @@ i18nspector (0.15) unstable; urgency=low
       - c-format-string-redundant-flag
       - partially-translated-message
 
-  * Fix calculation of current time.
   * Check for errors in C format strings.
   * Check for inconsistent leading/trailing newlines in translations even when
     encoding is unknown or broken.
   * Check for conflict markers in translations even when encoding is unknown
     or broken.
   * Check for incomplete translations in messages with plural forms.
+
+  * Fix calculation of current time.
   * When emitting unusual-character-in-translation, don't output the
     translated string (which is likely to contain mojibake), but only the
     message identifier.
   * Suggest using “-0000” (rather than “+0000”) to indicate that the offset to
     local time is unknown. This convention is inspired by RFC 3339 §4.3 and
     RFC 5322 §3.3.
+
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Fri, 08 Aug 2014 23:00:29 +0200
