@@ -152,6 +152,11 @@ Check for the ``I`` C format string flag in msgid.
 
 Check for ``msgstr_plural`` without ``msgstr[N]``, and other way round.
 
+Verify that if *n* = plural(1) = plural(i) for some *i* > 1, then msgstr[*n*]
+distinguishes singular and plural forms, even when no numeral is involved.
+
+ * https://bugs.debian.org/753946#51
+
 Add support for more string formats (in popularity order):
 
  * python-format
