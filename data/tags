@@ -131,6 +131,31 @@ description =
  A C format string for ``msgid`` consumes less arguments than ``msgid_plural``;
  or ``msgstr`` consumes less arguments than ``msgid``;
  or ``msgstr[``\ *N*\ ``]`` consumes less arguments than ``msgid`` or ``msgid_plural``.
+ .
+ Note that in some languages,
+ the commonly used Plural-Forms expression evaluates to the same value for n=1 and n=21, n=31, and so on.
+ Take this Serbian translation for example::
+ .
+ .  Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+ .  ...
+ .  msgid "one byte"
+ .  msgid_plural "%d bytes"
+ .  msgstr[0] "%d bajt"
+ .  msgstr[1] "%d bajta"
+ .  msgstr[2] "%d bajtova"
+ .
+ Here ``%d`` should not be replaced with the spelled-out form ``jedan``.
+ Either ``%d`` should be kept, or the Plural-Forms expression should be amended,
+ so that there is a special case for n=1::
+ .
+ .  Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2
+ .  ...
+ .  msgid "one byte"
+ .  msgid_plural "%d bytes"
+ .  msgstr[0] "%d bajt"
+ .  msgstr[1] "%d bajta"
+ .  msgstr[2] "%d bajtova"
+ .  msgstr[3] "jedan bajt"
 references =
  printf(3)
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
