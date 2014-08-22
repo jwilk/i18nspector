@@ -193,6 +193,8 @@ def main():
     ap.add_argument('files', metavar='<file>', nargs='+')
     options = ap.parse_args()
     for path in options.files:
+        escaped_path = ascii(path)[1:-1]
+        print('# ' + escaped_path, end='\n\n')
         parser = Parser(path)
         for entry in parser.parse():
             print(entry)
