@@ -941,7 +941,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 message,
                 'msgid_plural', msgid_fmts[1],
                 'msgid', msgid_fmts[0],
-                omitted_numeral_ok=True,
+                omitted_int_conv_ok=True,
             )
         if msgid_fmts.get(0) is not None:
             try:
@@ -964,7 +964,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             d.src_fmt = msgid_fmts.get(0)
             d.dst_loc = 'msgstr'
             d.dst_fmt = self._check_c_format_string(message, message.msgstr)
-            d.omitted_numeral_ok = False
+            d.omitted_int_conv_ok = False
             strings += [d]
         if has_msgstr_plural and ctx.plural_preimage:
             for i, s in sorted(message.msgstr_plural.items()):
@@ -1012,21 +1012,21 @@ class Checker(object, metaclass=abc.ABCMeta):
                     # corresponds to both n=1 and another n.
                     d.src_loc = 'msgid'
                     d.src_fmt = msgid_fmt
-                    d.omitted_numeral_ok = (
+                    d.omitted_int_conv_ok = (
                         msgid_fmt is not None and
                         msgid_plural_fmt is not None and
                         len(msgid_fmt) == len(msgid_plural_fmt)
                     )
                 elif len(preimage) <= 1:
-                    d.omitted_numeral_ok = True
+                    d.omitted_int_conv_ok = True
                 elif len(preimage) == 2 and preimage[0] == 0:
-                    # XXX In theory, the numeral should not be omitted in the
-                    # msgstr[] corresponding to both n=0 and another n.
-                    # In practice, it's sometimes obvious from context that the
-                    # message will never be used for n=0.
-                    d.omitted_numeral_ok = True
+                    # XXX In theory, the integer conversion should not be
+                    # omitted in the msgstr[] corresponding to both n=0 and
+                    # another n. In practice, it's sometimes obvious from
+                    # context that the message will never be used for n=0.
+                    d.omitted_int_conv_ok = True
                 else:
-                    d.omitted_numeral_ok = False
+                    d.omitted_int_conv_ok = False
                 strings += [d]
         for d in strings:
             if d.dst_fmt is None:
@@ -1038,7 +1038,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             self._check_c_format_args(message,
                 d.src_loc, d.src_fmt,
                 d.dst_loc, d.dst_fmt,
-                omitted_numeral_ok=d.omitted_numeral_ok,
+                omitted_int_conv_ok=d.omitted_int_conv_ok,
             )
 
     def _check_c_format_string(self, message, s):
@@ -1102,7 +1102,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 )
         return fmt
 
-    def _check_c_format_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_numeral_ok=False):
+    def _check_c_format_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_int_conv_ok=False):
         prefix = message_repr(message, template='{}:')
         src_args = src_fmt.arguments
         dst_args = dst_fmt.arguments
@@ -1112,10 +1112,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                 len(src_args), tags.safestr('({})'.format(src_loc)),
             )
         elif len(dst_args) < len(src_args):
-            if omitted_numeral_ok:
+            if omitted_int_conv_ok:
                 n_args_omitted = len(src_args) - len(dst_args)
-                omitted_numeral_ok = src_fmt.get_last_integer_conversion(n=n_args_omitted)
-            if not omitted_numeral_ok:
+                omitted_int_conv_ok = src_fmt.get_last_integer_conversion(n=n_args_omitted)
+            if not omitted_int_conv_ok:
                 self.tag('c-format-string-missing-arguments', prefix,
                     len(dst_args), tags.safestr('({})'.format(dst_loc)), '<',
                     len(src_args), tags.safestr('({})'.format(src_loc)),
