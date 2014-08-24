@@ -1,8 +1,12 @@
 i18nspector (0.16.1) UNRELEASED; urgency=low
 
-  * 
+  * Summary of tag changes:
+    + Added:
+      - malformed-xml
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 22 Aug 2014 19:47:45 +0200
+  * Check syntax of PO4A XML fragments.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 24 Aug 2014 22:15:47 +0200
 
 i18nspector (0.16) unstable; urgency=low
 

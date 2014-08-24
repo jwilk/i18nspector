@@ -63,6 +63,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] language-disparity
 [X] language-team-equal-to-last-translator
 [X] language-variant-does-not-affect-translation
+[X] malformed-xml
 [X] no-content-transfer-encoding-header-field
 [X] no-content-type-header-field
 [X] no-date-header-field

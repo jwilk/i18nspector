@@ -40,6 +40,7 @@ from . import ling
 from . import misc
 from . import polib4us
 from . import tags
+from . import xml
 
 from .strformat import c as strformat_c
 
@@ -918,6 +919,8 @@ class Checker(object, metaclass=abc.ABCMeta):
             except AttributeError:
                 continue
             method(ctx, message, flags)
+        if re.match('\Atype: Content of: (<{xmlname}>)+\Z'.format(xmlname=xml.name_re), message.comment or ''):
+            self._check_message_xml_format(ctx, message, flags)
 
     def _check_message_c_format(self, ctx, message, flags):
         msgids = [message.msgid]
@@ -1128,6 +1131,25 @@ class Checker(object, metaclass=abc.ABCMeta):
                     tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_loc)), '!=',
                     tags.safestr(src_arg.type), tags.safestr('({})'.format(src_loc)),
                 )
+
+    def _check_message_xml_format(self, ctx, message, flags):
+        if ctx.encoding is None:
+            return
+        prefix = message_repr(message, template='{}:')
+        try:
+            xml.check_fragment(message.msgid)
+        except xml.SyntaxError as exc:
+            if ctx.is_template:
+                self.tag('malformed-xml', prefix, tags.safestr(exc))
+            return
+        if flags.fuzzy:
+            return
+        if not message.msgstr:
+            return
+        try:
+            xml.check_fragment(message.msgstr)
+        except xml.SyntaxError as exc:
+            self.tag('malformed-xml', prefix, tags.safestr(exc))
 
 __all__ = ['Checker']
 
