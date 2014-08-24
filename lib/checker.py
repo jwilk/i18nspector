@@ -839,7 +839,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             elif flag.startswith('range:'):
                 if message.msgid_plural is None:
                     self.tag('range-flag-without-plural-string')
-                match = re.match('([0-9]+)[.][.]([0-9]+)', flag[6:].strip(' \t\r\f\v'))
+                match = re.match('\A([0-9]+)[.][.]([0-9]+)\Z', flag[6:].strip(' \t\r\f\v'))
                 if match is not None:
                     i, j = map(int, match.groups())
                     if i < j:

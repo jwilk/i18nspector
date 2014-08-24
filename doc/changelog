@@ -5,8 +5,9 @@ i18nspector (0.16.1) UNRELEASED; urgency=low
       - malformed-xml
 
   * Check syntax of PO4A XML fragments.
+  * Tighten the check for invalid “range” flags.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 24 Aug 2014 22:15:47 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 24 Aug 2014 22:39:49 +0200
 
 i18nspector (0.16) unstable; urgency=low
 
