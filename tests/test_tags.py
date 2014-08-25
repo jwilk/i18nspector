@@ -18,7 +18,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import ast
+import inspect
+
 import lib.tags as M
+import lib.checker
 
 from nose.tools import (
     assert_equal,
@@ -49,5 +53,40 @@ class test_escape:
     def test_space(self):
         s = 'brown fox'
         self.t(s, repr(s))
+
+def ast_to_tagnames(node):
+    for child in ast.iter_child_nodes(node):
+        for t in ast_to_tagnames(child):
+            yield t
+    ok = (
+        isinstance(node, ast.Call) and
+        isinstance(node.func, ast.Attribute) and
+        node.func.attr == 'tag' and
+        node.args and
+        isinstance(node.args[0], ast.Str)
+    )
+    if ok:
+        yield node.args[0].s
+
+def test_consistency():
+    source_path = inspect.getsourcefile(lib.checker)
+    with open(source_path, 'rt', encoding='UTF-8') as file:
+        source = file.read()
+        node = ast.parse(source, filename=source_path)
+        source_tagnames = frozenset(ast_to_tagnames(node))
+    tagnames = frozenset(tag.name for tag in M.iter_tags())
+    def test(tag):
+        if tag not in source_tagnames:
+            raise AssertionError('tag never emitted: ' + tag)
+        if tag not in tagnames:
+            raise AssertionError(
+                'tag missing in data/tags:\n\n'
+                '[{tag}]\n'
+                'severity = wishlist\n'
+                'certainty = wild-guess\n'
+                'description = TODO'.format(tag=tag)
+            )
+    for tag in sorted(source_tagnames | tagnames):
+        yield test, tag
 
 # vim:ts=4 sw=4 et
