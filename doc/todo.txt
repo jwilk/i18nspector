@@ -196,8 +196,6 @@ are not compatible with glibc. Implement a work-around. Test-case::
 Timezone abbreviations not only are not unique, but also can change their
 meaning over time: http://mm.icann.org/pipermail/tz/2014-June/021089.html
 
-Check for ``#| msgid`` comments for messages that are not marked fuzzy.
-
 Check for capitalization inconsistencies.
 
 .. vim:ft=rst
