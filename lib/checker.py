@@ -26,6 +26,7 @@ import abc
 import collections
 import difflib
 import email.utils
+import heapq
 import os
 import re
 import struct
@@ -823,6 +824,9 @@ class Checker(object, metaclass=abc.ABCMeta):
         flags = collections.Counter(message.flags)
         wrap = None
         format_flags = collections.defaultdict(dict)
+        range_flags = collections.defaultdict(
+            collections.Counter
+        )
         for flag, n in sorted(flags.items()):
             known_flag = True
             if flag == 'fuzzy':
@@ -852,6 +856,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                         message_repr(message, template='{}:'),
                         flag
                     )
+                else:
+                    range_flags[i, j][flag] += n
+                    n = 0
             elif flag.endswith('-format'):
                 known_flag = False
                 for prefix in 'no-', 'possible-', 'impossible-', '':
@@ -874,6 +881,20 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('duplicate-message-flag',
                     message_repr(message, template='{}:'),
                     flag
+                )
+        if len(range_flags) > 1:
+            [range1, range2] = heapq.nsmallest(2, range_flags.keys())
+            self.tag('conflicting-message-flags',
+                message_repr(message, template='{}:'),
+                min(range_flags[range1].keys()),
+                min(range_flags[range2].keys()),
+            )
+        elif len(range_flags) == 1:
+            [range_flags] = range_flags.values()
+            if sum(range_flags.values()) > 1:
+                self.tag('duplicate-message-flag',
+                    message_repr(message, template='{}:'),
+                    min(range_flags.keys())
                 )
         positive_format_flags = format_flags['']
         info.formats = frozenset(positive_format_flags)

@@ -200,6 +200,4 @@ Check for ``#| msgid`` comments for messages that are not marked fuzzy.
 
 Check for capitalization inconsistencies.
 
-Check for duplicate ``range:`` flags.
-
 .. vim:ft=rst
