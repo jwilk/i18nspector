@@ -523,7 +523,7 @@ gettext-inspector (0.3) unstable; urgency=low
       - duplicate-message-definition
       - non-ascii-compatible-encoding
     + Renamed:
-      - unusual-character-in-translation (from c0-control-characters)
+      - unusual-character-in-translation (from c1-control-characters)
 
   * Add alphabet information for:
     - Dutch;
