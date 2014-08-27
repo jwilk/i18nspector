@@ -198,7 +198,7 @@ def queue_get(queue, process):
 def run_i18nspector(options, path):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
-        # We cheat here a bit, becausing exec(3)ing is very expensive.
+        # We cheat here a bit, because exec(3)ing is very expensive.
         # Let's load the needed Python modules, and use multiprocessing to
         # “emulate” the command execution.
         import lib.cli
