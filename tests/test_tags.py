@@ -26,15 +26,16 @@ import lib.checker
 
 from nose.tools import (
     assert_equal,
+    assert_is_instance,
 )
 
 class test_escape:
 
-    esc = staticmethod(M._escape)  # FIXME: _escape is private
-
     def t(self, s, expected):
+        result = M.safe_format('{}', s)
+        assert_is_instance(result, M.safestr)
         assert_equal(
-            self.esc(s),
+            result,
             expected
         )
 
