@@ -35,7 +35,6 @@ from nose.tools import (
     assert_equal,
     assert_greater,
     assert_is_instance,
-    assert_is_none,
     assert_raises,
     assert_sequence_equal,
 )
