@@ -202,6 +202,7 @@ def run_i18nspector(options, path):
         # Let's load the needed Python modules, and use multiprocessing to
         # “emulate” the command execution.
         import lib.cli
+        lib.cli.__version__  # make pyflakes happy
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
         commandline = [sys.executable, prog]
         queue = mp.Queue()
@@ -253,6 +254,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
     orig_stdout = sys.stdout
     orig_stderr = sys.stderr
     __file__ = prog
+    __file__  # make pyfakes happy
     code = compile(code, prog, 'exec')
     io_stdout = io.StringIO()
     io_stderr = io.StringIO()
