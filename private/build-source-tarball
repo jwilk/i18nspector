@@ -21,7 +21,7 @@ else
 fi
 cd "$sourceroot"/*
 make -C doc/
-find -name '__pycache__' | xargs rm -rf
+find -name '__pycache__' -exec rm -rf {} +
 rm -rf .hg*
 rm -rf doc/rtd/
 cd ..
