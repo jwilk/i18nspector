@@ -43,7 +43,7 @@ here = os.path.dirname(__file__)
 
 def this():
     '''
-    Return function that called this fuction. (Hopefully!)
+    Return function that called this function. (Hopefully!)
     '''
     return globals()[inspect.stack()[1][0].f_code.co_name]
 
