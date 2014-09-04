@@ -33,7 +33,7 @@ description =
  The Content-Type header field contains xgettext boilerplate.
  It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
- https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
 
 [boilerplate-in-date]
 severity = normal
@@ -91,7 +91,7 @@ description =
  Note that in the absence of encoding declaration,
  i18nspector assumes ASCII encoding.
 references =
- https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
  https://tools.ietf.org/html/rfc2045#section-5
 
 [c-format-string-argument-type-mismatch]
@@ -451,7 +451,7 @@ description =
  Value of the Content-Type header field should is invalid.
  It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
- https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
  https://tools.ietf.org/html/rfc2045#section-5
 
 [invalid-date]
@@ -576,7 +576,7 @@ description =
  Note that in the absence of encoding declaration,
  i18nspector assumes ASCII encoding.
 references =
- https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
  https://tools.ietf.org/html/rfc2045#section-5
 
 [no-date-header-field]
@@ -690,7 +690,7 @@ certainty = certain
 description =
  This file uses an encoding that is not widely supported by software.
 references =
- https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-list
 
 [os-error]
 severity = serious
