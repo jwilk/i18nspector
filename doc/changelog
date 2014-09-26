@@ -7,9 +7,10 @@ i18nspector (0.17) UNRELEASED; urgency=low
   * Check syntax of PO4A XML fragments.
   * Check for duplicate or conflicting “range” flags.
   * Tighten the check for invalid “range” flags.
+  * Make URLs for the Content-Type header field documentation more precise.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Sep 2014 21:24:22 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Sep 2014 22:22:36 +0200
 
 i18nspector (0.16) unstable; urgency=low
 
