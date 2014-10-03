@@ -140,9 +140,6 @@ class Checker(object, metaclass=abc.ABCMeta):
             if exc.errno is not None:
                 self.tag('os-error', tags.safestr(exc.strerror))
                 return
-            elif message.startswith('Invalid mo '):
-                self.tag('invalid-mo-file')
-                return
             elif message.startswith('Syntax error in po file '):
                 message = message[24:]
                 message_parts = []
