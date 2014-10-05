@@ -132,9 +132,6 @@ class Checker(object, metaclass=abc.ABCMeta):
         except polib4us.moparser.SyntaxError as exc:
             self.tag('invalid-mo-file', tags.safestr(exc))
             return
-        except struct.error:
-            self.tag('invalid-mo-file')
-            return
         except IOError as exc:
             message = str(exc)
             if exc.errno is not None:
