@@ -209,4 +209,4 @@ def test_namespace():
     ns.eggs = 37
     assert_equal(ns.eggs, 37)
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

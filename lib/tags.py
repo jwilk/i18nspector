@@ -236,4 +236,4 @@ def iter_tags():
 def get_tag(tagname):
     return _tags[tagname]
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

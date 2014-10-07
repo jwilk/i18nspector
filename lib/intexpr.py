@@ -435,4 +435,4 @@ class Expression(object):
         e = CodomainEvaluator(self._node, bits=bits)
         return e()
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

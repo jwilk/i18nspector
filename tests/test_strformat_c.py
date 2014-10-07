@@ -551,4 +551,4 @@ class test_get_last_integer_conversion:
         self.t('%1$*2$d%3$d', 2, None)
         self.t('%1$*3$d%2$d', 2, None)
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

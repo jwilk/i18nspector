@@ -112,4 +112,4 @@ datadir = os.path.join(basedir, 'data')
 os.stat(datadir)
 sys.path[:0] = [basedir]
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

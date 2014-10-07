@@ -52,4 +52,4 @@ def is_email_in_special_domain(email):
     _, domain = email.rsplit('@', 1)
     return is_special_domain(domain)
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

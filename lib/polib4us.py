@@ -249,4 +249,4 @@ def poentry_translated_patch():
         )
     polib.POEntry.translated = translated
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

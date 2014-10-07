@@ -346,4 +346,4 @@ def _get_characters(language, modifier=None, strict=True):
             if not (ch.startswith('(') and ch.endswith(')'))
         ]
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

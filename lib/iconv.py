@@ -244,4 +244,4 @@ _decode = _decode_dl if _iconv is not None else _decode_cli
 
 __all__ = ['encode', 'decode']
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

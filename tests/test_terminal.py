@@ -81,4 +81,4 @@ def test_ansi():
     assert_equal(T.attr_fg(T.colors.white), '\x1b[37m')
     assert_equal(T.attr_reset(), '\x1b[0;10m')
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

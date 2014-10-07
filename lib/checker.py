@@ -1183,4 +1183,4 @@ def message_repr(message, template='{}'):
     template = template.format(subtemplate)
     return tags.safe_format(template, **kwargs)
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

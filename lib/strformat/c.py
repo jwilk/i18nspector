@@ -463,4 +463,4 @@ class Conversion(object):
             except OverflowError as exc:
                 raise ArgumentRangeError(s, '{}$'.format(exc))
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

@@ -65,4 +65,4 @@ def test_flag_splitting():
         ['fuzzy', 'c-format']
     )
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

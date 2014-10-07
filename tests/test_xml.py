@@ -91,4 +91,4 @@ class test_name_re():
         t('-')
         t('e\N{GREEK QUESTION MARK}')
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

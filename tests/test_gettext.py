@@ -640,4 +640,4 @@ class test_string_formats:
             assert_true(s)
             assert_equal(s, s.lower())
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

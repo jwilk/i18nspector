@@ -94,4 +94,4 @@ def test_changelog():
     for tag in sorted(changelog_tags | data_tags):
         yield check, 'check', tag
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

@@ -94,4 +94,4 @@ def initialize():
             getattr(colors, key)
             setattr(colors, key, value)
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

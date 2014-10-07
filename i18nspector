@@ -71,4 +71,4 @@ from lib import cli
 cli.__doc__ = (__doc__ or '').strip()
 cli.main()
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

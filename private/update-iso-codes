@@ -161,4 +161,4 @@ def generate_iso_3166():
 if __name__ == '__main__':
     main()
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

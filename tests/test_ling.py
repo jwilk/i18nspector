@@ -400,4 +400,4 @@ class test_unrepresentable_characters:
         result = lang.get_unrepresentable_characters(encoding)
         assert_not_equal(result, [])
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

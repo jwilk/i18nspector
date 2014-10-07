@@ -47,4 +47,4 @@ class test_tcvn(_test):
     b = b'Do b\xB9ch kim r\xCAt qu\xFD, s\xCF \xAE\xD3 l\xBEp v\xAB x\xAD\xACng'
     e = 'TCVN-5712'
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

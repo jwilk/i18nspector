@@ -60,4 +60,4 @@ _start_char = ':A-Z_a-z\xC0-\xD6\xD8-\xF6\xF8-\u02FF\u0370-\u037D\u037F-\u1FFF\u
 _next_char = _start_char + '.0-9\xB7\u0300-\u036F\u203F\u2040-'
 name_re = '[{0}][{1}]*'.format(_start_char, _next_char)
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

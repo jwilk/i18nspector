@@ -265,4 +265,4 @@ class test_extra_encoding:
         with assert_raises(UnicodeDecodeError):
             b.decode('EUC-TW')
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

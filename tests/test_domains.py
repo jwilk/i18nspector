@@ -81,4 +81,4 @@ class test_emails:
         with assert_raises(ValueError):
             self.t('jwilk%jwilk.net')
 
-# vim:ts=4 sw=4 et
+# vim:ts=4 sts=4 sw=4 et

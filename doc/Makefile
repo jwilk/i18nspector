@@ -20,4 +20,4 @@ $(exe).1: $(exe).txt tags.txt
 clean:
 	rm -f tags.txt $(exe).1
 
-# vim:ts=4 sw=4 noet
+# vim:ts=4 sts=4 sw=4 noet
