@@ -110,7 +110,10 @@ class Checker(object, metaclass=abc.ABCMeta):
         except EnvironmentError as exc:
             self.tag('os-error', tags.safestr(exc.strerror))
             return
-        extension = os.path.splitext(self.path)[-1]
+        if self.options.file_type is None:
+            extension = os.path.splitext(self.path)[-1]
+        else:
+            extension = '.' + self.options.file_type
         is_template = False
         if extension == '.po':
             constructor = polib.pofile
