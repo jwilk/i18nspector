@@ -176,6 +176,7 @@ class Parser(object):
                 {i: s.decode(encoding) for i, s in enumerate(msgstrs)}
             )
         entry = polib.MOEntry(**kwargs)
+        entry.comment = None
         entry.occurrences = ()
         entry.flags = ()  # https://bitbucket.org/izi/polib/issue/47
         entry.translated = lambda: True
