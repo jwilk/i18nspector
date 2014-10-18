@@ -1,10 +1,10 @@
-i18nspector (0.17.2) UNRELEASED; urgency=medium
+i18nspector (0.17.2) UNRELEASED; urgency=low
 
   * 
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sat, 18 Oct 2014 17:22:21 +0200
 
-i18nspector (0.17.1) unstable; urgency=medium
+i18nspector (0.17.1) unstable; urgency=low
 
   * Restore compatibility with polib 1.0.3 and earlier versions.
     Thanks to Kyrill Detinov for the bug report.
