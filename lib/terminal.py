@@ -85,7 +85,7 @@ def initialize():
         _curses.tparm(b'x')
     except TypeError:
         # curses.tparm() is broken in early version of Python 3.2:
-        # http://bugs.python.org/issue10570
+        # https://bugs.python.org/issue10570
         _curses = _dummy_curses
         return
     for key, value in vars(_curses).items():

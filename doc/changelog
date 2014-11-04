@@ -135,7 +135,7 @@ i18nspector (0.13.3) unstable; urgency=low
 i18nspector (0.13.2) unstable; urgency=low
 
   * Reject early encodings that are not compatible with ASCII.
-    http://bugs.python.org/issue19619
+    https://bugs.python.org/issue19619
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 02 Jan 2014 13:30:16 +0100
