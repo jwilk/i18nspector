@@ -24,6 +24,10 @@ Options
    Allow checking Debian (binary or source) packages.
    This option is enabled by default on modern Debian systems and its
    derivatives; it needs to be explicitly enabled on other systems.
+-h, --help
+   Show the help message and exit.
+--version
+   Show the program's version number and exit.
 
 Description
 -----------

@@ -1,8 +1,8 @@
 i18nspector (0.17.2) UNRELEASED; urgency=low
 
-  * 
+  * Document -h/--help and --version in the manual page.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 18 Oct 2014 17:22:21 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 04 Nov 2014 23:25:54 +0100
 
 i18nspector (0.17.1) unstable; urgency=low
 
