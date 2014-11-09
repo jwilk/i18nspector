@@ -5,3 +5,4 @@ __pycache__/
 doc/*.1
 doc/rtd/*.txt
 doc/tags.txt
+secret/
