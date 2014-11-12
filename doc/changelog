@@ -1,6 +1,7 @@
 i18nspector (0.17.2) UNRELEASED; urgency=low
 
   * Document -h/--help and --version in the manual page.
+  * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Tue, 04 Nov 2014 23:25:54 +0100
 
