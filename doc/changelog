@@ -525,7 +525,7 @@ gettext-inspector (0.4) unstable; urgency=low
   * Try to propose encoding for invalid-content-type.
   * Fix untrusted input sanitization.
   * Work around an escape sequence decoding bug in polib.
-    https://bitbucket.org/izi/polib/issue/31 
+    https://bitbucket.org/izi/polib/issue/31
   * Fix typos and formatting errors in the manual page.
   * Improve the test suite.
 
