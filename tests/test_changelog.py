@@ -52,7 +52,7 @@ rename_re = re.compile(
     r'([\w-]+) [(]from ([\w-]+)[)]'
 )
 
-def test_changelog():
+def test_tags():
     path = os.path.join(docdir, 'changelog')
     with open(path, 'rt', encoding='UTF-8') as file:
         changelog = file.read()
@@ -93,5 +93,13 @@ def test_changelog():
     data_tags = frozenset(tag.name for tag in lib.tags.iter_tags())
     for tag in sorted(changelog_tags | data_tags):
         yield check, 'check', tag
+
+def test_trailing_whitespace():
+    path = os.path.join(docdir, 'changelog')
+    with open(path, 'rt', encoding='UTF-8') as file:
+        for n, line in enumerate(file, 1):
+            line = line.rstrip('\n')
+            if line[-1:].isspace():
+                raise AssertionError('trailing whitespace at line {0}'.format(n))
 
 # vim:ts=4 sts=4 sw=4 et
