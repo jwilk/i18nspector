@@ -186,6 +186,10 @@ class test_get_language_for_name:
     def test_found_comma_as_semicolon(self):
         self.t('Pashto, Pushto', 'ps')
 
+    def test_lone_comma(self):
+        with assert_raises(LookupError):
+            self.t(',', None)
+
     def test_not_found(self):
         with assert_raises(LookupError):
             self.t('Nadsat', None)

@@ -281,7 +281,8 @@ def get_language_for_name(name):
         for subname in _name.split(','):
             subname = subname.strip()
             result = _name_to_code.get(subname)
-            results.add(result)
+            if result is not None:
+                results.add(result)
         if len(results) == 1:
             return parse(results.pop())
     raise LookupError(name)
