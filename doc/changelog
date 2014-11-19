@@ -1,10 +1,10 @@
-i18nspector (0.17.2) UNRELEASED; urgency=low
+i18nspector (0.17.2) unstable; urgency=low
 
   * Fix parsing Language header fields containing commas.
   * Document -h/--help and --version in the manual page.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 18 Nov 2014 23:45:49 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 19 Nov 2014 15:11:06 +0100
 
 i18nspector (0.17.1) unstable; urgency=low
 
