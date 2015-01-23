@@ -187,7 +187,7 @@ def queue_get(queue, process):
     while True:
         try:
             return queue.get(timeout=1)
-            # This semi-active waiting is ugly, but here doesn't seem be any
+            # This semi-active waiting is ugly, but there doesn't seem be any
             # obvious better way.
         except mp.queues.Empty:
             if process.exitcode is None:
