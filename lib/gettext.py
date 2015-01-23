@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014, 2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -130,6 +130,12 @@ def _plural_exp_tokenize(s):
             else:
                 # unary plus and unary minus are not supported
                 raise PluralExpressionSyntaxError(value)
+        elif value == '(':
+            if prev_value in {'n', ')'} or prev_value.isdigit():
+                # function calls are not supported
+                raise PluralExpressionSyntaxError(value)
+            else:
+                yield value
         else:
             yield value
         if not value.isspace():

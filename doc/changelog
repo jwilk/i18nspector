@@ -1,6 +1,6 @@
 i18nspector (0.17.3) UNRELEASED; urgency=low
 
-  * 
+  * Forbid function calls in the plural expression parser.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 19 Nov 2014 15:14:01 +0100
 

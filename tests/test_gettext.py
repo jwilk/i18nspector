@@ -1,4 +1,4 @@
-# Copyright © 2012, 2013, 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012, 2013, 2014, 2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -238,6 +238,12 @@ class test_plural_exp:
             self.t('+42')
         with assert_raises(self.error):
             self.t('23 + (+37)')
+
+    def test_func_call(self):
+        with assert_raises(self.error):
+            self.t('n(42)')
+        with assert_raises(self.error):
+            self.t('42(n)')
 
     def test_unbalanced_parentheses(self):
         with assert_raises(self.error):
