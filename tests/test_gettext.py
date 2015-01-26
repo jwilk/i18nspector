@@ -269,6 +269,10 @@ class test_plural_exp:
         with assert_raises(self.error):
             self.t('6 ** 7')
 
+    def test_floor_div(self):
+        with assert_raises(self.error):
+            self.t('6 // 7')
+
     def test_tuple(self):
         with assert_raises(self.error):
             self.t('()')
