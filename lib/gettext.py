@@ -137,6 +137,8 @@ def _plural_exp_tokenize(s):
                 raise PluralExpressionSyntaxError(value)
             else:
                 yield value
+        elif (prev_value, value) == ('(', ')'):
+            raise PluralExpressionSyntaxError(value)
         else:
             yield value
         if not value.isspace():
