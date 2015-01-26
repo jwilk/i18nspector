@@ -285,6 +285,12 @@ class test_plural_exp:
         with assert_raises(self.error):
             self.t('6 *\xA07')
 
+    def test_empty(self):
+        with assert_raises(self.error):
+            self.t('')
+        with assert_raises(self.error):
+            self.t(' ')
+
 class test_codomain:
 
     def t(self, s, min_, max_=None):

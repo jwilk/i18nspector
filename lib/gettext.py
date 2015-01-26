@@ -169,6 +169,8 @@ def parse_plural_expression(s):
     if len(stack) != 1:
         raise PluralExpressionSyntaxError
     [s] = stack
+    if (s == '') or s.isspace():
+        raise PluralExpressionSyntaxError
     s = _subst_ifelse(s)
     try:
         fn = intexpr.Expression(s)
