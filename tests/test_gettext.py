@@ -250,6 +250,8 @@ class test_plural_exp:
             self.t('(6 * 7')
         with assert_raises(self.error):
             self.t('6 * 7)')
+        with assert_raises(self.error):
+            self.t('6) * (7')
 
     def test_dangling_binop(self):
         with assert_raises(self.error):
