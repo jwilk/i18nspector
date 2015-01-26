@@ -12,7 +12,7 @@ checking tool for gettext POT, PO and MO files
 
 Synopsis
 --------
-**i18nspector** [--language *lang*] [--debian] *file* [*file* …]
+**i18nspector** [--language *lang*] [--unpack-deb] *file* [*file* …]
 
 Options
 -------
@@ -20,10 +20,8 @@ Options
    Assume this language. *lang* should be a 2- or 3-letter ISO 639 language
    code, possibly followed by underscore and a 2-letter ISO 3166 territory
    code.
---debian
-   Allow checking Debian (binary or source) packages.
-   This option is enabled by default on modern Debian systems and its
-   derivatives; it needs to be explicitly enabled on other systems.
+--unpack-deb
+   Allow unpacking Debian (binary or source) packages.
 -h, --help
    Show the help message and exit.
 --version

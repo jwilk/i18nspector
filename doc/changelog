@@ -1,8 +1,9 @@
 i18nspector (0.18) UNRELEASED; urgency=low
 
+  * Rename --debian as --unpack-deb. Don't make it default even on
+    Debian(-like) systems.
   * Make the plural expression parser more robust.
   * Improve the test suite.
-  * 
 
  -- Jakub Wilk <jwilk@jwilk.net>  Mon, 26 Jan 2015 21:22:25 +0100
 

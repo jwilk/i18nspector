@@ -112,7 +112,7 @@ def check_deb(filename, *, options):
 
 def check_all(files, *, options):
     for filename in files:
-        if options.debian:
+        if options.unpack_deb:
             try:
                 check_deb(filename, options=options)
             except UnsupportedFileType:
@@ -123,12 +123,10 @@ def check_all(files, *, options):
 
 def main():
     initialize_terminal()
-    is_like_debian = misc.OSRelease().is_like('debian')
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this langauge')
-    debian_help = 'allow checking Debian packages' + (' (enabled on this system)' if is_like_debian else '')
-    ap.add_argument('--debian', action='store_true', default=is_like_debian, help=debian_help)
+    ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')
     ap.add_argument('--file-type', metavar='<file-type>', help=argparse.SUPPRESS)
     ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
     ap.add_argument('files', metavar='<file>', nargs='+')
