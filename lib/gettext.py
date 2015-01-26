@@ -94,7 +94,7 @@ _plural_exp_tokens = [
     (r'!', 'not'),
     (r'&&', 'and'),
     (r'[|][|]', 'or'),
-    (r'[<>]=?', None),
+    (r'(?<![<>])[<>]=?', None),
     (r'[*/%]', None),
     (r'[+-]', None),
     (r'n', None),
