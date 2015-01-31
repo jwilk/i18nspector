@@ -1,8 +1,8 @@
 i18nspector (0.18.1) UNRELEASED; urgency=low
 
-  * 
+  * Make the plural expression parser more robust.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 30 Jan 2015 00:50:41 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 31 Jan 2015 01:21:03 +0100
 
 i18nspector (0.18) unstable; urgency=low
 

@@ -227,6 +227,10 @@ class test_plural_exp:
     def test_nested_conditional(self):
         self.t('(2 ? 3 : 7) ? 23 : 37')
 
+    def test_badly_nested_conditional(self):
+        with assert_raises(self.error):
+            self.t('2 ? (3 : 7 ? ) : 23')
+
     def test_unary_plus(self):
         with assert_raises(self.error):
             self.t('-37')
