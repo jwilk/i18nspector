@@ -173,7 +173,7 @@ principal-territory = ML
 names = Bengali
 characters =
  অ আ ই ঈ উ ঊ ঋ এ ঐ ও ঔ ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ ত থ দ ধ ন প ফ ব ভ ম য র ল শ ষ স হ
-plural-forms = nplurals=2; plural=n != 1
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = IN
 
 [bo]
@@ -210,7 +210,7 @@ names =
 characters =
  à é è í ï ó ò ú ü ç
  À É È Í Ï Ó Ò Ú Ü Ç
-plural-forms = nplurals=2; plural=n != 1
+plural-forms = nplurals=2; plural=n != 1;
 principal-territory = ES
 
 [ce]
