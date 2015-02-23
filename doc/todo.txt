@@ -40,6 +40,9 @@ Correct ``Language`` with both a natural language and a language code, e.g.
  * ``nl (Dutch)``: http://sources.debian.net/data/main/g/garcon/0.1.12-1/po/nl.po
  * ``Serbian (sr)``: http://sources.debian.net/data/main/a/at-spi2-atk/2.5.3-2/po/sr.po
 
+Unbreak ``private/online-check-poedit-data``:
+https://github.com/vslavik/poedit/blob/master/src/language_impl_legacy.h
+
 Guess language from ``Language-Team``.
 
  * https://translationproject.org/team/
