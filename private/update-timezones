@@ -28,8 +28,8 @@ import sys
 
 import pytz
 
-basedir = '{here}/..'.format(here=os.path.dirname(__file__))
-sys.path[:0] = [basedir]
+sys.path[0] += '/..'
+basedir = sys.path[0]
 
 import lib.gettext as gettext
 

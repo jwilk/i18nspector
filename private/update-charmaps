@@ -23,11 +23,8 @@
 import os
 import sys
 
-basedir = os.path.join(
-    os.path.dirname(__file__),
-    os.pardir,
-)
-sys.path[:0] = [basedir]
+sys.path[0] += '/..'
+basedir = sys.path[0]
 
 from lib import encodings
 from lib import iconv

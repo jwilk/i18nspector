@@ -25,11 +25,7 @@ import re
 import sys
 import urllib.request
 
-basedir = os.path.join(
-    os.path.dirname(__file__),
-    os.pardir,
-)
-sys.path[:0] = [basedir]
+sys.path[0] += '/..'
 
 from lib import gettext
 from lib import ling
