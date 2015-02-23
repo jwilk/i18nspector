@@ -25,7 +25,7 @@ import sys
 
 import nose
 
-sys.path[0] = os.path.join(os.path.dirname(__file__), '..')
+sys.path[0] += '/..'
 
 from tests import blackbox_tests
 
