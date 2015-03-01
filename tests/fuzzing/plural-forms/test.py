@@ -28,17 +28,17 @@ sys.path[0] += '/../../..'
 from lib import gettext
 
 def test(s):
-   try:
-       (n, expr) = gettext.parse_plural_forms(s)
-   except gettext.PluralFormsSyntaxError:
-       return
-   for i in range(200):
-       try:
-           fi = expr(i)
-       except OverflowError:
-           return
-       except ZeroDivisionError:
-           return
+    try:
+        (n, expr) = gettext.parse_plural_forms(s)
+    except gettext.PluralFormsSyntaxError:
+        return
+    for i in range(200):
+        try:
+            fi = expr(i)
+        except OverflowError:
+            return
+        except ZeroDivisionError:
+            return
 
 afl.start()
 try:
