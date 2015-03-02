@@ -25,7 +25,7 @@ import re
 import sys
 import urllib.request
 
-sys.path[:0] += '/..'
+sys.path[0] += '/..'
 
 from lib import ling
 

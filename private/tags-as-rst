@@ -25,7 +25,7 @@ import os
 import re
 import sys
 
-sys.path[:0] += '/..'
+sys.path[0] += '/..'
 
 from lib import tags
 

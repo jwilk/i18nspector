@@ -23,7 +23,7 @@
 import os
 import sys
 
-sys.path[:0] += '/..'
+sys.path[0] += '/..'
 
 from lib import tags
 from tests import blackbox_tests
