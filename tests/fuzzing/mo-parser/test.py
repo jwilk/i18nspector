@@ -46,5 +46,6 @@ def test(data):
 afl.start()
 data = sys.stdin.buffer.read()
 test(data)
+os._exit(0)
 
 # vim:ts=4 sts=4 sw=4 et
