@@ -86,7 +86,7 @@ def test_tags():
                     yield add, 'add', tag
             elif key == 'renamed':
                 for line in lines:
-                    added_tag, removed_tag  = rename_re.match(line).groups()
+                    added_tag, removed_tag = rename_re.match(line).groups()
                     yield rename, 'rename', removed_tag, added_tag
             else:
                 assert 0

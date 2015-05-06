@@ -65,7 +65,7 @@ class test_magic:
                 continue
             break
         with assert_raises(M.SyntaxError) as cm:
-            parser_for_bytes(random_magic);
+            parser_for_bytes(random_magic)
         assert_equal(str(cm.exception), 'unexpected magic')
 
 # vim:ts=4 sts=4 sw=4 et
