@@ -23,8 +23,6 @@ miscellanea
 '''
 
 import datetime
-import errno
-import shlex
 import sys
 import types
 

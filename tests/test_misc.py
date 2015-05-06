@@ -22,7 +22,6 @@ import datetime
 import os
 import time
 
-import nose
 from nose.tools import (
     assert_almost_equal,
     assert_equal,

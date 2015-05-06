@@ -1,4 +1,4 @@
-# Copyright © 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2014, 2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -19,8 +19,6 @@
 # SOFTWARE.
 
 import random
-import struct
-import tempfile
 
 from nose.tools import (
     assert_equal,
