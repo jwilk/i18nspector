@@ -164,7 +164,7 @@ def parse_plural_expression(s):
                 raise PluralExpressionSyntaxError
             s = _subst_ifelse(stack.pop())
             if ('?' in s) or (':' in s):
-               raise PluralExpressionSyntaxError
+                raise PluralExpressionSyntaxError
             stack[-1] += '({})'.format(s)
         else:
             stack[-1] += token
