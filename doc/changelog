@@ -1,6 +1,6 @@
 i18nspector (0.18.2) UNRELEASED; urgency=low
 
-  * 
+  * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Mon, 02 Mar 2015 14:51:09 +0100
 
