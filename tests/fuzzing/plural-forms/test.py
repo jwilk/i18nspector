@@ -34,7 +34,7 @@ def test(s):
         return
     for i in range(200):
         try:
-            fi = expr(i)
+            expr(i)
         except OverflowError:
             return
         except ZeroDivisionError:
