@@ -41,7 +41,8 @@ basedir = os.path.join(
 )
 
 def main():
-    module_glob = os.path.join(basedir, 'tests', 'test_*.py')
+    os.chdir(basedir)
+    module_glob = os.path.join('tests', 'test_*.py')
     modules = glob.glob(module_glob)
     argv = [
         sys.argv[0],
