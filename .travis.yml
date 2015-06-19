@@ -1,9 +1,11 @@
 language: python
 python:
- - "3.2"
- - "3.3"
- - "3.4"
+- "3.2"
+- "3.3"
+- "3.4"
 install:
- - pip install polib
+- pip install polib
 script:
- - python tests/run-tests -v
+- python tests/run-tests -v
+
+# vim:ts=2 sts=2 sw=2 et
