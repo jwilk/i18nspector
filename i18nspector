@@ -48,7 +48,18 @@ def require_python(*version):
         message = 'Python >= %s is required' % version_str
         error(message)
 
+def require_polib(*version):
+    import polib
+    polib_version = tuple(
+        int(x) for x in polib.__version__.split('.')
+    )
+    if polib_version < version:
+        version_str = '.'.join(map(str, version))
+        message = 'polib >= {ver} is required'.format(ver=version_str)
+        error(message)
+
 require_python(3, 2)
+require_polib(1, 0, 0)
 
 # ----------------------------------------
 
