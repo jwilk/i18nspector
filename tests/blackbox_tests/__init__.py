@@ -253,15 +253,16 @@ def _mp_run_i18nspector(prog, options, path, queue):
     sys.argv = [prog] + list(options) + [path]
     orig_stdout = sys.stdout
     orig_stderr = sys.stderr
-    __file__ = prog
-    __file__  # make pyfakes happy
     code = compile(code, prog, 'exec')
     io_stdout = io.StringIO()
     io_stderr = io.StringIO()
+    gvars = dict(
+        __file__=prog,
+    )
     (sys.stdout, sys.stderr) = (io_stdout, io_stderr)
     try:
         try:
-            exec(code)
+            exec(code, gvars)
         finally:
             (sys.stdout, sys.stderr) = (orig_stdout, orig_stderr)
             stdout = io_stdout.getvalue()
