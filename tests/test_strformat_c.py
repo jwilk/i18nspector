@@ -80,7 +80,7 @@ def test_add_argument():
 
 def test_text():
     fmt = M.FormatString('eggs%dbacon%dspam')
-    assert_equal(len(fmt), (5))
+    assert_equal(len(fmt), 5)
     fmt = list(fmt)
     assert_equal(fmt[0], 'eggs')
     assert_equal(fmt[2], 'bacon')
