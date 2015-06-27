@@ -30,12 +30,12 @@ import subprocess as ipc
 import sys
 import tempfile
 
-from . import checker
-from . import ling
-from . import misc
-from . import paths
-from . import tags
-from . import terminal
+from lib import checker
+from lib import ling
+from lib import misc
+from lib import paths
+from lib import tags
+from lib import terminal
 
 __version__ = '0.18.2'
 

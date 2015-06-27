@@ -1,4 +1,4 @@
-# Copyright © 2012-2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -27,9 +27,9 @@ import functools
 import os
 import re
 
-from . import misc
-from . import paths
-from . import terminal
+from lib import misc
+from lib import paths
+from lib import terminal
 
 @functools.total_ordering
 class OrderedObject(object):

@@ -32,9 +32,9 @@ import functools
 import os
 import re
 
-from . import intexpr
-from . import misc
-from . import paths
+from lib import intexpr
+from lib import misc
+from lib import paths
 
 # =============
 # header fields

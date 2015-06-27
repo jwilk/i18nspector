@@ -1,4 +1,4 @@
-# Copyright © 2012-2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -30,8 +30,8 @@ import re
 
 import polib
 
-from . import encodings
-from . import moparser
+from lib import encodings
+from lib import moparser
 
 patches = []
 

@@ -33,16 +33,16 @@ import urllib.parse
 
 import polib
 
-from . import domains
-from . import encodings as encinfo
-from . import gettext
-from . import ling
-from . import misc
-from . import polib4us
-from . import tags
-from . import xml
+from lib import domains
+from lib import encodings as encinfo
+from lib import gettext
+from lib import ling
+from lib import misc
+from lib import polib4us
+from lib import tags
+from lib import xml
 
-from .strformat import c as strformat_c
+from lib.strformat import c as strformat_c
 
 class EnvironmentNotPatched(RuntimeError):
     pass
