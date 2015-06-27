@@ -23,8 +23,8 @@ import importlib
 import inspect
 import pkgutil
 
-import lib.tags as M
 import lib.checker
+import lib.tags as M
 
 from nose.tools import (
     assert_equal,
