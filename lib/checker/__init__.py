@@ -42,7 +42,8 @@ from lib import polib4us
 from lib import tags
 from lib import xml
 
-from lib.strformat import c as strformat_c
+from lib.checker.msgformat import c as msgformat_c
+from lib.checker.repr import message_repr
 
 class EnvironmentNotPatched(RuntimeError):
     pass
@@ -95,6 +96,9 @@ class Checker(object, metaclass=abc.ABCMeta):
             if path.startswith(real_root):
                 self.fake_path = fake_root + path[len(real_root):]
         self.options = options
+        self._message_format_checkers = {
+            'c': msgformat.c.Checker(self),
+        }
 
     @abc.abstractmethod
     def tag(self, tagname, *extra):
@@ -930,224 +934,13 @@ class Checker(object, metaclass=abc.ABCMeta):
 
     def _check_message_formats(self, ctx, message, flags):
         for format in sorted(flags.formats):
-            method = '_check_message_{fmt}_format'.format(fmt=format.replace('-', '_'))
             try:
-                method = getattr(self, method)
-            except AttributeError:
+                checker = self._message_format_checkers[format]
+            except KeyError:
                 continue
-            method(ctx, message, flags)
+            checker.check_message(ctx, message, flags)
         if re.match('\Atype: Content of: (<{xmlname}>)+\Z'.format(xmlname=xml.name_re), message.comment or ''):
             self._check_message_xml_format(ctx, message, flags)
-
-    def _check_message_c_format(self, ctx, message, flags):
-        msgids = [message.msgid]
-        if message.msgid_plural is not None:
-            msgids += [message.msgid_plural]
-        msgid_fmts = {}
-        for i, s in enumerate(msgids):
-            if ctx.is_template:
-                fmt = self._check_c_format_string(message, s)
-            else:
-                try:
-                    fmt = strformat_c.FormatString(s)
-                except strformat_c.FormatError:
-                    # If msgid isn't even a valid format string, then
-                    # reporting errors against msgstr is not worth the trouble.
-                    return
-            if fmt is not None:
-                msgid_fmts[i] = fmt
-        if ctx.is_template and (len(msgid_fmts) == 2):
-            self._check_c_format_args(
-                message,
-                'msgid_plural', msgid_fmts[1],
-                'msgid', msgid_fmts[0],
-                omitted_int_conv_ok=True,
-            )
-        if msgid_fmts.get(0) is not None:
-            try:
-                [[arg]] = msgid_fmts[0].arguments
-            except ValueError:
-                pass
-            else:
-                if arg.type == 'int *':
-                    self.tag('qt-plural-format-mistaken-for-c-format', message_repr(message))
-        if flags.fuzzy:
-            return
-        if ctx.encoding is None:
-            return
-        has_msgstr = bool(message.msgstr)
-        has_msgstr_plural = any(message.msgstr_plural.values())
-        strings = []
-        if has_msgstr:
-            d = misc.Namespace()
-            d.src_loc = 'msgid'
-            d.src_fmt = msgid_fmts.get(0)
-            d.dst_loc = 'msgstr'
-            d.dst_fmt = self._check_c_format_string(message, message.msgstr)
-            d.omitted_int_conv_ok = False
-            strings += [d]
-        if has_msgstr_plural and ctx.plural_preimage:
-            for i, s in sorted(message.msgstr_plural.items()):
-                assert isinstance(i, int)
-                d = misc.Namespace()
-                msgid_fmt = msgid_fmts.get(0)
-                msgid_plural_fmt = msgid_fmts.get(1)
-                d.src_loc = 'msgid_plural'
-                d.src_fmt = msgid_plural_fmt
-                d.dst_loc = 'msgstr[{}]'.format(i)
-                d.dst_fmt = self._check_c_format_string(message, s)
-                if d.dst_fmt is None:
-                    continue
-                try:
-                    preimage = ctx.plural_preimage[i]
-                except KeyError:
-                    # broken plural forms
-                    continue
-                preimage = [
-                    x for x in preimage
-                    if flags.range_min <= x <= flags.range_max
-                ]
-                # XXX In theory, the msgstr[] corresponding to n=1 should
-                # not have more arguments than msgid. In practice, it's not
-                # uncommon to see something like this:
-                #
-                # Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
-                #
-                # msgid "one byte"
-                # msgid_plural "%d bytes"
-                # msgstr[0] "%d bajt"
-                # msgstr[1] "%d bajta"
-                # msgstr[2] "%d bajtova"
-                #
-                # Here %d in msgstr[0] cannot be omitted, because it is used
-                # not only for n=1, but also for n=21, n=31, and so on.
-                #
-                # To be pedantically correct, one could use a different
-                # Plural-Forms, such that there is a separate value for n=1.
-                #
-                # See also: https://bugs.debian.org/753946
-                if preimage == [1]:
-                    # FIXME: “preimage” is not necessarily complete.
-                    # So it's theoretically possible that this msgstr[]
-                    # corresponds to both n=1 and another n.
-                    d.src_loc = 'msgid'
-                    d.src_fmt = msgid_fmt
-                    d.omitted_int_conv_ok = (
-                        msgid_fmt is not None and
-                        msgid_plural_fmt is not None and
-                        len(msgid_fmt) == len(msgid_plural_fmt)
-                    )
-                elif len(preimage) <= 1:
-                    d.omitted_int_conv_ok = True
-                elif len(preimage) == 2 and preimage[0] == 0:
-                    # XXX In theory, the integer conversion should not be
-                    # omitted in the msgstr[] corresponding to both n=0 and
-                    # another n. In practice, it's sometimes obvious from
-                    # context that the message will never be used for n=0.
-                    d.omitted_int_conv_ok = True
-                else:
-                    d.omitted_int_conv_ok = False
-                strings += [d]
-        for d in strings:
-            if d.dst_fmt is None:
-                continue
-            if d.src_fmt is None:
-                continue
-            assert d.src_loc is not None
-            assert d.dst_loc is not None
-            self._check_c_format_args(message,
-                d.src_loc, d.src_fmt,
-                d.dst_loc, d.dst_fmt,
-                omitted_int_conv_ok=d.omitted_int_conv_ok,
-            )
-
-    def _check_c_format_string(self, message, s):
-        prefix = message_repr(message, template='{}:')
-        fmt = None
-        try:
-            fmt = strformat_c.FormatString(s)
-        except strformat_c.MissingArgument as exc:
-            self.tag('c-format-string-error',
-                prefix,
-                tags.safestr(exc.message),
-                tags.safestr('{1}$'.format(*exc.args)),
-            )
-        except strformat_c.ArgumentTypeMismatch as exc:
-            self.tag('c-format-string-error',
-                prefix,
-                tags.safestr(exc.message),
-                tags.safestr('{1}$'.format(*exc.args)),
-                tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
-            )
-        except strformat_c.FlagError as exc:
-            [conv, flag] = exc.args
-            self.tag('c-format-string-error',
-                prefix,
-                tags.safestr(exc.message),
-                flag, tags.safestr('in'), conv
-            )
-        except strformat_c.FormatError as exc:
-            self.tag('c-format-string-error',
-                prefix,
-                tags.safestr(exc.message),
-                *exc.args[:1]
-            )
-        if fmt is None:
-            return
-        for warn in fmt.warnings:
-            try:
-                raise warn
-            except strformat_c.RedundantFlag as exc:
-                if len(exc.args) == 2:
-                    [s, *args] = exc.args
-                else:
-                    [s, a1, a2] = exc.args
-                    if a1 == a2:
-                        args = ['duplicate', a1]
-                    else:
-                        args = [a1, tags.safe_format('overridden by {}', a2)]
-                args += ['in', s]
-                self.tag('c-format-string-redundant-flag',
-                    prefix,
-                    *args
-                )
-            except strformat_c.NonPortableConversion as exc:
-                [s, c1, c2] = exc.args
-                args = [c1, '=>', c2]
-                if s != c1:
-                    args += ['in', s]
-                self.tag('c-format-string-non-portable-conversion',
-                    prefix,
-                    *args
-                )
-        return fmt
-
-    def _check_c_format_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_int_conv_ok=False):
-        prefix = message_repr(message, template='{}:')
-        src_args = src_fmt.arguments
-        dst_args = dst_fmt.arguments
-        if len(dst_args) > len(src_args):
-            self.tag('c-format-string-excess-arguments', prefix,
-                len(dst_args), tags.safestr('({})'.format(dst_loc)), '>',
-                len(src_args), tags.safestr('({})'.format(src_loc)),
-            )
-        elif len(dst_args) < len(src_args):
-            if omitted_int_conv_ok:
-                n_args_omitted = len(src_args) - len(dst_args)
-                omitted_int_conv_ok = src_fmt.get_last_integer_conversion(n=n_args_omitted)
-            if not omitted_int_conv_ok:
-                self.tag('c-format-string-missing-arguments', prefix,
-                    len(dst_args), tags.safestr('({})'.format(dst_loc)), '<',
-                    len(src_args), tags.safestr('({})'.format(src_loc)),
-                )
-        for src_arg, dst_arg in zip(src_args, dst_args):
-            src_arg = src_arg[0]
-            dst_arg = dst_arg[0]
-            if src_arg.type != dst_arg.type:
-                self.tag('c-format-string-argument-type-mismatch', prefix,
-                    tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_loc)), '!=',
-                    tags.safestr(src_arg.type), tags.safestr('({})'.format(src_loc)),
-                )
 
     def _check_message_xml_format(self, ctx, message, flags):
         if ctx.encoding is None:
@@ -1175,14 +968,5 @@ def is_header_entry(entry):
         entry.msgid == '' and
         entry.msgctxt is None
     )
-
-def message_repr(message, template='{}'):
-    subtemplate = 'msgid {id}'
-    kwargs = dict(id=message.msgid)
-    if message.msgctxt is not None:
-        subtemplate += ' msgctxt {ctxt}'
-        kwargs.update(ctxt=message.msgctxt)
-    template = template.format(subtemplate)
-    return tags.safe_format(template, **kwargs)
 
 # vim:ts=4 sts=4 sw=4 et

@@ -1,4 +1,4 @@
-# Copyright © 2012-2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -19,7 +19,9 @@
 # SOFTWARE.
 
 import ast
+import importlib
 import inspect
+import pkgutil
 
 import lib.tags as M
 import lib.checker
@@ -70,11 +72,17 @@ def ast_to_tagnames(node):
         yield node.args[0].s
 
 def test_consistency():
-    source_path = inspect.getsourcefile(lib.checker)
-    with open(source_path, 'rt', encoding='UTF-8') as file:
-        source = file.read()
-        node = ast.parse(source, filename=source_path)
-        source_tagnames = frozenset(ast_to_tagnames(node))
+    source_tagnames = set()
+    def visit_mod(modname):
+        module = importlib.import_module(modname)
+        source_path = inspect.getsourcefile(module)
+        with open(source_path, 'rt', encoding='UTF-8') as file:
+            source = file.read()
+            node = ast.parse(source, filename=source_path)
+            source_tagnames.update(ast_to_tagnames(node))
+    visit_mod('lib.checker')
+    for _, modname, _ in pkgutil.walk_packages(lib.checker.__path__, 'lib.checker.'):
+        visit_mod(modname)
     tagnames = frozenset(tag.name for tag in M.iter_tags())
     def test(tag):
         if tag not in source_tagnames:
