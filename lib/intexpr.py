@@ -24,11 +24,12 @@ squeeze Python abstract syntax trees into C integer expressions semantics
 
 import ast
 
+from lib import misc
+
 class BaseEvaluator(object):
 
     def __init__(self, node):
-        class context: pass
-        self._ctxt = context
+        self._ctxt = misc.Namespace()
         self._node = node
 
     def __call__(self):
@@ -203,7 +204,7 @@ class Evaluator(BaseEvaluator):
 class CodomainEvaluator(BaseEvaluator):
 
     def __init__(self, node, *, bits):
-        class context: pass
+        context = misc.Namespace()
         context.max = 1 << bits
         self._ctxt = context
         self._node = node

@@ -188,6 +188,7 @@ and unused:
  * object-pascal-format
  * python-brace-format
  * smalltalk-format
+ * kde-kuit
 
 SHIFT_JIS and JOHAB encodings are broken in Python; or at least they
 are not compatible with glibc. Implement a work-around. Test-case::
