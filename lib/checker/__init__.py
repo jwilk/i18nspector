@@ -97,7 +97,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.fake_path = fake_root + path[len(real_root):]
         self.options = options
         self._message_format_checkers = {
-            'c': msgformat.c.Checker(self),
+            'c': msgformat_c.Checker(self),
         }
 
     @abc.abstractmethod
