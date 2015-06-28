@@ -1,9 +1,10 @@
 i18nspector (0.18.2) UNRELEASED; urgency=low
 
+  * Add “kde-kuit” as known string format.
   * Verify that polib version is sufficiently new.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 26 Jun 2015 13:44:49 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 28 Jun 2015 13:02:08 +0200
 
 i18nspector (0.18.1) unstable; urgency=low
 
