@@ -273,12 +273,6 @@ class test_redundant_flag:
     def test_plus_space(self):
         self.t('%+ d')
 
-    def test_zero_prec(self):
-        self.t('%0.17d')
-
-    # TODO: The “0” flag is no-op together with a precision
-    # for integer conversions, but not otherwise.
-
     # TODO: Check for other redundant flags, for example “%+s”.
 
 class test_expected_flag:
