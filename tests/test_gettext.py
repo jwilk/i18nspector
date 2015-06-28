@@ -669,7 +669,7 @@ class test_string_formats:
 
     def test_nonempty(self):
         # XXX Update this number after editing data/string-formats:
-        expected = 27
+        expected = 28
         assert_equal(len(M.string_formats), expected)
 
     def test_lowercase(self):
