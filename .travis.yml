@@ -8,7 +8,9 @@ env:
 - POLIB_VERSION=
 install:
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
+- pip install pyflakes
 script:
 - python tests/run-tests -v
+- ./private/run-pyflakes
 
 # vim:ts=2 sts=2 sw=2 et
