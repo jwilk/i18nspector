@@ -1,2 +1,2 @@
 #!/bin/sh
-exec python3 $(which pyflakes) "$@" $(grep -l -r '^#!.*python') $(find -name '*.py')
+exec python3 $(which pyflakes) "$@" $(grep -l -r '^#!.*python' .) $(find -name '*.py')
