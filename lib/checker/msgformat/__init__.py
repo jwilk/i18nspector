@@ -128,6 +128,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                         msgid_fmt is not None and
                         msgid_plural_fmt is not None and
                         len(msgid_fmt) == len(msgid_plural_fmt)
+                        # FIXME: The length equality is a rather weak indicator
+                        # that msgid and msgid_plural are equivalent.
                     )
                 elif len(preimage) <= 1:
                     d.omitted_int_conv_ok = True
