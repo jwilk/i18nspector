@@ -43,6 +43,7 @@ from lib import tags
 from lib import xml
 
 from lib.check.msgformat import c as msgformat_c
+from lib.check.msgformat import python as msgformat_python
 from lib.check.repr import message_repr
 
 class EnvironmentNotPatched(RuntimeError):
@@ -98,6 +99,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         self.options = options
         self._message_format_checkers = {
             'c': msgformat_c.Checker(self),
+            'python': msgformat_python.Checker(self),
         }
 
     @abc.abstractmethod

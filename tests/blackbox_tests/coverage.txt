@@ -81,6 +81,17 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] non-portable-encoding
 [X] os-error
 [X] partially-translated-message
+[X] python-format-string-argument-number-mismatch
+[X] python-format-string-argument-type-mismatch
+[X] python-format-string-error
+[X] python-format-string-missing-argument
+[X] python-format-string-multiple-unnamed-arguments
+[X] python-format-string-obsolete-conversion
+[X] python-format-string-redundant-flag
+[X] python-format-string-redundant-length
+[X] python-format-string-redundant-precision
+[X] python-format-string-unknown-argument
+[X] python-format-string-unnamed-plural-argument
 [X] qt-plural-format-mistaken-for-c-format
 [X] range-flag-without-plural-string
 [X] redundant-message-flag

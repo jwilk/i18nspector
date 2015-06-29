@@ -1,5 +1,20 @@
-i18nspector (0.18.2) UNRELEASED; urgency=low
+i18nspector (0.19) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - python-format-string-argument-number-mismatch
+      - python-format-string-argument-type-mismatch
+      - python-format-string-error
+      - python-format-string-missing-argument
+      - python-format-string-multiple-unnamed-arguments
+      - python-format-string-obsolete-conversion
+      - python-format-string-redundant-flag
+      - python-format-string-redundant-length
+      - python-format-string-redundant-precision
+      - python-format-string-unknown-argument
+      - python-format-string-unnamed-plural-argument
+
+  * Check for errors in Python format strings.
   * Add “kde-kuit” as known string format.
   * Verify that polib version is sufficiently new.
   * Fix language-team-equal-to-last-translator when there are multiple

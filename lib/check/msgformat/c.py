@@ -43,7 +43,7 @@ class Checker(Checker):
                 if arg.type == 'int *':
                     self.tag('qt-plural-format-mistaken-for-c-format', message_repr(message))
 
-    def check_string(self, message, s):
+    def check_string(self, ctx, message, s):
         prefix = message_repr(message, template='{}:')
         fmt = None
         try:

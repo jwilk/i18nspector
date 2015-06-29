@@ -45,7 +45,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         msgid_fmts = {}
         for i, s in enumerate(msgids):
             if ctx.is_template:
-                fmt = self.check_string(message, s)
+                fmt = self.check_string(ctx, message, s)
             else:
                 try:
                     fmt = self.backend.FormatString(s)
@@ -75,7 +75,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             d.src_loc = 'msgid'
             d.src_fmt = msgid_fmts.get(0)
             d.dst_loc = 'msgstr'
-            d.dst_fmt = self.check_string(message, message.msgstr)
+            d.dst_fmt = self.check_string(ctx, message, message.msgstr)
             d.omitted_int_conv_ok = False
             strings += [d]
         if has_msgstr_plural and ctx.plural_preimage:
@@ -87,7 +87,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 d.src_loc = 'msgid_plural'
                 d.src_fmt = msgid_plural_fmt
                 d.dst_loc = 'msgstr[{}]'.format(i)
-                d.dst_fmt = self.check_string(message, s)
+                d.dst_fmt = self.check_string(ctx, message, s)
                 if d.dst_fmt is None:
                     continue
                 try:
@@ -159,7 +159,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def check_string(self, message, s):
+    def check_string(self, ctx, message, s):
         return
 
     @abc.abstractmethod

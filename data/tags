@@ -704,6 +704,151 @@ certainty = possible
 description =
  Translation is missing for some plural forms of a message.
 
+[python-format-string-argument-number-mismatch]
+severity = serious
+certainty = possible
+description =
+ A Python format string for ``msgid`` consumes more arguments than ``msgid_plural``;
+ or ``msgstr`` consumes more arguments than ``msgid``;
+ or ``msgstr[``\ *N*\ ``]`` consumes more arguments than ``msgid`` or ``msgid_plural``.
+ .
+ Python, unlike C, requires that all unnamed arguments are consumed during conversion.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+ https://www.gnu.org/software/gettext/manual/html_node/Python.html#Python
+
+[python-format-string-argument-type-mismatch]
+severity = serious
+certainty = possible
+description =
+ There's a type mismatch between a Python format argument in ``msgid`` and the corresponding format argument in ``msgid_plural``;
+ or between a Python format argument in ``msgstr`` and ``msgid``;
+ or between a Python format argument in ``msgstr[``\ *N*\ ``]`` and ``msgid`` or ``msgid_plural``.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+[python-format-string-error]
+severity = serious
+certainty = possible
+description =
+ A Python format string could not be parsed.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+[python-format-string-missing-argument]
+severity = serious
+certainty = possible
+description =
+ A Python format string for ``msgid`` doesn't use a named argument that is used in ``msgid_plural``;
+ or ``msgstr`` doesn't use a named argument that is used in ``msgid``;
+ or ``msgstr[``\ *N*\ ``]`` doesn't use a named argument that is used in corresponding ``msgid`` or ``msgid_plural``.
+ .
+ Note that in some languages,
+ the commonly used Plural-Forms expression evaluates to the same value for n=1 and n=21, n=31, and so on.
+ Take this Serbian translation for example::
+ .
+ .  Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+ .  ...
+ .  msgid "one byte"
+ .  msgid_plural "%(n)d bytes"
+ .  msgstr[0] "%(n)d bajt"
+ .  msgstr[1] "%(n)d bajta"
+ .  msgstr[2] "%(n)d bajtova"
+ .
+ Here ``%d`` should not be replaced with the spelled-out form ``jedan``.
+ Either ``%d`` should be kept, or the Plural-Forms expression should be amended,
+ so that there is a special case for n=1::
+ .
+ .  Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2
+ .  ...
+ .  msgid "one byte"
+ .  msgid_plural "%(n)d bytes"
+ .  msgstr[0] "%(n)d bajt"
+ .  msgstr[1] "%(n)d bajta"
+ .  msgstr[2] "%(n)d bajtova"
+ .  msgstr[3] "jedan bajt"
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+ https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
+
+[python-format-string-multiple-unnamed-arguments]
+severity = serious
+certainty = possible
+description =
+ A Python format string uses multiple unnamed arguments (such as ``%d``).
+ The translator might need to reorder the arguments to properly translate the message,
+ but this is not possible with unnamed arguments.
+ Named arguments (such as ``%(num)d``) should be used instead.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+ https://www.gnu.org/software/gettext/manual/html_node/Python.html#Python
+
+[python-format-string-obsolete-conversion]
+severity = pedantic
+certainty = possible
+description =
+ A Python format string uses an obsolete conversion specifier:
+ .
+ * Use ``%d`` instead of ``%u``.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+[python-format-string-redundant-flag]
+severity = pedantic
+certainty = possible
+description =
+ A Python format string includes a redundant character flag.
+ Either it's a duplicate, or it has no effect:
+ .
+ * The ``+`` flag overrides the *space* flag.
+ * The ``-`` flag overrides the ``0`` flag.
+ * If a precision is given, the ``0`` flag has no effect on integer conversions (``%d``, ``%i``, ``%o``, ``%u``, ``%x``, and ``%X``).
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+[python-format-string-redundant-length]
+severity = pedantic
+certainty = possible
+description =
+ A Python format string includes a redundant length modifier.
+ Length modifiers (``h``, ``l``, or ``L``) have no effect in Python.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+[python-format-string-redundant-precision]
+severity = pedantic
+certainty = possible
+description =
+ A C format string includes precision that has no effect on the conversion.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+
+[python-format-string-unknown-argument]
+severity = serious
+certainty = possible
+description =
+ A Python format string for ``msgid`` uses a named argument that isn't used in ``msgid_plural``;
+ or ``msgstr`` uses a named argument that isn't used in ``msgid``;
+ or ``msgstr[``\ *N*\ ``]`` uses a named argument that isn't used in corresponding ``msgid`` or ``msgid_plural``.
+ This indicates that the conversion would try to consume an argument that weren't supplied.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+ https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
+[python-format-string-unnamed-plural-argument]
+severity = wishlist
+certainty = possible
+description =
+ A Python format string uses an unnamed arguments (such as ``%d``)
+ in the context of plural forms.
+ The translator might want not to use the numeric argument in the singular form;
+ but this is not possible if the argument is unnamed,
+ because python, unlike C, requires that all unnamed arguments are consumed during conversion.
+ Named arguments (such as ``%(n)d``) should be used instead.
+references =
+ https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
+ https://www.gnu.org/software/gettext/manual/html_node/Python.html#Python
+
 [qt-plural-format-mistaken-for-c-format]
 severity = important
 certainty = possible
