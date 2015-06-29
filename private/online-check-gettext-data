@@ -64,6 +64,11 @@ def do_plurals():
     print('# No plural-forms changes required for {} languages'.format(n_okay))
     print()
 
+blacklist = {
+    # https://lists.gnu.org/archive/html/bug-gettext/2015-06/msg00057.html
+    ('pap', 'AN'),
+}
+
 def do_languages():
     url = 'http://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/msginit.c'
     okay = set()
@@ -84,6 +89,10 @@ def do_languages():
         data[language] = gettext_cc
         our_cc = ling.parse_language(language).get_principal_territory_code()
         if our_cc != gettext_cc:
+            if (language, gettext_cc) in blacklist:
+                if our_cc is not None:
+                    okay.add(language)
+                continue
             print('[{}]'.format(language))
             if our_cc is not None:
                 print('# WAS: principal-territory =', our_cc)
