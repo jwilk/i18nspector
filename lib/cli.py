@@ -30,7 +30,7 @@ import subprocess as ipc
 import sys
 import tempfile
 
-from lib import checker
+from lib import check
 from lib import ling
 from lib import misc
 from lib import paths
@@ -49,7 +49,7 @@ def initialize_terminal():
         errors='backslashreplace',
     )
 
-class Checker(checker.Checker):
+class Checker(check.Checker):
 
     def tag(self, tagname, *extra):
         if tagname in self.options.ignore_tags:

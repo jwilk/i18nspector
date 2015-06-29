@@ -42,8 +42,8 @@ from lib import polib4us
 from lib import tags
 from lib import xml
 
-from lib.checker.msgformat import c as msgformat_c
-from lib.checker.repr import message_repr
+from lib.check.msgformat import c as msgformat_c
+from lib.check.repr import message_repr
 
 class EnvironmentNotPatched(RuntimeError):
     pass

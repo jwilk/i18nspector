@@ -23,7 +23,7 @@ import importlib
 import inspect
 import pkgutil
 
-import lib.checker
+import lib.check
 import lib.tags as M
 
 from nose.tools import (
@@ -80,8 +80,8 @@ def test_consistency():
             source = file.read()
             node = ast.parse(source, filename=source_path)
             source_tagnames.update(ast_to_tagnames(node))
-    visit_mod('lib.checker')
-    for _, modname, _ in pkgutil.walk_packages(lib.checker.__path__, 'lib.checker.'):
+    visit_mod('lib.check')
+    for _, modname, _ in pkgutil.walk_packages(lib.check.__path__, 'lib.check.'):
         visit_mod(modname)
     tagnames = frozenset(tag.name for tag in M.iter_tags())
     def test(tag):
