@@ -843,7 +843,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             elif flag.startswith('range:'):
                 if message.msgid_plural is None:
                     self.tag('range-flag-without-plural-string')
-                match = re.match('\A([0-9]+)[.][.]([0-9]+)\Z', flag[6:].strip(' \t\r\f\v'))
+                match = re.match(r'\A([0-9]+)[.][.]([0-9]+)\Z', flag[6:].strip(' \t\r\f\v'))
                 if match is not None:
                     i, j = map(int, match.groups())
                     if i < j:
@@ -939,7 +939,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             except KeyError:
                 continue
             checker.check_message(ctx, message, flags)
-        if re.match('\Atype: Content of: (<{xmlname}>)+\Z'.format(xmlname=xml.name_re), message.comment or ''):
+        if re.match(r'\Atype: Content of: (<{xmlname}>)+\Z'.format(xmlname=xml.name_re), message.comment or ''):
             self._check_message_xml_format(ctx, message, flags)
 
     def _check_message_xml_format(self, ctx, message, flags):
