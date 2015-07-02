@@ -39,7 +39,7 @@ from lib import paths
 class EncodingLookupError(LookupError):
 
     def __init__(self, encoding):
-        return LookupError.__init__(self, 'unknown encoding: ' + encoding)
+        LookupError.__init__(self, 'unknown encoding: ' + encoding)
 
 def _not_implemented(*args, **kwargs):
     raise NotImplementedError
