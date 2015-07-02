@@ -27,9 +27,11 @@ import re
 
 class _dummy_curses:
 
+    @staticmethod
     def tigetstr(*args, **kwargs):
         return b''
 
+    @staticmethod
     def tparm(*args, **kwargs):
         return b''
 
