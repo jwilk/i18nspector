@@ -933,9 +933,9 @@ class Checker(object, metaclass=abc.ABCMeta):
         return info
 
     def _check_message_formats(self, ctx, message, flags):
-        for format in sorted(flags.formats):
+        for fmt in sorted(flags.formats):
             try:
-                checker = self._message_format_checkers[format]
+                checker = self._message_format_checkers[fmt]
             except KeyError:
                 continue
             checker.check_message(ctx, message, flags)
