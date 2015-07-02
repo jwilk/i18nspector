@@ -618,10 +618,10 @@ class Checker(object, metaclass=abc.ABCMeta):
             translators = sorted(set(translators))
         elif len(translators) == 0:
             self.tag('no-last-translator-header-field')
-        translator_emails = set()
+        translator_emails = {}
         for translator in translators:
             translator_name, translator_email = email.utils.parseaddr(translator)
-            translator_emails.add(translator_email)
+            translator_emails[translator_email] = translator
             if '@' not in translator_email:
                 self.tag('invalid-last-translator', translator)
             elif domains.is_email_in_special_domain(translator_email):
@@ -648,7 +648,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                 if not ctx.is_template:
                     self.tag('boilerplate-in-language-team', team)
             else:
-                if team_email in translator_emails:
+                translator = translator_emails.get(team_email)
+                if translator is not None:
                     self.tag('language-team-equal-to-last-translator', team, translator)
 
     def check_headers(self, ctx):
