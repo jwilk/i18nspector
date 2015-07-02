@@ -167,14 +167,14 @@ class Language(object):
             # overhead per encode() call. To reduce number of such calls,
             # optimize the common case of all characters being representable.
             ''.join(characters).encode(encoding)
-        except UnicodeError:
+        except UnicodeEncodeError:
             pass
         else:
             return result
         for character in characters:
             try:
                 character.encode(encoding)
-            except UnicodeError as exc:
+            except UnicodeEncodeError as exc:
                 result += [character]
                 if exc.reason.startswith('iconv:'):
                     # Avoid further calls to iconv(1):
