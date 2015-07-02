@@ -51,7 +51,7 @@ def this():
 
 _parse_etag = re.compile(r'([A-Z]): (([\w-]+).*)').match
 
-def parse_etag(contents, path, multi_line=False):
+def parse_etag(contents, path):
     match = _parse_etag(contents)
     if match is None:
         return
