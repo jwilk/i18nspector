@@ -49,7 +49,7 @@ def this():
 
 # ----------------------------------------
 
-_parse_etag = re.compile('([A-Z]): (([\w-]+).*)').match
+_parse_etag = re.compile(r'([A-Z]): (([\w-]+).*)').match
 
 def parse_etag(contents, path, multi_line=False):
     match = _parse_etag(contents)
