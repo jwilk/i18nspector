@@ -68,7 +68,7 @@ class test_malformed:
         self.t(s)
 
 class test_name_re():
-    regexp = re.compile('\A{re}\Z'.format(re=M.name_re))
+    regexp = re.compile(r'\A{re}\Z'.format(re=M.name_re))
 
     def test_good(self):
         def t(s):
