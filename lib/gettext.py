@@ -213,7 +213,7 @@ def _read_timezones():
 _timezones = _read_timezones()
 
 _tz_re = '|'.join(re.escape(tz) for tz in _timezones)
-_parse_date = re.compile('''
+_parse_date = re.compile(r'''
     ^
     ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD
     (?: \s+ | T )
@@ -229,7 +229,7 @@ _parse_date = re.compile('''
 
 boilerplate_date = 'YEAR-MO-DA HO:MI+ZONE'
 
-_search_for_date_boilerplate = re.compile('''
+_search_for_date_boilerplate = re.compile(r'''
   ^ YEAR -
 | - MO -
 | - DA \s
