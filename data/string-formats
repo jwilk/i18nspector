@@ -11,7 +11,7 @@ c = %d
 # http://man7.org/linux/man-pages/man3/printf.3.html
 
 csharp = {0}
-# http://msdn.microsoft.com/library/txafckwd%28v=vs.110%29.aspx
+# https://msdn.microsoft.com/library/txafckwd%28v=vs.110%29.aspx
 
 elisp = %d
 # https://www.gnu.org/software/emacs/manual/html_node/elisp/Formatting-Strings.html
