@@ -158,7 +158,7 @@ description =
  .  msgstr[3] "jedan bajt"
 references =
  printf(3)
- https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
 
 [c-format-string-non-portable-conversion]
 severity = pedantic
