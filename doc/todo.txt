@@ -31,7 +31,7 @@ Complain about incorrect locale codes:
 
 Correct locale codes in invalid format, e.g.:
 
- * ``da-DK`` → ``da_DK``: http://sources.debian.net/data/main/d/debian-handbook/6.0+20121031/da-DK/00a_preface.po
+ * ``da-DK`` → ``da_DK``: https://sources.debian.net/data/main/d/debian-handbook/7.20140126/da-DK/00a_preface.po
  * ``pt_br`` → ``pt_BR``: http://sources.debian.net/data/main/p/pam-pkcs11/0.6.8-1/po/pt_br.po
  * ``Pt`` → ``pt``: http://sources.debian.net/data/main/d/darcsweb/1.1-3.1/debian/po/pt.po
 
@@ -114,7 +114,7 @@ Check for non-ASCII (translated?) project id. Test-case:
 Split {trailing,leading}-junk-in-plural-forms from
 syntax-error-in-plural-forms. Test-case:
 
- * http://sources.debian.net/data/main/d/dpkg/1.16.10/po/ja.po
+ * https://sources.debian.net/data/main/d/dpkg/1.16.15/po/ja.po
 
 Decide what to do with commas in Last-Translator: either accept them, or
 provide a better error message. Test-case:
