@@ -5,7 +5,7 @@ awk = %d
 # https://www.gnu.org/software/gawk/manual/html_node/Printf.html
 
 boost = %d
-# http://www.boost.org/libs/format/doc/format.html
+# http://www.boost.org/doc/libs/release/libs/format/doc/format.html
 
 c = %d
 # http://man7.org/linux/man-pages/man3/printf.3.html
