@@ -29,8 +29,8 @@ sys.path[0] += '/..'
 from lib import ling
 
 def main():
-    url = 'https://raw.github.com/vslavik/poedit/master/src/isocodes.cpp'
-    regexp = re.compile(r'^\s*\{\s*_T\("([a-z]{2,}(?:_[A-Z]{2})?(?:@[a-z]+)?)"\)\s*,\s*_T\("([^"]+)"\)\s*\}\s*,?\s*$')
+    url = 'https://raw.github.com/vslavik/poedit/master/src/language_impl_legacy.h'
+    regexp = re.compile(r'^\s*\{\s*"([^"]+)"\s*,\s*"([a-z]{2}[^"]*)"\s*}\s*,\s*$')
     n_okay = 0
     with urllib.request.urlopen(url) as file:
         for line in file:
@@ -38,7 +38,7 @@ def main():
             match = regexp.match(line)
             if match is None:
                 continue
-            poedit_ll, name = match.groups()
+            [name, poedit_ll] = match.groups()
             poedit_ll = ling.parse_language(poedit_ll)
             try:
                 gi_ll = ling.get_language_for_name(name)
