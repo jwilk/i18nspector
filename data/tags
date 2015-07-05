@@ -714,7 +714,7 @@ description =
  The only C format directive that the message uses is ``%n``.
  It is very atypical to use it alone in a C format string.
 references =
- http://qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
+ http://www.qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
  printf(3)
 
 [range-flag-without-plural-string]
