@@ -17,6 +17,7 @@ Complain about incorrect locale codes:
  * ``in`` → ``id``
  * ``iw`` → ``he``
  * ``ji`` → ``yi``
+ * ``jw`` → ``jv``
  * ``mo`` → ``ro_MD``
  * ``no`` → ``nb``
  * ``sh_BA`` → ``bs_BA``
