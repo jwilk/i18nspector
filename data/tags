@@ -128,9 +128,9 @@ references =
 severity = serious
 certainty = possible
 description =
- A C format string for ``msgid`` consumes less arguments than ``msgid_plural``;
- or ``msgstr`` consumes less arguments than ``msgid``;
- or ``msgstr[``\ *N*\ ``]`` consumes less arguments than ``msgid`` or ``msgid_plural``.
+ A C format string for ``msgid`` consumes fewer arguments than ``msgid_plural``;
+ or ``msgstr`` consumes fewer arguments than ``msgid``;
+ or ``msgstr[``\ *N*\ ``]`` consumes fewer arguments than ``msgid`` or ``msgid_plural``.
  .
  Note that in some languages,
  the commonly used Plural-Forms expression evaluates to the same value for n=1 and n=21, n=31, and so on.
@@ -511,7 +511,7 @@ description =
 severity = important
 certainty = certain
 description =
- A ``range:`` flag couldn't be parsed, or the designated range contained less than two numbers.
+ A ``range:`` flag couldn't be parsed, or the designated range contained fewer than two numbers.
  The syntax is ``range:``\  *min*\ ``..``\ *max*, where both values are non-negative integers.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
