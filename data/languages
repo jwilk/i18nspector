@@ -3,8 +3,9 @@
 # - languages that have a ISO 639-1 two-letter code;
 # - languages recognized by poedit;
 # - languages for which real-world PO files exist.
-# ISO 639-2 codes for collections of languages (see
-# <http://www.sil.org/iso639-3/scope.asp#C>) should normally not be added here.
+# ISO 639-2 codes for collections of languages
+# should normally not be added here.
+# See: http://www-01.sil.org/iso639-3/scope.asp#C
 
 [aa]
 names = Afar
