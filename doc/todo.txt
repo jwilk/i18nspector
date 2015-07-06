@@ -196,7 +196,7 @@ are not compatible with glibc. Implement a work-around. Test-case::
     assert b'\\'.decode('JOHAB') == '\N{WON SIGN}'
 
 Timezone abbreviations not only are not unique, but also can change their
-meaning over time: http://mm.icann.org/pipermail/tz/2014-June/021089.html
+meaning over time: https://mm.icann.org/pipermail/tz/2014-June/021089.html
 
 Check for capitalization inconsistencies.
 

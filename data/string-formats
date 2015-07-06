@@ -23,7 +23,7 @@ gfc-internal = %d
 # https://www.gnu.org/software/gettext/manual/html_node/gfc_002dinternal_002dformat.html
 
 java = {0}
-# http://docs.oracle.com/javase/7/docs/api/java/text/MessageFormat.html
+# https://docs.oracle.com/javase/7/docs/api/java/text/MessageFormat.html
 # https://ssl.icu-project.org/apiref/icu4j/com/ibm/icu/text/MessageFormat.html
 
 javascript = %d
@@ -58,7 +58,7 @@ perl-brace = {var}
 # https://metacpan.org/pod/Locale::TextDomain
 
 php = %d
-# http://php.net/manual/function.sprintf.php
+# https://php.net/manual/function.sprintf.php
 
 python = %d
 # https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
@@ -75,7 +75,7 @@ qt-plural = %n
 # http://www.qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
 
 scheme = ~A
-# http://people.csail.mit.edu/jaffer/slib/Format-Specification.html#Format-Specification
+# https://people.csail.mit.edu/jaffer/slib/Format-Specification.html#Format-Specification
 
 sh = $var
 # https://www.gnu.org/software/gettext/manual/html_node/sh_002dformat.html
@@ -87,6 +87,6 @@ tcl = %d
 # http://www.tcl.tk/man/tcl8.6/TclCmd/format.htm
 
 ycp = %1
-# http://doc.opensuse.org/projects/YaST/SLES11/tdg/sformat.html
+# https://doc.opensuse.org/projects/YaST/SLES11/tdg/sformat.html
 
 # vim:ft=dosini

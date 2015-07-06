@@ -636,7 +636,7 @@ class test_fix_date_format:
         # XXX In tzdata 2014f, EST stands only for (US) Eastern Time Zone, i.e.
         # -0500. But in the previous version of tzdata it could also stand for
         # (Australian) Eastern Standard/Summer Time.
-        # http://mm.icann.org/pipermail/tz/2014-June/021089.html
+        # https://mm.icann.org/pipermail/tz/2014-June/021089.html
 
     def test_abbrev_nonexistent(self):
         self.t('2005-12-20 10:33+JEST', None)
