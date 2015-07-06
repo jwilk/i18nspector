@@ -422,7 +422,7 @@ def test_poedit():
     def x(name, poedit_ll):
         poedit_ll = L.parse_language(poedit_ll)
         with assert_raises(LookupError):
-            ll = L.get_language_for_name(name)
+            L.get_language_for_name(name)
         raise nose.SkipTest('expected failure')
     yield t, 'Abkhazian', 'ab'
     yield t, 'Afar', 'aa'
