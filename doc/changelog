@@ -15,7 +15,7 @@ i18nspector (0.19) UNRELEASED; urgency=low
       - python-format-string-unnamed-plural-argument
 
   * Check for errors in Python format strings.
-  * Add “kde-kuit” as known string format.
+  * Add “kde-kuit” as a known string format.
   * Verify that polib version is sufficiently new.
   * Fix language-team-equal-to-last-translator when there are multiple
     Last-Translator fields.
