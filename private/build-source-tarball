@@ -23,6 +23,7 @@ cd "$sourceroot"/*
 make -C doc/
 find -name '__pycache__' -exec rm -rf {} +
 rm -rf .hg*
+rm -rf .travis*
 rm -rf doc/rtd/
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
