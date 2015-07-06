@@ -75,7 +75,7 @@ qt-plural = %n
 # http://www.qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
 
 scheme = ~A
-# https://people.csail.mit.edu/jaffer/slib/Format-Specification.html#Format-Specification
+# https://people.csail.mit.edu/jaffer/slib/Format-Specification.html
 
 sh = $var
 # https://www.gnu.org/software/gettext/manual/html_node/sh_002dformat.html
