@@ -197,6 +197,9 @@ class Language(object):
             s += '@' + self.modifier
         return s
 
+    def __repr__(self):
+        return '<Language {}>'.format(self)
+
 def _read_iso_codes():
     # ISO language/territory codes:
     path = os.path.join(paths.datadir, 'iso-codes')
