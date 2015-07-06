@@ -590,6 +590,6 @@ def test_poedit():
     yield x, '(Afan) Oromo', 'om'
     yield x, 'Bihari', 'bh'  # "bh" is marked as collective in ISO-639-2
     yield x, 'Serbian (Latin)', 'sr_RS@latin'
-    yield x, 'Serbo-Croatian', 'sh'  # "sh" is depreacted in favor of "sr", "hr", "bs"
+    yield x, 'Serbo-Croatian', 'sh'  # "sh" is deprecated in favor of "sr", "hr", "bs"
 
 # vim:ts=4 sts=4 sw=4 et
