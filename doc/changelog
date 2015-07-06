@@ -19,7 +19,7 @@ i18nspector (0.19) UNRELEASED; urgency=low
   * Verify that polib version is sufficiently new.
   * Fix language-team-equal-to-last-translator when there are multiple
     Last-Translator fields.
-  * Improve description of a few tags.
+  * Improve descriptions of a few tags.
   * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Sun, 05 Jul 2015 22:01:08 +0200
