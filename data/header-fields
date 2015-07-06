@@ -3,7 +3,7 @@
 #
 # The following string extraction tools have been used:
 # * pygettext.py (xgettext for Python) 1.5
-# * xgettext (GNU gettext-tools) 0.19.2
+# * xgettext (GNU gettext-tools) 0.19.4
 
 Content-Transfer-Encoding
 Content-Type
