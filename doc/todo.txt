@@ -158,7 +158,6 @@ distinguishes singular and plural forms, even when no numeral is involved.
 
 Add support for more string formats (in popularity order):
 
- * python-format
  * kde-format
  * perl-format
  * csharp-format
