@@ -23,7 +23,7 @@
 import argparse
 import os
 import sys
-import xml.etree.cElementTree as etree
+import xml.etree.ElementTree as etree
 
 iso_codes_dir = '/usr/share/xml/iso-codes/'
 
