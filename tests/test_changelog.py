@@ -96,8 +96,13 @@ def test_tags():
 
 def test_trailing_whitespace():
     path = os.path.join(docdir, 'changelog')
+    unreleased = False
     with open(path, 'rt', encoding='UTF-8') as file:
         for n, line in enumerate(file, 1):
+            if n == 1 and ' UNRELEASED;' in line:
+                unreleased = True
+            if n == 3 and unreleased and line == '  * \n':
+                continue
             line = line.rstrip('\n')
             if line[-1:].isspace():
                 raise AssertionError('trailing whitespace at line {0}'.format(n))
