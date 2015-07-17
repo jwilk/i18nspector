@@ -411,6 +411,29 @@ class test_unrepresentable_characters:
         result = lang.get_unrepresentable_characters(encoding)
         assert_not_equal(result, [])
 
+def test_glibc_supported():
+    def t(l):
+        lang = L.parse_language(l)
+        try:
+            lang.fix_codes()
+        except L.FixingLanguageCodesFailed:
+            # FIXME: some ISO-639-3 code are not recognized yet
+            if len(l.split('_')[0]) == 3:
+                raise nose.SkipTest('expeceted failure')
+            raise
+        assert_equal(str(lang), l)
+    try:
+        file = open('/usr/share/i18n/SUPPORTED', encoding='ASCII')
+    except OSError as exc:
+        raise nose.SkipTest(exc)
+    with file:
+        for line in file:
+            locale, *rest = line.split()
+            if (locale + '.').startswith('iw_IL.'):
+                # iw_IL is obsolete
+                continue
+            yield t, locale
+
 def test_poedit():
     # https://github.com/vslavik/poedit/blob/v1.8.1-oss/src/language_impl_legacy.h
     # There won't be any new names in this table,
