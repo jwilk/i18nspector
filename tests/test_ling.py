@@ -428,6 +428,8 @@ def test_glibc_supported():
         raise nose.SkipTest(exc)
     with file:
         for line in file:
+            if line[:1] in {'#', '\n'}:
+                continue
             locale, *rest = line.split()
             if (locale + '.').startswith('iw_IL.'):
                 # iw_IL is obsolete
