@@ -1139,7 +1139,7 @@ characters =
  č š ž
  Č Š Ž
 # plural-forms = nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
-# http://savannah.gnu.org/bugs/?45591
+# https://savannah.gnu.org/bugs/?45591
 principal-territory = SI
 
 [sm]
