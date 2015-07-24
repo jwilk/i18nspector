@@ -67,6 +67,7 @@ def fork_isolation(f):
         readfd, writefd = os.pipe()
         pid = os.fork()
         if pid == 0:
+            # child:
             os.close(readfd)
             try:
                 f(*args, **kwargs)
@@ -85,6 +86,7 @@ def fork_isolation(f):
                 exit(EXIT_EXCEPTION)
             exit(0)
         else:
+            # parent:
             os.close(writefd)
             with os.fdopen(readfd, 'rb') as fp:
                 msg = fp.read()
