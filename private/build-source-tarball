@@ -47,14 +47,14 @@ mkdir -p "$sourceroot/$name-$version"
 hg archive -r "$revision" "$sourceroot/$name-$version"
 cd "$sourceroot"/*
 make -C doc/
-find -name '__pycache__' -exec rm -rf {} +
-rm -rf .hg*
-rm -rf .travis*
-rm -rf doc/rtd/
-rm -f private/build-source-tarball
+find -name '__pycache__' -exec rm -r {} +
+rm .hg*
+rm .travis*
+rm -r doc/rtd/
+rm private/build-source-tarball
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
-rm -rf "$sourceroot"
+rm -r "$sourceroot"
 set +x
 cd "$pwd"
 ls -d "$name-$version.tar.gz"
