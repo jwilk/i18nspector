@@ -34,5 +34,8 @@ rm -f private/build-source-tarball
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
 rm -rf "$sourceroot"
+set +x
+cd "$pwd"
+ls -d "$name-$version.tar.gz"
 
 # vim:ts=4 sts=4 sw=4 et
