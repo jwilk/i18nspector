@@ -48,7 +48,7 @@ cd "$sourceroot"/*
 make -C doc/
 find -name '__pycache__' -exec rm -r {} +
 rm .hg*
-rm .travis*
+rm .travis.yml
 rm -r doc/rtd/
 rm private/build-source-tarball
 cd ..
