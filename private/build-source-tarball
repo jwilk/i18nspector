@@ -6,6 +6,11 @@ then
     printf "%s <version>\n" "$0" >&2
     exit 1
 fi
+if ! [ -d .hg ]
+then
+    printf "%s requires hg checkout\n" "$0" >&2
+    exit 1
+fi
 set -e -x
 pwd="$PWD"
 version="$1"
@@ -13,18 +18,14 @@ sourceroot=$(mktemp -d -t "$name-source-XXXXXX")
 export TAR_OPTIONS="--owner root --group root --mode a+rX --format ustar"
 export GZIP="-9 -n"
 mkdir -p "$sourceroot/$name-$version"
-if [ -d .hg ]
-then
-    hg archive -r "$version" "$sourceroot/$name-$version"
-else
-    hg clone -r "$version" "$url" "$sourceroot/$name-$version"
-fi
+hg archive -r "$version" "$sourceroot/$name-$version"
 cd "$sourceroot"/*
 make -C doc/
 find -name '__pycache__' -exec rm -rf {} +
 rm -rf .hg*
 rm -rf .travis*
 rm -rf doc/rtd/
+rm -f private/build-source-tarball
 cd ..
 tar -czf "$pwd/$name-$version.tar.gz" */
 rm -rf "$sourceroot"
