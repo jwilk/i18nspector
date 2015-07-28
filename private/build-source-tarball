@@ -1,8 +1,8 @@
 #!/bin/sh
 name=i18nspector
-if [ $# -ne 1 ]
+if [ $# -ge 2 ]
 then
-    printf "%s <version>\n" "$0" >&2
+    printf '%s [revision]\n' "$0" >&2
     exit 1
 fi
 if ! [ -d .hg ]
@@ -12,12 +12,16 @@ then
 fi
 set -e -x
 pwd="$PWD"
-version="$1"
+revision="${1:-tip}"
+date=$(hg log -r "$revision" --template='{date|isodate}' | head -c 10 | tr -d -)
+version=$(hg cat -r "$revision" doc/changelog | head -n1 | cut -d ' ' -f2 | tr -d '()')
+released=$(hg cat -r "$revision" doc/changelog | head -n1 | grep -v -w UNRELEASED || true)
+[ -n "$released" ] || version="${version}rc${date}"
 sourceroot=$(mktemp -d -t "$name-source-XXXXXX")
 export TAR_OPTIONS="--owner root --group root --mode a+rX --format ustar"
 export GZIP="-9 -n"
 mkdir -p "$sourceroot/$name-$version"
-hg archive -r "$version" "$sourceroot/$name-$version"
+hg archive -r "$revision" "$sourceroot/$name-$version"
 cd "$sourceroot"/*
 make -C doc/
 find -name '__pycache__' -exec rm -rf {} +
