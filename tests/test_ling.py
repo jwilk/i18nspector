@@ -419,7 +419,7 @@ def test_glibc_supported():
         except L.FixingLanguageCodesFailed:
             # FIXME: some ISO-639-3 code are not recognized yet
             if len(l.split('_')[0]) == 3:
-                raise nose.SkipTest('expeceted failure')
+                raise nose.SkipTest('expected failure')
             raise
         assert_equal(str(lang), l)
     try:
