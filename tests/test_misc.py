@@ -32,7 +32,7 @@ from nose.tools import (
     assert_true,
 )
 
-from . import aux
+from . import tools
 
 import lib.misc as M
 
@@ -85,7 +85,7 @@ class test_utc_now:
         assert_is_not_none(now.tzinfo)
         assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
 
-    @aux.fork_isolation
+    @tools.fork_isolation
     def test_tz_resistance(self):
         def t(tz):
             os.environ['TZ'] = tz

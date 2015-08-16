@@ -35,7 +35,7 @@ import unittest
 import nose
 import nose.plugins
 
-from .. import aux
+from .. import tools
 
 here = os.path.dirname(__file__)
 
@@ -379,7 +379,7 @@ def test_file():
 E: os-error No such file or directory
 ''')
 def test_os_error_no_such_file():
-    with aux.temporary_directory() as tmpdir:
+    with tools.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'nonexistent.po')
         expected = etags_from_tagstring(this(), path)
         assert_emit_tags(path, expected)
@@ -390,7 +390,7 @@ E: os-error Permission denied
 def test_os_error_permission_denied():
     if os.getuid() == 0:
         raise nose.SkipTest('this test must not be run as root')
-    with aux.temporary_directory() as tmpdir:
+    with tools.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'denied.po')
         with open(path, 'wb'):
             pass

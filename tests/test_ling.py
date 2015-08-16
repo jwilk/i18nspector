@@ -32,7 +32,7 @@ from nose.tools import (
     assert_true,
 )
 
-from . import aux
+from . import tools
 
 import lib.encodings
 import lib.ling
@@ -401,7 +401,7 @@ class test_unrepresentable_characters:
         result = lang.get_unrepresentable_characters('ISO-8859-1')
         assert_is_none(result)
 
-    @aux.fork_isolation
+    @tools.fork_isolation
     def test_extra_encoding(self):
         encoding = 'GEORGIAN-PS'
         lang = L.parse_language('pl')

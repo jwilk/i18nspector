@@ -25,12 +25,12 @@ from nose.tools import (
     assert_raises,
 )
 
-from . import aux
+from . import tools
 
 import lib.moparser as M
 
 def parser_for_bytes(data):
-    with aux.temporary_file(suffix='.mo') as file:
+    with tools.temporary_file(suffix='.mo') as file:
         file.write(data)
         file.flush()
         return M.Parser(file.name)

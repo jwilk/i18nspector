@@ -26,7 +26,7 @@ from nose.tools import (
     assert_equal,
 )
 
-from . import aux
+from . import tools
 
 import lib.terminal as T
 
@@ -61,14 +61,14 @@ def _setup_tty(term):
     os.environ['TERM'] = term
     T.initialize()
 
-@aux.fork_isolation
+@tools.fork_isolation
 def test_vt100():
     _setup_tty('vt100')
     for i in _get_colors():
         assert_equal(T.attr_fg(i), '')
     assert_equal(T.attr_reset(), '\x1b[m\x0f')
 
-@aux.fork_isolation
+@tools.fork_isolation
 def test_ansi():
     _setup_tty('ansi')
     assert_equal(T.attr_fg(T.colors.black), '\x1b[30m')

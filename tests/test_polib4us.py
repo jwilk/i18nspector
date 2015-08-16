@@ -25,7 +25,7 @@ from nose.tools import (
     assert_true,
 )
 
-from . import aux
+from . import tools
 
 import lib.polib4us as M
 
@@ -36,7 +36,7 @@ msgstr "Content-Type: text/plain; charset=US-ASCII\n"
 
 class test_codecs:
 
-    @aux.fork_isolation
+    @tools.fork_isolation
     def test_trailing_obsolete_message(self):
         s = minimal_header + '''
 msgid "a"
@@ -46,7 +46,7 @@ msgstr "b"
 #~ msgstr "c"
 '''
         def t():
-            with aux.temporary_file(mode='wt', encoding='ASCII') as file:
+            with tools.temporary_file(mode='wt', encoding='ASCII') as file:
                 file.write(s)
                 file.flush()
                 po = polib.pofile(file.name)
@@ -55,7 +55,7 @@ msgstr "b"
         M.install_patches()
         t()
 
-@aux.fork_isolation
+@tools.fork_isolation
 def test_flag_splitting():
     M.install_patches()
     e = polib.POEntry()
