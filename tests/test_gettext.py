@@ -285,6 +285,10 @@ class test_plural_exp:
         with assert_raises(self.error):
             self.t('(6, 7)')
 
+    def test_starred(self):
+        with assert_raises(self.error):
+            self.t('*42')
+
     def test_exotic_whitespace(self):
         with assert_raises(self.error):
             self.t('6 *\xA07')

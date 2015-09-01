@@ -415,6 +415,7 @@ class Expression(object):
 
     def __init__(self, s):
         module = ast.parse('({})'.format(s), filename='<intexpr>')
+        compile(module, '', 'exec')
         assert isinstance(module, ast.Module)
         [node] = ast.iter_child_nodes(module)
         assert isinstance(node, ast.Expr)
