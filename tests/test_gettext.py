@@ -231,13 +231,13 @@ class test_plural_exp:
         with assert_raises(self.error):
             self.t('2 ? (3 : 7 ? ) : 23')
 
-    def test_unary_plus(self):
+    def test_unary_minus(self):
         with assert_raises(self.error):
             self.t('-37')
         with assert_raises(self.error):
             self.t('23 + (-37)')
 
-    def test_unary_minus(self):
+    def test_unary_plus(self):
         with assert_raises(self.error):
             self.t('+42')
         with assert_raises(self.error):
