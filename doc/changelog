@@ -1,10 +1,10 @@
-i18nspector (0.20) UNRELEASED; urgency=low
+i18nspector (0.20) unstable; urgency=low
 
   * Use RPLY for parsing plural expressions.
     This should make the parser more robust.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 10 Sep 2015 21:45:25 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 10 Sep 2015 21:45:40 +0200
 
 i18nspector (0.19) unstable; urgency=low
 
