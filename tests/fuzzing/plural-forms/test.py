@@ -40,12 +40,9 @@ def test(s):
         except ZeroDivisionError:
             return
 
-afl.start()
-try:
-    s = sys.stdin.read()
-except UnicodeError:
-    pass
-else:
+while afl.loop(max=1000):
+    s = sys.stdin.buffer.read()
+    s = s.decode('UTF-8', 'replace')
     test(s)
 os._exit(0)
 
