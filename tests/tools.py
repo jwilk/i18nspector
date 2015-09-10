@@ -1,4 +1,4 @@
-# Copyright © 2012-2013 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -18,10 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import contextlib
 import functools
 import os
-import shutil
 import sys
 import tempfile
 import traceback
@@ -35,13 +33,10 @@ temporary_file = functools.partial(
     prefix=_tmp_prefix,
 )
 
-@contextlib.contextmanager
-def temporary_directory():
-    tmpdir = tempfile.mkdtemp(prefix=_tmp_prefix)
-    try:
-        yield tmpdir
-    finally:
-        shutil.rmtree(tmpdir)
+temporary_directory = functools.partial(
+    tempfile.TemporaryDirectory,
+    prefix=_tmp_prefix,
+)
 
 class IsolatedError(Exception):
     pass

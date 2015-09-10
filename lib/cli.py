@@ -25,7 +25,6 @@ command-line interface
 import argparse
 import io
 import os
-import shutil
 import subprocess as ipc
 import sys
 import tempfile
@@ -82,10 +81,9 @@ def check_deb(filename, *, options):
         binary = False
     else:
         raise UnsupportedFileType
-    tmpdir = tempfile.mkdtemp(prefix='i18nspector.deb.')
     ignore_tags = set(options.ignore_tags)
     ignore_tags.add('unknown-file-type')
-    try:
+    with tempfile.TemporaryDirectory(prefix='i18nspector.deb.') as tmpdir:
         if binary:
             ipc.check_call(['dpkg-deb', '-x', filename, tmpdir])
             real_root = os.path.join(tmpdir, '')
@@ -107,8 +105,6 @@ def check_deb(filename, *, options):
                     continue
                 if os.path.isfile(path):
                     check_file(path, options=options)
-    finally:
-        shutil.rmtree(tmpdir)
 
 def check_all(files, *, options):
     for filename in files:
