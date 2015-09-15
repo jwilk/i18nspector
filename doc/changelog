@@ -1,8 +1,8 @@
-i18nspector (0.20.1) UNRELEASED; urgency=low
+i18nspector (0.20.1) unstable; urgency=low
 
   * Set up temporary cache directory in tests/run-tests.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Sep 2015 15:21:19 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 15 Sep 2015 17:38:38 +0200
 
 i18nspector (0.20) unstable; urgency=low
 
