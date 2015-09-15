@@ -26,16 +26,14 @@ import traceback
 
 import nose
 
-_tmp_prefix = 'i18nspector.tests.'
-
 temporary_file = functools.partial(
     tempfile.NamedTemporaryFile,
-    prefix=_tmp_prefix,
+    prefix='i18nspector.tests.',
 )
 
 temporary_directory = functools.partial(
     tempfile.TemporaryDirectory,
-    prefix=_tmp_prefix,
+    prefix='i18nspector.tests.',
 )
 
 class IsolatedError(Exception):
