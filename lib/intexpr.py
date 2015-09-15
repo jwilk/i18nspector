@@ -80,7 +80,7 @@ def create_parser(lexer):
             ('left', ['MULDIV']),
             ('right', ['NOT']),
         ],
-        cache_id='i18nspector-plural-forms',
+        cache_id='i18nspector-intexpr',
     )
     ast_bool = {
         '&&': ast.And(),
