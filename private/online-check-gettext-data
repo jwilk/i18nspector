@@ -82,7 +82,7 @@ def do_languages():
     contents = contents.decode('ASCII')
     data = {}
     primary_languages = set(ling.get_primary_languages())
-    for item in re.findall('"(\w+)"', contents):
+    for item in re.findall(r'"(\w+)"', contents):
         language, gettext_cc = item.split('_')
         if language not in primary_languages:
             continue
@@ -128,7 +128,7 @@ def do_string_formats():
     contents = re.compile(br'/[*].*?[*]/', re.DOTALL).sub(b'', contents)
     contents = contents.decode('ASCII')
     their_formats = frozenset(
-        re.findall('"([\w-]+)"', contents)
+        re.findall(r'"([\w-]+)"', contents)
     )
     our_formats = frozenset(
         gettext.string_formats.keys()
