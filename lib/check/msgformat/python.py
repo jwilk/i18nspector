@@ -110,7 +110,7 @@ class Checker(Checker):
 
     def check_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_int_conv_ok=False):
         prefix = message_repr(message, template='{}:')
-        # unnamed arugments:
+        # unnamed arguments:
         src_args = src_fmt.seq_arguments
         dst_args = dst_fmt.seq_arguments
         if len(dst_args) != len(src_args):
