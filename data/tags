@@ -47,7 +47,7 @@ description =
 severity = minor
 certainty = possible
 description =
- The initial comments contains xgettext or msginit boilerplate.
+ The initial comments contain xgettext or msginit boilerplate.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
