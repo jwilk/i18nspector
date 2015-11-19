@@ -1,4 +1,4 @@
-i18nspector (0.21) UNRELEASED; urgency=low
+i18nspector (0.21) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -8,7 +8,7 @@ i18nspector (0.21) UNRELEASED; urgency=low
   * Improve error handling.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Nov 2015 19:20:23 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Nov 2015 19:20:40 +0100
 
 i18nspector (0.20.1) unstable; urgency=low
 
