@@ -26,14 +26,18 @@ import datetime
 import sys
 import types
 
-def is_sorted(iterable):
+def unsorted(iterable):
     '''
-    is the iterable sorted?
+    if the iterable is sorted, return None;
+    otherwise return first (x, y) such that x > y
     '''
-    # It's not very efficient, but should be enough for our purposes.
-    lst1 = list(iterable)
-    lst2 = sorted(lst1)
-    return lst1 == lst2
+    iterable = iter(iterable)
+    for x in iterable:
+        break
+    for y in iterable:
+        if x > y:
+            return (x, y)
+        x = y
 
 class DataIntegrityError(Exception):
     pass
@@ -42,8 +46,9 @@ def check_sorted(iterable, exception=DataIntegrityError):
     '''
     raise exception if the iterable is not sorted
     '''
-    if not is_sorted(iterable):
-        raise exception()
+    cx = unsorted(iterable)
+    if cx is not None:
+        raise exception('{0!r} > {1!r}'.format(*cx))
 
 def sorted_vk(d):
     '''

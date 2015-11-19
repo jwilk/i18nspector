@@ -36,38 +36,51 @@ from . import tools
 
 import lib.misc as M
 
-def sorted_iterable():
-    yield 1
-    yield 2
-    yield 4
+class test_unsorted:
 
-def unsorted_iterable():
-    yield 1
-    yield 4
-    yield 2
+    def t(self, lst, expected):
+        assert_is_instance(lst, list)
+        r = M.unsorted(lst)
+        assert_equal(r, expected)
+        r = M.unsorted(x for x in lst)
+        assert_equal(r, expected)
 
-class test_is_sorted:
+    def test_0(self):
+        self.t([], None)
 
-    def test_sorted(self):
-        iterable = sorted_iterable()
-        is_sorted = M.is_sorted(iterable)
-        assert_true(is_sorted)
+    def test_1(self):
+        self.t([17], None)
 
-    def test_not_sorted(self):
-        iterable = unsorted_iterable()
-        is_sorted = M.is_sorted(iterable)
-        assert_false(is_sorted)
+    def test_2(self):
+        self.t([17, 23], None)
+        self.t([23, 17], (23, 17))
+
+    def test_3(self):
+        self.t([17, 23, 37], None)
+        self.t([17, 37, 23], (37, 23))
+        self.t([23, 17, 37], (23, 17))
+        self.t([23, 37, 17], (37, 17))
+        self.t([37, 17, 23], (37, 17))
+        self.t([37, 23, 17], (37, 23))
+
+    def test_inf(self):
+        def iterable():
+            yield 17
+            yield 37
+            while True:
+                yield 23
+        r = M.unsorted(iterable())
+        assert_equal(r, (37, 23))
 
 class test_check_sorted:
 
     def test_sorted(self):
-        iterable = sorted_iterable()
-        M.check_sorted(iterable)
+        M.check_sorted([17, 23, 37])
 
-    def test_not_sorted(self):
-        iterable = unsorted_iterable()
-        with assert_raises(M.DataIntegrityError):
-            M.check_sorted(iterable)
+    def test_unsorted(self):
+        with assert_raises(M.DataIntegrityError) as cm:
+            M.check_sorted([23, 37, 17])
+        assert_equal(str(cm.exception), '37 > 17')
 
 def test_sorted_vk():
     lst = ['eggs', 'spam', 'ham']
