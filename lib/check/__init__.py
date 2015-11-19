@@ -193,17 +193,17 @@ class Checker(object, metaclass=abc.ABCMeta):
         self.check_messages(ctx)
 
     def check_comments(self, ctx):
-        regexs = [
+        regexs = {
             r'\bPACKAGE package\b',
             r'\bCopyright \S+ YEAR\b',
             r"\bTHE PACKAGE'S COPYRIGHT HOLDER\b",
-        ]
+        }
         if not ctx.is_template:
-            regexs += [
+            regexs |= {
                 r'\bFIRST AUTHOR\b',
                 r'<EMAIL@ADDRESS>',
                 r'(?<=>), YEAR\b',
-            ]
+            }
         regex = re.compile('|'.join(regexs))
         for line in ctx.file.header.splitlines():
             match =  regex.search(line)
