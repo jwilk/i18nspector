@@ -1,5 +1,3 @@
-# W: boilerplate-in-report-msgid-bugs-to 'FULL NAME <EMAIL@ADDRESS>'
-
 msgid ""
 msgstr ""
 "Project-Id-Version: Gizmo Enhancer 1.0\n"

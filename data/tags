@@ -43,6 +43,14 @@ description =
  The date format should be ``YYYY-MM-DD hh:mm+ZZzz``,
  e.g. ``2011-11-05 10:14+0100``.
 
+[boilerplate-in-initial-comments]
+severity = minor
+certainty = possible
+description =
+ The initial comments contains xgettext or msginit boilerplate.
+references =
+ https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
+
 [boilerplate-in-language-team]
 severity = minor
 certainty = certain

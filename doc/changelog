@@ -1,8 +1,12 @@
 i18nspector (0.21) UNRELEASED; urgency=low
 
-  * 
+  * Summary of tag changes:
+    + Added:
+      - boilerplate-in-initial-comments
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Nov 2015 16:10:09 +0100
+  * Check for xgettext and msginit boilerplate in initial comments.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Nov 2015 18:03:45 +0100
 
 i18nspector (0.20.1) unstable; urgency=low
 

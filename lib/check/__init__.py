@@ -180,6 +180,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         ctx = misc.Namespace()
         ctx.file = file
         ctx.is_template = is_template
+        self.check_comments(ctx)
         self.check_headers(ctx)
         self.check_language(ctx)
         self.check_plurals(ctx)
@@ -190,6 +191,25 @@ class Checker(object, metaclass=abc.ABCMeta):
         self.check_project(ctx)
         self.check_translator(ctx)
         self.check_messages(ctx)
+
+    def check_comments(self, ctx):
+        regexs = [
+            r'\bPACKAGE package\b',
+            r'\bCopyright \S+ YEAR\b',
+            r"\bTHE PACKAGE'S COPYRIGHT HOLDER\b",
+        ]
+        if not ctx.is_template:
+            regexs += [
+                r'\bFIRST AUTHOR\b',
+                r'<EMAIL@ADDRESS>',
+                r'(?<=>), YEAR\b',
+            ]
+        regex = re.compile('|'.join(regexs))
+        for line in ctx.file.header.splitlines():
+            match =  regex.search(line)
+            if match is None:
+                continue
+            self.tag('boilerplate-in-initial-comments', line)
 
     @checks_header_fields('Language', 'X-Poedit-Language', 'X-Poedit-Country')
     def check_language(self, ctx):
