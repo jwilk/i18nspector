@@ -25,11 +25,9 @@ import time
 from nose.tools import (
     assert_almost_equal,
     assert_equal,
-    assert_false,
     assert_is_instance,
     assert_is_not_none,
     assert_raises,
-    assert_true,
 )
 
 from . import tools
