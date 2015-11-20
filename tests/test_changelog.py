@@ -89,7 +89,7 @@ def test_tags():
                     added_tag, removed_tag = rename_re.match(line).groups()
                     yield rename, 'rename', removed_tag, added_tag
             else:
-                assert 0
+                assert False
     data_tags = frozenset(tag.name for tag in lib.tags.iter_tags())
     for tag in sorted(changelog_tags | data_tags):
         yield check, 'check', tag

@@ -293,7 +293,7 @@ class Conversion(object):
         elif conv == '%':
             tp = 'None'
         else:
-            assert 0  # <no-coverage>
+            assert False  # <no-coverage>
         self.type = tp
         if tp == 'None':
             if key is not None:

@@ -255,7 +255,7 @@ class FormatString(object):
                     if conv is not arg:
                         return
                 else:
-                    assert 0, 'type(arg) == {!r}'.format(type(arg))  # <no-coverage>
+                    assert False, 'type(arg) == {!r}'.format(type(arg))  # <no-coverage>
         if conv is None:
             return
         if not conv.integer:
@@ -291,7 +291,7 @@ class Conversion(object):
                 tp = 'uint'
             else:
                 # should not happen
-                assert 0  # <no-coverage>
+                assert False  # <no-coverage>
             conversion = c99conversion
             if c99length.startswith(('LEAST', 'FAST')):
                 tp += '_' + c99length.lower()
@@ -356,7 +356,7 @@ class Conversion(object):
                 tp = 'void'
         else:
             # should not happen
-            assert 0  # <no-coverage>
+            assert False  # <no-coverage>
         if tp is None:
             assert length is not None
             raise LengthError(s, length)
