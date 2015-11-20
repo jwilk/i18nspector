@@ -55,7 +55,7 @@ class test_magic:
             assert_equal(str(cm.exception), 'truncated file')
 
     def test_random(self):
-        while 1:
+        while True:
             random_magic = bytes(
                 random.randrange(0, 0x100) for i in range(0, 4)
             )
