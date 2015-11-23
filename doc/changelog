@@ -1,8 +1,8 @@
 i18nspector (0.21.1) UNRELEASED; urgency=low
 
-  * 
+  * Fix typo in a tag description.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Nov 2015 19:34:48 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 23 Nov 2015 14:35:58 +0100
 
 i18nspector (0.21) unstable; urgency=low
 
@@ -310,7 +310,7 @@ i18nspector (0.11) unstable; urgency=low
   * Reduce severity of arithmetic-error-in-unused-plural-forms,
     codomain-error-in-unused-plural-forms, and incorrect-unused-plural-forms
     to normal.
-  * Implement custom header parser for PO files, and custom MO file parter.
+  * Implement custom header parser for PO files, and custom MO file parser.
     (The ones in polib are inadequate for i18nspector's purposes.)
   * Check for duplicate header entries.
   * Check for unusually located header entries.
@@ -525,7 +525,7 @@ i18nspector (0.7) unstable; urgency=low
     - Northwest Caucasian languages: Abkhazian, Adyghe.
   * Handle some malformed MO files more gracefully.
   * Add a prefix to temporary directory names.
-  * Make it possible to override code/data directory with an evironment
+  * Make it possible to override code/data directory with an environment
     variable (I18NSPECTOR_BASEDIR).
   * Produce a useful error message when one tries to run the script with
     Python < 3.2.

@@ -70,7 +70,7 @@ class test_propose_portable_encoding:
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
         assert_is_none(portable_encoding)
 
-class test_ascii_compatiblity:
+class test_ascii_compatibility:
 
     def test_portable(self):
         def _test(encoding):

@@ -439,7 +439,7 @@ def test_glibc_supported():
 def test_poedit():
     # https://github.com/vslavik/poedit/blob/v1.8.1-oss/src/language_impl_legacy.h
     # There won't be any new names in this table,
-    # so it's safe to harcode them all here.
+    # so it's safe to hardcode them all here.
     def t(name, poedit_ll):
         poedit_ll = L.parse_language(poedit_ll)
         ll = L.get_language_for_name(name)

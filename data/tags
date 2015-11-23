@@ -626,7 +626,7 @@ references =
 severity = pedantic
 certainty = certain
 description =
- The MIME-Version header field does't exist.
+ The MIME-Version header field doesn't exist.
  It should be to set to ``1.0``.
 references =
  https://tools.ietf.org/html/rfc2045#section-4

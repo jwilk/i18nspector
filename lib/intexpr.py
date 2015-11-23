@@ -314,8 +314,8 @@ class Evaluator(BaseEvaluator):
         else:
             return self._visit(node.orelse)
 
-    # contants, variables
-    # ===================
+    # constants, variables
+    # ====================
 
     def _visit_num(self, node):
         return self._check_overflow(node.n)
@@ -521,8 +521,8 @@ class CodomainEvaluator(BaseEvaluator):
             max(x[1], y[1]),
         )
 
-    # contants, variables
-    # ===================
+    # constants, variables
+    # ====================
 
     def _visit_num(self, node):
         n = node.n

@@ -516,7 +516,7 @@ class test_codomain:
     def test_cond_both_branches_error(self):
         self.t('n ? (n / 0) : (n / 0)', None)
 
-    def test_cond_both_braches_ok(self):
+    def test_cond_both_branches_ok(self):
         self.t('n ? 37 : 42', 37, 42)
         self.t(
             'n ? (6 + n%23) : (7 + n%37)',
@@ -594,7 +594,7 @@ class test_fix_date_format:
             '2001-06-25 18:55+0200',
         )
 
-    def test_t_seperator(self):
+    def test_t_separator(self):
         self.t(
             '2003-04-01T09:08+0500',
             '2003-04-01 09:08+0500',
