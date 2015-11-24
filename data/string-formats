@@ -72,7 +72,7 @@ qt = %1
 # http://doc.qt.io/qt-5/qstring.html#arg
 
 qt-plural = %n
-# http://www.qt-project.org/doc/qt-5/i18n-source-translation.html#handling-plurals
+# http://doc.qt.io/qt-5/i18n-source-translation.html#handling-plurals
 
 scheme = ~A
 # https://people.csail.mit.edu/jaffer/slib/Format-Specification.html

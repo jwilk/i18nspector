@@ -1,8 +1,9 @@
 i18nspector (0.21.1) UNRELEASED; urgency=low
 
   * Fix typo in a tag description.
+  * Update QT documentation URLs.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 23 Nov 2015 14:35:58 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 24 Nov 2015 18:31:32 +0100
 
 i18nspector (0.21) unstable; urgency=low
 
