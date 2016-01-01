@@ -121,7 +121,7 @@ def main():
     initialize_terminal()
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
-    ap.add_argument('-l', '--language', metavar='<lang>', help='assume this langauge')
+    ap.add_argument('-l', '--language', metavar='<lang>', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')
     ap.add_argument('--file-type', metavar='<file-type>', help=argparse.SUPPRESS)
     ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
