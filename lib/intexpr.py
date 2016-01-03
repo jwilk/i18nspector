@@ -331,22 +331,6 @@ class CodomainEvaluator(BaseEvaluator):
         self._ctxt = context
         self._node = node
 
-    def __call__(self):
-        node = self._node
-        assert isinstance(node, ast.Expr)
-        return self._visit_expr(node)
-
-    def _visit(self, node, *args):
-        try:
-            fn = getattr(self, '_visit_' + type(node).__name__.lower())
-        except KeyError:  # <no-coverage>
-            raise NotImplementedError(type(node).__name__)
-        return fn(node, *args)
-
-    def _visit_expr(self, node):
-        [node] = ast.iter_child_nodes(node)
-        return self._visit(node)
-
     # binary operators
     # ================
 
