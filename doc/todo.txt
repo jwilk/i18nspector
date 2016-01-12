@@ -6,7 +6,7 @@ obtained.
 
 Complain about incorrect locale codes:
 
- * http://www.loc.gov/standards/iso639-2/php/code_changes.php
+ * https://www.loc.gov/standards/iso639-2/php/code_changes.php
  * ``al`` → ``sq``
  * ``bh`` → ``bho`` | ``mai`` | ``mag``
  * ``ca-XV`` → ``ca@valencia``
