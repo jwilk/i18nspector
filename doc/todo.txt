@@ -37,7 +37,7 @@ Correct locale codes in invalid format, e.g.:
  * ``pt_br`` → ``pt_BR``: https://sources.debian.net/data/main/p/pam-pkcs11/0.6.8-1/po/pt_br.po
  * ``Pt`` → ``pt``: https://sources.debian.net/data/main/d/darcsweb/1.1-3.1/debian/po/pt.po
 
-Correct ``Language`` with both a natural language and a language code, e.g.
+Correct ``Language`` with both a natural language and a language code, e.g.:
 
  * ``nl (Dutch)``: https://sources.debian.net/data/main/g/garcon/0.1.12-1/po/nl.po
  * ``Serbian (sr)``: https://sources.debian.net/data/main/a/at-spi2-atk/2.5.3-2/po/sr.po
@@ -110,6 +110,8 @@ Check for non-ASCII (translated?) project id. Test-case:
 
  * https://sources.debian.net/data/main/a/alarm-clock/1.2.5-1.2/po/sr.po
 
+Check for localized boilerplate in headers.
+
 Split {trailing,leading}-junk-in-plural-forms from
 syntax-error-in-plural-forms. Test-case:
 
@@ -146,8 +148,6 @@ Figure out what to do with software that call ``gettext("")`` intentionally.
 Test-case:
 
  * https://sources.debian.net/src/evolution/3.4.4-3/shell/main.c/#L579
-
-Check for the ``I`` C format string flag in msgid.
 
 Check for ``msgstr_plural`` without ``msgstr[N]``, and other way round.
 
@@ -188,6 +188,12 @@ and unused:
  * smalltalk-format
  * kde-kuit
 
+Improve C format string checks:
+
+ * Check for the ``I`` C format string flag in msgid.
+ * Regognize type mismatch between ``%*d%d`` and ``%d%*d``.
+ * Make sure ``%%`` is treated as text wrt. omitting integer conversion.
+
 SHIFT_JIS and JOHAB encodings are broken in Python; or at least they
 are not compatible with glibc. Implement a work-around. Test-case::
 
@@ -195,12 +201,21 @@ are not compatible with glibc. Implement a work-around. Test-case::
     assert b'\\'.decode('JOHAB') == '\N{WON SIGN}'
 
 Timezone abbreviations not only are not unique, but also can change their
-meaning over time: https://mm.icann.org/pipermail/tz/2014-June/021089.html
+meaning over time.
+
+ * https://mm.icann.org/pipermail/tz/2014-June/021089.html
 
 Check for capitalization inconsistencies.
 
 Language codes for some locales supported by glibc aren't recognized::
 
    ayc ber brx cmn hak hne lij lzh mhr nan nhn pap quz shs szl the unm wae yue
+
+Improve the Plural-Forms co-domain check.
+
+ * https://lists.debian.org/20160103230122.GA1324@jwilk.net
+
+The tag name ``invalid-language`` might be misleading.
+Rename or split it.
 
 .. vim:ft=rst
