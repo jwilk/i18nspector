@@ -19,8 +19,12 @@ install:
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install pyflakes
 - pip install rply
+- pip install docutils
 script:
 - python tests/run-tests -v
 - ./private/run-pyflakes
+- make -C doc/
+- rm -f doc/*.1
+- grep -r -l ft=rst doc/ | xargs -t -n1 -I{} rst2xml.py --strict {} /dev/null
 
 # vim:ts=2 sts=2 sw=2 et
