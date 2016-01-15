@@ -17,8 +17,8 @@ matrix:
     env: POLIB_VERSION=
 install:
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
-- pip install pyflakes
 - pip install rply
+- pip install pyflakes
 - pip install docutils
 script:
 - python tests/run-tests -v
