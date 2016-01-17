@@ -88,7 +88,7 @@ class Namespace(object):
 
 Namespace()  # make pyflakes and coverage.py happy
 
-if sys.version_info >= (3, 3):
+if sys.version_info >= (3, 3):  # <no-coverage>
     Namespace = types.SimpleNamespace
 
 # vim:ts=4 sts=4 sw=4 et
