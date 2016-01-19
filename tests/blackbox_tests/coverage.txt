@@ -5,6 +5,7 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] arithmetic-error-in-unused-plural-forms
 [X] boilerplate-in-content-type
 [X] boilerplate-in-date
+[X] boilerplate-in-initial-comments
 [X] boilerplate-in-language-team
 [X] boilerplate-in-last-translator
 [X] boilerplate-in-project-id-version
