@@ -249,7 +249,7 @@ names = Czech
 characters =
  á č ď é ě í ň ó ř š ť ú ů ý ž
  Á Č Ď É Ě Í Ň Ó Ř Š Ť Ú Ů Ý Ž
-plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+plural-forms = nplurals=3; plural=n==1 ? 0 : (n>=2 && n<=4) ? 1 : 2;
 principal-territory = CZ
 
 [csb]
@@ -1130,7 +1130,7 @@ names = Slovak
 characters =
  á ä č ď ž é í ĺ ľ ň ó ô ŕ š ť ú ý ž
  Á Ä Č Ď Ž É Í Ĺ Ľ Ň Ó Ô Ŕ Š Ť Ú Ý Ž
-# plural-forms = nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+# plural-forms = nplurals=3; plural=n==1 ? 0 : (n>=2 && n<=4) ? 1 : 2;
 principal-territory = SK
 
 [sl]
