@@ -1,4 +1,4 @@
-# Copyright © 2012-2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -517,6 +517,150 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_name(self, node):
         return (0, self._ctxt.max - 1)
 
+def gcd(x, y):
+    while y:
+        (x, y) = (y, x % y)
+    return x
+
+def lcm(x, *ys):
+    r = x
+    for y in ys:
+        r //= gcd(r, y)
+        r *= y
+    return r
+
+class PeriodEvaluator(BaseEvaluator):
+
+    def __init__(self, node, *, bits):
+        context = misc.Namespace()
+        context.max = 1 << bits
+        self._ctxt = context
+        self._node = node
+
+    # binary operators
+    # ================
+
+    def _visit_binop(self, node):
+        const_mod = (
+            isinstance(node.op, ast.Mod) and
+            isinstance(node.left, ast.Name) and
+            isinstance(node.right, ast.Num)
+        )
+        if const_mod:
+            n = node.right.n
+            if (n <= 0) or (n >= self._ctxt.max):
+                return
+            return (0, n)
+        x = self._visit(node.left)
+        if x is None:
+            return
+        y = self._visit(node.right)
+        if y is None:
+            return
+        (xo, xp) = x
+        (yo, yp) = y
+        ro = max(xo, yo)
+        rp = lcm(xp, yp)
+        if rp >= self._ctxt.max:
+            return
+        else:
+            return (ro, rp)
+
+    # unary operators
+    # ===============
+
+    def _visit_unaryop(self, node):
+        return self._visit(node.operand)
+
+    # comparison operators
+    # ====================
+
+    def _visit_compare(self, node):
+        assert len(node.comparators) == len(node.ops)
+        if len(node.ops) != 1:
+            raise NotImplementedError
+        [op] = node.ops
+        [right] = node.comparators
+        const_cmp = (
+            isinstance(node.left, ast.Name) and
+            isinstance(right, ast.Num)
+        )
+        if const_cmp:
+            n = right.n
+            if (n < 0) or (n >= self._ctxt.max):
+                return
+            if isinstance(op, (ast.Lt, ast.GtE)):
+                return (n, 1)
+            else:
+                if n + 1 == self._ctxt.max:
+                    return
+                return (n + 1, 1)
+        x = self._visit(node.left)
+        if x is None:
+            return
+        y = self._visit(right)
+        if y is None:
+            return
+        (xo, xp) = x
+        (yo, yp) = y
+        ro = max(xo, yo)
+        rp = lcm(xp, yp)
+        if rp >= self._ctxt.max:
+            return
+        else:
+            return (ro, rp)
+
+    # boolean operators
+    # =================
+
+    def _visit_boolop(self, node):
+        (xo, xp) = (0, 1)
+        for arg in node.values:
+            y = self._visit(arg)
+            if y is None:
+                return
+            (yo, yp) = y
+            xo = max(xo, yo)
+            xp = lcm(xp, yp)
+            if xp >= self._ctxt.max:
+                return
+        return (xo, xp)
+
+    # if-then-else expression
+    # =======================
+
+    def _visit_ifexp(self, node):
+        test = self._visit(node.test)
+        if test is None:
+            return
+        (to, tp) = test
+        x = self._visit(node.body)
+        if x is None:
+            return
+        (xo, xp) = x
+        y = self._visit(node.orelse)
+        if y is None:
+            return
+        (yo, yp) = y
+        ro = max(to, xo, yo)
+        rp = lcm(tp, xp, yp)
+        if rp >= self._ctxt.max:
+            return
+        else:
+            return (ro, rp)
+
+    # constants, variables
+    # ====================
+
+    def _visit_num(self, node):
+        n = node.n
+        if n < 0 or n >= self._ctxt.max:
+            return
+        return (0, 1)
+
+    def _visit_name(self, node):
+        return
+
 class Expression(object):
 
     def __init__(self, node):
@@ -538,6 +682,15 @@ class Expression(object):
         * or None
         '''
         e = CodomainEvaluator(self._node, bits=bits)
+        return e()
+
+    def period(self, *, bits=32):
+        '''
+        return
+        * (O, P) such that for every n ≥ O, f(n + P) = f(n)
+        * or None
+        '''
+        e = PeriodEvaluator(self._node, bits=bits)
         return e()
 
 # vim:ts=4 sts=4 sw=4 et

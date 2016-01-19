@@ -1,4 +1,4 @@
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -522,6 +522,91 @@ class test_codomain:
             'n ? (6 + n%23) : (7 + n%37)',
             6, 37 + 7 - 1
         )
+
+class test_period:
+
+    def t(self, s, offset, period=None):
+        f = M.parse_plural_expression(s)
+        op = f.period()
+        if offset is None:
+            assert period is None
+            assert_is_none(op)
+        else:
+            assert_equal(op, (offset, period))
+
+    def test_num(self):
+        self.t('42', 0, 1)
+
+    def test_const_mod(self):
+        self.t('n % 42', 0, 42)
+        self.t('n % 0', None)
+
+    def test_binop(self):
+        self.t('n + (n % 37)', None)
+        self.t('(n % 37) + n', None)
+        self.t('(n % 6) + (n % 14)', 0, 42)
+        self.t('(n % 641) * (n % 6700417)', None)  # overflow
+
+    def test_unaryop(self):
+        self.t('!n', None)
+        self.t('!(n % 37)', 0, 37)
+
+    def test_const_cmp(self):
+        for op in {'!=', '==', '<', '<=', '>', '>='}:
+            shift = op not in {'<', '>='}
+            self.t('n {op} {i}'.format(op=op, i=37), 37 + shift, 1)
+
+    def test_const_cmp_overflow(self):
+        ops = {'!=', '==', '<', '<=', '>', '>='}
+        m = (1 << 32) - 1
+        for op in ops:
+            shift = op not in {'<', '>='}
+            self.t('n {op} {m}'.format(op=op, m=(m - 1)), m - 1 + shift, 1)
+            if shift:
+                self.t('n {op} {m}'.format(op=op, m=m), None)
+            else:
+                self.t('n {op} {m}'.format(op=op, m=m), m, 1)
+            self.t('n {op} {m}'.format(op=op, m=(m + 1)), None)
+            self.t('n {op} {m}'.format(op=op, m=(m + 42)), None)
+
+    def test_compare(self):
+        self.t('n < (n % 37)', None)
+        self.t('(n % 37) < n', None)
+        self.t('(n % 6) < (n % 14)', 0, 42)
+        self.t('(n % 641) < (n % 6700417)', None)  # overflow
+
+    def test_boolop(self):
+        self.t('n && (n % 37)', None)
+        self.t('(n % 37) && n', None)
+        self.t('(n % 6) && (n % 14)', 0, 42)
+        self.t('(n % 641) && (n % 6700417)', None)  # overflow
+
+    def test_ifexp(self):
+        self.t('n ? (n % 3) : (n % 7)', None)
+        self.t('(n % 2) ? n : (n % 7)', None)
+        self.t('(n % 2) ? (n % 3) : n', None)
+        self.t('(n % 2) ? (n % 3) : (n % 7)', 0, 42)
+        self.t('(n % 2) ? (n % 3) : (n % 715827883)', None)  # overflow
+
+    def test_num_overflow(self):
+        m = (1 << 32) - 1
+        self.t(str(m), 0, 1)
+        self.t(str(m + 1), None)
+        self.t(str(m + 42), None)
+
+    def test_real_world(self):
+        self.t('0', 0, 1)
+        self.t('n != 1', 2, 1)
+        self.t('n > 1', 2, 1)
+        self.t('n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3', 0, 100)
+        self.t('n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2', 1, 100)
+        self.t('n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2', 0, 100)
+        self.t('n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2', 0, 100)
+        self.t('n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2', 2, 100)
+        self.t('n==1 ? 0 : (n>=2 && n<=4) ? 1 : 2', 5, 1)
+        self.t('n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2', 2, 100)
+        self.t('n==1 ? 0 : n==2 ? 1 : 2', 3, 1)
+        self.t('n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2', 2, 100)
 
 class test_plural_forms:
 

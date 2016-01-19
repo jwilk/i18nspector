@@ -1,4 +1,4 @@
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -429,8 +429,10 @@ class Checker(object, metaclass=abc.ABCMeta):
                 elif len(locally_correct_plural_forms) == 1:
                     [[locally_correct_n, locally_correct_expr]] = locally_correct_plural_forms
             plural_preimage = collections.defaultdict(list)
+            unusual_plural_forms = False
+            codomain_limit = 200
             try:
-                for i in range(200):
+                for i in range(codomain_limit):
                     fi = expr(i)
                     if fi >= n:
                         message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
@@ -440,12 +442,12 @@ class Checker(object, metaclass=abc.ABCMeta):
                             self.tag('codomain-error-in-unused-plural-forms', message)
                         break
                     plural_preimage[fi] += [i]
-                    if n == locally_correct_n and fi != locally_correct_expr(i):
+                    if (n == locally_correct_n) and (fi != locally_correct_expr(i)) and (not unusual_plural_forms):
                         if has_plurals:
                             self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
                         else:
                             self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
-                        break
+                        unusual_plural_forms = True
                 else:
                     ctx.plural_preimage = dict(plural_preimage)
             except OverflowError:
@@ -463,18 +465,31 @@ class Checker(object, metaclass=abc.ABCMeta):
             codomain = expr.codomain()
             if codomain is not None:
                 (x, y) = codomain
-                rngs = []
+                uncov_rngs = []
                 if x > 0:
-                    rngs += [range(0, x)]
+                    uncov_rngs += [range(0, x)]
                 if y + 1 < n:
-                    rngs += [range(y + 1, n)]
-                for rng in rngs:
-                    rng = misc.format_range(rng, max=5)
-                    message = tags.safestr('f(x) != {}'.format(rng))
-                    if has_plurals:
-                        self.tag('codomain-error-in-plural-forms', message)
-                    else:
-                        self.tag('codomain-error-in-unused-plural-forms', message)
+                    uncov_rngs += [range(y + 1, n)]
+            if (not uncov_rngs) and (ctx.plural_preimage is not None):
+                period = expr.period()
+                if period is None:
+                    period = (0, 1e999)
+                if sum(period) < codomain_limit:
+                    for i in sorted(ctx.plural_preimage):
+                        if (i > 0) and (i - 1 not in ctx.plural_preimage):
+                            uncov_rngs += [range(i - 1, i)]
+                            break
+                        if (i + 1 < n) and (i + 1 not in ctx.plural_preimage):
+                            uncov_rngs += [range(i + 1, i + 2)]
+                            break
+            for rng in uncov_rngs:
+                rng = misc.format_range(rng, max=5)
+                message = tags.safestr('f(x) != {}'.format(rng))
+                if has_plurals:
+                    self.tag('codomain-error-in-plural-forms', message)
+                else:
+                    self.tag('codomain-error-in-unused-plural-forms', message)
+                ctx.plural_preimage = None
 
     @checks_header_fields('MIME-Version', 'Content-Transfer-Encoding', 'Content-Type')
     def check_mime(self, ctx):
