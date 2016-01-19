@@ -1,4 +1,4 @@
-i18nspector (0.21.1) UNRELEASED; urgency=low
+i18nspector (0.22) UNRELEASED; urgency=low
 
   * Fix typo in a tag description.
   * Fix typo in the help message.
@@ -6,7 +6,7 @@ i18nspector (0.21.1) UNRELEASED; urgency=low
   * Fix option formatting in the manual page.
   * Remove redundant parentheses from some exemplary Plural-Forms.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 19 Jan 2016 23:42:36 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 19 Jan 2016 23:45:30 +0100
 
 i18nspector (0.21) unstable; urgency=low
 
