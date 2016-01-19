@@ -198,7 +198,7 @@ references =
 
 [codomain-error-in-plural-forms]
 severity = serious
-certainty = possible
+certainty = certain
 description =
  Either a plural form value is outside the declared range,
  or some values within the declared range can never be reached.
@@ -208,7 +208,7 @@ references =
 
 [codomain-error-in-unused-plural-forms]
 severity = normal
-certainty = possible
+certainty = certain
 description =
  Either a plural form value is outside the declared range,
  or some values within the declared range can never be reached.
