@@ -25,7 +25,7 @@ message format checks: C
 from lib import tags
 
 from lib.check.msgformat import Checker
-from lib.check.repr import message_repr
+from lib.check.msgrepr import message_repr
 
 from lib.strformat import c as backend
 

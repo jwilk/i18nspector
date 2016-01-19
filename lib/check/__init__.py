@@ -44,7 +44,7 @@ from lib import xml
 
 from lib.check.msgformat import c as msgformat_c
 from lib.check.msgformat import python as msgformat_python
-from lib.check.repr import message_repr
+from lib.check.msgrepr import message_repr
 
 class EnvironmentNotPatched(RuntimeError):
     pass
