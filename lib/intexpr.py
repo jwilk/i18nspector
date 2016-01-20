@@ -589,6 +589,19 @@ class PeriodEvaluator(BaseEvaluator):
             n = right.n
             if (n < 0) or (n >= self._ctxt.max):
                 return
+            # (n <cmp> N) is constant starting with either N or N+1,
+            # depending on <cmp>:
+            #
+            #        …N-1  N  N+1 N+2…
+            # -------+---+---+---+----
+            # n != N | 1 . 0 . 1 . 1
+            # n == N | 0 . 1 . 0 . 0
+            # n <= N | 1 . 1 . 0 . 0
+            # n >  N | 0 . 0 . 1 . 1
+            # -------+---+---+---+----
+            # n <  N | 1 . 0 . 0 . 0
+            # n >= N | 0 . 1 . 1 . 1
+            # -------+---+---+---+----
             if isinstance(op, (ast.Lt, ast.GtE)):
                 return (n, 1)
             else:
