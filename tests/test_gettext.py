@@ -551,16 +551,21 @@ class test_period:
         self.t('!n', None)
         self.t('!(n % 37)', 0, 37)
 
+    def _cmp_shift(self, op):
+        def e(n, op, m):
+            return eval(str(n) + op + str(m))
+        return e(0, op, 0) != e(1, op, 0)
+
     def test_const_cmp(self):
         for op in {'!=', '==', '<', '<=', '>', '>='}:
-            shift = op not in {'<', '>='}
+            shift = self._cmp_shift(op)
             self.t('n {op} {i}'.format(op=op, i=37), 37 + shift, 1)
 
     def test_const_cmp_overflow(self):
         ops = {'!=', '==', '<', '<=', '>', '>='}
         m = (1 << 32) - 1
         for op in ops:
-            shift = op not in {'<', '>='}
+            shift = self._cmp_shift(op)
             self.t('n {op} {m}'.format(op=op, m=(m - 1)), m - 1 + shift, 1)
             if shift:
                 self.t('n {op} {m}'.format(op=op, m=m), None)
