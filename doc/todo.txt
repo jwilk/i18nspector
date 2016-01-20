@@ -211,10 +211,6 @@ Language codes for some locales supported by glibc aren't recognized::
 
    ayc ber brx cmn hak hne lij lzh mhr nan nhn pap quz shs szl the unm wae yue
 
-Improve the Plural-Forms co-domain check.
-
- * https://lists.debian.org/20160103230122.GA1324@jwilk.net
-
 The tag name ``invalid-language`` might be misleading.
 Rename or split it.
 
