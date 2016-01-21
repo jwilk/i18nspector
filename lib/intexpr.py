@@ -691,7 +691,7 @@ class Expression(object):
     def codomain(self, *, bits=32):
         '''
         return
-        * (i, j) such that for every n, f(n) ∈ {i, i+1, …, j}
+        * (L, R) such that for every n: L ≤ f(n) ≤ R
         * or None
         '''
         e = CodomainEvaluator(self._node, bits=bits)
@@ -700,7 +700,7 @@ class Expression(object):
     def period(self, *, bits=32):
         '''
         return
-        * (O, P) such that for every n ≥ O, f(n + P) = f(n)
+        * (O, P) such that for every n ≥ O: f(n + P) = f(n)
         * or None
         '''
         e = PeriodEvaluator(self._node, bits=bits)
