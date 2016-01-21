@@ -49,8 +49,6 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] inconsistent-number-of-plural-forms
 [X] inconsistent-trailing-newlines
 [X] incorrect-number-of-plural-forms
-[X] incorrect-plural-forms
-[X] incorrect-unused-plural-forms
 [X] invalid-content-transfer-encoding
 [X] invalid-content-type
 [X] invalid-date
@@ -112,3 +110,5 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] unrepresentable-characters
 [X] unusual-character-in-header-entry
 [X] unusual-character-in-translation
+[X] unusual-plural-forms
+[X] unusual-unused-plural-forms

@@ -427,21 +427,6 @@ references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
  https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html
 
-[incorrect-plural-forms]
-severity = serious
-certainty = possible
-description =
- The Plural-Forms declaration is incorrect,
- according to i18nspector's linguistic data.
-
-[incorrect-unused-plural-forms]
-severity = normal
-certainty = possible
-description =
- The Plural-Forms declaration is incorrect,
- according to i18nspector's linguistic data.
- (But there are no translated messages which use plural forms.)
-
 [invalid-content-transfer-encoding]
 severity = pedantic
 certainty = certain
@@ -1032,5 +1017,20 @@ description =
  * using UTF-8 despite declaring an 8-bit encoding.
 references =
  http://www.unicode.org/faq/utf_bom.html#bom6
+
+[unusual-plural-forms]
+severity = serious
+certainty = possible
+description =
+ The Plural-Forms declaration is incorrect (or unsual),
+ according to i18nspector's linguistic data.
+
+[unusual-unused-plural-forms]
+severity = normal
+certainty = possible
+description =
+ The Plural-Forms declaration is incorrect (or unsual),
+ according to i18nspector's linguistic data.
+ (But there are no translated messages which use plural forms.)
 
 # vim:ft=dosini

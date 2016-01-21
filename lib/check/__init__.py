@@ -423,9 +423,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                 ]
                 if not locally_correct_plural_forms:
                     if has_plurals:
-                        self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
+                        self.tag('unusual-plural-forms', plural_forms, '=>', plural_forms_hint)
                     else:
-                        self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
+                        self.tag('unusual-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
                 elif len(locally_correct_plural_forms) == 1:
                     [[locally_correct_n, locally_correct_expr]] = locally_correct_plural_forms
             plural_preimage = collections.defaultdict(list)
@@ -444,9 +444,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                     plural_preimage[fi] += [i]
                     if (n == locally_correct_n) and (fi != locally_correct_expr(i)) and (not unusual_plural_forms):
                         if has_plurals:
-                            self.tag('incorrect-plural-forms', plural_forms, '=>', plural_forms_hint)
+                            self.tag('unusual-plural-forms', plural_forms, '=>', plural_forms_hint)
                         else:
-                            self.tag('incorrect-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
+                            self.tag('unusual-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
                         unusual_plural_forms = True
                 else:
                     ctx.plural_preimage = dict(plural_preimage)

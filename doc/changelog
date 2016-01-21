@@ -1,5 +1,10 @@
 i18nspector (0.22) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Renamed:
+      - unusual-plural-forms (from incorrect-plural-forms)
+      - unusual-unused-plural-forms (from incorrect-unused-plural-forms)
+
   * Fix typo in a tag description.
   * Fix typo in the help message.
   * Update QT documentation URLs.
