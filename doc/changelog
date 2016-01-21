@@ -5,7 +5,7 @@ i18nspector (0.22) UNRELEASED; urgency=low
   * Update QT documentation URLs.
   * Fix option formatting in the manual page.
   * Remove redundant parentheses from some exemplary Plural-Forms.
-  * Improve plural forms co-domain checks.
+  * Improve plural forms codomain checks.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 20 Jan 2016 00:30:09 +0100
 
@@ -205,7 +205,7 @@ i18nspector (0.13.4) unstable; urgency=low
 
 i18nspector (0.13.3) unstable; urgency=low
 
-  * Fix incorrect plural expression co-domain evaluation.
+  * Fix incorrect plural expression codomain evaluation.
   * Fix incorrect precedence of the boolean not operator in plural
     expressions.
   * Forbid unary plus and unary minus in plural expressions.
