@@ -64,7 +64,7 @@ Add tests for:
  * Debian source packages
  * Debian binary packages
  * MO files (at least against some tags)
- * languages with multiple correct Plural-Forms
+ * languages with multiple correct ``Plural-Forms``
  * lib.moparser
  * all non-Python encodings
  * 0x5c byte as a part of a multibyte character:
@@ -76,7 +76,7 @@ Detect question marks in unusual places.
 
 Add support for configuration files. Once it's implemented:
 
- * Disable --pedantic by default.
+ * Disable ``--pedantic`` by default.
 
 Add support for profiles: severity of a tag may depend on whether you are
 upstream, a translator, or a user.
@@ -93,18 +93,18 @@ Check for hardcoded Language in POT files.
 
 Add option for printing tag descriptions.
 
-When emitting encoding-in-language-header-field, check if the encoding
-matches the one from Content-Type. Test-cases:
+When emitting ``encoding-in-language-header-field``, check if the encoding
+matches the one from ``Content-Type``. Test-cases:
 
  * https://sources.debian.net/data/main/r/rhn-client-tools/1.8.9-3/po/zh_CN.GB2312.po
 
-Split no-email-address-in-last-translator from invalid-last-translator.
+Split ``no-email-address-in-last-translator`` from ``invalid-last-translator``.
 Test-cases:
 
  * https://sources.debian.net/data/main/m/mtpaint/3.40-1/po/de.po
  * https://sources.debian.net/data/main/y/yaboot-installer/1.1.26/debian/po/hi.po
 
-Split missing-timezone-in-date from invalid-date.
+Split ``missing-timezone-in-date`` from ``invalid-date``.
 
 Check for non-ASCII (translated?) project id. Test-case:
 
@@ -112,17 +112,18 @@ Check for non-ASCII (translated?) project id. Test-case:
 
 Check for localized boilerplate in headers.
 
-Split {trailing,leading}-junk-in-plural-forms from
-syntax-error-in-plural-forms. Test-case:
+Split ``leading-junk-in-plural-forms`` and ``trailing-junk-in-plural-forms``
+from ``syntax-error-in-plural-forms``. Test-case:
 
  * https://sources.debian.net/data/main/d/dpkg/1.16.15/po/ja.po
 
-Decide what to do with commas in Last-Translator: either accept them, or
+Decide what to do with commas in ``Last-Translator``: either accept them, or
 provide a better error message. Test-case:
 
  * https://sources.debian.net/data/main/i/installation-guide/20130503/po/zh_TW/using-d-i.po
 
-polib PO encoding detection is not robust enough. Test-case: xfail-header-imitation.po
+polib PO encoding detection is not robust enough.
+Test-case: ``xfail-header-imitation.po``
 
 Add support for system-dependent messages (minor revision 1).
 
@@ -151,42 +152,42 @@ Test-case:
 
 Check for ``msgstr_plural`` without ``msgstr[N]``, and other way round.
 
-Verify that if *n* = plural(1) = plural(i) for some *i* > 1, then msgstr[*n*]
+Verify that if *n* = plural(1) = plural(*i*) for some *i* > 1, then msgstr[*n*]
 distinguishes singular and plural forms, even when no numeral is involved.
 
  * https://bugs.debian.org/753946#51
 
-Add support for more string formats (in popularity order):
+Add support for more string formats (in popularity order)::
 
- * kde-format
- * perl-format
- * csharp-format
- * sh-format
- * qt-format
- * php-format
- * perl-brace-format
- * java-format
- * tcl-format
- * boost-format
- * lisp-format
- * scheme-format
- * qt-plural-format
- * ycp-format
+   kde-format
+   perl-format
+   csharp-format
+   sh-format
+   qt-format
+   php-format
+   perl-brace-format
+   java-format
+   tcl-format
+   boost-format
+   lisp-format
+   scheme-format
+   qt-plural-format
+   ycp-format
 
-and unused:
+and unused::
 
- * awk-format
- * elisp-format
- * gcc-internal-format
- * gfc-internal-format
- * javascript-format
- * librep-format
- * lua-format
- * objc-format
- * object-pascal-format
- * python-brace-format
- * smalltalk-format
- * kde-kuit
+   awk-format
+   elisp-format
+   gcc-internal-format
+   gfc-internal-format
+   javascript-format
+   librep-format
+   lua-format
+   objc-format
+   object-pascal-format
+   python-brace-format
+   smalltalk-format
+   kde-kuit
 
 Improve C format string checks:
 
