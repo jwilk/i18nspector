@@ -192,7 +192,7 @@ and unused::
 Improve C format string checks:
 
  * Check for the ``I`` C format string flag in msgid.
- * Regognize type mismatch between ``%*d%d`` and ``%d%*d``.
+ * Recognize type mismatch between ``%*d%d`` and ``%d%*d``.
  * Make sure ``%%`` is treated as text wrt. omitting integer conversion.
 
 SHIFT_JIS and JOHAB encodings are broken in Python; or at least they

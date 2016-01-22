@@ -1,8 +1,8 @@
 i18nspector (0.22.1) UNRELEASED; urgency=low
 
-  * 
+  * Fix typos in tag descriptions.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 22 Jan 2016 23:45:04 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 22 Jan 2016 23:46:53 +0100
 
 i18nspector (0.22) unstable; urgency=low
 

@@ -390,7 +390,7 @@ severity = pedantic
 certainty = certain
 description =
  The header entry is marked as fuzzy.
- To increase operability with very old (<< 0.11) **msgfmt**\ (1) versions,
+ For compatibility with very old (<< 0.11) **msgfmt**\ (1) versions,
  which didn't support fuzzy header entries, it shouldn't be marked as such.
 references =
  http://git.savannah.gnu.org/cgit/gettext.git/tree/NEWS?id=v0.11#n44
@@ -1022,14 +1022,14 @@ references =
 severity = serious
 certainty = possible
 description =
- The Plural-Forms declaration is incorrect (or unsual),
+ The Plural-Forms declaration is incorrect (or unusual),
  according to i18nspector's linguistic data.
 
 [unusual-unused-plural-forms]
 severity = normal
 certainty = possible
 description =
- The Plural-Forms declaration is incorrect (or unsual),
+ The Plural-Forms declaration is incorrect (or unusual),
  according to i18nspector's linguistic data.
  (But there are no translated messages which use plural forms.)
 
