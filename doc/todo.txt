@@ -129,7 +129,9 @@ Add support for system-dependent messages (minor revision 1).
 
 Check for PO files that are not encoding-aware:
 
- * http://www.monkey.org/openbsd/archive2/ports/200105/msg00081.html
+ * https://marc.info/?l=openbsd-ports&m=98988950322667&w=2
+
+.. https://archive.is/dgFoH
 
 Add support for MediaWiki Translate's ``invalid-plural`` flag. Test-case:
 
@@ -205,6 +207,8 @@ Timezone abbreviations not only are not unique, but also can change their
 meaning over time.
 
  * https://mm.icann.org/pipermail/tz/2014-June/021089.html
+
+.. https://archive.is/nHhvD
 
 Check for capitalization inconsistencies.
 
