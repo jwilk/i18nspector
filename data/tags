@@ -547,7 +547,7 @@ description =
  The original string or the translated string contains an XML fragment,
  which is not well-formed.
 references =
- http://www.w3.org/TR/REC-xml/#sec-well-formed
+ https://www.w3.org/TR/REC-xml/#sec-well-formed
 
 [no-content-transfer-encoding-header-field]
 severity = pedantic
