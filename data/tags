@@ -545,6 +545,9 @@ severity = important
 certainty = certain
 description =
  The Plural-Forms header field contains unexpected text before the ``nplurals=`` string.
+ .
+ GNU gettext runtime ignores such leading junk,
+ but other header parsers might be less liberal in what they accept.
 
 [malformed-xml]
 severity = serious
@@ -934,6 +937,9 @@ severity = important
 certainty = certain
 description =
  The Plural-Forms header field contains unexpected text after the plural expression.
+ .
+ GNU gettext runtime ignores such trailing junk,
+ but other header parsers might be less liberal in what they accept.
 
 [translation-in-template]
 severity = minor
