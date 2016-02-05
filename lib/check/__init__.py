@@ -406,90 +406,90 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('syntax-error-in-plural-forms', plural_forms, '=>', plural_forms_hint)
             else:
                 self.tag('syntax-error-in-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
-        else:
-            if len(expected_nplurals) == 1:
-                [expected_nplurals] = expected_nplurals.keys()
-                if n != expected_nplurals:
-                    self.tag('incorrect-number-of-plural-forms',
-                        n, tags.safestr('(Plural-Forms header field)'), '!=',
-                        expected_nplurals, tags.safestr('(number of msgstr items)')
-                    )
-            locally_correct_n = locally_correct_expr = None
-            if correct_plural_forms is not None:
-                locally_correct_plural_forms = [
-                    (i, expression)
-                    for i, expression in map(gettext.parse_plural_forms, correct_plural_forms)
-                    if i == n
-                ]
-                if not locally_correct_plural_forms:
+            return
+        if len(expected_nplurals) == 1:
+            [expected_nplurals] = expected_nplurals.keys()
+            if n != expected_nplurals:
+                self.tag('incorrect-number-of-plural-forms',
+                    n, tags.safestr('(Plural-Forms header field)'), '!=',
+                    expected_nplurals, tags.safestr('(number of msgstr items)')
+                )
+        locally_correct_n = locally_correct_expr = None
+        if correct_plural_forms is not None:
+            locally_correct_plural_forms = [
+                (i, expression)
+                for i, expression in map(gettext.parse_plural_forms, correct_plural_forms)
+                if i == n
+            ]
+            if not locally_correct_plural_forms:
+                if has_plurals:
+                    self.tag('unusual-plural-forms', plural_forms, '=>', plural_forms_hint)
+                else:
+                    self.tag('unusual-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
+            elif len(locally_correct_plural_forms) == 1:
+                [[locally_correct_n, locally_correct_expr]] = locally_correct_plural_forms
+        plural_preimage = collections.defaultdict(list)
+        unusual_plural_forms = False
+        codomain_limit = 200
+        try:
+            for i in range(codomain_limit):
+                fi = expr(i)
+                if fi >= n:
+                    message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
+                    if has_plurals:
+                        self.tag('codomain-error-in-plural-forms', message)
+                    else:
+                        self.tag('codomain-error-in-unused-plural-forms', message)
+                    break
+                plural_preimage[fi] += [i]
+                if (n == locally_correct_n) and (fi != locally_correct_expr(i)) and (not unusual_plural_forms):
                     if has_plurals:
                         self.tag('unusual-plural-forms', plural_forms, '=>', plural_forms_hint)
                     else:
                         self.tag('unusual-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
-                elif len(locally_correct_plural_forms) == 1:
-                    [[locally_correct_n, locally_correct_expr]] = locally_correct_plural_forms
-            plural_preimage = collections.defaultdict(list)
-            unusual_plural_forms = False
-            codomain_limit = 200
-            try:
-                for i in range(codomain_limit):
-                    fi = expr(i)
-                    if fi >= n:
-                        message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
-                        if has_plurals:
-                            self.tag('codomain-error-in-plural-forms', message)
-                        else:
-                            self.tag('codomain-error-in-unused-plural-forms', message)
+                    unusual_plural_forms = True
+            else:
+                ctx.plural_preimage = dict(plural_preimage)
+        except OverflowError:
+            message = tags.safe_format('f({}): integer overflow', i)
+            if has_plurals:
+                self.tag('arithmetic-error-in-plural-forms', message)
+            else:
+                self.tag('arithmetic-error-in-unused-plural-forms', message)
+        except ZeroDivisionError:
+            message = tags.safe_format('f({}): division by zero', i)
+            if has_plurals:
+                self.tag('arithmetic-error-in-plural-forms', message)
+            else:
+                self.tag('arithmetic-error-in-unused-plural-forms', message)
+        codomain = expr.codomain()
+        if codomain is not None:
+            (x, y) = codomain
+            uncov_rngs = []
+            if x > 0:
+                uncov_rngs += [range(0, x)]
+            if y + 1 < n:
+                uncov_rngs += [range(y + 1, n)]
+        if (not uncov_rngs) and (ctx.plural_preimage is not None):
+            period = expr.period()
+            if period is None:
+                period = (0, 1e999)
+            if sum(period) < codomain_limit:
+                for i in sorted(ctx.plural_preimage):
+                    if (i > 0) and (i - 1 not in ctx.plural_preimage):
+                        uncov_rngs += [range(i - 1, i)]
                         break
-                    plural_preimage[fi] += [i]
-                    if (n == locally_correct_n) and (fi != locally_correct_expr(i)) and (not unusual_plural_forms):
-                        if has_plurals:
-                            self.tag('unusual-plural-forms', plural_forms, '=>', plural_forms_hint)
-                        else:
-                            self.tag('unusual-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
-                        unusual_plural_forms = True
-                else:
-                    ctx.plural_preimage = dict(plural_preimage)
-            except OverflowError:
-                message = tags.safe_format('f({}): integer overflow', i)
-                if has_plurals:
-                    self.tag('arithmetic-error-in-plural-forms', message)
-                else:
-                    self.tag('arithmetic-error-in-unused-plural-forms', message)
-            except ZeroDivisionError:
-                message = tags.safe_format('f({}): division by zero', i)
-                if has_plurals:
-                    self.tag('arithmetic-error-in-plural-forms', message)
-                else:
-                    self.tag('arithmetic-error-in-unused-plural-forms', message)
-            codomain = expr.codomain()
-            if codomain is not None:
-                (x, y) = codomain
-                uncov_rngs = []
-                if x > 0:
-                    uncov_rngs += [range(0, x)]
-                if y + 1 < n:
-                    uncov_rngs += [range(y + 1, n)]
-            if (not uncov_rngs) and (ctx.plural_preimage is not None):
-                period = expr.period()
-                if period is None:
-                    period = (0, 1e999)
-                if sum(period) < codomain_limit:
-                    for i in sorted(ctx.plural_preimage):
-                        if (i > 0) and (i - 1 not in ctx.plural_preimage):
-                            uncov_rngs += [range(i - 1, i)]
-                            break
-                        if (i + 1 < n) and (i + 1 not in ctx.plural_preimage):
-                            uncov_rngs += [range(i + 1, i + 2)]
-                            break
-            for rng in uncov_rngs:
-                rng = misc.format_range(rng, max=5)
-                message = tags.safestr('f(x) != {}'.format(rng))
-                if has_plurals:
-                    self.tag('codomain-error-in-plural-forms', message)
-                else:
-                    self.tag('codomain-error-in-unused-plural-forms', message)
-                ctx.plural_preimage = None
+                    if (i + 1 < n) and (i + 1 not in ctx.plural_preimage):
+                        uncov_rngs += [range(i + 1, i + 2)]
+                        break
+        for rng in uncov_rngs:
+            rng = misc.format_range(rng, max=5)
+            message = tags.safestr('f(x) != {}'.format(rng))
+            if has_plurals:
+                self.tag('codomain-error-in-plural-forms', message)
+            else:
+                self.tag('codomain-error-in-unused-plural-forms', message)
+            ctx.plural_preimage = None
 
     @checks_header_fields('MIME-Version', 'Content-Transfer-Encoding', 'Content-Type')
     def check_mime(self, ctx):
