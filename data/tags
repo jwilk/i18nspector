@@ -543,7 +543,7 @@ references =
 [leading-junk-in-plural-forms]
 severity = important
 certainty = certain
-description = TODO
+description =
  The Plural-Forms header field contains unexpected text before the ``nplurals=`` string.
 
 [malformed-xml]
