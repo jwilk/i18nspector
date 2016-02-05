@@ -94,15 +94,24 @@ def parse_plural_expression(s):
     except intexpr.ParsingError:
         raise PluralExpressionSyntaxError
 
-_parse_plural_forms = re.compile(r'^nplurals=([1-9][0-9]*);[ \t]*plural=([^;]+);?$').match
+_parse_plural_forms = re.compile(r'nplurals=([1-9][0-9]*);[ \t]*plural=([^;]+);?').search
 
-def parse_plural_forms(s):
+def parse_plural_forms(s, strict=True):
     match = _parse_plural_forms(s)
     if match is None:
         raise PluralFormsSyntaxError
     n = int(match.group(1), 10)
     expr = parse_plural_expression(match.group(2))
-    return (n, expr)
+    if strict:
+        if match.start() != 0:
+            raise PluralFormsSyntaxError
+        if match.end() != len(s):
+            raise PluralFormsSyntaxError
+        return (n, expr)
+    else:
+        ljunk = s[:match.start()]
+        rjunk = s[match.end():]
+        return (n, expr, ljunk, rjunk)
 
 # =====
 # Dates

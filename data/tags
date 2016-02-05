@@ -540,6 +540,13 @@ description =
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
 
+[leading-junk-in-plural-forms]
+severity = important
+certainty = certain
+description = TODO
+ The Plural-Forms header field contains unexpected text before the
+ ``nplurals=`` string.
+
 [malformed-xml]
 severity = serious
 certainty = possible
@@ -922,6 +929,12 @@ description =
  It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+
+[trailing-junk-in-plural-forms]
+severity = important
+certainty = certain
+description =
+ The Plural-Forms header field contains unexpected text after the plural expression.
 
 [translation-in-template]
 severity = minor

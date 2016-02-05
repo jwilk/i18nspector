@@ -112,11 +112,6 @@ Check for non-ASCII (translated?) project id. Test-case:
 
 Check for localized boilerplate in headers.
 
-Split ``leading-junk-in-plural-forms`` and ``trailing-junk-in-plural-forms``
-from ``syntax-error-in-plural-forms``. Test-case:
-
- * https://sources.debian.net/data/main/d/dpkg/1.16.16/po/ja.po
-
 Decide what to do with commas in ``Last-Translator``: either accept them, or
 provide a better error message. Test-case:
 

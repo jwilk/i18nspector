@@ -1,9 +1,15 @@
 i18nspector (0.23) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - leading-junk-in-plural-forms
+      - trailing-junk-in-plural-forms
+
+  * Make separate tags for leading and trailing junk in Plural-Forms.
   * Fix typos in tag descriptions.
   * Use HTTPS for more URLs.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 05 Feb 2016 12:54:01 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 05 Feb 2016 12:54:58 +0100
 
 i18nspector (0.22) unstable; urgency=low
 

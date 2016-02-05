@@ -617,19 +617,33 @@ class test_plural_forms:
 
     error = M.PluralFormsSyntaxError
 
-    def t(self, s):
-        return M.parse_plural_forms(s)
+    def t(self, s, *, n, ljunk='', rjunk=''):
+        if ljunk or rjunk:
+            with assert_raises(self.error):
+                 M.parse_plural_forms(s)
+        else:
+            (n0, expr0) = M.parse_plural_forms(s)
+            assert_equal(n0, n)
+        (n1, expr1, ljunk1, rjunk1) = M.parse_plural_forms(s, strict=False)
+        assert_equal(n1, n)
+        assert_equal(ljunk1, ljunk)
+        assert_equal(rjunk1, rjunk)
 
     def test_nplurals_0(self):
         with assert_raises(self.error):
-            self.t('nplurals=0; plural=0;')
+            self.t('nplurals=0; plural=0;', n=0)
 
     def test_nplurals_positive(self):
-        for i in 1, 2, 10, 42:
-            self.t('nplurals={}; plural=0;'.format(i))
+        for n in 1, 2, 10, 42:
+            self.t('nplurals={}; plural=0;'.format(n), n=n)
 
     def test_missing_trailing_semicolon(self):
-        self.t('nplurals=1; plural=0')
+        self.t('nplurals=1; plural=0', n=1)
+
+    def test_junk(self):
+        self.t('eggsnplurals=1; plural=0;', n=1, ljunk='eggs')
+        self.t('nplurals=1; plural=0;ham', n=1, rjunk='ham')
+        self.t('baconnplurals=1; plural=0;spam', n=1, ljunk='bacon', rjunk='spam')
 
 class test_fix_date_format:
 

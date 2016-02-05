@@ -400,13 +400,17 @@ class Checker(object, metaclass=abc.ABCMeta):
         if ctx.is_template:
             return
         try:
-            (n, expr) = gettext.parse_plural_forms(plural_forms)
+            (n, expr, ljunk, rjunk) = gettext.parse_plural_forms(plural_forms, strict=False)
         except gettext.PluralFormsSyntaxError:
             if has_plurals:
                 self.tag('syntax-error-in-plural-forms', plural_forms, '=>', plural_forms_hint)
             else:
                 self.tag('syntax-error-in-unused-plural-forms', plural_forms, '=>', plural_forms_hint)
             return
+        if ljunk:
+            self.tag('leading-junk-in-plural-forms', ljunk)
+        if rjunk:
+            self.tag('trailing-junk-in-plural-forms', rjunk)
         if len(expected_nplurals) == 1:
             [expected_nplurals] = expected_nplurals.keys()
             if n != expected_nplurals:
