@@ -544,8 +544,7 @@ references =
 severity = important
 certainty = certain
 description = TODO
- The Plural-Forms header field contains unexpected text before the
- ``nplurals=`` string.
+ The Plural-Forms header field contains unexpected text before the ``nplurals=`` string.
 
 [malformed-xml]
 severity = serious
