@@ -1,9 +1,9 @@
-i18nspector (0.22.1) UNRELEASED; urgency=low
+i18nspector (0.23) UNRELEASED; urgency=low
 
   * Fix typos in tag descriptions.
   * Use HTTPS for more URLs.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 28 Jan 2016 22:21:13 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 05 Feb 2016 12:54:01 +0100
 
 i18nspector (0.22) unstable; urgency=low
 
