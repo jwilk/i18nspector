@@ -1,4 +1,4 @@
-i18nspector (0.23) UNRELEASED; urgency=low
+i18nspector (0.23) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -9,7 +9,7 @@ i18nspector (0.23) UNRELEASED; urgency=low
   * Fix typos in tag descriptions.
   * Use HTTPS for more URLs.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 05 Feb 2016 12:54:58 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 06 Feb 2016 15:15:26 +0100
 
 i18nspector (0.22) unstable; urgency=low
 
