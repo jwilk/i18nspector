@@ -905,7 +905,7 @@ references =
 
 [syntax-error-in-plural-forms]
 severity = serious
-certainty = possible
+certainty = certain
 description =
  Value of the Plural-Forms header field could not be parsed.
  It should be in the form ``nplurals=``\ *n*\ ``; plural=``\ *expression*.
@@ -924,7 +924,7 @@ references =
 
 [syntax-error-in-unused-plural-forms]
 severity = important
-certainty = possible
+certainty = certain
 description =
  Value of the Plural-Forms header field could not be parsed.
  (But there are no translated messages which use plural forms.)
