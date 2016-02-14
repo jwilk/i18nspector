@@ -1,4 +1,4 @@
-# Copyright © 2013-2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2013-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -51,5 +51,15 @@ def is_special_domain(domain):
 def is_email_in_special_domain(email):
     _, domain = email.rsplit('@', 1)
     return is_special_domain(domain)
+
+def is_dotless_domain(domain):
+    return '.' not in domain
+
+def is_email_in_dotless_domain(email):
+    # Technically, e-mail addresses in dotless domains are not forbidden.
+    # But in practice they are almost certainly mistakes.
+    # See also: RFC 7085 <https://tools.ietf.org/html/rfc7085>
+    _, domain = email.rsplit('@', 1)
+    return is_dotless_domain(domain)
 
 # vim:ts=4 sts=4 sw=4 et

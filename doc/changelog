@@ -5,8 +5,9 @@ i18nspector (0.24) UNRELEASED; urgency=low
     (The main reason the certainty was only “possible” is that the tag was
     also triggered by leading and trailing junk, for which there are separate
     tags since 0.23.)
+  * Check for partially qualified domain names in e-mail addresses.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 14 Feb 2016 16:04:43 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 14 Feb 2016 16:54:40 +0100
 
 i18nspector (0.23) unstable; urgency=low
 

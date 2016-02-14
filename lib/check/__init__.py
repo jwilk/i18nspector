@@ -649,6 +649,8 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
             elif email_address == 'EMAIL@ADDRESS':
                 self.tag('boilerplate-in-report-msgid-bugs-to', report_msgid_bugs_to)
+            elif domains.is_email_in_dotless_domain(email_address):
+                self.tag('invalid-report-msgid-bugs-to', report_msgid_bugs_to)
 
     @checks_header_fields('Last-Translator', 'Language-Team')
     def check_translator(self, ctx):
@@ -670,6 +672,8 @@ class Checker(object, metaclass=abc.ABCMeta):
             elif translator_email == 'EMAIL@ADDRESS':
                 if not ctx.is_template:
                     self.tag('boilerplate-in-last-translator', translator)
+            elif domains.is_email_in_dotless_domain(translator_email):
+                self.tag('invalid-last-translator', translator)
         # Language-Team:
         teams = ctx.metadata['Language-Team']
         if len(teams) > 1:
@@ -688,6 +692,8 @@ class Checker(object, metaclass=abc.ABCMeta):
             elif team_email in {'LL@li.org', 'EMAIL@ADDRESS'}:
                 if not ctx.is_template:
                     self.tag('boilerplate-in-language-team', team)
+            elif domains.is_email_in_dotless_domain(team_email):
+                self.tag('invalid-language-team', team)
             else:
                 translator = translator_emails.get(team_email)
                 if translator is not None:

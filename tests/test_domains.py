@@ -1,4 +1,4 @@
-# Copyright © 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2014-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -20,13 +20,14 @@
 
 from nose.tools import (
     assert_false,
+    assert_is,
     assert_raises,
     assert_true,
 )
 
 import lib.domains as M
 
-class test_domains:
+class test_special_domains:
 
     def t(self, domain, special=True):
         result = M.is_special_domain(domain)
@@ -62,7 +63,7 @@ class test_domains:
             self.t('example.{tld}'.format(tld=tld))
             self.t('eggs.example.{tld}'.format(tld=tld))
 
-class test_emails:
+class test_special_domain_emails:
 
     def t(self, email, special=True):
         result = M.is_email_in_special_domain(email)
@@ -76,6 +77,35 @@ class test_emails:
 
     def test_special(self):
         self.t('jwilk@example.net')
+
+    def test_no_at(self):
+        with assert_raises(ValueError):
+            self.t('jwilk%jwilk.net')
+
+class test_dotless_domains:
+
+    def t(self, domain, dotless=True):
+        result = M.is_dotless_domain(domain)
+        assert_is(result, dotless)
+
+    def test_dotless(self):
+        self.t('net')
+
+    def test_dotfull(self):
+        self.t('jwilk.net', False)
+        self.t('example.jwilk.net', False)
+
+class test_dotless_emails:
+
+    def t(self, email, dotless=True):
+        result = M.is_email_in_dotless_domain(email)
+        assert_is(result, dotless)
+
+    def test_dotless(self):
+        self.t('jwilk@net')
+
+    def test_dotfull(self):
+        self.t('jwilk@example.net', False)
 
     def test_no_at(self):
         with assert_raises(ValueError):
