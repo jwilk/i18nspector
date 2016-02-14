@@ -210,4 +210,8 @@ Language codes for some locales supported by glibc aren't recognized::
 The tag name ``invalid-language`` might be misleading.
 Rename or split it.
 
+Check for ``li.org`` mailing lists in ``Language-Team``.
+
+ * https://lists.gnu.org/archive/html/bug-gettext/2016-02/msg00003.html
+
 .. vim:ts=3 sts=3 sw=3 ft=rst
