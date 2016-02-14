@@ -126,8 +126,6 @@ Check for PO files that are not encoding-aware:
 
  * https://marc.info/?l=openbsd-ports&m=98988950322667&w=2
 
-.. https://archive.is/dgFoH
-
 Add support for MediaWiki Translate's ``invalid-plural`` flag. Test-case:
 
  * https://sources.debian.net/data/main/e/evolution/3.4.4-3/po/fi.po
@@ -202,8 +200,6 @@ Timezone abbreviations not only are not unique, but also can change their
 meaning over time.
 
  * https://mm.icann.org/pipermail/tz/2014-June/021089.html
-
-.. https://archive.is/nHhvD
 
 Check for capitalization inconsistencies.
 
