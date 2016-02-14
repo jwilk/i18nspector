@@ -1,4 +1,4 @@
-i18nspector (0.23.1) UNRELEASED; urgency=low
+i18nspector (0.24) UNRELEASED; urgency=low
 
   * Raise certainty of syntax-error-in-plural-forms and
     syntax-error-in-unused-plural-forms to “certain”.
@@ -6,7 +6,7 @@ i18nspector (0.23.1) UNRELEASED; urgency=low
     also triggered by leading and trailing junk, for which there are separate
     tags since 0.23.)
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 07 Feb 2016 19:16:03 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 14 Feb 2016 16:04:43 +0100
 
 i18nspector (0.23) unstable; urgency=low
 
