@@ -60,10 +60,8 @@ if mock is not None:
     # Setting NL_ARGMAX to a small number makes the *_index_out_of_range() tests
     # much faster.
 else:
-    def small_NL_ARGMAX(*args, **kwargs):
-        def identity(x):
-            return x
-        return identity
+    def small_NL_ARGMAX(func):
+        return func
 
 def test_lone_percent():
     with assert_raises(M.FormatError):

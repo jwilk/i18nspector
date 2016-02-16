@@ -6,8 +6,9 @@ i18nspector (0.24) UNRELEASED; urgency=low
     also triggered by leading and trailing junk, for which there are separate
     tags since 0.23.)
   * Check for partially qualified domain names in e-mail addresses.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 14 Feb 2016 16:54:40 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 16 Feb 2016 18:31:18 +0100
 
 i18nspector (0.23) unstable; urgency=low
 
