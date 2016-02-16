@@ -1,4 +1,4 @@
-# Copyright © 2014-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2014-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -36,11 +36,11 @@ def test_SSIZE_MAX():
         struct.pack('=i', M.SSIZE_MAX + 1)
 
 def test_lone_percent():
-    with assert_raises(M.FormatError):
+    with assert_raises(M.Error):
         M.FormatString('%')
 
 def test_invalid_conversion_spec():
-    with assert_raises(M.FormatError):
+    with assert_raises(M.Error):
         M.FormatString('%!')
 
 def test_add_argument():
@@ -75,7 +75,7 @@ class test_map:
         self.t('eggs(ham)spam')
 
     def test_unbalanced_parens(self):
-        with assert_raises(M.FormatError):
+        with assert_raises(M.Error):
             self.t('eggs(ham')
 
 class test_types:

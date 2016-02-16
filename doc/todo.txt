@@ -159,7 +159,6 @@ Add support for more string formats (in order of popularity on GitHub)::
    perl-format
    java-format
    csharp-format
-   python-brace-format
    kde-format
    sh-format
    qt-format

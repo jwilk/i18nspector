@@ -1,5 +1,13 @@
 i18nspector (0.24) UNRELEASED; urgency=low
 
+  * Summary of tag changes:
+    + Added:
+      - python-brace-format-string-argument-type-mismatch
+      - python-brace-format-string-error
+      - python-brace-format-string-missing-argument
+      - python-brace-format-string-unknown-argument
+
+  * Check for errors in Python brace format strings.
   * Raise certainty of syntax-error-in-plural-forms and
     syntax-error-in-unused-plural-forms to “certain”.
     (The main reason the certainty was only “possible” is that the tag was

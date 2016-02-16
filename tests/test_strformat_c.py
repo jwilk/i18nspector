@@ -1,4 +1,4 @@
-# Copyright © 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2014-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -64,11 +64,11 @@ else:
         return func
 
 def test_lone_percent():
-    with assert_raises(M.FormatError):
+    with assert_raises(M.Error):
         M.FormatString('%')
 
 def test_invalid_conversion_spec():
-    with assert_raises(M.FormatError):
+    with assert_raises(M.Error):
         M.FormatString('%!')
 
 def test_add_argument():

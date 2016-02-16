@@ -19,7 +19,7 @@
 # SOFTWARE.
 
 '''
-message format checks: Python
+message format checks: Python's %-formatting
 '''
 
 from lib import tags
@@ -46,7 +46,7 @@ class Checker(Checker):
                 tags.safestr(key),
                 tags.safestr(', '.join(sorted(x for x in types))),
             )
-        except backend.FormatError as exc:
+        except backend.Error as exc:
             self.tag('python-format-string-error',
                 prefix,
                 tags.safestr(exc.message),

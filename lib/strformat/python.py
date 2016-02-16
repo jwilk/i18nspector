@@ -1,4 +1,4 @@
-# Copyright © 2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2015-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -44,44 +44,44 @@ SSIZE_MAX = (1 << 31) - 1  # on 32-bit architectures
 
 # --------------------------------------------------------------------------
 
-class FormatError(Exception):
+class Error(Exception):
     message = 'invalid conversion specification'
 
-class ObsoleteConversion(FormatError):
+class ObsoleteConversion(Error):
     message = 'obsolete conversion specifier'
 
 # errors in argument indexing:
 
-class ForbiddenArgumentKey(FormatError):
+class ForbiddenArgumentKey(Error):
     message = 'argument key not allowed'
 
-class ArgumentIndexingMixture(FormatError):
+class ArgumentIndexingMixture(Error):
     message = 'mixed named and unnamed argument specifications'
 
-class ArgumentTypeMismatch(FormatError):
+class ArgumentTypeMismatch(Error):
     message = 'argument type mismatch'
 
 # errors is flags:
 
-class RedundantFlag(FormatError):
+class RedundantFlag(Error):
     message = 'redundant flag character'
 
 # errors in field width:
 
-class WidthRangeError(FormatError):
+class WidthRangeError(Error):
     message = 'field width too large'
 
 # errors in precision:
 
-class RedundantPrecision(FormatError):
+class RedundantPrecision(Error):
     message = 'redundant precision'
 
-class PrecisionRangeError(FormatError):
+class PrecisionRangeError(Error):
     message = 'precision too large'
 
 # errors in length modifiers:
 
-class RedundantLength(FormatError):
+class RedundantLength(Error):
     message = 'redundant length modifier'
 
 # --------------------------------------------------------------------------
@@ -116,7 +116,7 @@ class FormatString(object):
             try:
                 return next(si)
             except StopIteration:
-                raise FormatError(s[i:])
+                raise Error(s[i:])
         while True:
             try:
                 i, ch = next(si)
@@ -177,7 +177,7 @@ class FormatString(object):
             if ch in _info.all_cvt:
                 conv = ch
             else:
-                raise FormatError(s[i:])
+                raise Error(s[i:])
             if text.tell():
                 items += [text.getvalue()]
                 text.seek(0)

@@ -81,6 +81,10 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] non-portable-encoding
 [X] os-error
 [X] partially-translated-message
+[X] python-brace-format-string-argument-type-mismatch
+[X] python-brace-format-string-error
+[X] python-brace-format-string-missing-argument
+[X] python-brace-format-string-unknown-argument
 [X] python-format-string-argument-number-mismatch
 [X] python-format-string-argument-type-mismatch
 [X] python-format-string-error

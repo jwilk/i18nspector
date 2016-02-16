@@ -1,4 +1,4 @@
-# Copyright © 2014 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2014-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -99,56 +99,56 @@ class _info:
 INT_MAX = (1 << 31) - 1  # on most architectures
 NL_ARGMAX = 4096  # on GNU/Linux
 
-class FormatError(Exception):
+class Error(Exception):
     message = 'invalid conversion specification'
 
-class NonPortableConversion(FormatError):
+class NonPortableConversion(Error):
     message = 'non-portable conversion specifier or length modifier'
 
 # errors in argument indexing:
 
-class ForbiddenArgumentIndex(FormatError):
+class ForbiddenArgumentIndex(Error):
     message = 'argument index not allowed'
 
-class ArgumentRangeError(FormatError):
+class ArgumentRangeError(Error):
     message = 'argument index too small or too large'
 
-class MissingArgument(FormatError):
+class MissingArgument(Error):
     message = 'missing argument'
 
-class ArgumentTypeMismatch(FormatError):
+class ArgumentTypeMismatch(Error):
     message = 'argument type mismatch'
 
-class ArgumentNumberingMixture(FormatError):
+class ArgumentNumberingMixture(Error):
     message = 'mixed numbered and unnumbered argument specifications'
 
 # errors in length modifiers:
 
-class LengthError(FormatError):
+class LengthError(Error):
     message = 'invalid length modifier'
 
 # errors in flag characters:
 
-class FlagError(FormatError):
+class FlagError(Error):
     message = 'unexpected format flag character'
 
-class RedundantFlag(FormatError):
+class RedundantFlag(Error):
     message = 'redundant flag character'
 
 # errors in field width:
 
-class WidthError(FormatError):
+class WidthError(Error):
     message = 'unexpected width'
 
-class WidthRangeError(FormatError):
+class WidthRangeError(Error):
     message = 'field width too large'
 
 # errors in precision:
 
-class PrecisionError(FormatError):
+class PrecisionError(Error):
     message = 'unexpected precision'
 
-class PrecisionRangeError(FormatError):
+class PrecisionRangeError(Error):
     message = 'precision too large'
 
 
@@ -176,7 +176,7 @@ class FormatString(object):
         last_pos = 0
         for match in _directive_re.finditer(s):
             if match.start() != last_pos:
-                raise FormatError(
+                raise Error(
                     _printable_prefix(s[last_pos:])
                 )
             last_pos = match.end()
@@ -186,7 +186,7 @@ class FormatString(object):
             else:
                 items += [Conversion(self, match)]
         if last_pos != len(s):
-            raise FormatError(
+            raise Error(
                 _printable_prefix(s[last_pos:])
             )
         self.arguments = []

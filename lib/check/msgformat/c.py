@@ -68,7 +68,7 @@ class Checker(Checker):
                 tags.safestr(exc.message),
                 flag, tags.safestr('in'), conv
             )
-        except backend.FormatError as exc:
+        except backend.Error as exc:
             self.tag('c-format-string-error',
                 prefix,
                 tags.safestr(exc.message),

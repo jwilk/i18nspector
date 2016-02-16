@@ -1,0 +1,37 @@
+# E: python-brace-format-string-missing-argument msgid 'A quick brown fox jumps over the lazy dog.' msgctxt 'max 6': N not in msgstr[2] while in msgid_plural
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Gizmo Enhancer 1.0\n"
+"Report-Msgid-Bugs-To: gizmoenhancer@jwilk.net\n"
+"POT-Creation-Date: 2012-11-01 14:42+0100\n"
+"PO-Revision-Date: 2012-11-01 14:42+0100\n"
+"Last-Translator: Jakub Wilk <jwilk@jwilk.net>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+# {N} doesn't have to be included in msgstr[2], because according to the range
+# flag, it applies only to n=5.
+
+#, python-brace-format, range: 1..5
+msgctxt "max 5"
+msgid "A quick brown fox jumps over the lazy dog."
+msgid_plural "{N} quick brown foxes jump over the lazy dog."
+msgstr[0] "Mężny bądź, chroń pułk twój i jedną flagę."
+msgstr[1] "Mężny bądź, chroń pułk twój i {N} flagi."
+msgstr[2] "Mężny bądź, chroń pułk twój i pięć flag."
+
+# {N} cannot be omitted in msgstr[2], because it applies not only to n=5 but
+# also n=6.
+
+#, python-brace-format, range: 1..6
+msgctxt "max 6"
+msgid "A quick brown fox jumps over the lazy dog."
+msgid_plural "{N} quick brown foxes jump over the lazy dog."
+msgstr[0] "Mężny bądź, chroń pułk twój i jedną flagę."
+msgstr[1] "Mężny bądź, chroń pułk twój i {N} flagi."
+msgstr[2] "Mężny bądź, chroń pułk twój i pięć flag."
