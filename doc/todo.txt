@@ -152,37 +152,34 @@ distinguishes singular and plural forms, even when no numeral is involved.
 
  * https://bugs.debian.org/753946#51
 
-Add support for more string formats (in popularity order)::
+Add support for more string formats (in order of popularity on GitHub)::
 
-   kde-format
+   php-format
+   javascript-format
    perl-format
+   java-format
    csharp-format
+   python-brace-format
+   kde-format
    sh-format
    qt-format
-   php-format
-   perl-brace-format
-   java-format
    tcl-format
-   boost-format
-   lisp-format
+   perl-brace-format
    scheme-format
-   qt-plural-format
    ycp-format
-
-and unused::
-
+   lisp-format
    awk-format
-   elisp-format
-   gcc-internal-format
-   gfc-internal-format
-   javascript-format
-   librep-format
-   lua-format
    objc-format
    object-pascal-format
-   python-brace-format
+   librep-format
    smalltalk-format
+   boost-format
+   qt-plural-format
+   lua-format
    kde-kuit
+   gfc-internal-format
+   gcc-internal-format
+   elisp-format
 
 Improve C format string checks:
 
