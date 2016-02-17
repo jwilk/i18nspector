@@ -1,4 +1,4 @@
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -420,12 +420,16 @@ def test_glibc_supported():
             # FIXME: some ISO-639-3 codes are not recognized yet
             if len(l.split('_')[0]) == 3:
                 raise nose.SkipTest('expected failure')
+            reason = locales_to_skip.get(l)
+            if reason is not None:
+                raise nose.SkipTest(reason)
             raise
         assert_equal(str(lang), l)
     try:
         file = open('/usr/share/i18n/SUPPORTED', encoding='ASCII')
     except OSError as exc:
         raise nose.SkipTest(exc)
+    locales = set()
     with file:
         for line in file:
             if line[:1] in {'#', '\n'}:
@@ -434,7 +438,18 @@ def test_glibc_supported():
             if (locale + '.').startswith('iw_IL.'):
                 # iw_IL is obsolete
                 continue
-            yield t, locale
+            locales.add(locale)
+    misnamed_locales = {
+        # glibc 2.21 had two misnamed locales:
+        'bh_IN.UTF-8',  # should be bhb_IN
+        'tu_IN.UTF-8',  # should be tcy_IN
+    }
+    locales_to_skip = {}
+    if locales & misnamed_locales == misnamed_locales:
+        for l in misnamed_locales:
+            locales_to_skip[l] = 'https://sourceware.org/git/gitweb.cgi?p=glibc.git;a=commitdiff;h=032c510db06c'
+    for l in sorted(locales):
+        yield t, l
 
 def test_poedit():
     # https://github.com/vslavik/poedit/blob/v1.8.1-oss/src/language_impl_legacy.h
