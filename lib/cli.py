@@ -23,6 +23,8 @@ command-line interface
 '''
 
 import argparse
+import concurrent.futures
+import functools
 import io
 import os
 import subprocess as ipc
@@ -62,7 +64,7 @@ class Checker(check.Checker):
         s = tag.format(self.fake_path, *extra, color=True)
         print(s)
 
-def check_file(filename, *, options):
+def check_regular_file(filename, *, options):
     checker_instance = Checker(filename, options=options)
     checker_instance.check()
 
@@ -106,16 +108,36 @@ def check_deb(filename, *, options):
                 if os.path.isfile(path):
                     check_file(path, options=options)
 
-def check_all(files, *, options):
-    for filename in files:
-        if options.unpack_deb:
-            try:
-                check_deb(filename, options=options)
-            except UnsupportedFileType:
-                pass
-            else:
-                continue
-        check_file(filename, options=options)
+def check_file(path, *, options):
+    if options.unpack_deb:
+        try:
+            return check_deb(path, options=options)
+        except UnsupportedFileType:
+            pass
+    return check_regular_file(path, options=options)
+
+def check_file_s(path, *, options):
+    '''
+    check_file() with captured stdout
+    '''
+    orig_stdout = sys.stdout
+    sys.stdout = io_stdout = io.StringIO()
+    try:
+        check_file(path, options=options)
+    finally:
+        sys.stdout = orig_stdout
+    return io_stdout.getvalue()
+
+def check_all(paths, *, options):
+    if (len(paths) <= 1) or (options.parallel <= 1):
+        for path in paths:
+            check_file(path, options=options)
+    else:
+        executor = concurrent.futures.ProcessPoolExecutor(max_workers=options.parallel)
+        with executor:
+            check_file_opt = functools.partial(check_file_s, options=options)
+            for s in executor.map(check_file_opt, paths):
+                sys.stdout.write(s)
 
 def main():
     initialize_terminal()
@@ -123,6 +145,7 @@ def main():
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')
+    ap.add_argument('--parallel', type=int, metavar='<n>', default=1, help='use <n> CPU cores')
     ap.add_argument('--file-type', metavar='<file-type>', help=argparse.SUPPRESS)
     ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
     ap.add_argument('files', metavar='<file>', nargs='+')
