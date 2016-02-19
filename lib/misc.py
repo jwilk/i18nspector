@@ -1,4 +1,4 @@
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -22,8 +22,10 @@
 miscellanea
 '''
 
+import contextlib
 import datetime
 import sys
+import tempfile
 import types
 
 def unsorted(iterable):
@@ -90,5 +92,15 @@ Namespace()  # make pyflakes and coverage.py happy
 
 if sys.version_info >= (3, 3):  # <no-coverage>
     Namespace = types.SimpleNamespace
+
+@contextlib.contextmanager
+def throwaway_tempdir(context):
+    with tempfile.TemporaryDirectory(prefix='i18nspector.{}.'.format(context)) as new_tempdir:
+        original_tempdir = tempfile.tempdir
+        try:
+            tempfile.tempdir = new_tempdir
+            yield
+        finally:
+            tempfile.tempdir = original_tempdir
 
 # vim:ts=4 sts=4 sw=4 et

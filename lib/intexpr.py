@@ -23,9 +23,7 @@ C integer expressions
 '''
 
 import ast
-import contextlib
 import functools
-import tempfile
 
 import rply
 import rply.errors
@@ -53,18 +51,6 @@ def create_lexer():
     lg.add('INT', r'[0-9]+')
     lg.ignore(r'[ \t]+')
     return lg.build()
-
-@contextlib.contextmanager
-def _throwaway_tempdir():
-    # mitigation for RPLY's insecure use of /tmp:
-    # CVE-2014-1604, CVE-2014-1938
-    with tempfile.TemporaryDirectory(prefix='i18nspector.rply.') as new_tempdir:
-        original_tempdir = tempfile.tempdir
-        try:
-            tempfile.tempdir = new_tempdir
-            yield
-        finally:
-            tempfile.tempdir = original_tempdir
 
 @functools.lru_cache(maxsize=None)
 def create_parser(lexer):
@@ -147,7 +133,10 @@ def create_parser(lexer):
         [tok] = p
         n = int(tok.getstr())
         return ast.Num(n)
-    with _throwaway_tempdir():
+    with misc.throwaway_tempdir('rply'):
+        # Use private temporary directory
+        # to mitigate RPLY's insecure use of /tmp:
+        # CVE-2014-1604, CVE-2014-1938
         return pg.build()
 
 class Parser(object):
