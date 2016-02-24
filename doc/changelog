@@ -1,4 +1,4 @@
-i18nspector (0.24) UNRELEASED; urgency=low
+i18nspector (0.24) unstable; urgency=low
 
   * Summary of tag changes:
     + Added:
@@ -17,7 +17,7 @@ i18nspector (0.24) UNRELEASED; urgency=low
   * Add option for parallel execution (--parallel).
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 18 Feb 2016 19:44:34 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 24 Feb 2016 16:46:20 +0100
 
 i18nspector (0.23) unstable; urgency=low
 
