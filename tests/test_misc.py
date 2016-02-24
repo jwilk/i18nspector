@@ -1,4 +1,4 @@
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -20,6 +20,8 @@
 
 import datetime
 import os
+import stat
+import tempfile
 import time
 
 from nose.tools import (
@@ -28,6 +30,7 @@ from nose.tools import (
     assert_is_instance,
     assert_is_not_none,
     assert_raises,
+    assert_true,
 )
 
 from . import tools
@@ -138,5 +141,12 @@ def test_namespace():
         ns.eggs
     ns.eggs = 37
     assert_equal(ns.eggs, 37)
+
+def test_throwaway_tempdir():
+    with M.throwaway_tempdir('test'):
+        d = tempfile.gettempdir()
+        st = os.stat(d)
+        assert_equal(stat.S_IMODE(st.st_mode), 0o700)
+        assert_true(stat.S_ISDIR(st.st_mode))
 
 # vim:ts=4 sts=4 sw=4 et
