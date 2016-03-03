@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -21,18 +21,25 @@
 # SOFTWARE.
 
 import argparse
+import functools
 import os
+import subprocess as ipc
 import sys
 import xml.etree.ElementTree as etree
 
-iso_codes_dir = '/usr/share/xml/iso-codes/'
+@functools.lru_cache()
+def get_iso_codes_dir():
+    prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])
+    prefix = prefix.decode('ASCII').strip()
+    return '{prefix}/share/xml/iso-codes/'.format(prefix=prefix)
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('languages', metavar='<lang>', nargs='+')
     options = ap.parse_args()
     languages = set(options.languages)
-    for event, element in etree.iterparse(os.path.join(iso_codes_dir, 'iso_639.xml')):
+    path = os.path.join(get_iso_codes_dir(), 'iso_639.xml')
+    for event, element in etree.iterparse(path):
         if element.tag != 'iso_639_entry':
             continue
         ll = element.get('iso_639_1_code')
