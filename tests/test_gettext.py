@@ -620,7 +620,7 @@ class test_plural_forms:
     def t(self, s, *, n, ljunk='', rjunk=''):
         if ljunk or rjunk:
             with assert_raises(self.error):
-                 M.parse_plural_forms(s)
+                M.parse_plural_forms(s)
         else:
             (n0, expr0) = M.parse_plural_forms(s)
             assert_equal(n0, n)
