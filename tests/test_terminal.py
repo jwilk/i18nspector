@@ -1,4 +1,4 @@
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -18,6 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import functools
 import os
 import pty
 import sys
@@ -54,23 +55,31 @@ def test_dummy():
         assert_equal(T.attr_fg(i), '')
     assert_equal(T.attr_reset(), '')
 
-def _setup_tty(term):
-    master_fd, slave_fd = pty.openpty()
-    os.dup2(slave_fd, pty.STDOUT_FILENO)
-    sys.stdout = sys.__stdout__
-    os.environ['TERM'] = term
-    T.initialize()
+def pty_fork_isolation(term):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            (master_fd, slave_fd) = pty.openpty()
+            os.dup2(slave_fd, pty.STDOUT_FILENO)
+            os.close(slave_fd)
+            sys.stdout = sys.__stdout__
+            os.environ['TERM'] = term
+            T.initialize()
+            try:
+                return func(*args, **kwargs)
+            finally:
+                os.close(master_fd)
+        return tools.fork_isolation(wrapper)
+    return decorator
 
-@tools.fork_isolation
+@pty_fork_isolation('vt100')
 def test_vt100():
-    _setup_tty('vt100')
     for i in _get_colors():
         assert_equal(T.attr_fg(i), '')
     assert_equal(T.attr_reset(), '\x1b[m\x0f')
 
-@tools.fork_isolation
+@pty_fork_isolation('ansi')
 def test_ansi():
-    _setup_tty('ansi')
     assert_equal(T.attr_fg(T.colors.black), '\x1b[30m')
     assert_equal(T.attr_fg(T.colors.red), '\x1b[31m')
     assert_equal(T.attr_fg(T.colors.green), '\x1b[32m')
