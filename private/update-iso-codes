@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright © 2012-2015 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2012-2016 Jakub Wilk <jwilk@jwilk.net>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -25,7 +25,7 @@ import functools
 import os
 import subprocess as ipc
 import sys
-import xml.etree.ElementTree as etree
+import json
 
 class Panic(ValueError):
     pass
@@ -40,7 +40,7 @@ def get_iso_codes_version():
 def get_iso_codes_dir():
     prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])
     prefix = prefix.decode('ASCII').strip()
-    return '{prefix}/share/xml/iso-codes/'.format(prefix=prefix)
+    return '{prefix}/share/iso-codes/json'.format(prefix=prefix)
 
 def main():
     basedir = os.path.join(
@@ -60,17 +60,20 @@ def main():
     sys.stdout.close()
     os.rename(path + '.tmp', path)
 
+def load_json(path):
+    with open(path, 'rt', encoding='UTF-8') as file:
+        return json.load(file)
+
 def generate_iso_639():
     # =======================
     # ISO 639: language codes
     # =======================
     l2t_to_2b = {}
     iso_639 = {}
-    for event, element in etree.iterparse(os.path.join(get_iso_codes_dir(), 'iso_639.xml')):
-        if element.tag != 'iso_639_entry':
-            continue
-        l2b = element.get('iso_639_2B_code')
-        l2t = element.get('iso_639_2T_code')
+    data = load_json(get_iso_codes_dir() + '/iso_639-2.json')
+    for item in data['639-2']:
+        l2t = item['alpha_3']
+        l2b = item.get('bibliographic', l2t)
         if l2b == l2t == 'qaa-qtz':
             continue
         for l in l2b, l2t:
@@ -79,44 +82,29 @@ def generate_iso_639():
         if l2b != l2t:
             l2t_to_2b[l2t] = l2b
     iso_639 = {}
-    for event, element in etree.iterparse(os.path.join(get_iso_codes_dir(), 'iso_639_3.xml')):
-        if element.tag != 'iso_639_3_entry':
-            continue
-        code = element.get('id')
+    data = load_json(get_iso_codes_dir() + '/iso_639-3.json')
+    for item in data['639-3']:
+        code = item['alpha_3']
         if len(code) != 3:
             raise Panic('len({!r}) != 3'.format(code))
-        code1 = element.get('part1_code')
-        code2 = element.get('part2_code')
+        code1 = item.get('alpha_2')
+        code2 = item.get('terminology')
         if code2 is None:
             # We're not interested in languages that are not in 639-2 (yet?).
             continue
         if code2 != code:
             raise Panic('{!r} != {!r}'.format(code, code2))
-        scope = element.get('scope')
-        if scope in {'S', 'L'}:
+        scope = item['scope']
+        if scope == 'S':
             # Not a real language, ignore.
             continue
-        elif scope == 'C':
-            # We're not interested in collective languages (yet?).
-            if code1 is None:
-                continue
         elif scope in {'M', 'I'}:
             pass
         else:
             raise Panic('unknown scope: {!r}'.format(scope))
-        status = element.get('status')
-        if status == 'Active':
-            pass
-        elif status == 'Retired':
-            continue
-        else:
-            raise Panic('unknown status: {!r}'.format(status))
-        reference_name = element.get('reference_name')
+        reference_name = item['name']
         if reference_name in iso_639:
             raise Panic('duplicate reference name: {!r}'.format(reference_name))
-        if code1 is not None:
-            if code1.endswith('(deprecated)'):
-                code1 = None
         if code1 is not None:
             if len(code1) == 2:
                 codelist = [code1, code]
@@ -145,12 +133,9 @@ def generate_iso_3166():
     # ISO 3166: territory codes
     # =========================
     iso_3166 = set()
-    for event, element in etree.iterparse(os.path.join(get_iso_codes_dir(), 'iso_3166.xml')):
-        if element.tag != 'iso_3166_entry':
-            continue
-        cc = element.get('alpha_2_code')
-        if cc is None:
-            raise ValueError
+    data = load_json(get_iso_codes_dir() + '/iso_3166-1.json')
+    for item in data['3166-1']:
+        cc = item['alpha_2']
         iso_3166.add(cc)
     print('[territory-codes]')
     for cc in sorted(iso_3166):
