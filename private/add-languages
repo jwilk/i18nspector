@@ -22,29 +22,28 @@
 
 import argparse
 import functools
-import os
 import subprocess as ipc
 import sys
-import xml.etree.ElementTree as etree
+import json
 
 @functools.lru_cache()
 def get_iso_codes_dir():
     prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])
     prefix = prefix.decode('ASCII').strip()
-    return '{prefix}/share/xml/iso-codes/'.format(prefix=prefix)
+    return '{prefix}/share/iso-codes/json'.format(prefix=prefix)
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('languages', metavar='<lang>', nargs='+')
     options = ap.parse_args()
     languages = set(options.languages)
-    path = os.path.join(get_iso_codes_dir(), 'iso_639.xml')
-    for event, element in etree.iterparse(path):
-        if element.tag != 'iso_639_entry':
-            continue
-        ll = element.get('iso_639_1_code')
-        lll_b = element.get('iso_639_2B_code')
-        lll_t = element.get('iso_639_2T_code')
+    path = get_iso_codes_dir() + '/iso_639-2.json'
+    with open(path, 'rt', encoding='UTF-8') as file:
+        data = json.load(file)
+    for item in data['639-2']:
+        ll = item.get('alpha_2')
+        lll_t = item.get('alpha_3')
+        lll_b = item.get('bibliographic')
         requested = None
         for lang in ll, lll_b, lll_t:
             if lang in languages:
@@ -58,7 +57,7 @@ def main():
             raise ValueError
         names = [
             s.strip()
-            for s in element.get('name').split(';')
+            for s in item.get('name').split(';')
         ]
         print('[{}]'.format(requested))
         if lang != requested:
