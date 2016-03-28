@@ -208,7 +208,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             }
         regex = re.compile('|'.join(regexs))
         for line in ctx.file.header.splitlines():
-            match =  regex.search(line)
+            match = regex.search(line)
             if match is None:
                 continue
             self.tag('boilerplate-in-initial-comments', line)
