@@ -210,4 +210,8 @@ Check for ``li.org`` mailing lists in ``Language-Team``.
 
  * https://lists.gnu.org/archive/html/bug-gettext/2016-02/msg00003.html
 
+Add support for xgettext message syntax check flags:
+
+ * http://git.savannah.gnu.org/cgit/gettext.git/commit/?id=d9fc3d2a3f43
+
 .. vim:ts=3 sts=3 sw=3 ft=rst
