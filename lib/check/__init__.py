@@ -31,14 +31,13 @@ import os
 import re
 import urllib.parse
 
-import polib
-
 from lib import domains
 from lib import encodings as encinfo
 from lib import gettext
 from lib import ling
 from lib import misc
-from lib import polib4us
+from lib import moparser
+from lib import poparser
 from lib import tags
 from lib import xml
 
@@ -81,7 +80,6 @@ class Checker(object, metaclass=abc.ABCMeta):
         if cls._patched_environment is not None:
             raise EnvironmentAlreadyPatched
         encinfo.install_extra_encodings()
-        polib4us.install_patches()
         cls._patched_environment = True
 
     def __init__(self, path, *, options):
@@ -123,49 +121,30 @@ class Checker(object, metaclass=abc.ABCMeta):
             extension = '.' + self.options.file_type
         is_template = False
         if extension == '.po':
-            constructor = polib.pofile
+            parse = poparser.parse
         elif extension == '.pot':
-            constructor = polib.pofile
+            parse = poparser.parse
             is_template = True
         elif extension in ('.mo', '.gmo'):
-            constructor = polib.mofile
+            parse = moparser.parse
         else:
             self.tag('unknown-file-type')
             return
         broken_encoding = False
         try:
             try:
-                file = constructor(self.path)
+                file = parse(self.path)
             except UnicodeDecodeError as exc:
                 broken_encoding = exc
-                file = constructor(self.path, encoding='ISO-8859-1')
-        except polib4us.moparser.SyntaxError as exc:
+                file = parse(self.path, encoding='ISO-8859-1')
+        except poparser.SyntaxError as exc:
+            self.tag('syntax-error-in-po-file', tags.safestr(exc))
+            return
+        except moparser.SyntaxError as exc:
             self.tag('invalid-mo-file', tags.safestr(exc))
             return
         except IOError as exc:
-            message = str(exc)
-            if exc.errno is not None:
-                self.tag('os-error', tags.safestr(exc.strerror))
-                return
-            elif message.startswith('Syntax error in po file '):
-                message = message[24:]
-                message_parts = []
-                if message.startswith(self.path + ' '):
-                    message = message[len(self.path)+1:]
-                match = re.match(r'^\(line ([0-9]+)\)(?:: (.+))?$', message)
-                if match is not None:
-                    lineno_part = 'line {}'.format(match.group(1))
-                    message = match.group(2)
-                    if message is not None:
-                        lineno_part += ':'
-                        if re.match(r'^[a-z]+( [a-z]+)*$', message):
-                            message = tags.safestr(message)
-                    message_parts += [tags.safestr(lineno_part)]
-                if message is not None:
-                    message_parts += [message]
-                self.tag('syntax-error-in-po-file', *message_parts)
-                return
-            raise
+            self.tag('os-error', tags.safestr(exc.strerror))
         finally:
             if broken_encoding:
                 s = broken_encoding.object
@@ -207,7 +186,9 @@ class Checker(object, metaclass=abc.ABCMeta):
                 r'(?<=>), YEAR\b',
             }
         regex = re.compile('|'.join(regexs))
-        for line in ctx.file.header.splitlines():
+        if len(ctx.file) == 0:
+            return
+        for line in ctx.file[0].comments:
             match = regex.search(line)
             if match is None:
                 continue
