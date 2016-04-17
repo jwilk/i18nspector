@@ -1310,7 +1310,7 @@ principal-territory = TM
 
 [tl]
 names = Tagalog
-chracters =
+characters =
  (ñ)
  (Ñ)
 plural-forms = nplurals=2; plural=n > 1;
