@@ -232,6 +232,12 @@ def _read_primary_languages():
     for language, section in cp.items():
         if not language:
             continue
+        for key in section.keys():
+            if key in {'names', 'characters', 'macrolanguage', 'plural-forms', 'principal-territory'}:
+                continue
+            if key.startswith('characters@'):
+                continue
+            raise misc.DataIntegrityError('unknown key: {}'.format(key))
         for name in section['names'].splitlines():
             name = _munch_language_name(name)
             if name:
