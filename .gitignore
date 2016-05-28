@@ -1,9 +1,7 @@
-syntax: glob
-
 .coverage
-__pycache__/
+__pycache__
 doc/*.1
 doc/rtd/*.txt
 doc/tags.txt
-secret/
+secret
 tests/fuzzing/*/output
