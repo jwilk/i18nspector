@@ -12,7 +12,7 @@ checking tool for gettext POT, PO and MO files
 
 Synopsis
 --------
-**i18nspector** [--language *lang*] [--unpack-deb] *file* [*file* …]
+**i18nspector** [*options*] *file* [*file* …]
 
 Options
 -------
