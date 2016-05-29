@@ -2,8 +2,9 @@ i18nspector (0.25) UNRELEASED; urgency=low
 
   * Improve the test suite.
   * Remove empty lines between references in the manual page.
+  * Rename --parallel as -j/--jobs.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 29 May 2016 12:44:34 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 29 May 2016 21:03:09 +0200
 
 i18nspector (0.24) unstable; urgency=low
 

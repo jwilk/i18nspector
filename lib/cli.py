@@ -129,11 +129,11 @@ def check_file_s(path, *, options):
     return io_stdout.getvalue()
 
 def check_all(paths, *, options):
-    if (len(paths) <= 1) or (options.parallel <= 1):
+    if (len(paths) <= 1) or (options.jobs <= 1):
         for path in paths:
             check_file(path, options=options)
     else:
-        executor = concurrent.futures.ProcessPoolExecutor(max_workers=options.parallel)
+        executor = concurrent.futures.ProcessPoolExecutor(max_workers=options.jobs)
         with executor:
             check_file_opt = functools.partial(check_file_s, options=options)
             for s in executor.map(check_file_opt, paths):
@@ -145,7 +145,8 @@ def main():
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')
-    ap.add_argument('--parallel', type=int, metavar='<n>', default=1, help='use <n> CPU cores')
+    ap.add_argument('-j', '--jobs', type=int, metavar='<n>', default=None, help='use <n> CPU cores')
+    ap.add_argument('--parallel', type=int, metavar='<n>', default=None, help=argparse.SUPPRESS)  # renamed as -j/--jobs in 0.25
     ap.add_argument('--file-type', metavar='<file-type>', help=argparse.SUPPRESS)
     ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
     ap.add_argument('files', metavar='<file>', nargs='+')
@@ -164,6 +165,12 @@ def main():
         language.remove_encoding()
         language.remove_nonlinguistic_modifier()
         options.language = language
+    if options.jobs is None:
+        if options.parallel is not None:
+            options.jobs = options.parallel
+    if options.jobs is None:
+        options.jobs = 1
+    del options.parallel
     options.ignore_tags = set()
     options.fake_root = None
     Checker.patch_environment()
