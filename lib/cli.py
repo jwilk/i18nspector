@@ -145,7 +145,7 @@ def main():
     ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')
-    ap.add_argument('-j', '--jobs', type=int, metavar='<n>', default=None, help='use <n> CPU cores')
+    ap.add_argument('-j', '--jobs', type=int, metavar='<n>', default=None, help='use <n> processes')
     ap.add_argument('--parallel', type=int, metavar='<n>', default=None, help=argparse.SUPPRESS)  # renamed as -j/--jobs in 0.25
     ap.add_argument('--file-type', metavar='<file-type>', help=argparse.SUPPRESS)
     ap.add_argument('--traceback', action='store_true', help=argparse.SUPPRESS)
