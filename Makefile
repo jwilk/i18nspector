@@ -28,8 +28,6 @@ exe = i18nspector
 
 bindir = $(PREFIX)/bin
 basedir = $(PREFIX)/share/$(exe)
-libdir = $(basedir)/lib
-datadir = $(basedir)/data
 mandir = $(PREFIX)/share/man
 
 .PHONY: all
@@ -41,14 +39,9 @@ install:
 	$(INSTALL) -d -m755 $(DESTDIR)$(bindir)
 	sed -e "s#^basedir_fallback = .*#basedir_fallback = '$(basedir)/'#" $(exe) > $(DESTDIR)$(bindir)/$(exe)
 	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
-	# library:
-	( cd lib && find . -type f ! -name '*.py[co]' ) \
-	| sed -e 's#^[.]/##' \
-	| xargs -t -I {} $(INSTALL) -p -D -m644 lib/{} $(DESTDIR)$(libdir)/{}
-	# data:
-	( cd data && find . -type f ) \
-	| sed -e 's#^[.]/##' \
-	| xargs -t -I {} $(INSTALL) -p -D -m644 data/{} $(DESTDIR)$(datadir)/{}
+	# library + data:
+	( find lib data -type f ! -name '*.py[co]' ) \
+	| xargs -t -I {} $(INSTALL) -p -D -m644 {} $(DESTDIR)$(basedir)/{}
 	# manual page:
 	$(INSTALL) -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
 
