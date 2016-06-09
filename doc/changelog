@@ -6,10 +6,10 @@ i18nspector (0.25.1) UNRELEASED; urgency=low
 
 i18nspector (0.25) unstable; urgency=low
 
-  * Improve the test suite.
-  * Remove empty lines between references in the manual page.
   * Rename --parallel as -j/--jobs.
   * Make it possible to specify “auto” as the number of processes to use.
+  * Remove empty lines between references in the manual page.
+  * Improve the test suite.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Tue, 31 May 2016 17:24:25 +0200
 
