@@ -158,23 +158,20 @@ class Plugin(nose.plugins.Plugin):
         yield TestCase(path)
 
     def wantFunction(self, func):
-        # If the plugin is being used, test_file() is redundant.
-        # We can't just check whether "func is test_file", because some
-        # versions of nose (at least 1.1.2) reload the module.
-        if func.__name__ == 'test_file' and func.__module__ == test_file.__module__:
+        if getattr(func, 'redundant', False):
             return False
 
 class TestCase(unittest.TestCase):
 
     def __init__(self, path):
         super().__init__('_test')
-        self.path = path
+        self.path = os.path.relpath(path)
 
     def _test(self):
-        _test_file(self.path)
+        _test_file(self.path, basedir=None)
 
     def __str__(self):
-        return os.path.relpath(self.path)
+        return self.path
 
 class SubprocessError(Exception):
     pass
@@ -349,8 +346,9 @@ def _parse_test_headers(path):
     with open(path, 'rt', encoding='UTF-8', errors='ignore') as file:
         return _parse_test_header_file(file, path, comments_only=True)
 
-def _test_file(path):
-    path = os.path.relpath(os.path.join(here, path), start=os.getcwd())
+def _test_file(path, basedir=here):
+    if basedir is not None:
+        path = os.path.relpath(os.path.join(basedir, path), start=os.getcwd())
     options = []
     etags, options = _parse_test_headers(path)
     assert_emit_tags(path, etags, options=options)
@@ -374,6 +372,7 @@ def test_file():
     for filename in _get_test_filenames():
         path = os.path.relpath(filename, start=here)
         yield _test_file, path
+test_file.redundant = True  # not needed if the plugin is enabled
 
 @tagstring('''
 E: os-error No such file or directory
