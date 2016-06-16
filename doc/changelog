@@ -1,8 +1,8 @@
-i18nspector (0.25.1) UNRELEASED; urgency=low
+i18nspector (0.25.1) unstable; urgency=low
 
   * Fix compatibility with Python 3.6.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 Jun 2016 23:39:21 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 16 Jun 2016 11:27:08 +0200
 
 i18nspector (0.25) unstable; urgency=low
 
