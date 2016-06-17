@@ -153,8 +153,7 @@ class test_get_character_name:
 class test_extra_encoding:
 
     @tools.fork_isolation
-    def test_install(self):
-        encoding = 'VISCII'
+    def _test_install(self, encoding):
         def enc():
             ''.encode(encoding)
         def dec():
@@ -182,6 +181,15 @@ class test_extra_encoding:
         encoding = '8859-2'
         portable_encoding = E.propose_portable_encoding(encoding)
         assert_equal('ISO-' + encoding, portable_encoding)
+
+    def test_install_gettext(self):
+        self._test_install('VISCII')
+
+    def test_install_desktop_entry(self):
+        self._test_install('ARMSCII-8')
+
+    def test_install_extra(self):
+        self._test_install('KOI8-RU')
 
     @tools.fork_isolation
     def test_not_allowed(self):

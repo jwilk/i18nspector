@@ -56,10 +56,11 @@ def generate_charmap(encoding):
     print('ok')
 
 def main():
-    for encoding, codec in encodings._portable_encodings.items():
-        if codec is None:
-            generate_charmap(encoding)
-    for encoding in encodings._extra_encodings:
+    todo = set()
+    for encdict in [encodings._portable_encodings, encodings._desktop_entry_encodings]:
+        todo.update(encoding for encoding, codec in encdict.items() if codec is None)
+    todo.update(encodings._extra_encodings)
+    for encoding in sorted(todo):
         generate_charmap(encoding)
 
 if __name__ == '__main__':

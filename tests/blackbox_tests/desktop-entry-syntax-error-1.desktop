@@ -1,0 +1,5 @@
+# E: syntax-error-in-desktop-entry invalid group name 'Desktop[Entry' line 3
+
+[Desktop[Entry]
+Type = Application
+Name = Gizmo Enhancer

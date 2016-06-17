@@ -1,0 +1,6 @@
+# E: desktop-entry-with-invalid-encoding-declaration 'UTF-\xbe'
+
+[Desktop Entry]
+Type = Application
+Name = Gizmo Enhancer
+Encoding = UTF-¾

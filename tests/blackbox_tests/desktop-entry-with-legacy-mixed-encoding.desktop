@@ -1,0 +1,6 @@
+# E: desktop-entry-with-legacy-mixed-encoding
+
+[Desktop Entry]
+Type = Application
+Name = Gizmo Enhancer
+Encoding = Legacy-Mixed

@@ -1,0 +1,5 @@
+# E: broken-encoding-in-desktop-entry group 'Desktop Entry' key Name line 5 'Gizmo\xa0Enhancer' cannot be decoded as UTF-8
+
+[Desktop Entry]
+Type = Application
+Name = Gizmo Enhancer

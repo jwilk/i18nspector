@@ -112,25 +112,24 @@ def _read_encodings():
     path = os.path.join(paths.datadir, 'encodings')
     cp = configparser.ConfigParser(interpolation=None, default_section='')
     cp.read(path, encoding='UTF-8')
-    e2c = {}
+    pe2c = {}
+    de2c = {}
     c2e = {}
-    for encoding, extra in cp['portable-encodings'].items():
-        e2c[encoding] = None
-        if extra == '':
-            pycodec = codecs.lookup(encoding)
-            e2c[encoding] = pycodec
-            c2e.setdefault(pycodec.name, encoding)
-        elif extra == 'not-python':
-            pass
-        else:
-            raise misc.DataIntegrityError
-    extra_encodings = {
-        key.lower()
-        for key, value in cp['extra-encodings'].items()
-    }
-    return (e2c, c2e, extra_encodings)
+    for group, e2c in [('portable-encodings', pe2c), ('desktop-entry-encodings', de2c)]:
+        for encoding, extra in cp[group].items():
+            e2c[encoding] = None
+            if extra == '':
+                pycodec = codecs.lookup(encoding)
+                e2c[encoding] = pycodec
+                c2e.setdefault(pycodec.name, encoding)
+            elif extra == 'not-python':
+                pass
+            else:
+                raise misc.DataIntegrityError
+    extra_encodings = set(cp['extra-encodings'])
+    return (pe2c, de2c, c2e, extra_encodings)
 
-[_portable_encodings, _pycodec_to_encoding, _extra_encodings] = _read_encodings()
+[_portable_encodings, _desktop_entry_encodings, _pycodec_to_encoding, _extra_encodings] = _read_encodings()
 
 def _read_control_characters():
     path = os.path.join(paths.datadir, 'control-characters')
@@ -156,6 +155,13 @@ def get_portable_encodings(python=True):
     return (
         encoding
         for encoding, codec in _portable_encodings.items()
+        if (not python) or (codec is not None)
+    )
+
+def get_desktop_entry_encodings(python=True):
+    return (
+        encoding
+        for encoding, codec in _desktop_entry_encodings.items()
         if (not python) or (codec is not None)
     )
 
@@ -199,6 +205,10 @@ def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
 def _codec_search_function(encoding):
     if _portable_encodings.get(encoding, False) is None:
         # portable according to gettext documentation
+        # but not supported directly by Python
+        pass
+    elif _desktop_entry_encodings.get(encoding, False) is None:
+        # supported by Desktop Entry Specification
         # but not supported directly by Python
         pass
     elif encoding in _extra_encodings:

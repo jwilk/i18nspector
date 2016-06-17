@@ -1,0 +1,6 @@
+# E: syntax-error-in-desktop-entry duplicate key Type group 'Desktop Entry' line 5
+
+[Desktop Entry]
+Type = Application
+Type = Application
+Name = Gizmo Enhancer

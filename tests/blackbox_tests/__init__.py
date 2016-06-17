@@ -138,7 +138,7 @@ def get_signal_name(n):
 
 # ----------------------------------------
 
-test_file_extensions = ('.mo', '.po', '.pot', '.pop')
+test_file_extensions = ('.mo', '.po', '.pot', '.pop', '.desktop')
 # .pop is a special extension to trigger unknown-file-type
 
 class Plugin(nose.plugins.Plugin):

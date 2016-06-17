@@ -102,6 +102,12 @@ references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
  https://tools.ietf.org/html/rfc2045#section-5
 
+[broken-encoding-in-desktop-entry]
+severity = serious
+certainty = possible
+description =
+ A desktop entry value could not be decoded to Unicode.
+
 [c-format-string-argument-type-mismatch]
 severity = serious
 certainty = possible
@@ -250,6 +256,47 @@ certainty = certain
 description =
  The date refers to the future.
  As such, it's extremely unlikely to be correct.
+
+[desktop-entry-missing-non-localized-key]
+severity = important
+certainty = certain
+description =
+ The desktop entry file contains a localized key, but there is no corresponding
+ non-localized key.
+references =
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/ar01s04.html
+
+[desktop-entry-with-deprecated-encoding-declaration]
+severity = pedantic
+certainty = certain
+description =
+ The desktop entry file contains explicit declaration of UTF-8 encoding.
+ The ``Encoding`` key is deprecated.
+ Currently only the UTF-8 encoding is supported, so the explicit declaration is not needed.
+references =
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/ar01s03.html
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/apc.html
+
+[desktop-entry-with-invalid-encoding-declaration]
+severity = serious
+certainty = certain
+description =
+ The desktop entry file contains an invalid declaration of encoding.
+ The ``Encoding`` key is deprecated. Possible values are ``UTF-8`` and ``Legacy-Mixed``.
+references =
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/apc.html
+
+[desktop-entry-with-legacy-mixed-encoding]
+severity = serious
+certainty = certain
+description =
+ The desktop entry file contains declaration of ``Legacy-Mixed`` encoding.
+ The ``Legacy-Mixed`` encoding is deprecated.
+ Currently only the UTF-8 encoding is supported.
+references =
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/ar01s03.html
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/apc.html
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/apd.html
 
 [distant-header-entry]
 severity = important
@@ -971,6 +1018,14 @@ description =
  and should be removed when unfuzzying.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+
+[syntax-error-in-desktop-entry]
+severity = serious
+certainty = certain
+description =
+ The desktop entry file could not be parsed.
+references =
+ http://standards.freedesktop.org/desktop-entry-spec/1.0/ar01s02.html
 
 [syntax-error-in-plural-forms]
 severity = serious

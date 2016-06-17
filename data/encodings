@@ -53,6 +53,36 @@ VISCII = not-python
 GEORGIAN-PS = not-python
 UTF-8 =
 
+[desktop-entry-encodings]
+
+# encodings from the Desktop Entry Specification
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html#legacy-mixed
+
+ARMSCII-8 = not-python
+BIG5 =
+CP1251 =
+GB2312 =
+EUC-CN =
+EUC-JP =
+EUC-KR =
+GEORGIAN-ACADEMY = not-python
+GEORGIAN-PS = not-python
+ISO-8859-1 =
+ISO-8859-2 =
+ISO-8859-3 =
+ISO-8859-5 =
+ISO-8859-7 =
+ISO-8859-9 =
+ISO-8859-13 =
+ISO-8859-14 =
+ISO-8859-15 =
+KOI8-R =
+KOI8-U =
+TCVN = not-python
+TCVN-5712 = not-python
+TIS-620 =
+VISCII = not-python
+
 [extra-encodings]
 
 # encodings that are used by real-world PO/MO files,

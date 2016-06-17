@@ -1,0 +1,6 @@
+# P: desktop-entry-with-deprecated-encoding-declaration UTF-8
+
+[Desktop Entry]
+Type = Application
+Name = Gizmo Enhancer
+Encoding = UTF-8

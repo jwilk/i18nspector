@@ -1,0 +1,6 @@
+# E: desktop-entry-with-invalid-encoding-declaration ISO-8859-1
+
+[Desktop Entry]
+Type = Application
+Name = Gizmo Enhancer
+Encoding = ISO-8859-1

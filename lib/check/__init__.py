@@ -35,6 +35,7 @@ import polib
 
 from lib import domains
 from lib import encodings as encinfo
+from lib import fdo
 from lib import gettext
 from lib import ling
 from lib import misc
@@ -129,6 +130,8 @@ class Checker(object, metaclass=abc.ABCMeta):
             is_template = True
         elif extension in ('.mo', '.gmo'):
             constructor = polib.mofile
+        elif extension in ('.desktop', '.directory', '.kdelnk'):
+            return self.check_desktop_entry()
         else:
             self.tag('unknown-file-type')
             return
@@ -1010,6 +1013,93 @@ class Checker(object, metaclass=abc.ABCMeta):
             xml.check_fragment(message.msgstr)
         except xml.SyntaxError as exc:
             self.tag('malformed-xml', prefix, tags.safestr(exc))
+
+    def check_desktop_entry(self):
+        try:
+            with open(self.path, 'rb') as file:
+                de = fdo.parse_desktop_entry(file)
+        except IOError as exc:
+            self.tag('os-error', tags.safestr(exc.strerror))
+        except fdo.SyntaxError as exc:
+            lineno = exc.lineno
+            args = []
+            try:
+                raise
+            except fdo.InvalidGroupName as exc:
+                args += [tags.safestr('invalid group name'), exc.group_name]
+            except fdo.DuplicateGroup as exc:
+                args += [tags.safestr('duplicate group'), exc.group_name]
+            except fdo.InvalidKeyName as exc:
+                args += [
+                    tags.safestr('invalid key name'), exc.key,
+                    'group', exc.group_name,
+                ]
+            except fdo.DuplicateKey as exc:
+                args += [
+                    tags.safestr('duplicate key'), exc.key,
+                    'group', exc.group_name,
+                ]
+            except fdo.StrayLine as exc:
+                args += [tags.safestr('stray')]
+            args += ['line', lineno + 1]
+            self.tag('syntax-error-in-desktop-entry', *args)
+            return
+        main_group = de.get('Desktop Entry')
+        if main_group is None:
+            main_group = de.get('KDE Desktop Entry')
+        if main_group is None:
+            return
+        try:
+            encoding_entry = main_group['Encoding']
+        except KeyError:
+            utf8_encoding = True
+        else:
+            try:
+                encoding = encoding_entry.value
+            except UnicodeError:
+                encoding = encoding_entry.raw_value
+                self.tag('desktop-entry-with-invalid-encoding-declaration', encoding)
+                return
+            else:
+                if encoding == 'UTF-8':
+                    self.tag('desktop-entry-with-deprecated-encoding-declaration', encoding)
+                    utf8_encoding = True
+                elif encoding == 'Legacy-Mixed':
+                    self.tag('desktop-entry-with-legacy-mixed-encoding')
+                    utf8_encoding = False
+                else:
+                    self.tag('desktop-entry-with-invalid-encoding-declaration', encoding)
+                    return
+        if utf8_encoding:
+            for group_name, group in de.items():
+                localized_keys = set()
+                non_localized_keys = set()
+                for entry in group.values():
+                    try:
+                        str(entry.value)
+                    except UnicodeDecodeError as exc:
+                        s = exc.object
+                        assert isinstance(s, bytes)
+                        self.tag('broken-encoding-in-desktop-entry',
+                            'group', group_name,
+                            'key', entry.key,
+                            'line', entry.lineno + 1,
+                            s,
+                            tags.safestr('cannot be decoded as'),
+                            exc.encoding.upper(),
+                        )
+                    if '[' in entry.key:
+                        localized_keys.add(entry.key.split('[', 1)[0])
+                    else:
+                        non_localized_keys.add(entry.key)
+                for key in sorted(localized_keys - non_localized_keys):
+                    self.tag('desktop-entry-missing-non-localized-key',
+                        'group', group_name,
+                        'key', key,
+                    )
+        else:
+            pass
+            # TODO: Legacy-Mixed
 
 __all__ = ['Checker']
 

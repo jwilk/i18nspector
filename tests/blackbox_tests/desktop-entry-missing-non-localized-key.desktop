@@ -1,0 +1,6 @@
+# E: desktop-entry-missing-non-localized-key group 'Desktop Entry' key Name
+
+[Desktop Entry]
+Type = Application
+Name[de] = Gizmo Enhancer
+Name[ru] = Гизмо Энханцэр

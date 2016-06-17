@@ -1,0 +1,5 @@
+# E: syntax-error-in-desktop-entry invalid key name 'Ty_pe' group 'Desktop Entry' line 4
+
+[Desktop Entry]
+Ty_pe = Application
+Name = Gizmo Enhancer
