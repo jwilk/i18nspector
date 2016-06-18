@@ -2,6 +2,7 @@
 branch = true
 
 [report]
+show_missing = true
 exclude_lines =
 	\A\s+raise misc[.]DataIntegrityError\b
 	\A\s+raise NotImplementedError\b
