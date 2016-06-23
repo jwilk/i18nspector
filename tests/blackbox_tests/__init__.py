@@ -155,7 +155,8 @@ class Plugin(nose.plugins.Plugin):
                 return True
 
     def loadTestsFromFile(self, path):
-        yield TestCase(path)
+        if self.wantFile(path):
+            yield TestCase(path)
 
     def wantFunction(self, func):
         if getattr(func, 'redundant', False):
