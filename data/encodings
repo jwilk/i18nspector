@@ -39,19 +39,29 @@ CP1255 =
 CP1256 =
 CP1257 =
 GB2312 =
-EUC-JP =
+EUC-JP = not-python
 EUC-KR =
 EUC-TW = not-python
 BIG5 =
 BIG5-HKSCS =
 GBK =
 GB18030 =
-SHIFT_JIS =
-JOHAB =
+SHIFT_JIS = not-python
+JOHAB = not-python
 TIS-620 =
 VISCII = not-python
 GEORGIAN-PS = not-python
 UTF-8 =
+
+# Python implements the EUC-JP, SHIFT_JIS and JOHAB encodings incorrectly:
+# >>> '\N{YEN SIGN}'.encode('SHIFT_JIS').decode('SHIFT_JIS')
+# '\\'
+# >>> '\N{YEN SIGN}'.encode('EUC-JP').decode('EUC-JP')
+# '\\'
+# >>> '\N{WON SIGN}'.encode('JOHAB')
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# UnicodeEncodeError: 'johab' codec can't encode character '\u20a9' in position 0: illegal multibyte sequence
 
 [extra-encodings]
 

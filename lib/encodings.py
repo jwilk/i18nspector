@@ -107,6 +107,10 @@ _interesting_ascii_bytes = bytes(itertools.chain([
     27,  # ESC
 ], range(32, 127)))
 _interesting_ascii_str = _interesting_ascii_bytes.decode()
+_tricky_nonascii_chars = [
+    '\N{YEN SIGN}',
+    '\N{WON SIGN}',
+]
 
 def _read_encodings():
     path = os.path.join(paths.datadir, 'encodings')
@@ -180,6 +184,15 @@ def propose_portable_encoding(encoding, python=True):
     return new_encoding.upper()
 
 def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
+    if False:  # XXX XXX XXX
+        for ch in _tricky_nonascii_chars:
+            assert ord(ch) > 127
+            try:
+                b = ch.encode(encoding)
+                if len(b) == 1 and ord(b) < 127:
+                    return False
+            except (LookupError, UnicodeEncodeError):
+                continue
     try:
         return (
             _interesting_ascii_bytes.decode(encoding) ==
