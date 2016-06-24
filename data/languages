@@ -731,6 +731,8 @@ principal-territory = NG
 
 [ks]
 names = Kashmiri
+characters =
+ ء ا آ أ ٲ ٮ ب پ ت ث ٹ ج چ ح خ د ذ ڈ ر ز ڑ ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ں ھ ہ و ؤ ۄ ی ۍ ے
 
 [ku]
 names = Kurdish
