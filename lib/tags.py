@@ -26,6 +26,8 @@ import configparser
 import functools
 import os
 import re
+import sys
+import textwrap
 
 from lib import misc
 from lib import paths
@@ -235,5 +237,39 @@ def iter_tags():
 
 def get_tag(tagname):
     return _tags[tagname]
+
+def print_help(tagnames, file=None):
+    if tagnames is None:
+        tagnames = sorted(_tags.keys())
+    if file is None:
+        file = sys.stdout
+    color = terminal.attr_fg(terminal.colors.magenta)
+    nocolor = terminal.attr_reset()
+    for tagname in tagnames:
+        try:
+            tag = _tags[tagname]
+        except KeyError:
+            tag = None
+            extra = ' no such tag'
+        else:
+            extra = ''
+        print('{color}{tag}{nocolor}:{extra}'.format(
+            color=color,
+            tag=tagname,
+            nocolor=nocolor,
+            extra=extra
+        ), file=file)
+        if tag is not None:
+            for line in textwrap.wrap(tag.description, width=72):
+                print(' ', line, file=file)
+            print(file=file)
+            if tag.references:
+                print('  References:', file=file)
+                for ref in tag.references:
+                    print('   ', ref, file=file)
+                print(file=file)
+            print('  Severity:', tag.severity, file=file)
+            print('  Certainty:', tag.certainty, file=file)
+        print(file=file)
 
 # vim:ts=4 sts=4 sw=4 et

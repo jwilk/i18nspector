@@ -184,9 +184,15 @@ class VersionAction(argparse.Action):
             print('+ rply {0}'.format(rply_version))
         parser.exit()
 
+class Explain(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        tags.print_help(values or None)
+        parser.exit()
+
 def main():
     initialize_terminal()
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--explain', nargs='*', metavar='<tag>', action=Explain)
     ap.add_argument('--version', action=VersionAction)
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')

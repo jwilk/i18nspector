@@ -91,8 +91,6 @@ Reimplement the EUC-TW codec with PyICU.
 
 Check for hardcoded Language in POT files.
 
-Add option for printing tag descriptions.
-
 When emitting ``encoding-in-language-header-field``, check if the encoding
 matches the one from ``Content-Type``. Test-cases:
 
