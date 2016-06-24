@@ -177,22 +177,6 @@ class TestCase(unittest.TestCase):
 class SubprocessError(Exception):
     pass
 
-def queue_get(queue, process):
-    '''
-    Remove and return an item from the queue.
-    Block until the process terminates.
-    '''
-    while True:
-        try:
-            return queue.get(timeout=1)
-            # This semi-active waiting is ugly, but there doesn't seem be any
-            # obvious better way.
-        except mp.queues.Empty:
-            if process.exitcode is None:
-                continue
-            else:
-                raise
-
 def run_i18nspector(options, path):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
@@ -203,17 +187,17 @@ def run_i18nspector(options, path):
         lib.cli.__version__  # make pyflakes happy
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
         commandline = [sys.executable, prog]
-        queue = mp.Queue()
+        manager = mp.Manager()
+        result = manager.Namespace()
+        result.stdout = result.stderr = ''
         child = mp.Process(
             target=_mp_run_i18nspector,
-            args=(prog, options, path, queue)
+            args=(prog, options, path, result)
         )
         child.start()
-        [stdout, stderr] = (
-            s.splitlines()
-            for s in queue_get(queue, child)
-        )
         child.join()
+        stdout = result.stdout.splitlines()
+        stderr = result.stderr.splitlines()
         rc = child.exitcode
     else:
         commandline = shlex.split(commandline)
@@ -245,7 +229,7 @@ def run_i18nspector(options, path):
         message += ['stderr: (empty)']
     raise SubprocessError('\n'.join(message))
 
-def _mp_run_i18nspector(prog, options, path, queue):
+def _mp_run_i18nspector(prog, options, path, result):
     with open(prog, 'rt', encoding='UTF-8') as file:
         code = file.read()
     sys.argv = [prog] + list(options) + [path]
@@ -266,7 +250,8 @@ def _mp_run_i18nspector(prog, options, path, queue):
             stdout = io_stdout.getvalue()
             stderr = io_stderr.getvalue()
     except SystemExit:
-        queue.put([stdout, stderr])
+        result.stdout = stdout
+        result.stderr = stderr
         raise
     except:
         exctp, exc, tb = sys.exc_info()
@@ -274,10 +259,12 @@ def _mp_run_i18nspector(prog, options, path, queue):
             traceback.format_exception(exctp, exc, tb)
         )
         del tb
-        queue.put([stdout, stderr])
+        result.stdout = stdout
+        result.stderr = stderr
         sys.exit(1)
     else:
-        queue.put([stdout, stderr])
+        result.stdout = stdout
+        result.stderr = stderr
         sys.exit(0)
 
 def assert_emit_tags(path, etags, *, options=()):
