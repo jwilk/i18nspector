@@ -38,7 +38,7 @@ class Checker(Checker):
                 self.tag('python-brace-format-string-argument-type-mismatch', prefix,
                     tags.safestr(', '.join(dst_arg.types)), tags.safestr('({})'.format(dst_loc)), '!=',
                     tags.safestr(', '.join(src_arg.types)), tags.safestr('({})'.format(src_loc)),
-				)
+                )
         for key in sorted(dst_args.keys() - src_args.keys()):
             self.tag('python-brace-format-string-unknown-argument', prefix, key,
                 tags.safestr('in'), tags.safestr(dst_loc),
