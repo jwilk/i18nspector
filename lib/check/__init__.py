@@ -686,7 +686,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         for team in teams:
             team_name, team_email = email.utils.parseaddr(team)
             if '@' not in team_email:
-                # TODO: An URL is also allowed here.
+                # TODO: A URL is also allowed here.
                 # self.tag('invalid-language-team', translator)
                 pass
             elif domains.is_email_in_special_domain(team_email):
