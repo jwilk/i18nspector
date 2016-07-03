@@ -22,7 +22,7 @@ install:
 - pip install docutils
 script:
 - python tests/run-tests -v
-- ./private/run-pyflakes
+- private/run-pyflakes
 - make -C doc/
 - rm -f doc/*.1
 - grep -r -l ft=rst doc/ | xargs -t -n1 -I{} rst2xml.py --strict {} /dev/null
