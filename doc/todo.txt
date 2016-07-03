@@ -214,4 +214,4 @@ Add support for xgettext message syntax check flags:
 
  * http://git.savannah.gnu.org/cgit/gettext.git/commit/?id=d9fc3d2a3f43
 
-.. vim:ts=3 sts=3 sw=3 ft=rst
+.. vim:ft=rst ts=3 sts=3 sw=3
