@@ -152,10 +152,34 @@ def parse_jobs(s):
     return n
 parse_jobs.__name__ = 'jobs'
 
+class VersionAction(argparse._VersionAction):
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        print('{prog} {0}'.format(__version__, prog=parser.prog))
+        print('+ Python {0}.{1}.{2}'.format(*sys.version_info))
+        print('+ polib {0}'.format(check.polib.__version__))
+        rply = check.gettext.intexpr.rply
+        try:
+            rply_version = rply.__version__
+        except AttributeError:
+            # __version__ is available only since rply 0.7.4+:
+            # https://github.com/alex/rply/pull/58
+            try:
+                import pkg_resources
+                [dist, *rest] = pkg_resources.require('rply')
+                assert dist.project_name == 'rply'
+                rply_version = dist.version
+            except ImportError:
+                # oh well...
+                rply_version = None
+        if rply_version is not None:
+            print('+ rply {0}'.format(rply_version))
+        parser.exit()
+
 def main():
     initialize_terminal()
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--version', action='version', version='%(prog)s {}'.format(__version__))
+    ap.add_argument('--version', action=VersionAction)
     ap.add_argument('-l', '--language', metavar='<lang>', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')
     ap.add_argument('-j', '--jobs', type=parse_jobs, metavar='<n>', default=None, help='use <n> processes')
