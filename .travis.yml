@@ -21,7 +21,7 @@ install:
 - pip install pyflakes
 - pip install docutils
 script:
-- python tests/run-tests -v
+- tests/run-tests -v
 - private/run-pyflakes
 - make -C doc/
 - rm -f doc/*.1
