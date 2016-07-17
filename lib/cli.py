@@ -175,6 +175,7 @@ class VersionAction(argparse.Action):
             try:
                 import pkg_resources
                 [dist, *rest] = pkg_resources.require('rply')
+                del rest
                 assert dist.project_name == 'rply'
                 rply_version = dist.version
             except ImportError:
