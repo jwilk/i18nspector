@@ -18,6 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+'''
+string representation of messages
+'''
+
 from lib import tags
 
 def message_repr(message, template='{}'):
