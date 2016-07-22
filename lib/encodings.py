@@ -42,6 +42,7 @@ class EncodingLookupError(LookupError):
         LookupError.__init__(self, 'unknown encoding: ' + encoding)
 
 def _not_implemented(*args, **kwargs):
+    del args, kwargs
     raise NotImplementedError
 
 def charmap_encoding(encoding):
@@ -169,8 +170,7 @@ def is_portable_encoding(encoding, python=True):
         return encoding in _portable_encodings
 
 def propose_portable_encoding(encoding, python=True):
-    # Note that the "python" argument is never used.
-    # Only encodings supported by Python are proposed.
+    del python  # never used; only encodings supported by Python are proposed
     try:
         pycodec = codecs.lookup(encoding)
         new_encoding = _pycodec_to_encoding[pycodec.name]
