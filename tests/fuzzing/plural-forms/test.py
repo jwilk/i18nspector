@@ -40,10 +40,14 @@ def test(s):
         except ZeroDivisionError:
             return
 
-while afl.loop(max=1000):
-    s = sys.stdin.buffer.read()
-    s = s.decode('UTF-8', 'replace')
-    test(s)
-os._exit(0)
+def main():
+    while afl.loop(max=1000):
+        s = sys.stdin.buffer.read()
+        s = s.decode('UTF-8', 'replace')
+        test(s)
+    os._exit(0)
+
+if __name__ == '__main__':
+    main()
 
 # vim:ts=4 sts=4 sw=4 et

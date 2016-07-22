@@ -42,9 +42,13 @@ def test(data):
     except UnicodeDecodeError:
         pass
 
-while afl.loop(max=1000):
-    data = sys.stdin.buffer.read()
-    test(data)
-os._exit(0)
+def main():
+    while afl.loop(max=1000):
+        data = sys.stdin.buffer.read()
+        test(data)
+    os._exit(0)
+
+if __name__ == '__main__':
+    main()
 
 # vim:ts=4 sts=4 sw=4 et
