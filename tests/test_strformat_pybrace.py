@@ -52,6 +52,7 @@ else:
     def small_SSIZE_MAX(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            del args, kwargs
             raise nose.SkipTest('mock module missing')
         return wrapper
 
