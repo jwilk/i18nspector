@@ -23,13 +23,13 @@ import importlib
 import inspect
 import pkgutil
 
-import lib.check
-import lib.tags as M
-
 from nose.tools import (
     assert_equal,
     assert_is_instance,
 )
+
+import lib.check
+import lib.tags as M
 
 class test_escape:
 
