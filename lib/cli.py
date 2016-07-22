@@ -35,7 +35,7 @@ import tempfile
 from lib import check
 from lib import ling
 from lib import misc
-from lib import paths
+from lib import paths as pathmod
 from lib import tags
 from lib import terminal
 
@@ -199,7 +199,7 @@ def main():
     options = ap.parse_args()
     files = options.files
     del options.files
-    paths.check()
+    pathmod.check()
     if options.language is not None:
         try:
             language = ling.parse_language(options.language)
