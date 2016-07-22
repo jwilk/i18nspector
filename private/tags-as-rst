@@ -26,7 +26,7 @@ import sys
 
 sys.path[0] += '/..'
 
-from lib import tags
+from lib import tags as tagmod
 
 def output_tags_rst(tags):
     print('''\
@@ -53,7 +53,7 @@ def output_tags_rst(tags):
 
 def main():
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='UTF-8')
-    output_tags_rst(tags.iter_tags())
+    output_tags_rst(tagmod.iter_tags())
 
 if __name__ == '__main__':
     main()
