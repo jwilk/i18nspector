@@ -35,7 +35,7 @@ from lib import moparser
 
 patches = []
 
-def install_patches(patches=patches):
+def install_patches():
     for patch in patches:
         patch()
 
