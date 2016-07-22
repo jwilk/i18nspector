@@ -24,12 +24,12 @@ message format checks: C
 
 from lib import tags
 
-from lib.check.msgformat import Checker
+from lib.check.msgformat import Checker as CheckerBase
 from lib.check.msgrepr import message_repr
 
 from lib.strformat import c as backend
 
-class Checker(Checker):
+class Checker(CheckerBase):
 
     backend = backend
 

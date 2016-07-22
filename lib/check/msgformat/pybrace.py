@@ -4,12 +4,12 @@ message format checks: Python's str.format()
 
 from lib import tags
 
-from lib.check.msgformat import Checker
+from lib.check.msgformat import Checker as CheckerBase
 from lib.check.msgrepr import message_repr
 
 from lib.strformat import pybrace as backend
 
-class Checker(Checker):
+class Checker(CheckerBase):
 
     backend = backend
 
