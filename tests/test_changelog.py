@@ -59,10 +59,12 @@ def test_tags():
     summaries = summary_re.findall(changelog)
     changelog_tags = set()
     def add(info, tag):
+        del info
         if tag in changelog_tags:
             raise AssertionError('changelog adds tag twice: ' + tag)
         changelog_tags.add(tag)
     def remove(info, tag):
+        del info
         if tag not in changelog_tags:
             raise AssertionError('changelog removes non-existent tag: ' + tag)
         changelog_tags.remove(tag)
@@ -71,6 +73,7 @@ def test_tags():
         remove(info, removed_tag)
         add(info, added_tag)
     def check(info, tag):
+        del info
         if tag not in changelog_tags:
             raise AssertionError('tag not in changelog: ' + tag)
         if tag not in data_tags:
