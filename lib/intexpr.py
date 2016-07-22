@@ -315,10 +315,8 @@ class Evaluator(BaseEvaluator):
 class CodomainEvaluator(BaseEvaluator):
 
     def __init__(self, node, *, bits):
-        context = misc.Namespace()
-        context.max = 1 << bits
-        self._ctxt = context
-        self._node = node
+        super().__init__(node)
+        self._ctxt.max = 1 << bits
 
     # binary operators
     # ================
@@ -521,10 +519,8 @@ def lcm(x, *ys):
 class PeriodEvaluator(BaseEvaluator):
 
     def __init__(self, node, *, bits):
-        context = misc.Namespace()
-        context.max = 1 << bits
-        self._ctxt = context
-        self._node = node
+        super().__init__(node)
+        self._ctxt.max = 1 << bits
 
     # binary operators
     # ================
