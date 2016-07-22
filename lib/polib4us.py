@@ -106,6 +106,7 @@ def codecs_patch():
 @register_patch
 def pofile_find_patch():
     def pofile_find(self, *args, **kwargs):
+        del self, args, kwargs
         return
     polib.POFile.find = pofile_find
 
