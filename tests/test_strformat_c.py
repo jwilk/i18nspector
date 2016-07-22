@@ -86,16 +86,16 @@ def test_text():
 
 class test_types:
 
-    def t(self, s, type, warn_type=None, integer=False):
+    def t(self, s, tp, warn_type=None, integer=False):
         fmt = M.FormatString(s)
         [conv] = fmt
         assert_is_instance(conv, M.Conversion)
-        assert_equal(conv.type, type)
-        if type == 'void':
+        assert_equal(conv.type, tp)
+        if tp == 'void':
             assert_sequence_equal(fmt.arguments, [])
         else:
             [[arg]] = fmt.arguments
-            assert_equal(arg.type, type)
+            assert_equal(arg.type, tp)
         if warn_type is None:
             assert_sequence_equal(fmt.warnings, [])
         else:
