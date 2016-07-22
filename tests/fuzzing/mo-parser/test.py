@@ -24,9 +24,8 @@ import sys
 import afl
 
 sys.path[0] += '/../../..'
-sys.path[:0] = [sys.path[0] + '/tests']
 
-import tools
+import tests.tools as tools
 import lib.moparser as M
 
 def parser_for_bytes(data):
