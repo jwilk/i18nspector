@@ -41,6 +41,7 @@ def get_tzdata_version():
         version = ipc.check_output(['dpkg-query', '-Wf', '${Version}', 'tzdata'])
         version = version.decode('ASCII')
         version, revision = version.rsplit('-', 1)
+        del revision
     return version
 
 def main():
