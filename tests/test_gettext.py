@@ -623,8 +623,10 @@ class test_plural_forms:
                 M.parse_plural_forms(s)
         else:
             (n0, expr0) = M.parse_plural_forms(s)
+            del expr0
             assert_equal(n0, n)
         (n1, expr1, ljunk1, rjunk1) = M.parse_plural_forms(s, strict=False)
+        del expr1
         assert_equal(n1, n)
         assert_equal(ljunk1, ljunk)
         assert_equal(rjunk1, rjunk)
