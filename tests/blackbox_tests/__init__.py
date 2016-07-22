@@ -356,6 +356,7 @@ def _test_file(path, basedir=here):
 
 def get_coverage_for_file(path):
     etags, options = _parse_test_headers(path)
+    del options
     return (t.tag for t in etags)
 
 def get_coverage_for_function(fn):
@@ -364,6 +365,7 @@ def get_coverage_for_function(fn):
 
 def _get_test_filenames():
     for root, dirnames, filenames in os.walk(here):
+        del dirnames
         for filename in filenames:
             if not filename.endswith(test_file_extensions):
                 continue
