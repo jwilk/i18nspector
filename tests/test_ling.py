@@ -435,6 +435,7 @@ def test_glibc_supported():
             if line[:1] in {'#', '\n'}:
                 continue
             locale, *rest = line.split()
+            del rest
             if (locale + '.').startswith('iw_IL.'):
                 # iw_IL is obsolete
                 continue
