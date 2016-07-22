@@ -29,10 +29,12 @@ class _dummy_curses:
 
     @staticmethod
     def tigetstr(*args, **kwargs):
+        del args, kwargs
         return b''
 
     @staticmethod
     def tparm(*args, **kwargs):
+        del args, kwargs
         return b''
 
 _curses = _dummy_curses
