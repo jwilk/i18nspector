@@ -32,6 +32,7 @@ def test(s):
         (n, expr) = gettext.parse_plural_forms(s)
     except gettext.PluralFormsSyntaxError:
         return
+    del n
     for i in range(200):
         try:
             expr(i)
