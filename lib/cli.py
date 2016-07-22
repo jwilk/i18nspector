@@ -102,6 +102,7 @@ def check_deb(filename, *, options):
             fake_root=(real_root, os.path.join(filename, ''))
         )
         for root, dirs, files in os.walk(tmpdir):
+            del dirs
             for path in files:
                 path = os.path.join(root, path)
                 if os.path.islink(path):
