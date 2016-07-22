@@ -643,6 +643,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             self.tag('no-report-msgid-bugs-to-header-field')
         for report_msgid_bugs_to in report_msgid_bugs_tos:
             real_name, email_address = email.utils.parseaddr(report_msgid_bugs_to)
+            del real_name
             if '@' not in email_address:
                 uri = urllib.parse.urlparse(report_msgid_bugs_to)
                 if uri.scheme == '':
@@ -666,6 +667,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         translator_emails = {}
         for translator in translators:
             translator_name, translator_email = email.utils.parseaddr(translator)
+            del translator_name
             translator_emails[translator_email] = translator
             if '@' not in translator_email:
                 self.tag('invalid-last-translator', translator)
@@ -685,6 +687,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             self.tag('no-language-team-header-field')
         for team in teams:
             team_name, team_email = email.utils.parseaddr(team)
+            del team_name
             if '@' not in team_email:
                 # TODO: A URL is also allowed here.
                 # self.tag('invalid-language-team', translator)
