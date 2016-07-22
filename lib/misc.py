@@ -57,6 +57,7 @@ def sorted_vk(d):
     iterate over d.values() in the key order
     '''
     for k, v in sorted(d.items()):
+        del k
         yield v
 
 def utc_now():
