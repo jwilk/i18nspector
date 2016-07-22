@@ -80,17 +80,17 @@ class test_map:
 
 class test_types:
 
-    def t(self, s, type, warn_type=None):
+    def t(self, s, tp, warn_type=None):
         fmt = M.FormatString(s)
         [conv] = fmt
         assert_is_instance(conv, M.Conversion)
-        assert_equal(conv.type, type)
+        assert_equal(conv.type, tp)
         assert_equal(len(fmt.map_arguments), 0)
-        if type == 'None':
+        if tp == 'None':
             assert_sequence_equal(fmt.seq_arguments, [])
         else:
             [arg] = fmt.seq_arguments
-            assert_equal(arg.type, type)
+            assert_equal(arg.type, tp)
         if warn_type is None:
             assert_equal(len(fmt.warnings), 0)
         else:
