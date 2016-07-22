@@ -205,19 +205,19 @@ def _read_iso_codes():
     path = os.path.join(paths.datadir, 'iso-codes')
     cp = configparser.ConfigParser(interpolation=None, default_section='')
     cp.read(path, encoding='UTF-8')
-    iso_639 = cp['language-codes']
-    misc.check_sorted(iso_639)
-    _iso_639 = {}
-    for lll, ll in iso_639.items():
+    cfg_iso_639 = cp['language-codes']
+    misc.check_sorted(cfg_iso_639)
+    iso_639 = {}
+    for lll, ll in cfg_iso_639.items():
         if ll:
-            _iso_639[ll] = ll
-            _iso_639[lll] = ll
+            iso_639[ll] = ll
+            iso_639[lll] = ll
         else:
-            _iso_639[lll] = lll
-    iso_3166 = cp['territory-codes']
-    misc.check_sorted(iso_3166)
-    _iso_3166 = frozenset(cc.upper() for cc in iso_3166.keys())
-    return (_iso_639, _iso_3166)
+            iso_639[lll] = lll
+    cfg_iso_3166 = cp['territory-codes']
+    misc.check_sorted(cfg_iso_3166)
+    iso_3166 = frozenset(cc.upper() for cc in cfg_iso_3166.keys())
+    return (iso_639, iso_3166)
 
 [_iso_639, _iso_3166] = _read_iso_codes()
 
@@ -226,8 +226,8 @@ def _read_primary_languages():
     path = os.path.join(paths.datadir, 'languages')
     cp = configparser.ConfigParser(interpolation=None, default_section='')
     cp.read(path, encoding='UTF-8')
-    _primary_languages = {name: sect for name, sect in cp.items() if sect.name}
-    _name_to_code = {}
+    primary_languages = {name: sect for name, sect in cp.items() if sect.name}
+    name_to_code = {}
     misc.check_sorted(cp)
     for language, section in cp.items():
         if not language:
@@ -241,10 +241,10 @@ def _read_primary_languages():
         for name in section['names'].splitlines():
             name = _munch_language_name(name)
             if name:
-                if name in _name_to_code:
+                if name in name_to_code:
                     raise misc.DataIntegrityError
-                _name_to_code[name] = language
-    return _primary_languages, _name_to_code
+                name_to_code[name] = language
+    return primary_languages, name_to_code
 
 def _check_primary_languages_coverage():
     # Check if primary languages have full ISO 639-1 coverage:
