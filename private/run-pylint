@@ -21,12 +21,14 @@
 # SOFTWARE.
 
 PYTHON=${PYTHON:-python3}
-
 "$PYTHON" -m pylint --version >/dev/null || exit 1
-
-[ $# -eq 0 ] && set -- lib tests tests/fuzzing/*/*.py $(grep -l -r '^#!.*python' .)
-
-! "$PYTHON" -m pylint --extension-pkg-whitelist=afl "$@" \
+if [ $# -eq 0 ]
+then
+    pyscripts=$(grep -l -r '^#!.*python' .)
+    set -- lib tests tests/fuzzing/*/*.py $pyscripts
+fi
+set -- --extension-pkg-whitelist=afl "$@"
+! "$PYTHON" -m pylint "$@" \
 | grep '^\w:' \
 | grep -v ': missing-docstring \[\w' \
 | grep -v -P '^\w: (?!lib/).+: missing-docstring ' \
