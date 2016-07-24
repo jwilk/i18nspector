@@ -33,7 +33,7 @@ import lib.terminal as T
 
 def test_strip_delay():
     def t(s, r=b''):
-        assert_equal(T._strip_delay(s), r)
+        assert_equal(T._strip_delay(s), r)  # pylint: disable=protected-access
     t(b'$<1>')
     t(b'$<2/>')
     t(b'$<3*>')

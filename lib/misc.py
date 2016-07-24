@@ -37,8 +37,8 @@ def unsorted(iterable):
     for x in iterable:
         break
     for y in iterable:
-        if x > y:
-            return (x, y)
+        if x > y:  # pylint: disable=undefined-loop-variable
+            return (x, y)  # pylint: disable=undefined-loop-variable
         x = y
 
 class DataIntegrityError(Exception):
@@ -68,7 +68,7 @@ def utc_now():
         datetime.timezone.utc
     )
 
-def format_range(rng, *, max):
+def format_range(rng, *, max):  # pylint: disable=redefined-builtin
     last = rng[-1]
     result = []
     if max < 4:

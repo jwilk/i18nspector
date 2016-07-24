@@ -88,6 +88,7 @@ def create_parser(lexer):
         '%': ast.Mod(),
     }
     ast_not = ast.Not()
+    # pylint: disable=unused-variable
     @pg.production('start : exp')
     def eval_start(p):
         [exp] = p
@@ -133,6 +134,7 @@ def create_parser(lexer):
         [tok] = p
         n = int(tok.getstr())
         return ast.Num(n)
+    # pylint: enable=unused-variable
     with misc.throwaway_tempdir('rply'):
         # Use private temporary directory
         # to mitigate RPLY's insecure use of /tmp:
@@ -150,7 +152,7 @@ class Parser(object):
         node = self._parser.parse(tokens)
         return Expression(node)
 
-from lib import misc
+from lib import misc  # pylint: disable=wrong-import-position
 
 class BaseEvaluator(object):
 
@@ -233,6 +235,8 @@ class Evaluator(BaseEvaluator):
             raise OverflowError(n)
         return n
 
+    # pylint: disable=unused-argument
+
     # binary operators
     # ================
 
@@ -312,11 +316,15 @@ class Evaluator(BaseEvaluator):
     def _visit_name(self, node):
         return self._check_overflow(self._ctxt.n)
 
+    # pylint: enable=unused-argument
+
 class CodomainEvaluator(BaseEvaluator):
 
     def __init__(self, node, *, bits):
         super().__init__(node)
         self._ctxt.max = 1 << bits
+
+    # pylint: disable=unused-argument
 
     # binary operators
     # ================
@@ -504,6 +512,8 @@ class CodomainEvaluator(BaseEvaluator):
     def _visit_name(self, node):
         return (0, self._ctxt.max - 1)
 
+    # pylint: enable=unused-argument
+
 def gcd(x, y):
     while y:
         (x, y) = (y, x % y)
@@ -656,7 +666,7 @@ class PeriodEvaluator(BaseEvaluator):
             return
         return (0, 1)
 
-    def _visit_name(self, node):
+    def _visit_name(self, node):  # pylint: disable=unused-argument
         return
 
 class Expression(object):

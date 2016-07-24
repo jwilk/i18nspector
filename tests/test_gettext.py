@@ -553,7 +553,7 @@ class test_period:
 
     def _cmp_shift(self, op):
         def e(n, op, m):
-            return eval(str(n) + op + str(m))
+            return eval(str(n) + op + str(m))  # pylint: disable=eval-used
         return e(0, op, 0) != e(1, op, 0)
 
     def test_const_cmp(self):

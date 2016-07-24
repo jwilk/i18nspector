@@ -77,7 +77,7 @@ class Language(object):
     def __eq__(self, other):
         if not isinstance(other, Language):
             return NotImplemented
-        return self._get_tuple() == other._get_tuple()
+        return self._get_tuple() == other._get_tuple()  # pylint: disable=protected-access
 
     def __ne__(self, other):
         return not self == other
@@ -176,7 +176,7 @@ class Language(object):
                 character.encode(encoding)
             except UnicodeEncodeError as exc:
                 result += [character]
-                if exc.reason.startswith('iconv:'):
+                if exc.reason.startswith('iconv:'):  # pylint: disable=no-member
                     # Avoid further calls to iconv(1):
                     break
         return result

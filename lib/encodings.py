@@ -189,7 +189,7 @@ def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
         return False
     except LookupError:
         pass
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         pass
     if missing_ok:
         return False

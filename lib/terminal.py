@@ -75,9 +75,9 @@ def initialize():
     '''
     initialize the terminal
     '''
-    global _curses
+    global _curses  # pylint: disable=global-statement
     try:
-        import curses as _curses
+        import curses as _curses  # pylint: disable=redefined-outer-name
     except ImportError:
         return
     try:

@@ -106,7 +106,7 @@ def main():
                 else:
                     test_cases[k, v] = path
             file = None
-        except Exception as exc:
+        except Exception as exc:  # pylint: disable=broad-except
             print('error:', exc, file=sys.stderr)
         else:
             print('ok', file=sys.stderr)

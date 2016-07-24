@@ -22,6 +22,8 @@
 
 import sys
 
+# pylint: disable=wrong-import-position
+
 sys.path[0] += '/..'
 basedir = sys.path[0]
 
@@ -56,11 +58,13 @@ def generate_charmap(encoding):
     print('ok')
 
 def main():
+    # pylint: disable=protected-access
     for encoding, codec in encodings._portable_encodings.items():
         if codec is None:
             generate_charmap(encoding)
     for encoding in encodings._extra_encodings:
         generate_charmap(encoding)
+    # pylint: enable=protected-access
 
 if __name__ == '__main__':
     main()

@@ -26,7 +26,7 @@ import random
 import string
 import xml.parsers.expat
 
-SyntaxError = xml.parsers.expat.ExpatError
+SyntaxError = xml.parsers.expat.ExpatError  # pylint: disable=redefined-builtin
 
 _xe = (
     'i18nspector.' +
@@ -56,6 +56,7 @@ def check_fragment(s):
     parser.Parse(_source, True)
 
 # https://www.w3.org/TR/REC-xml/#NT-NameStartChar
+# pylint: disable=line-too-long
 _start_char = ':A-Z_a-z\xC0-\xD6\xD8-\xF6\xF8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\U00010000-\U000EFFFF'
 _next_char = _start_char + '.0-9\xB7\u0300-\u036F\u203F\u2040-'
 name_re = '[{0}][{1}]*'.format(_start_char, _next_char)

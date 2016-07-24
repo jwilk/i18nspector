@@ -33,6 +33,8 @@ import polib
 from lib import encodings
 from lib import moparser
 
+# pylint: disable=protected-access
+
 patches = []
 
 def install_patches():
@@ -134,13 +136,13 @@ def polib_unescape(s):
         s = _short_x_escape_re.sub(r'\\x0\1', s)
         result = ast.literal_eval("b'{}'".format(s))
         try:
-            return result.decode('ASCII')
+            return result.decode('ASCII')  # pylint: disable=no-member
         except UnicodeDecodeError:
             # an ugly hack to discover encoding of the PO file:
             parser_stack_frame = inspect.stack()[2][0]
             parser = parser_stack_frame.f_locals['self']
             encoding = parser.instance.encoding
-            return result.decode(encoding)
+            return result.decode(encoding)  # pylint: disable=no-member
     return _escapes_re.sub(unescape, s)
 
 @register_patch

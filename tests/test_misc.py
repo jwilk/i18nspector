@@ -112,7 +112,7 @@ class test_utc_now:
 
 class test_format_range:
 
-    def t(self, x, y, max, expected):
+    def t(self, x, y, max, expected):  # pylint: disable=redefined-builtin
         assert_equal(
             M.format_range(range(x, y), max=max),
             expected
@@ -138,7 +138,7 @@ class test_format_range:
 def test_namespace():
     ns = M.Namespace()
     with assert_raises(AttributeError):
-        ns.eggs
+        ns.eggs  # pylint: disable=pointless-statement
     ns.eggs = 37
     assert_equal(ns.eggs, 37)
 

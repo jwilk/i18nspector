@@ -168,6 +168,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             raise
         finally:
             if broken_encoding:
+                # pylint: disable=no-member
                 s = broken_encoding.object
                 assert isinstance(s, bytes)
                 begin = max(broken_encoding.start - 40, 0)
@@ -178,6 +179,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     tags.safestr('cannot be decoded as'),
                     broken_encoding.encoding.upper(),
                 )
+                # pylint: enable=no-member
                 broken_encoding = True
         ctx = misc.Namespace()
         ctx.file = file

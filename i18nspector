@@ -36,7 +36,7 @@ def error(message):
         ap = argparse.ArgumentParser()
         prog = ap.prog
     except ImportError:
-        import optparse
+        import optparse  # pylint: disable=deprecated-module
         ap = optparse.OptionParser()
         prog = ap.get_prog_name()
     message = ''.join((prog, ': error: ', message, '\n'))
@@ -72,6 +72,8 @@ if basedir is None:
 basedir = os.path.join(basedir, '')
 os.stat(basedir)
 sys.path[:0] = [basedir]
+
+# pylint: disable=wrong-import-position
 
 from lib import paths
 

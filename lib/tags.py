@@ -41,6 +41,8 @@ class OrderedObject(object):
         self._name = name
         self._value = value
 
+    # pylint: disable=protected-access
+
     def __lt__(self, other):
         if not isinstance(other, OrderedObject):
             return NotImplemented
@@ -54,6 +56,8 @@ class OrderedObject(object):
         if self._parent is not other._parent:
             return NotImplemented
         return self._value == other._value
+
+    # pylint: enable=protected-access
 
     def __hash__(self):
         return hash(self._value)
@@ -130,7 +134,9 @@ class Tag(object):
                 getattr(self, '_set_' + k)(v)
             except AttributeError:
                 raise UnknownField(k)
-        self.name, self.severity, self.certainty
+        self.name, self.severity, self.certainty  # pylint: disable=pointless-statement
+
+    # pylint: disable=attribute-defined-outside-init
 
     def _set_name(self, value):
         self.name = value
@@ -148,6 +154,8 @@ class Tag(object):
         except KeyError as exc:
             [key] = exc.args
             raise InvalidCertainty(key)
+
+    # pylint: enable=attribute-defined-outside-init
 
     _strip_leading_dot = functools.partial(
         re.compile('^[.]', re.MULTILINE).sub,

@@ -28,6 +28,8 @@ import sys
 
 import pytz
 
+# pylint: disable=wrong-import-position
+
 sys.path[0] += '/..'
 basedir = sys.path[0]
 
@@ -53,7 +55,7 @@ def main():
             continue
         tz = pytz.timezone(tzname)
         try:
-            timestamps = list(tz._utc_transition_times)
+            timestamps = list(tz._utc_transition_times)  # pylint: disable=protected-access
         except AttributeError:
             timestamps = []
         timestamps += [datetime.datetime(minyear, 1, 1)]

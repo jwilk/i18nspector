@@ -38,7 +38,7 @@ from lib import encodings
 little_endian_magic = b'\xDE\x12\x04\x95'
 big_endian_magic = little_endian_magic[::-1]
 
-class SyntaxError(Exception):
+class SyntaxError(Exception):  # pylint: disable=redefined-builtin
     pass
 
 class Parser(object):
@@ -158,7 +158,7 @@ class Parser(object):
                 raise SyntaxError('duplicate message definition')
             elif msgid < self._last_msgid:
                 raise SyntaxError('messages are not sorted')
-        self._last_msgid = msgid
+        self._last_msgid = msgid  # pylint: disable=attribute-defined-outside-init
         assert encoding is not None
         msgid, *msgctxt = msgid.split(b'\x04', 1)
         kwargs = dict(msgid=msgid.decode(encoding))

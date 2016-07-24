@@ -260,7 +260,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
     (sys.stdout, sys.stderr) = (io_stdout, io_stderr)
     try:
         try:
-            exec(code, gvars)
+            exec(code, gvars)  # pylint: disable=exec-used
         finally:
             (sys.stdout, sys.stderr) = (orig_stdout, orig_stderr)
             stdout = io_stdout.getvalue()
@@ -268,7 +268,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
     except SystemExit:
         queue.put([stdout, stderr])
         raise
-    except:
+    except:  # pylint: disable=bare-except
         exctp, exc, tb = sys.exc_info()
         stderr += ''.join(
             traceback.format_exception(exctp, exc, tb)

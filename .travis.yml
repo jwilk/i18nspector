@@ -9,22 +9,39 @@ python:
 env:
 - POLIB_VERSION=1.0.0
 - POLIB_VERSION=
+- PYLINT=y
 matrix:
   allow_failures:
   - python: pypy3
     env: POLIB_VERSION=1.0.0
   - python: pypy3
     env: POLIB_VERSION=
+  exclude:
+  - python: "3.2"
+    env: PYLINT=y
+  - python: nightly
+    env: PYLINT=y
+  - python: pypy3
+    env: PYLINT=y
+cache:
+  directories:
+  - $HOME/.cache
 install:
+- \[ -z "$PYLINT" ] || pip install --upgrade pip
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install rply
-- pip install pyflakes
-- pip install docutils
+- \[ -n "$PYLINT" ] || pip install docutils
+- \[ -n "$PYLINT" ] || pip install pyflakes
+- \[ -z "$PYLINT" ] || pip install pylint
+- \[ -z "$PYLINT" ] || pip install pytz
+- \[ -z "$PYLINT" ] || pip install --verbose cython
+- \[ -z "$PYLINT" ] || pip install --verbose python-afl
 script:
-- tests/run-tests -v
-- private/run-pyflakes
-- make -C doc/
-- rm -f doc/*.1
-- grep -r -l ft=rst doc/ | xargs -t -n1 -I{} rst2xml.py --strict {} /dev/null
+- \[ -n "$PYLINT" ] || tests/run-tests -v
+- \[ -n "$PYLINT" ] || make -C doc/
+- \[ -n "$PYLINT" ] || rm -f doc/*.1
+- \[ -n "$PYLINT" ] || grep -r -l ft=rst doc/ | xargs -t -n1 -I{} rst2xml.py --strict {} /dev/null
+- \[ -n "$PYLINT" ] || private/run-pyflakes
+- \[ -z "$PYLINT" ] || private/run-pylint
 
 # vim:ts=2 sts=2 sw=2 et

@@ -43,10 +43,10 @@ def test(s):
 
 def main():
     while afl.loop(max=1000):
-        s = sys.stdin.buffer.read()
+        s = sys.stdin.buffer.read()  # pylint: disable=no-member
         s = s.decode('UTF-8', 'replace')
         test(s)
-    os._exit(0)
+    os._exit(0)  # pylint: disable=protected-access
 
 if __name__ == '__main__':
     main()
