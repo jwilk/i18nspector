@@ -27,7 +27,12 @@ then
     pyscripts=$(grep -l -r '^#!.*python' .)
     set -- lib tests tests/fuzzing/*/*.py $pyscripts
 fi
-set -- --extension-pkg-whitelist=afl "$@"
+if "$PYTHON" -c 'import afl' 2>/dev/null
+then
+    set -- --extension-pkg-whitelist=afl "$@"
+else
+    set -- --ignored-modules=afl "$@"
+fi
 ! "$PYTHON" -m pylint "$@" \
 | grep '^\w:' \
 | grep -v ': missing-docstring \[\w' \
