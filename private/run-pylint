@@ -23,7 +23,10 @@
 PYTHON=${PYTHON:-python3}
 
 "$PYTHON" -m pylint --version >/dev/null || exit 1
-! "$PYTHON" -m pylint --extension-pkg-whitelist=afl lib tests tests/fuzzing/*/*.py $(grep -l -r '^#!.*python' .) \
+
+[ $# -eq 0 ] && set -- lib tests tests/fuzzing/*/*.py $(grep -l -r '^#!.*python' .)
+
+! "$PYTHON" -m pylint --extension-pkg-whitelist=afl "$@" \
 | grep '^\w:' \
 | grep -v ': missing-docstring \[\w' \
 | grep -v -P '^\w: (?!lib/).+: missing-docstring ' \
