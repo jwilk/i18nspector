@@ -181,10 +181,11 @@ def propose_portable_encoding(encoding, python=True):
 
 def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
     try:
-        return (
-            _interesting_ascii_bytes.decode(encoding) ==
-            _interesting_ascii_str
-        )
+        decoded_ascii_bytes = _interesting_ascii_bytes.decode(encoding)
+        if isinstance(decoded_ascii_bytes, bytes):
+            # may happen on PyPy for non-text encodings
+            raise RuntimeError
+        return decoded_ascii_bytes == _interesting_ascii_str
     except UnicodeDecodeError:
         return False
     except LookupError:
