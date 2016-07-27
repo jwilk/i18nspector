@@ -59,12 +59,12 @@ class test_propose_portable_encoding:
         assert_equal(portable_encoding, encoding)
 
     def test_found(self):
-        def _test(encoding, expected_portable_encoding):
+        def t(encoding, expected_portable_encoding):
             portable_encoding = E.propose_portable_encoding(encoding)
             assert_equal(portable_encoding, expected_portable_encoding)
-        yield _test, 'ISO8859-2', 'ISO-8859-2'
-        yield _test, 'ISO_8859-2', 'ISO-8859-2'
-        yield _test, 'Windows-1250', 'CP1250'
+        yield t, 'ISO8859-2', 'ISO-8859-2'
+        yield t, 'ISO_8859-2', 'ISO-8859-2'
+        yield t, 'Windows-1250', 'CP1250'
 
     def test_notfound(self):
         portable_encoding = E.propose_portable_encoding('ISO-8859-16')
@@ -73,18 +73,18 @@ class test_propose_portable_encoding:
 class test_ascii_compatibility:
 
     def test_portable(self):
-        def _test(encoding):
+        def t(encoding):
             assert_true(E.is_ascii_compatible_encoding(encoding))
             assert_true(E.is_ascii_compatible_encoding(encoding, missing_ok=False))
         for encoding in E.get_portable_encodings():
-            yield _test, encoding
+            yield t, encoding
 
     def test_incompatible(self):
-        def _test(encoding):
+        def t(encoding):
             assert_false(E.is_ascii_compatible_encoding(encoding))
             assert_false(E.is_ascii_compatible_encoding(encoding, missing_ok=False))
-        yield _test, 'UTF-7'
-        yield _test, 'UTF-16'
+        yield t, 'UTF-7'
+        yield t, 'UTF-16'
 
     def _test_missing(self, encoding):
         assert_false(E.is_ascii_compatible_encoding(encoding))
@@ -92,14 +92,14 @@ class test_ascii_compatibility:
             E.is_ascii_compatible_encoding(encoding, missing_ok=False)
 
     def test_non_text(self):
-        _test = self._test_missing
-        yield _test, 'base64_codec'
-        yield _test, 'bz2_codec'
-        yield _test, 'hex_codec'
-        yield _test, 'quopri_codec'
-        yield _test, 'rot_13'
-        yield _test, 'uu_codec'
-        yield _test, 'zlib_codec'
+        t = self._test_missing
+        yield t, 'base64_codec'
+        yield t, 'bz2_codec'
+        yield t, 'hex_codec'
+        yield t, 'quopri_codec'
+        yield t, 'rot_13'
+        yield t, 'uu_codec'
+        yield t, 'zlib_codec'
 
     def test_missing(self):
         self._test_missing('eggs')
