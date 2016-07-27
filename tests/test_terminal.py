@@ -50,10 +50,16 @@ def _get_colors():
         if name.isalpha()
     )
 
+def assert_tseq_equal(s, expected):
+    if sys.version_info < (3, 3) and (T._curses is T._dummy_curses):  # pylint: disable=protected-access
+        expected = ''
+    assert_equal(expected, s)
+
 def test_dummy():
+    t = assert_tseq_equal
     for i in _get_colors():
-        assert_equal(T.attr_fg(i), '')
-    assert_equal(T.attr_reset(), '')
+        t(T.attr_fg(i), '')
+    t(T.attr_reset(), '')
 
 def pty_fork_isolation(term):
     def decorator(func):
@@ -74,20 +80,22 @@ def pty_fork_isolation(term):
 
 @pty_fork_isolation('vt100')
 def test_vt100():
+    t = assert_tseq_equal
     for i in _get_colors():
-        assert_equal(T.attr_fg(i), '')
-    assert_equal(T.attr_reset(), '\x1b[m\x0f')
+        t(T.attr_fg(i), '')
+    t(T.attr_reset(), '\x1b[m\x0f')
 
 @pty_fork_isolation('ansi')
 def test_ansi():
-    assert_equal(T.attr_fg(T.colors.black), '\x1b[30m')
-    assert_equal(T.attr_fg(T.colors.red), '\x1b[31m')
-    assert_equal(T.attr_fg(T.colors.green), '\x1b[32m')
-    assert_equal(T.attr_fg(T.colors.yellow), '\x1b[33m')
-    assert_equal(T.attr_fg(T.colors.blue), '\x1b[34m')
-    assert_equal(T.attr_fg(T.colors.magenta), '\x1b[35m')
-    assert_equal(T.attr_fg(T.colors.cyan), '\x1b[36m')
-    assert_equal(T.attr_fg(T.colors.white), '\x1b[37m')
-    assert_equal(T.attr_reset(), '\x1b[0;10m')
+    t = assert_tseq_equal
+    t(T.attr_fg(T.colors.black), '\x1b[30m')
+    t(T.attr_fg(T.colors.red), '\x1b[31m')
+    t(T.attr_fg(T.colors.green), '\x1b[32m')
+    t(T.attr_fg(T.colors.yellow), '\x1b[33m')
+    t(T.attr_fg(T.colors.blue), '\x1b[34m')
+    t(T.attr_fg(T.colors.magenta), '\x1b[35m')
+    t(T.attr_fg(T.colors.cyan), '\x1b[36m')
+    t(T.attr_fg(T.colors.white), '\x1b[37m')
+    t(T.attr_reset(), '\x1b[0;10m')
 
 # vim:ts=4 sts=4 sw=4 et
