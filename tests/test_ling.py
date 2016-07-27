@@ -427,7 +427,7 @@ def test_glibc_supported():
         assert_equal(str(lang), l)
     try:
         file = open('/usr/share/i18n/SUPPORTED', encoding='ASCII')
-    except OSError as exc:
+    except IOError as exc:
         raise nose.SkipTest(exc)
     locales = set()
     with file:
