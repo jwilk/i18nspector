@@ -53,7 +53,12 @@ def _get_colors():
 def assert_tseq_equal(s, expected):
     if sys.version_info < (3, 3) and (T._curses is T._dummy_curses):  # pylint: disable=protected-access
         expected = ''
-    assert_equal(expected, s)
+    class S(str):
+        # assert_equal() does detailed comparison for instances of str,
+        # but not their subclasses. We don't want detailed comparisons,
+        # because diff could contain control characters.
+        pass
+    assert_equal(S(expected), S(s))
 
 def test_dummy():
     t = assert_tseq_equal
