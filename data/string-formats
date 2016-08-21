@@ -58,7 +58,7 @@ perl-brace = {var}
 # https://metacpan.org/pod/Locale::TextDomain
 
 php = %d
-# https://php.net/manual/function.sprintf.php
+# https://secure.php.net/manual/en/function.sprintf.php
 
 python = %d
 # https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
