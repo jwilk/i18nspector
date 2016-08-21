@@ -1,4 +1,4 @@
-i18nspector (0.25.2) UNRELEASED; urgency=low
+i18nspector (0.25.2) unstable; urgency=low
 
   * Don't disable stdout line buffering.
   * Make --version print also versions of Python and the libraries.
@@ -9,7 +9,7 @@ i18nspector (0.25.2) UNRELEASED; urgency=low
   * Improve documentation about dependencies.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sun, 21 Aug 2016 21:21:20 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 21 Aug 2016 21:33:49 +0200
 
 i18nspector (0.25.1) unstable; urgency=low
 
