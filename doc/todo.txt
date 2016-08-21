@@ -33,7 +33,7 @@ Complain about incorrect locale codes:
 
 Correct locale codes in invalid format, e.g.:
 
- * ``da-DK`` → ``da_DK``: https://sources.debian.net/data/main/d/debian-handbook/7.20140126/da-DK/00a_preface.po
+ * ``da-DK`` → ``da_DK``: https://anonscm.debian.org/cgit/debian-handbook/debian-handbook.git/tree/da-DK/00a_preface.po?h=debian/8.20151209
  * ``pt_br`` → ``pt_BR``: https://sources.debian.net/data/main/p/pam-pkcs11/0.6.8-1/po/pt_br.po
  * ``Pt`` → ``pt``: https://sources.debian.net/data/main/d/darcsweb/1.1-3.1/debian/po/pt.po
 
