@@ -49,6 +49,7 @@ def initialize_terminal():
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer,
         encoding=sys.stdout.encoding,
         errors='backslashreplace',
+        line_buffering=sys.stdout.line_buffering,
     )
 
 class Checker(check.Checker):
