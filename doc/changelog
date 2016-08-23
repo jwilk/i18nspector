@@ -316,7 +316,7 @@ i18nspector (0.13) unstable; urgency=low
     entries.
   * Improve the test suite.
   * Work around a trailing comment parsing bug in polib.
-    https://bitbucket.org/izi/polib/issue/51
+    https://bitbucket.org/izi/polib/issues/51
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 11 Sep 2013 14:00:20 +0200
 
@@ -391,7 +391,7 @@ i18nspector (0.11) unstable; urgency=low
       duplicate-header-field) for duplicate X-Poedit-Language and
       X-Poedit-Country headers fields.
   * Work around a flag parsing bug in polib.
-    https://bitbucket.org/izi/polib/issue/46
+    https://bitbucket.org/izi/polib/issues/46
   * Check for duplicate and unexpected flags for header entries.
   * Check for unusual characters in header entries.
   * Check for messages with empty msgid (header entries?) with source code
@@ -673,7 +673,7 @@ gettext-inspector (0.4) unstable; urgency=low
   * Try to propose encoding for invalid-content-type.
   * Fix untrusted input sanitization.
   * Work around an escape sequence decoding bug in polib.
-    https://bitbucket.org/izi/polib/issue/31
+    https://bitbucket.org/izi/polib/issues/31
   * Fix typos and formatting errors in the manual page.
   * Improve the test suite.
 

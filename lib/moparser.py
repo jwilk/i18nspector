@@ -178,7 +178,7 @@ class Parser(object):
         entry = polib.MOEntry(**kwargs)
         entry.comment = None
         entry.occurrences = ()
-        entry.flags = ()  # https://bitbucket.org/izi/polib/issue/47
+        entry.flags = ()  # https://bitbucket.org/izi/polib/issues/47
         entry.translated = lambda: True
         entry.previous_msgctxt = None
         entry.previous_msgid = None

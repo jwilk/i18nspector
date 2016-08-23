@@ -59,9 +59,9 @@ def default_encoding_patch():
 # ============
 # Work around a few PO parsing bugs:
 # - newline decoding: https://bugs.debian.org/692283
-# - trailing comment parsing: https://bitbucket.org/izi/polib/issue/51
+# - trailing comment parsing: https://bitbucket.org/izi/polib/issues/51
 # - atypical comment parsing
-# - parsing of empty files: https://bitbucket.org/izi/polib/issue/59
+# - parsing of empty files: https://bitbucket.org/izi/polib/issues/59
 
 class Codecs(object):
 
@@ -115,7 +115,7 @@ def pofile_find_patch():
 # polib.unescape()
 # ================
 # Work around an escape sequence decoding bug.
-# https://bitbucket.org/izi/polib/issue/31
+# https://bitbucket.org/izi/polib/issues/31
 
 _escapes_re = re.compile(r''' ( \\
 (?: [ntbrfva]
@@ -152,10 +152,10 @@ def unescape_patch():
 # polib._MOFileParser
 # ===================
 # Use a custom MO file parser implementation.
-# https://bitbucket.org/izi/polib/issue/36
-# https://bitbucket.org/izi/polib/issue/44
-# https://bitbucket.org/izi/polib/issue/45
-# https://bitbucket.org/izi/polib/issue/47
+# https://bitbucket.org/izi/polib/issues/36
+# https://bitbucket.org/izi/polib/issues/44
+# https://bitbucket.org/izi/polib/issues/45
+# https://bitbucket.org/izi/polib/issues/47
 
 @register_patch
 def mo_parser_patch():
@@ -180,7 +180,7 @@ def detect_encoding_patch():
 # Fix flag splitting.
 # polib (<< 1.0.4) incorrectly requires that the flag-splitting comma is
 # followed by a space.
-# https://bitbucket.org/izi/polib/issue/46
+# https://bitbucket.org/izi/polib/issues/46
 
 @register_patch
 def poentry_flags_patch():
@@ -198,7 +198,7 @@ def poentry_flags_patch():
 # ===========================
 # Force msgstr_plural keys to be integers.
 # polib (<< 1.0.4) uses strings there instead.
-# https://bitbucket.org/izi/polib/issue/49
+# https://bitbucket.org/izi/polib/issues/49
 
 class IntDict(dict):
 
