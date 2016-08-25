@@ -1,3 +1,9 @@
+i18nspector (0.25.3) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 25 Aug 2016 20:31:11 +0200
+
 i18nspector (0.25.2) unstable; urgency=low
 
   * Don't disable stdout line buffering.
