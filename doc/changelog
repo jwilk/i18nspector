@@ -1,8 +1,10 @@
 i18nspector (0.25.3) UNRELEASED; urgency=low
 
-  * 
+  * Rewrite shebang at install time.
+    Thanks to Kyrill Detinov for the bug report.
+    https://github.com/jwilk/i18nspector/issues/1
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 25 Aug 2016 20:31:11 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sun, 28 Aug 2016 13:08:38 +0200
 
 i18nspector (0.25.2) unstable; urgency=low
 
