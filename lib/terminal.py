@@ -95,7 +95,7 @@ def initialize():
     try:
         _curses.tigetstr('x')
     except TypeError:
-        # curses.tigetstr() is broken in PyPy3:
+        # curses.tigetstr() is broken in PyPy 3:
         # https://bitbucket.org/pypy/pypy/issues/1997
         _curses = _dummy_curses
         return
