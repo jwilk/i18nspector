@@ -54,7 +54,7 @@ def do_plurals():
                 print('[{}]'.format(language))
                 if our_plural_forms:
                     if len(our_plural_forms) == 1:
-                        print('# plural-forms =', our_plural_forms)
+                        print('# plural-forms =', *our_plural_forms)
                     else:
                         print('# plural-forms =')
                         for pf in our_plural_forms:
