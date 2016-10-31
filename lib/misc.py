@@ -91,7 +91,7 @@ class Namespace(object):
 
 Namespace()  # make pyflakes and coverage.py happy
 
-if sys.version_info >= (3, 3):  # <no-coverage>
+if sys.version_info >= (3, 3):  # no coverage
     Namespace = types.SimpleNamespace
 
 @contextlib.contextmanager

@@ -3,10 +3,9 @@ branch = true
 
 [report]
 show_missing = true
-exclude_lines =
+exclude_lines = # no coverage
     \A\s+raise misc[.]DataIntegrityError\b
     \A\s+raise NotImplementedError\b
     \A\s+pass\Z
-    <no-coverage>
 
 # vim:ft=dosini ts=4 sts=4 sw=4 et

@@ -168,7 +168,7 @@ class BaseEvaluator(object):
     def _visit(self, node, *args):
         try:
             fn = getattr(self, '_visit_' + type(node).__name__.lower())
-        except KeyError:  # <no-coverage>
+        except KeyError:  # no coverage
             raise NotImplementedError(type(node).__name__)
         return fn(node, *args)
 
@@ -673,7 +673,7 @@ class Expression(object):
 
     def __init__(self, node):
         if not isinstance(node, ast.Expr):
-            raise TypeError  # <no-coverage>
+            raise TypeError  # no coverage
         self._node = node
 
     def __call__(self, n, *, bits=32):

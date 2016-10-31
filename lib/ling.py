@@ -56,7 +56,7 @@ class Language(object):
     def __init__(self, language_code, territory_code=None, encoding=None, modifier=None):
         self.language_code = language_code
         if language_code is None:
-            raise TypeError('language_code must not be None')  # <no-coverage>
+            raise TypeError('language_code must not be None')  # no coverage
         self.territory_code = territory_code
         self.encoding = None
         if encoding is not None:
@@ -108,7 +108,7 @@ class Language(object):
                 raise FixingLanguageCodesFailed()
             elif cc != self.territory_code:
                 # This shouldn't really happen, but better safe than sorry.
-                raise ValueError  # <no-coverage>
+                raise ValueError  # no coverage
             # TODO: ll_CC could be still incorrect, even when both ll and CC are
             # correct.
         self.language_code = ll
@@ -253,7 +253,7 @@ def _check_primary_languages_coverage():
             continue
         try:
             _primary_languages[ll]
-        except LookupError:  # <no-coverage>
+        except LookupError:  # no coverage
             raise misc.DataIntegrityError
 
 [_primary_languages, _name_to_code] = _read_primary_languages()
