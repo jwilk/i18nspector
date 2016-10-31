@@ -156,15 +156,15 @@ class Checker(object, metaclass=abc.ABCMeta):
             )
 
     def check_msgids(self, message, msgid_formats):
-        pass
+        return  # no coverage
 
     @abc.abstractmethod
     def check_string(self, ctx, message, s):
-        return
+        return  # no coverage
 
     @abc.abstractmethod
     def check_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_int_conv_ok=False):
-        return
+        return  # no coverage
 
 __all__ = ['Checker']
 
