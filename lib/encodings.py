@@ -41,7 +41,7 @@ class EncodingLookupError(LookupError):
     def __init__(self, encoding):
         LookupError.__init__(self, 'unknown encoding: ' + encoding)
 
-def _not_implemented(*args, **kwargs):
+def _not_implemented(*args, **kwargs):  # no coverage
     del args, kwargs
     raise NotImplementedError
 
@@ -190,7 +190,7 @@ def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
         return False
     except LookupError:
         pass
-    except Exception:  # pylint: disable=broad-except
+    except Exception:  # no coverage; pylint: disable=broad-except
         pass
     if missing_ok:
         return False
