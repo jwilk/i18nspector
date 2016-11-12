@@ -4,6 +4,7 @@ python:
 - "3.3"
 - "3.4"
 - "3.5"
+- "3.6-dev"
 - nightly
 - pypy3
 env:
@@ -13,6 +14,8 @@ env:
 matrix:
   exclude:
   - python: "3.2"
+    env: PYLINT=y
+  - python: "3.6-dev"
     env: PYLINT=y
   - python: nightly
     env: PYLINT=y
