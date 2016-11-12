@@ -5,7 +5,7 @@ python:
 - "3.4"
 - "3.5"
 - "3.6-dev"
-- nightly
+- "3.7-dev"
 - pypy3
 env:
 - POLIB_VERSION=1.0.0
@@ -17,7 +17,7 @@ matrix:
     env: PYLINT=y
   - python: "3.6-dev"
     env: PYLINT=y
-  - python: nightly
+  - python: "3.7-dev"
     env: PYLINT=y
   - python: pypy3
     env: PYLINT=y
