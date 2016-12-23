@@ -49,6 +49,7 @@ cd "$sourceroot"/*
 rm .git*
 rm .travis.yml
 rm private/build-source-tarball
+mv LICENSE doc/
 make -C doc/
 find -name '__pycache__' -exec rm -r {} +
 rm -r doc/rtd/
