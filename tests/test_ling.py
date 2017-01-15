@@ -79,8 +79,8 @@ class test_fix_codes:
 def test_language_repr():
     # Language.__repr__() is never used by i18nspector itself,
     # but it's useful for debugging test failures.
-    l = T('el')
-    assert_equal(repr(l), '<Language el>')
+    lng = T('el')
+    assert_equal(repr(lng), '<Language el>')
 
 class test_language_equality:
 
