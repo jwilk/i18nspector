@@ -14,6 +14,13 @@ Synopsis
 --------
 **i18nspector** [*options*] *file* [*file* …]
 
+Description
+-----------
+**i18nspector** is a tool for checking translation templates (POT), message
+catalogues (PO) and compiled message catalogues (MO) files for common problems.
+These files are used by the GNU gettext translation functions and tools in
+many different development environments.
+
 Options
 -------
 -l lang, --language lang
@@ -32,12 +39,8 @@ Options
 --version
    Show the program's version information and exit.
 
-Description
------------
-**i18nspector** is a tool for checking translation templates (POT), message
-catalogues (PO) and compiled message catalogues (MO) files for common problems.
-These files are used by the GNU gettext translation functions and tools in
-many different development environments.
+Output format
+-------------
 
 The following format is used for all the reported problems:
 
