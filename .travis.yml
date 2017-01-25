@@ -37,7 +37,6 @@ install:
 script:
 - \[ -n "$PYLINT" ] || tests/run-tests -v
 - \[ -n "$PYLINT" ] || make -C doc/
-- \[ -n "$PYLINT" ] || rm -f doc/*.1
 - \[ -n "$PYLINT" ] || private/check-rst
 - \[ -n "$PYLINT" ] || private/run-pyflakes
 - \[ -z "$PYLINT" ] || private/run-pylint
