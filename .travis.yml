@@ -21,7 +21,6 @@ matrix:
     env: PYLINT=y
   - python: pypy3
     env: PYLINT=y
-cache: pip
 install:
 - \[ -z "$PYLINT" ] || pip install --upgrade pip
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
