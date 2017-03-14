@@ -273,7 +273,6 @@ def _mp_run_i18nspector(prog, options, path, queue):
         stderr += ''.join(
             traceback.format_exception(exctp, exc, tb)
         )
-        del tb
         queue.put([stdout, stderr])
         sys.exit(1)
         raise  # hi, pydiatra!
