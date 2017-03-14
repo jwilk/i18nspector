@@ -276,6 +276,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
         del tb
         queue.put([stdout, stderr])
         sys.exit(1)
+        raise  # hi, pydiatra!
     else:
         queue.put([stdout, stderr])
         sys.exit(0)
