@@ -26,6 +26,7 @@ install:
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install rply
 - \[ -n "$PYLINT" ] || pip install docutils
+- \[ -n "$PYLINT" ] || pip install pydiatra
 - \[ -n "$PYLINT" ] || pip install pyflakes
 - \[ -z "$PYLINT" ] || pip install pylint
 - \[ -z "$PYLINT" ] || pip install pytz
@@ -35,6 +36,7 @@ script:
 - \[ -n "$PYLINT" ] || tests/run-tests -v
 - \[ -n "$PYLINT" ] || make -C doc/
 - \[ -n "$PYLINT" ] || private/check-rst
+- \[ -n "$PYLINT" ] || private/run-pydiatra
 - \[ -n "$PYLINT" ] || private/run-pyflakes
 - \[ -z "$PYLINT" ] || private/run-pylint
 
