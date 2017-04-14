@@ -39,7 +39,7 @@ class Checker(CheckerBase):
         try:
             fmt = backend.FormatString(s)
         except backend.ArgumentTypeMismatch as exc:
-            [s, key, types] = exc.args
+            [s, key, types] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
             self.tag('python-format-string-error',
                 prefix,
                 tags.safestr(exc.message),

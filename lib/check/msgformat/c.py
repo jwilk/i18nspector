@@ -62,7 +62,7 @@ class Checker(CheckerBase):
                 tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
             )
         except backend.FlagError as exc:
-            [conv, flag] = exc.args
+            [conv, flag] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
             self.tag('c-format-string-error',
                 prefix,
                 tags.safestr(exc.message),
