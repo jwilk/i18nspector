@@ -155,7 +155,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 omitted_int_conv_ok=d.omitted_int_conv_ok,
             )
 
-    def check_msgids(self, message, msgid_formats):
+    def check_msgids(self, message, msgid_fmts):
         pass  # no coverage
 
     @abc.abstractmethod
