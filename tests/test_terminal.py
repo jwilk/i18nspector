@@ -23,13 +23,13 @@ import os
 import pty
 import sys
 
+import lib.terminal as T
+
 from nose.tools import (
     assert_equal,
 )
 
 from . import tools
-
-import lib.terminal as T
 
 def test_strip_delay():
     def t(s, r=b''):

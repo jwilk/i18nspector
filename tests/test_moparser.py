@@ -20,14 +20,14 @@
 
 import random
 
+import lib.moparser as M
+
 from nose.tools import (
     assert_equal,
     assert_raises,
 )
 
 from . import tools
-
-import lib.moparser as M
 
 def parser_for_bytes(data):
     with tools.temporary_file(suffix='.mo') as file:

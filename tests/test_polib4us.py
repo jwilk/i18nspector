@@ -20,14 +20,14 @@
 
 import polib
 
+import lib.polib4us as M
+
 from nose.tools import (
     assert_list_equal,
     assert_true,
 )
 
 from . import tools
-
-import lib.polib4us as M
 
 minimal_header = r'''
 msgid ""

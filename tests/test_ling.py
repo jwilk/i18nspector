@@ -18,6 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import lib.encodings
+import lib.ling
+
 import nose
 from nose.tools import (
     assert_equal,
@@ -33,9 +36,6 @@ from nose.tools import (
 )
 
 from . import tools
-
-import lib.encodings
-import lib.ling
 
 L = lib.ling
 T = lib.ling.Language

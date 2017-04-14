@@ -24,6 +24,8 @@ import stat
 import tempfile
 import time
 
+import lib.misc as M
+
 from nose.tools import (
     assert_almost_equal,
     assert_equal,
@@ -34,8 +36,6 @@ from nose.tools import (
 )
 
 from . import tools
-
-import lib.misc as M
 
 class test_unsorted:
 
