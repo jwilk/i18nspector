@@ -5,6 +5,7 @@ disable =
     duplicate-code,
     fixme,
     invalid-name,
+    len-as-condition,
     locally-disabled,
     locally-enabled,
     no-self-use,
