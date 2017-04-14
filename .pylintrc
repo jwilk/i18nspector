@@ -8,6 +8,7 @@ disable =
     len-as-condition,
     locally-disabled,
     locally-enabled,
+    no-else-return,
     no-self-use,
     redefined-variable-type,
     superfluous-parens,
