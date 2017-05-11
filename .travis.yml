@@ -15,8 +15,6 @@ matrix:
   exclude:
   - python: "3.2"
     env: PYLINT=y
-  - python: "3.6"
-    env: PYLINT=y
   - python: "3.7-dev"
     env: PYLINT=y
   - python: pypy3
