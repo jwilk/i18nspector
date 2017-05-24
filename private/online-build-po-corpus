@@ -1,0 +1,199 @@
+#!/usr/bin/env python3
+
+# Copyright © 2012-2017 Jakub Wilk <jwilk@jwilk.net>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import argparse
+import contextlib
+import gzip
+import os
+import re
+import subprocess
+import sys
+import tarfile
+import tempfile
+import urllib.parse
+
+import apt
+import apt_pkg
+
+def is_po_path(path):
+    return path.endswith(('.po', '.pot'))
+
+class Fetcher(object):
+
+    def __init__(self, urlbase):
+        self._urlbase = urlbase
+        self._progress = apt.progress.text.AcquireProgress()
+        self._acquire = apt_pkg.Acquire(self._progress)
+        self._files = []
+        self._tmpdir = tempfile.TemporaryDirectory(prefix='i18nspector.private.')
+
+    def add(self, url, name):
+        url = urllib.parse.urljoin(self._urlbase, url)
+        self._files += [apt_pkg.AcquireFile(
+            self._acquire,
+            uri=url,
+            descr=url,
+            destfile=os.path.join(self._tmpdir.name, name)
+        )]
+
+    def run(self):
+        acq = self._acquire
+        rc = acq.run()
+        if rc != acq.RESULT_CONTINUE:
+            raise RuntimeError('fetching failed')
+        for acqfile in self._files:
+            if acqfile.status != acqfile.STAT_DONE:
+                raise RuntimeError('fetching failed')
+            yield acqfile.destfile
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc, value, tb):
+        self.close()
+
+    def close(self):
+        self._tmpdir.cleanup()
+
+_package_name_re = re.compile(r'\A[a-z0-9][a-z0-9.+-]+\Z')
+def validate_package_name(pkg):
+    if _package_name_re.match(pkg):
+        pass
+    else:
+        raise RuntimeError('invalid package name: {pkg!r}'.format(pkg=pkg))
+
+@contextlib.contextmanager
+def chdir(new_cwd):
+    orig_cwd = os.getcwd()
+    try:
+        os.chdir(new_cwd)
+        yield
+    finally:
+        os.chdir(orig_cwd)
+
+default_mirror = 'http://deb.debian.org/debian'
+default_dist = 'stable'
+default_areas = 'main'
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--mirror', metavar='URL', default=default_mirror,
+        help='Debian mirror to use (default: {mirror})'.format(mirror=default_mirror)
+    )
+    ap.add_argument('--distribution', metavar='DIST', default=default_dist,
+        help='Debian distribution to use (default: {dist})'.format(dist=default_dist)
+    )
+    ap.add_argument('--areas', metavar='AREA[,AREA...]', default=default_areas,
+        help='archive areas to use (default: {areas})'.format(areas=default_areas)
+    )
+    ap.add_argument('--output', metavar='TARFILE', required=True,
+        help='output tar file'
+    )
+    options = ap.parse_args()
+    output = options.output
+    tarmode = 'w|'
+    for ext in 'gz', 'bz2', 'xz':
+        if options.output.endswith('.' + ext):
+            tarmode += ext
+            break
+    tar = tarfile.open(output, mode=tarmode)
+    mirror = options.mirror
+    dist = options.distribution
+    areas = options.areas.split(',')
+    def tarfilter(tarinfo):
+        tarinfo.uid = tarinfo.gid = 0
+        tarinfo.uname = tarinfo.gname = 'root'
+        tarinfo.mode &= 0o700
+        tarinfo.mode |= 0o644
+        if tarinfo.mode & 0o100:
+            tarinfo.mode |= 0o111
+        tarinfo.name = 'po-corpus-{dist}/{name}'.format(dist=dist, name=tarinfo.name)
+        return tarinfo
+    for area in areas:
+        urlbase = '{mirror}/dists/{dist}/{area}/'.format(mirror=mirror, dist=dist, area=area)
+        with Fetcher(urlbase=urlbase) as fetcher:
+            fetcher.add('Contents-source.gz', 'Contents.gz')
+            fetcher.add('source/Sources.xz', 'Sources.xz')
+            [contents_path, sources_path] = fetcher.run()
+            interesting_packages = set()
+            with gzip.open(contents_path, 'rt', encoding='UTF-8', newline='\n') as file:
+                for line in file:
+                    try:
+                        path, packages = line.rsplit('\t', 1)
+                    except ValueError:
+                        raise RuntimeError('malfomed line: {!r}'.format(line))
+                    if is_po_path(path):
+                        packages = packages.rstrip('\n').split(',')
+                        for pkg in packages:
+                            validate_package_name(pkg)
+                        interesting_packages.update(packages)
+            for para in apt_pkg.TagFile(sources_path):
+                pkg = para['Package']
+                if pkg not in interesting_packages:
+                    continue
+                fileinfo = para['Files'].splitlines()
+                dscname = None
+                names = set()
+                for line in fileinfo:
+                    _, name = line.rsplit(' ', 1)
+                    ok = (
+                        name.startswith(pkg + '_') and
+                        '/' not in name and
+                        name not in names
+                    )
+                    if not ok:
+                        raise RuntimeError('Package {pkg}: bad Files line: {line!r}'.format(pkg=pkg, line=line))
+                    names.add(name)
+                    if name.endswith('.dsc'):
+                        if dscname is not None:
+                            raise RuntimeError('Package {pkg}: duplicate .dsc file'.format(pkg=pkg))
+                        dscname = name
+                if dscname is None:
+                    raise RuntimeError('Package {pkg}: missing .dsc file'.format(pkg=pkg))
+                names = list(names)
+                names.sort(key=dscname.__eq__)
+                pkgdir = para['Directory']
+                pkgurlbase = '{mirror}/{dir}/'.format(mirror=mirror, dir=pkgdir)
+                with Fetcher(urlbase=pkgurlbase) as pkgfetcher:
+                    for name in names:
+                        pkgfetcher.add(name, name)
+                    for path in pkgfetcher.run():
+                        pass
+                    dscpath = path
+                    unpacked = dscpath[:-4]
+                    subprocess.check_call(['dpkg-source', '-x', dscpath, unpacked], stdout=sys.stderr)
+                    with chdir(os.path.dirname(unpacked)):
+                        for unp_root, unp_dirs, unp_files in os.walk(os.path.basename(unpacked)):
+                            try:
+                                unp_dirs.remove('.pc')
+                            except ValueError:
+                                pass
+                            for unp_file in unp_files:
+                                if is_po_path(unp_file):
+                                    unp_path = os.path.join(unp_root, unp_file)
+                                    tar.add(unp_path, filter=tarfilter)
+    tar.close()
+
+if __name__ == '__main__':
+    main()
+
+# vim:ts=4 sts=4 sw=4 et
