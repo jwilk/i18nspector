@@ -49,7 +49,7 @@ objc = %d
 # https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
 
 object-pascal = %d
-# http://www.freepascal.org/docs-html/rtl/sysutils/format.html
+# https://www.freepascal.org/docs-html/rtl/sysutils/format.html
 
 perl = %d
 # http://perldoc.perl.org/functions/sprintf.html
