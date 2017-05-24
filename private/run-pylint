@@ -38,6 +38,10 @@ do
         ignored="$ignored,$ext"
     fi
 done
+if [ -z "${ignored%%*apt*}" ]
+then
+    ignored="$ignored,apt"
+fi
 set -- --extension-pkg-whitelist="${whitelist#,}" --ignored-modules="${ignored#,}" "$@"
 log=$(mktemp -t pylint.XXXXXX)
 "$PYTHON" -m pylint "$@" > "$log" || [ $? != 1 ]
