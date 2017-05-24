@@ -27,12 +27,18 @@ then
     pyscripts=$(grep -l -r '^#!.*python' .)
     set -- lib tests tests/fuzzing/*/*.py $pyscripts
 fi
-if "$PYTHON" -c 'import afl' 2>/dev/null
-then
-    set -- --extension-pkg-whitelist=afl "$@"
-else
-    set -- --ignored-modules=afl "$@"
-fi
+whitelist=
+ignored=
+for ext in afl apt_pkg
+do
+    if "$PYTHON" -c "import $ext" 2>/dev/null
+    then
+        whitelist="$whitelist,$ext"
+    else
+        ignored="$ignored,$ext"
+    fi
+done
+set -- --extension-pkg-whitelist="${whitelist#,}" --ignored-modules="${ignored#,}" "$@"
 log=$(mktemp -t pylint.XXXXXX)
 "$PYTHON" -m pylint "$@" > "$log" || [ $? != 1 ]
 ! grep '^\w:' "$log" \
