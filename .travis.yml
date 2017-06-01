@@ -27,8 +27,8 @@ install:
 - \[ -n "$PYLINT" ] || pip install pydiatra
 - \[ -n "$PYLINT" ] || pip install pyflakes
 - \[ -z "$PYLINT" ] || pip install pylint
-- \[ -z "$PYLINT" ] || pip install pytz
-- \[ -z "$PYLINT" ] || pip install tqdm
+- \[ -z "$PYLINT" ] || pip install pytz  # for private/update-timezones
+- \[ -z "$PYLINT" ] || pip install tqdm  # for private/online-build-po-corpus
 - \[ -z "$PYLINT" ] || pip install --verbose cython
 - \[ -z "$PYLINT" ] || pip install --verbose python-afl
 script:
