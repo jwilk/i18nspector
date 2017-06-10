@@ -135,6 +135,7 @@ def main():
             tarinfo.mode |= 0o111
         tarinfo.name = 'po-corpus-{dist}/{name}'.format(dist=dist, name=tarinfo.name)
         return tarinfo
+    subprocess.check_call(['dpkg-source', '--version'], stdout=subprocess.DEVNULL)
     for area in areas:
         urlbase = '{mirror}/dists/{dist}/{area}/'.format(mirror=mirror, dist=dist, area=area)
         with Fetcher(urlbase=urlbase) as fetcher:
