@@ -29,17 +29,10 @@ import subprocess
 import sys
 import tarfile
 import tempfile
-import unittest.mock
 import urllib.parse
 
 import apt
 import apt_pkg
-
-with unittest.mock.patch.dict(os.environ, PATH='/nonexistent'):
-    # tqdm wants to execute git for no good reason:
-    # https://github.com/tqdm/tqdm/issues/328
-    # Let's foil this plan:
-    import tqdm
 
 def is_po_path(path):
     return path.endswith(('.po', '.pot'))
@@ -154,7 +147,6 @@ def main():
                         for pkg in packages:
                             validate_package_name(pkg)
                         interesting_packages.update(packages)
-            whole_size = 0
             for para in apt_pkg.TagFile(sources_path):
                 pkg = para['Package']
                 if pkg not in interesting_packages:
@@ -163,22 +155,7 @@ def main():
                 dscname = None
                 names = set()
                 for line in fileinfo:
-                    _, size, _ = line.strip().split(' ')
-                    size = int(size)
-                    whole_size += size
-            progress = tqdm.tqdm(unit='B', unit_scale=True, bar_format='* {n_fmt}/{total_fmt}, {rate_fmt}, ETA: {remaining}\n')
-            progress.total = whole_size
-            progress.refresh()
-            for para in apt_pkg.TagFile(sources_path):
-                pkg = para['Package']
-                if pkg not in interesting_packages:
-                    continue
-                fileinfo = para['Files'].splitlines()
-                dscname = None
-                names = set()
-                size = 0
-                for line in fileinfo:
-                    _, fsize, name = line.strip().split(' ')
+                    _, name = line.rsplit(' ', 1)
                     ok = (
                         name.startswith(pkg + '_') and
                         '/' not in name and
@@ -191,7 +168,6 @@ def main():
                         if dscname is not None:
                             raise RuntimeError('Package {pkg}: duplicate .dsc file'.format(pkg=pkg))
                         dscname = name
-                    size += int(fsize)
                 if dscname is None:
                     raise RuntimeError('Package {pkg}: missing .dsc file'.format(pkg=pkg))
                 names = list(names)
@@ -216,7 +192,6 @@ def main():
                                 if is_po_path(unp_file):
                                     unp_path = os.path.join(unp_root, unp_file)
                                     tar.add(unp_path, filter=tarfilter)
-                progress.update(size)
     tar.close()
 
 if __name__ == '__main__':
