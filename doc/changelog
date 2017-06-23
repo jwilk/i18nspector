@@ -1,6 +1,9 @@
 i18nspector (0.25.4) UNRELEASED; urgency=low
 
-  * 
+  * Fix crash when checking Python brace formats string that have both named
+    and numbered arguments.
+  * Reorder sections in the manual page, as per man-pages(7) recommendations.
+  * Put license into a separate file.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Mon, 29 Aug 2016 16:39:14 +0200
 
