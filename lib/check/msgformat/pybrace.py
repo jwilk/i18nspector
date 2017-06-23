@@ -28,10 +28,12 @@ class Checker(CheckerBase):
             return fmt
 
     def check_args(self, message, src_loc, src_fmt, dst_loc, dst_fmt, *, omitted_int_conv_ok=False):
+        def sort_key(item):
+            return (isinstance(item, str), item)
         prefix = message_repr(message, template='{}:')
         src_args = src_fmt.argument_map
         dst_args = dst_fmt.argument_map
-        for key in sorted(dst_args.keys() & src_args.keys()):
+        for key in sorted(dst_args.keys() & src_args.keys(), key=sort_key):
             src_arg = src_args[key][0]
             dst_arg = dst_args[key][0]
             if not (src_arg.types & dst_arg.types):
@@ -39,7 +41,7 @@ class Checker(CheckerBase):
                     tags.safestr(', '.join(dst_arg.types)), tags.safestr('({})'.format(dst_loc)), '!=',
                     tags.safestr(', '.join(src_arg.types)), tags.safestr('({})'.format(src_loc)),
                 )
-        for key in sorted(dst_args.keys() - src_args.keys()):
+        for key in sorted(dst_args.keys() - src_args.keys(), key=sort_key):
             self.tag('python-brace-format-string-unknown-argument', prefix, key,
                 tags.safestr('in'), tags.safestr(dst_loc),
                 tags.safestr('but not in'), tags.safestr(src_loc),
