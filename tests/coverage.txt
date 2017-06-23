@@ -2,11 +2,11 @@ Generated automatically by private/update-branch-coverage. Do not edit.
 
 Name                             Stmts   Miss Branch BrPart  Cover   Missing
 ----------------------------------------------------------------------------
-lib.py                               0      0      0      0   100%
+lib.py                               1      0      0      0   100%
 lib/check.py                       796    745    501      0     4%   81-85, 88-101, 109, 115-197, 200-216, 220-352, 356-500, 504-576, 580-618, 623-658, 663-707, 710-788, 791-871, 874-988, 991-998, 1001-1017, 1022
 lib/check/msgformat.py              82     69     36      0    11%   32, 36, 39, 42-152
 lib/check/msgformat/c.py            67     56     36      0    11%   37-44, 47-105, 108-129
-lib/check/msgformat/pybrace.py      32     24     13      0    18%   17-28, 31-53
+lib/check/msgformat/pybrace.py      34     26     13      0    17%   17-28, 31-55
 lib/check/msgformat/python.py       77     67     47      0     8%   37-109, 112-149
 lib/check/msgrepr.py                11      7      2      0    31%   28-34
 lib/cli.py                         156    122     44      0    17%   45-49, 58-67, 70-71, 74-76, 82-112, 115-120, 126-132, 135-143, 146-154, 160, 168-188, 191-225
@@ -28,4 +28,4 @@ lib/tags.py                        132     41     40      4    67%   47-51, 54-5
 lib/terminal.py                     55     24      4      0    53%   79-106
 lib/xml.py                          21      0      2      0   100%
 ----------------------------------------------------------------------------
-TOTAL                             3439   1419   1509     30    55%
+TOTAL                             3442   1421   1509     30    55%
