@@ -965,7 +965,7 @@ severity = minor
 certainty = certain
 description =
  The message entry contains annotations about previous untranslated string
- (``#| msgid ``\ *...*),
+ (``#| msgid``\ *...*),
  even though the message is not marked as fuzzy.
  These annotations are only useful for fuzzy messages,
  and should be removed when unfuzzying.
