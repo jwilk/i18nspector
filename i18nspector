@@ -48,6 +48,11 @@ def require_python(*version):
         message = 'Python >= %s is required' % version_str
         error(message)
 
+def require_maxunicode(n):
+    if sys.maxunicode < n:
+        message = 'sys.maxunicode >= 0x%X is required' % n
+        error(message)
+
 def require_polib(*version):
     import polib
     polib_version = tuple(
@@ -59,6 +64,7 @@ def require_polib(*version):
         error(message)
 
 require_python(3, 2)
+require_maxunicode(0x10FFFF)
 require_polib(1, 0, 0)
 
 # ----------------------------------------
