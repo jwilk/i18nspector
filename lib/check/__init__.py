@@ -591,6 +591,11 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('duplicate-header-field-date', field)
                 dates = sorted(set(dates))
             elif len(dates) == 0:
+                if field.startswith('POT-') and ctx.is_binary:
+                    # In gettext >> 0.19.8.1, msgfmt will be removing
+                    # the POT-Creation-Date header.
+                    # https://savannah.gnu.org/bugs/?49654
+                    continue
                 self.tag('no-date-header-field', field)
                 continue
             for date in dates:

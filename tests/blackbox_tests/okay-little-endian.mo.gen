@@ -1,3 +1,4 @@
 #!/bin/sh
 set -e -u -x
-exec msgfmt --endian=little "${here}/okay.po" -o "${target}"
+exec grep -v '^"POT-Creation-Date: ' "${here}/okay.po"\
+| msgfmt --endian=little - -o "${target}"
