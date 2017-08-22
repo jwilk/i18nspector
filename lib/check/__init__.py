@@ -122,6 +122,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         else:
             extension = '.' + self.options.file_type
         is_template = False
+        is_binary = False
         if extension == '.po':
             constructor = polib.pofile
         elif extension == '.pot':
@@ -129,6 +130,7 @@ class Checker(object, metaclass=abc.ABCMeta):
             is_template = True
         elif extension in ('.mo', '.gmo'):
             constructor = polib.mofile
+            is_binary = True
         else:
             self.tag('unknown-file-type')
             return
@@ -184,6 +186,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         ctx = misc.Namespace()
         ctx.file = file
         ctx.is_template = is_template
+        ctx.is_binary = is_binary
         self.check_comments(ctx)
         self.check_headers(ctx)
         self.check_language(ctx)
@@ -865,7 +868,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     self.tag('partially-translated-message', message_repr(message))
         if len(msgid_counter) == 0:
             possible_hidden_strings = False
-            if isinstance(ctx.file, polib.MOFile):
+            if ctx.is_binary:
                 possible_hidden_strings = ctx.file.possible_hidden_strings
             if not possible_hidden_strings:
                 self.tag('empty-file')
