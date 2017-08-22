@@ -1,4 +1,4 @@
-i18nspector (0.25.5) UNRELEASED; urgency=low
+i18nspector (0.25.5) unstable; urgency=low
 
   * Don't complain about POT-Creation-Date missing in MO files.
     In the future versions of gettext (>> 0.19.8.1), msgfmt will be removing
@@ -6,7 +6,7 @@ i18nspector (0.25.5) UNRELEASED; urgency=low
     https://savannah.gnu.org/bugs/?49654
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Aug 2017 19:40:58 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 22 Aug 2017 21:21:13 +0200
 
 i18nspector (0.25.4) unstable; urgency=low
 
