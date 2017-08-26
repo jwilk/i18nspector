@@ -35,7 +35,7 @@ $(exe).1: $(exe).txt tags.txt
 	sed -i -e '/^[.]BI/ { s/\\fP/\\fR/g; }' $(@).tmp  # work-around for https://bugs.debian.org/806601
 	sed -i -e 's/^[.]de1/.de/' $(@).tmp  # work-around for https://bugs.debian.org/710678
 	sed -i -e "s/\([a-z]\)\\\\(aq\([a-z]\)/\1'\2/g" $(@).tmp  # prefer ' to \(aq when used as an apostrophe
-	sed -i -e '/.\" vim:/d' $(@).tmp
+	sed -i -e '/^[.][\]" vim:/d' $(@).tmp
 	mv $(@).tmp $(@)
 
 .PHONY: clean
