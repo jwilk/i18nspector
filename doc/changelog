@@ -1,3 +1,9 @@
+i18nspector (0.25.6) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 26 Aug 2017 22:00:47 +0200
+
 i18nspector (0.25.5) unstable; urgency=low
 
   * Don't complain about POT-Creation-Date missing in MO files.
