@@ -40,6 +40,6 @@ $(exe).1: $(exe).txt tags.txt
 
 .PHONY: clean
 clean:
-	rm -f tags.txt $(exe).1
+	rm -f tags.txt $(exe).1 *.tmp
 
 # vim:ts=4 sts=4 sw=4 noet
