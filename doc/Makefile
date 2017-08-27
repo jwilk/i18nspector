@@ -32,10 +32,10 @@ tags.txt: ../data/tags
 
 $(exe).1: $(exe).txt tags.txt
 	$(rst2man) --input-encoding=UTF-8 < $(<) > $(@).tmp
-	sed -i -e '/^[.]BI/ { s/\\fP/\\fR/g; }' $(@).tmp  # work-around for https://bugs.debian.org/806601
-	sed -i -e 's/^[.]de1/.de/' $(@).tmp  # work-around for https://bugs.debian.org/710678
-	sed -i -e "s/\([a-z]\)\\\\(aq\([a-z]\)/\1'\2/g" $(@).tmp  # prefer ' to \(aq when used as an apostrophe
-	sed -i -e '/^[.][\]" vim:/d' $(@).tmp
+	perl -pi -e '/^[.]BI\b/ and s/\\fP/\\fR/g' $(@).tmp  # work-around for https://bugs.debian.org/806601
+	perl -pi -e 's/^[.]de1\b/.de/' $(@).tmp  # work-around for https://bugs.debian.org/710678
+	perl -pi -e 's/([a-z])\\[(]aq([a-z])/$$1\x27$$2/g' $(@).tmp  # prefer ' to \(aq when used as an apostrophe
+	perl -ni -e 'print unless /^[.]\\" vim:/' $(@).tmp
 	mv $(@).tmp $(@)
 
 .PHONY: clean
