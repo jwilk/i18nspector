@@ -22,6 +22,7 @@ matrix:
     env: PYLINT=y
 install:
 - \[ -z "$PYLINT" ] || pip install --upgrade pip
+- python -c 'import sys; sys.exit(sys.version_info < (3, 3))' || pip install setuptools==29.0.1
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install rply
 - \[ -n "$PYLINT" ] || pip install docutils
