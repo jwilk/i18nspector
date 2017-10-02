@@ -1,6 +1,6 @@
-.coverage
+/.coverage
+/doc/*.1
+/doc/rtd/*.txt
+/doc/tags.txt
+/tests/fuzzing/*/output
 __pycache__
-doc/*.1
-doc/rtd/*.txt
-doc/tags.txt
-tests/fuzzing/*/output
