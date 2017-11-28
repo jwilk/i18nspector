@@ -70,7 +70,7 @@ Add tests for:
  * 0x5c byte as a part of a multibyte character:
    https://sources.debian.net/src/vim/2:7.3.547-7/src/po/zh_TW.po/#L13
  * SHIFT_JIS encoding:
-   http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/po-lex.c?id=v0.18.3#n179
+   https://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/po-lex.c?id=v0.18.3#n179
 
 Detect question marks in unusual places.
 
@@ -212,6 +212,6 @@ Check for ``li.org`` mailing lists in ``Language-Team``.
 
 Add support for xgettext message syntax check flags:
 
- * http://git.savannah.gnu.org/cgit/gettext.git/commit/?id=d9fc3d2a3f43
+ * https://git.savannah.gnu.org/cgit/gettext.git/commit/?id=d9fc3d2a3f43
 
 .. vim:ft=rst ts=3 sts=3 sw=3

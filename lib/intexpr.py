@@ -31,7 +31,7 @@ import rply.errors
 LexingError = rply.errors.LexingError
 ParsingError = rply.errors.ParsingError
 
-# http://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
+# https://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-runtime/intl/plural.y?id=v0.18.3#n132
 
 @functools.lru_cache(maxsize=None)
 def create_lexer():

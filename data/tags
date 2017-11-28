@@ -5,7 +5,7 @@ description =
  The date refers to the time before the first GNU gettext release.
  As such, it's extremely unlikely to be correct.
 references =
- http://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
+ https://git.savannah.gnu.org/cgit/gettext.git/tree/ChangeLog.0#n1767
 
 [arithmetic-error-in-plural-forms]
 severity = serious
@@ -393,7 +393,7 @@ description =
  For compatibility with very old (<< 0.11) **msgfmt**\ (1) versions,
  which didn't support fuzzy header entries, it shouldn't be marked as such.
 references =
- http://git.savannah.gnu.org/cgit/gettext.git/tree/NEWS?id=v0.11#n44
+ https://git.savannah.gnu.org/cgit/gettext.git/tree/NEWS?id=v0.11#n44
 
 [inconsistent-leading-newlines]
 severity = important
