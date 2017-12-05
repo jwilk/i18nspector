@@ -29,6 +29,7 @@ import email.utils
 import heapq
 import os
 import re
+import types
 import urllib.parse
 
 import polib
@@ -183,7 +184,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 )
                 # pylint: enable=no-member
                 broken_encoding = True
-        ctx = misc.Namespace()
+        ctx = types.SimpleNamespace()
         ctx.file = file
         ctx.is_template = is_template
         ctx.is_binary = is_binary
@@ -879,7 +880,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                 self.tag('empty-file')
 
     def _check_message_flags(self, message):
-        info = misc.Namespace()
+        info = types.SimpleNamespace()
         info.fuzzy = False
         info.range_min = 0
         info.range_max = 1e999  # +inf

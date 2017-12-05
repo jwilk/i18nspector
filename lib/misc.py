@@ -24,9 +24,7 @@ miscellanea
 
 import contextlib
 import datetime
-import sys
 import tempfile
-import types
 
 def unsorted(iterable):
     '''
@@ -80,19 +78,6 @@ def format_range(rng, *, max):  # pylint: disable=redefined-builtin
             result[-2:] = ['...', str(last)]
             break
     return ', '.join(map(str, result))
-
-class Namespace(object):
-    '''
-    simple attribute-based namespace
-    '''
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.__dict__.update(kwargs)
-
-Namespace()  # make pyflakes and coverage.py happy
-
-if sys.version_info >= (3, 3):  # no coverage
-    Namespace = types.SimpleNamespace
 
 @contextlib.contextmanager
 def throwaway_tempdir(context):

@@ -11,7 +11,7 @@ Prerequisites
 
 The following software is needed to run i18nspector:
 
-* Python ≥ 3.2;
+* Python ≥ 3.3;
 
 * polib_ ≥ 1.0.0, a gettext catalogs manipulation library;
 

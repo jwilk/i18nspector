@@ -29,7 +29,6 @@ MO file parser
 
 import re
 import struct
-import sys
 
 import polib
 
@@ -51,12 +50,7 @@ class Parser(object):
             contents = file.read()
         view = memoryview(contents)
         if len(view) > 0:
-            if sys.version_info >= (3, 3):
-                # https://docs.python.org/3.3/whatsnew/3.3.html#pep-3118-new-memoryview-implementation-and-buffer-protocol-documentation
-                # “Accessing a memoryview element with format ‘B’ (unsigned bytes)
-                # now returns an integer […]. For returning a bytes object the view
-                # must be cast to ‘c’ first.”
-                view = view.cast('c')
+            view = view.cast('c')
             assert isinstance(view[0], bytes)
         self._view = view
         if klass is None:

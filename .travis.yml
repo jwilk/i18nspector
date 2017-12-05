@@ -6,7 +6,7 @@ python:
 - "3.5"
 - "3.6"
 - "3.7-dev"
-- pypy3-2.4.0
+- pypy3.5-5.8.0
 env:
 - POLIB_VERSION=1.0.0
 - POLIB_VERSION=
@@ -15,11 +15,10 @@ matrix:
   exclude:
   - python: "3.7-dev"
     env: PYLINT=y
-  - python: pypy3-2.4.0
+  - python: pypy3.5-5.8.0
     env: PYLINT=y
 install:
 - \[ -z "$PYLINT" ] || pip install --upgrade pip
-- if [[ "$TRAVIS_PYTHON_VERSION" =~ pypy3 ]]; then pip install setuptools==29.0.1; fi
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install rply
 - \[ -n "$PYLINT" ] || pip install docutils

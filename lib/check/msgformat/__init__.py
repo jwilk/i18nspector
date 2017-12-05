@@ -23,8 +23,7 @@ message format checks
 '''
 
 import abc
-
-from lib import misc
+import types
 
 class Checker(object, metaclass=abc.ABCMeta):
 
@@ -71,7 +70,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         has_msgstr_plural = any(message.msgstr_plural.values())
         strings = []
         if has_msgstr:
-            d = misc.Namespace()
+            d = types.SimpleNamespace()
             d.src_loc = 'msgid'
             d.src_fmt = msgid_fmts.get(0)
             d.dst_loc = 'msgstr'
@@ -81,7 +80,7 @@ class Checker(object, metaclass=abc.ABCMeta):
         if has_msgstr_plural and ctx.plural_preimage:
             for i, s in sorted(message.msgstr_plural.items()):
                 assert isinstance(i, int)
-                d = misc.Namespace()
+                d = types.SimpleNamespace()
                 msgid_fmt = msgid_fmts.get(0)
                 msgid_plural_fmt = msgid_fmts.get(1)
                 d.src_loc = 'msgid_plural'

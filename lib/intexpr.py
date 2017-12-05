@@ -24,6 +24,7 @@ C integer expressions
 
 import ast
 import functools
+import types
 
 import rply
 import rply.errors
@@ -157,7 +158,7 @@ from lib import misc  # pylint: disable=wrong-import-position
 class BaseEvaluator(object):
 
     def __init__(self, node):
-        self._ctxt = misc.Namespace()
+        self._ctxt = types.SimpleNamespace()
         self._node = node
 
     def __call__(self):

@@ -73,12 +73,8 @@ def encode(input: str, encoding=default_encoding, errors='strict'):
     return _encode(input, encoding=encoding)
 
 def _encode_dl(input: str, *, encoding):
-    if sys.maxunicode < (1 << 16):
-        uencoding = 'UTF-16LE'
-        uwidth = 2
-    else:
-        uencoding = 'UTF-32LE'
-        uwidth = 4
+    uencoding = 'UTF-32LE'
+    uwidth = 4
     binput = bytes(input, encoding=uencoding)
     assert len(binput) == len(input) * uwidth
     cd = _iconv_open(bytes(encoding, 'ASCII'), bytes(uencoding, 'ASCII'))

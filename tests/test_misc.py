@@ -135,13 +135,6 @@ class test_format_range:
     def test_huge(self):
         self.t(5, 42 ** 17, 5, '5, 6, 7, ..., 3937657486715347520027492351')
 
-def test_namespace():
-    ns = M.Namespace()
-    with assert_raises(AttributeError):
-        ns.eggs  # pylint: disable=pointless-statement
-    ns.eggs = 37
-    assert_equal(ns.eggs, 37)
-
 def test_throwaway_tempdir():
     with M.throwaway_tempdir('test'):
         d = tempfile.gettempdir()
