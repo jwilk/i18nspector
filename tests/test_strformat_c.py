@@ -19,6 +19,7 @@
 # SOFTWARE.
 
 import os
+import platform
 import struct
 import sys
 
@@ -47,13 +48,15 @@ def test_INT_MAX():
         struct.pack('=i', M.INT_MAX + 1)
 
 def test_NL_ARGMAX():
-    if sys.platform.startswith('linux'):
+    plat = sys.platform
+    libc, _ = platform.libc_ver()
+    if plat.startswith('linux') and libc == 'glibc':
         assert_equal(
             M.NL_ARGMAX,
             os.sysconf('SC_NL_ARGMAX')
         )
     else:
-        raise nose.SkipTest('Linux-specific test')
+        raise nose.SkipTest('Test specific to Linux with glibc')
 
 if mock is not None:
     small_NL_ARGMAX = mock.patch('lib.strformat.c.NL_ARGMAX', 42)
