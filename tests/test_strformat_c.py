@@ -47,10 +47,16 @@ def test_INT_MAX():
     with assert_raises(struct.error):
         struct.pack('=i', M.INT_MAX + 1)
 
+def is_glibc():
+    try:
+        os.confstr('CS_GNU_LIBC_VERSION')
+    except (ValueError, OSError):
+        return False
+    return True
+
 def test_NL_ARGMAX():
     plat = sys.platform
-    libc, _ = platform.libc_ver()
-    if plat.startswith('linux') and libc == 'glibc':
+    if plat.startswith('linux') and is_glibc():
         assert_equal(
             M.NL_ARGMAX,
             os.sysconf('SC_NL_ARGMAX')
