@@ -2,8 +2,9 @@ i18nspector (0.25.6) UNRELEASED; urgency=low
 
   * Drop support for Python 3.2.
   * Use HTTPS for savannah.gnu.org and unicode.org URLs.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 05 Dec 2017 21:02:02 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Dec 2017 18:47:05 +0100
 
 i18nspector (0.25.5) unstable; urgency=low
 
