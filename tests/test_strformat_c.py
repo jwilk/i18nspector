@@ -19,7 +19,6 @@
 # SOFTWARE.
 
 import os
-import platform
 import struct
 import sys
 
