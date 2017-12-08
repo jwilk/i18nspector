@@ -108,7 +108,7 @@ class test_utc_now:
         now1 = t('Etc/GMT-4')
         now2 = t('Etc/GMT+2')
         tdelta = (now1 - now2).total_seconds()
-        assert_almost_equal(tdelta, 0, places=1)
+        assert_almost_equal(tdelta, 0, delta=0.5)
 
 class test_format_range:
 
