@@ -21,8 +21,6 @@
 import curses.ascii
 import sys
 
-import lib.encodings as E
-
 import nose
 from nose.tools import (
     assert_equal,
@@ -32,6 +30,8 @@ from nose.tools import (
     assert_raises,
     assert_true,
 )
+
+import lib.encodings as E
 
 from . import tools
 

@@ -20,12 +20,12 @@
 
 import random
 
-import lib.moparser as M
-
 from nose.tools import (
     assert_equal,
     assert_raises,
 )
+
+import lib.moparser as M
 
 from . import tools
 
