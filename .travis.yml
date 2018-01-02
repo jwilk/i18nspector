@@ -33,8 +33,8 @@ matrix:
     - pip install rply
     - pip install pylint
     - pip install pytz  # for private/update-timezones
-    - pip install --verbose cython
-    - pip install --verbose python-afl
+    - pip install cython
+    - pip install python-afl
     script:
     - private/run-pylint
   - <<: *pylint
