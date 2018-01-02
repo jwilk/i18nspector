@@ -27,6 +27,7 @@ matrix:
   - &pylint
     env: PYLINT=y
     python: "3.3"
+    cache: pip
     install:
     - pip install polib
     - pip install rply
