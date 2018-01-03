@@ -67,7 +67,7 @@ Add tests for:
  * languages with multiple correct ``Plural-Forms``
  * lib.moparser
  * all non-Python encodings
- * 0x5c byte as a part of a multibyte character:
+ * 0x5C byte as a part of a multibyte character:
    https://sources.debian.net/src/vim/2:7.3.547-7/src/po/zh_TW.po/#L13
  * SHIFT_JIS encoding:
    https://git.savannah.gnu.org/cgit/gettext.git/tree/gettext-tools/src/po-lex.c?id=v0.18.3#n179

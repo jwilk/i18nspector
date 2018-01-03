@@ -54,7 +54,7 @@ _directive_re = re.compile('''
     )
 ''', re.VERBOSE)
 
-def _printable_prefix(s, r=re.compile('[ -\x7e]+')):
+def _printable_prefix(s, r=re.compile('[ -\x7E]+')):
     return r.match(s).group()
 
 class _info:

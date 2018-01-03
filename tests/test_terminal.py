@@ -40,7 +40,7 @@ def test_strip_delay():
     t(b'$<4*/>')
     t(b'$<.5*/>')
     t(b'$<0.6*>')
-    s = b'$<\x9b20>'
+    s = b'$<\x9B20>'
     t(s, s)
 
 def _get_colors():
@@ -86,19 +86,19 @@ def test_vt100():
     t = assert_tseq_equal
     for i in _get_colors():
         t(T.attr_fg(i), '')
-    t(T.attr_reset(), '\x1b[m\x0f')
+    t(T.attr_reset(), '\x1B[m\x0F')
 
 @pty_fork_isolation('ansi')
 def test_ansi():
     t = assert_tseq_equal
-    t(T.attr_fg(T.colors.black), '\x1b[30m')
-    t(T.attr_fg(T.colors.red), '\x1b[31m')
-    t(T.attr_fg(T.colors.green), '\x1b[32m')
-    t(T.attr_fg(T.colors.yellow), '\x1b[33m')
-    t(T.attr_fg(T.colors.blue), '\x1b[34m')
-    t(T.attr_fg(T.colors.magenta), '\x1b[35m')
-    t(T.attr_fg(T.colors.cyan), '\x1b[36m')
-    t(T.attr_fg(T.colors.white), '\x1b[37m')
-    t(T.attr_reset(), '\x1b[0;10m')
+    t(T.attr_fg(T.colors.black), '\x1B[30m')
+    t(T.attr_fg(T.colors.red), '\x1B[31m')
+    t(T.attr_fg(T.colors.green), '\x1B[32m')
+    t(T.attr_fg(T.colors.yellow), '\x1B[33m')
+    t(T.attr_fg(T.colors.blue), '\x1B[34m')
+    t(T.attr_fg(T.colors.magenta), '\x1B[35m')
+    t(T.attr_fg(T.colors.cyan), '\x1B[36m')
+    t(T.attr_fg(T.colors.white), '\x1B[37m')
+    t(T.attr_reset(), '\x1B[0;10m')
 
 # vim:ts=4 sts=4 sw=4 et
