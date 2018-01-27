@@ -14,8 +14,7 @@ install:
 - pip install polib${POLIB_VERSION:+==$POLIB_VERSION}
 - pip install rply
 - pip install docutils
-- pip install pydiatra
-- pip install pyflakes
+- pip install pydiatra pyflakes
 script:
 - tests/run-tests -v
 - make -C doc/
