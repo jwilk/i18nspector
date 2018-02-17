@@ -19,8 +19,8 @@ script:
 - tests/run-tests -v
 - make -C doc/
 - private/check-rst
-- private/run-pydiatra
-- private/run-pyflakes
+- python3 -m pydiatra .
+- python3 -m pyflakes .
 - make install PREFIX=~/.local
 - export PATH=~/.local/bin:"$PATH"
 - i18nspector --version
