@@ -172,7 +172,7 @@ class VersionAction(argparse.Action):
         try:
             rply_version = rply.__version__
         except AttributeError:
-            # __version__ is available only since rply 0.7.4+:
+            # __version__ is available only since rply 0.7.5:
             # https://github.com/alex/rply/pull/58
             try:
                 import pkg_resources
