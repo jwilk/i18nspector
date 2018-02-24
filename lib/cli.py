@@ -164,25 +164,30 @@ class VersionAction(argparse.Action):
             help="show program's version information and exit"
         )
 
+    @staticmethod
+    def _get_rply_version():
+        rply = check.gettext.intexpr.rply
+        try:
+            return rply.__version__
+        except AttributeError:
+            # __version__ is available only since rply 0.7.5:
+            # https://github.com/alex/rply/pull/58
+            pass
+        try:
+            import pkg_resources
+            [dist, *rest] = pkg_resources.require('rply')
+            del rest
+        except ImportError:
+            # oh well...
+            return
+        assert dist.project_name == 'rply'
+        return dist.version
+
     def __call__(self, parser, namespace, values, option_string=None):
         print('{prog} {0}'.format(__version__, prog=parser.prog))
         print('+ Python {0}.{1}.{2}'.format(*sys.version_info))
         print('+ polib {0}'.format(check.polib.__version__))
-        rply = check.gettext.intexpr.rply
-        try:
-            rply_version = rply.__version__
-        except AttributeError:
-            # __version__ is available only since rply 0.7.5:
-            # https://github.com/alex/rply/pull/58
-            try:
-                import pkg_resources
-                [dist, *rest] = pkg_resources.require('rply')
-                del rest
-                assert dist.project_name == 'rply'
-                rply_version = dist.version
-            except ImportError:
-                # oh well...
-                rply_version = None
+        rply_version = self._get_rply_version()
         if rply_version is not None:
             print('+ rply {0}'.format(rply_version))
         parser.exit()
