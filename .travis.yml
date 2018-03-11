@@ -22,6 +22,7 @@ script:
 - python3 -m pydiatra .
 - python3 -m pyflakes .
 - make install PREFIX=~/.local
+- cd /
 - i18nspector --version
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 i18nspector | grep -A 10 -w I18NSPECTOR
