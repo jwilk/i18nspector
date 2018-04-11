@@ -1,4 +1,5 @@
 /.coverage
+/dist
 /doc/*.1
 /doc/rtd/*.txt
 /doc/tags.txt
