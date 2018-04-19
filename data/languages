@@ -5,7 +5,7 @@
 # - languages for which real-world PO files exist.
 # ISO 639-2 codes for collections of languages
 # should normally not be added here.
-# See: http://www-01.sil.org/iso639-3/scope.asp#C
+# See: https://iso639-3.sil.org/about/scope#Collections%20of%20languages
 
 [aa]
 names = Afar
