@@ -25,5 +25,5 @@ here=$(dirname "$0")
 input="$here/input"
 output="$here/output"
 [ -e "$output/" ] && input=-
-export AFL_NO_VAR_CHECK=1
+export AFL_FAST_CAL=1
 exec py-afl-fuzz -i "$input" -o "$output" -T i18nspector-plural-forms -- python3 "$here/test.py"

@@ -30,7 +30,7 @@ else
     input=$(mktemp -d -t i18nspector.fuzzing.XXXXXX)
     cp "$here/../../blackbox_tests/"*.mo "$input/"
 fi
-export AFL_NO_VAR_CHECK=1
+export AFL_FAST_CAL=1
 exec py-afl-fuzz -i "$input" -o "$output" -T i18nspector-mo-parser -- python3 "$here/test.py"
 
 # vim:ts=4 sts=4 sw=4 et
