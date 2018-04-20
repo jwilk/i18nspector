@@ -85,7 +85,7 @@ Add support for overrides.
 
 Add option for disabling/forcing colored output.
 
-Use `blessings <https://pypi.python.org/pypi/blessings>`_ for colored output.
+Use `blessings <https://pypi.org/project/blessings/>`_ for colored output.
 
 Reimplement the EUC-TW codec with PyICU.
 
