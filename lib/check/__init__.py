@@ -604,7 +604,7 @@ class Checker(object, metaclass=abc.ABCMeta):
                     continue
                 if 'T' in date and is_publican:
                     # Publican uses DateTime->now(), which uses the UTC timezone by default:
-                    # https://sources.debian.net/src/publican/2.8-3/lib/Publican/Translate.pm/?hl=748#L744
+                    # https://sources.debian.org/src/publican/2.8-3/lib/Publican/Translate.pm/?hl=748#L744
                     # https://bugs.debian.org/714739
                     tz_hint = '-0000'
                 else:
