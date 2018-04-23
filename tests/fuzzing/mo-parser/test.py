@@ -18,7 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import encodings
+import importlib
 import os
+import pkgutil
 import sys
 
 import afl
@@ -43,6 +46,11 @@ def test(data):
         pass
 
 def main():
+    for _, modname, _ in pkgutil.iter_modules(encodings.__path__, prefix='encodings.'):
+        try:
+            importlib.import_module(modname)
+        except (LookupError, ImportError):
+            pass
     while afl.loop(max=1000):
         data = sys.stdin.buffer.read()  # pylint: disable=no-member
         test(data)
