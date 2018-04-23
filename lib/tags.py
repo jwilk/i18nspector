@@ -134,7 +134,7 @@ class Tag(object):
                 getattr(self, '_set_' + k)(v)
             except AttributeError:
                 raise UnknownField(k)
-        self.name, self.severity, self.certainty  # pylint: disable=pointless-statement
+        type({self.name, self.severity, self.certainty})
 
     # pylint: disable=attribute-defined-outside-init
 
