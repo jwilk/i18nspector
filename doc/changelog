@@ -6,9 +6,10 @@ i18nspector (0.25.6) UNRELEASED; urgency=low
     + Use HTTPS for unicode.org.
     + pypi.python.org → pypi.org.
     + sources.debian.net → sources.debian.org.
+    + Alioth VCS → sources.debian.org.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Dec 2017 18:47:05 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 30 Apr 2018 09:50:30 +0200
 
 i18nspector (0.25.5) unstable; urgency=low
 
