@@ -19,10 +19,10 @@ _header_re = re.compile(r'''
 
 needs_sphinx = '1.0'
 project = 'i18nspector'
-source_suffix = '.txt'
+source_suffix = '.rst'
 master_doc = 'index'
 here = os.path.dirname(__file__)
-path = os.path.join(here, os.pardir, project + source_suffix)
+path = os.path.join(here, os.pardir, 'manpage.rst')
 with open(path, 'rb') as file:
     content = file.read()
 path = os.path.join(here, master_doc + source_suffix)

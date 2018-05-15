@@ -26,11 +26,11 @@ exe = i18nspector
 .PHONY: all
 all: $(exe).1
 
-tags.txt: ../data/tags
+tags.rst: ../data/tags
 	../private/tags-as-rst > $(@).tmp
 	mv $(@).tmp $(@)
 
-$(exe).1: $(exe).txt tags.txt
+$(exe).1: manpage.rst tags.rst
 	$(rst2man) --input-encoding=UTF-8 < $(<) > $(@).tmp
 	perl -pi -e '/^[.]BI\b/ and s/\\fP/\\fR/g' $(@).tmp  # work-around for https://bugs.debian.org/806601
 	perl -pi -e 's/^[.]de1\b/.de/' $(@).tmp  # work-around for https://bugs.debian.org/710678
@@ -40,6 +40,6 @@ $(exe).1: $(exe).txt tags.txt
 
 .PHONY: clean
 clean:
-	rm -f tags.txt $(exe).1 *.tmp
+	rm -f tags.rst $(exe).1 *.tmp
 
 # vim:ts=4 sts=4 sw=4 noet

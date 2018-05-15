@@ -58,7 +58,7 @@ where:
 
 Tags
 ----
-.. include:: tags.txt
+.. include:: tags.rst
 
 .. |date| date:: %Y-%m-%d
 
@@ -66,4 +66,4 @@ See also
 --------
 **msgfmt**\ (1), particularly the ``-c`` option
 
-.. vim:ft=rst ts=3 sts=3 sw=3
+.. vim:ts=3 sts=3 sw=3
