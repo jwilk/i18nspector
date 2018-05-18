@@ -1,4 +1,4 @@
-i18nspector (0.25.6) UNRELEASED; urgency=low
+i18nspector (0.25.6) unstable; urgency=low
 
   * Drop support for Python 3.2.
   * Update various URLs:
@@ -9,7 +9,7 @@ i18nspector (0.25.6) UNRELEASED; urgency=low
     + Alioth VCS → sources.debian.org.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 30 Apr 2018 09:50:30 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 18 May 2018 22:02:55 +0200
 
 i18nspector (0.25.5) unstable; urgency=low
 
