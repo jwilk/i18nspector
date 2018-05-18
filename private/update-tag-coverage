@@ -32,7 +32,7 @@ def main():
     coverage = blackbox_tests.get_coverage()
     path = os.path.join(
         os.path.dirname(blackbox_tests.__file__),
-        'coverage.txt'
+        'coverage'
     )
     sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')
     print('Generated automatically by private/update-tag-coverage. '
