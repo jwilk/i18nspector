@@ -13,11 +13,13 @@ env:
 before_install:
 - polib="polib==$POLIB"
 - polib="${polib%==latest}"
+- pyflakes=pyflakes
+- if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes='pyflakes<2'; fi
 install:
 - pip install $polib
 - pip install rply
 - pip install docutils
-- pip install pydiatra pyflakes
+- pip install pydiatra $pyflakes
 script:
 - tests/run-tests -v
 - make -C doc/
