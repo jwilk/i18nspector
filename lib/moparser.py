@@ -143,15 +143,13 @@ class Parser(object):
                         pass
             if encoding is None:
                 encoding = 'ASCII'
-            else:
-                if not encodings.is_ascii_compatible_encoding(encoding):
-                    encoding = 'ASCII'
+            elif not encodings.is_ascii_compatible_encoding(encoding):
+                encoding = 'ASCII'
             self._encoding = encoding
-        else:
-            if msgids == self._last_msgid:
-                raise SyntaxError('duplicate message definition')
-            elif msgid < self._last_msgid:
-                raise SyntaxError('messages are not sorted')
+        elif msgids == self._last_msgid:
+            raise SyntaxError('duplicate message definition')
+        elif msgid < self._last_msgid:
+            raise SyntaxError('messages are not sorted')
         self._last_msgid = msgid  # pylint: disable=attribute-defined-outside-init
         assert encoding is not None
         msgid, *msgctxt = msgid.split(b'\x04', 1)

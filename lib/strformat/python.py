@@ -260,11 +260,10 @@ class Conversion(object):
             except IndexError:
                 raise ArgumentIndexingMixture(s)
             width = ...
-        else:
-            if width > SSIZE_MAX:
-                # The limit is INT_MAX in Python 2.X and SSIZE_MAX in Python 3.X;
-                # but INT_MAX == SSIZE_MAX on mainstream 32-bit architectures.
-                raise WidthRangeError(s, width)
+        elif width > SSIZE_MAX:
+            # The limit is INT_MAX in Python 2.X and SSIZE_MAX in Python 3.X;
+            # but INT_MAX == SSIZE_MAX on mainstream 32-bit architectures.
+            raise WidthRangeError(s, width)
         if var_prec:
             assert prec is None
             try:

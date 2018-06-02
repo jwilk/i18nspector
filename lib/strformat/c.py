@@ -214,14 +214,13 @@ class FormatString(object):
             else:
                 n = self._next_arg_index
                 self._next_arg_index += 1
+        elif self._next_arg_index is None:
+            pass
+        elif self._next_arg_index == 1:
+            assert not self._argument_map
+            self._next_arg_index = None
         else:
-            if self._next_arg_index is None:
-                pass
-            elif self._next_arg_index == 1:
-                assert not self._argument_map
-                self._next_arg_index = None
-            else:
-                raise IndexError
+            raise IndexError
         if n > NL_ARGMAX:
             raise OverflowError(n)
         self._argument_map[n] += [value]
