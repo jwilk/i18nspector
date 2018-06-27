@@ -86,13 +86,6 @@ def initialize():
         _curses = _dummy_curses
         return
     try:
-        _curses.tparm(b'x')
-    except TypeError:
-        # curses.tparm() is broken in early versions of Python 3.2:
-        # https://bugs.python.org/issue10570
-        _curses = _dummy_curses
-        return
-    try:
         _curses.tigetstr('x')
     except TypeError:
         # curses.tigetstr() is broken in PyPy 3:
