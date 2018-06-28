@@ -60,7 +60,8 @@ def attr_fg(i):
     '''
     s = _curses.tigetstr('setaf') or b''
     s = _strip_delay(s)
-    s = _curses.tparm(s, i)
+    if s:  # work-around for https://bugs.debian.org/902630
+        s = _curses.tparm(s, i)
     return s.decode()
 
 def attr_reset():
