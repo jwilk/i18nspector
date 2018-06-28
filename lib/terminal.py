@@ -86,13 +86,6 @@ def initialize():
     except _curses.error:
         _curses = _dummy_curses
         return
-    try:
-        _curses.tigetstr('x')
-    except TypeError:
-        # curses.tigetstr() is broken in PyPy 3:
-        # https://bitbucket.org/pypy/pypy/issues/1997
-        _curses = _dummy_curses
-        return
     for key, value in vars(_curses).items():
         if key.startswith('COLOR_'):
             key = key[6:].lower()
