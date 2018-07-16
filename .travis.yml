@@ -36,7 +36,7 @@ matrix:
   include:
   - &pylint
     env: PYLINT=y
-    python: "3.3"
+    python: "3.4"
     cache: pip
     install:
     - pip install polib
@@ -47,8 +47,6 @@ matrix:
     - pip install python-afl
     script:
     - private/run-pylint
-  - <<: *pylint
-    python: "3.4"
   - <<: *pylint
     python: "3.5"
   - <<: *pylint
