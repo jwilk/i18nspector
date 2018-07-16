@@ -22,7 +22,7 @@ import functools
 import struct
 
 try:
-    import unittest.mock as mock
+    from unittest import mock
 except ImportError:
     try:
         import mock
