@@ -33,7 +33,7 @@ import pytz
 sys.path[0] += '/..'
 basedir = sys.path[0]
 
-import lib.gettext as gettext
+from lib import gettext
 
 def get_tzdata_version():
     version = pytz.OLSON_VERSION
