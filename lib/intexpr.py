@@ -668,7 +668,7 @@ class PeriodEvaluator(BaseEvaluator):
         return (0, 1)
 
     def _visit_name(self, node):  # pylint: disable=unused-argument
-        return
+        pass
 
 class Expression():
 

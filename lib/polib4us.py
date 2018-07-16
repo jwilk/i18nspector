@@ -109,7 +109,6 @@ def codecs_patch():
 def pofile_find_patch():
     def pofile_find(self, *args, **kwargs):
         del self, args, kwargs
-        return
     polib.POFile.find = pofile_find
 
 # polib.unescape()

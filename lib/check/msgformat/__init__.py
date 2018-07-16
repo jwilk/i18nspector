@@ -32,7 +32,7 @@ class Checker(metaclass=abc.ABCMeta):
 
     @abc.abstractproperty
     def backend(self):
-        return
+        pass
 
     def tag(self, tagname, *extra):
         return self.parent.tag(tagname, *extra)

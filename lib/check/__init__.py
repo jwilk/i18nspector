@@ -107,7 +107,7 @@ class Checker(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def tag(self, tagname, *extra):
-        return
+        pass
 
     def check(self):
         # If a file passed to polib doesn't exist, it will “helpfully” treat it
