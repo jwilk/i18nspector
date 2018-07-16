@@ -142,7 +142,7 @@ def create_parser(lexer):
         # CVE-2014-1604, CVE-2014-1938
         return pg.build()
 
-class Parser(object):
+class Parser():
 
     def __init__(self):
         self._lexer = create_lexer()
@@ -155,7 +155,7 @@ class Parser(object):
 
 from lib import misc  # pylint: disable=wrong-import-position
 
-class BaseEvaluator(object):
+class BaseEvaluator():
 
     def __init__(self, node):
         self._ctxt = types.SimpleNamespace()
@@ -670,7 +670,7 @@ class PeriodEvaluator(BaseEvaluator):
     def _visit_name(self, node):  # pylint: disable=unused-argument
         return
 
-class Expression(object):
+class Expression():
 
     def __init__(self, node):
         if not isinstance(node, ast.Expr):

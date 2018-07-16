@@ -77,7 +77,7 @@ def tagstring(s):
 
 # ----------------------------------------
 
-class ETag(object):
+class ETag():
 
     _ellipsis = '<...>'
     _split = re.compile('({})'.format(re.escape(_ellipsis))).split

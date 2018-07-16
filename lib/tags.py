@@ -32,7 +32,7 @@ from lib import paths
 from lib import terminal
 
 @functools.total_ordering
-class OrderedObject(object):
+class OrderedObject():
 
     _parent = None
 
@@ -65,7 +65,7 @@ class OrderedObject(object):
     def __str__(self):
         return str(self._name)
 
-class OrderedGroup(object):
+class OrderedGroup():
 
     def __init__(self, name, *items):
         self._child_type = ct = type(name, (OrderedObject,), dict(_parent=self))
@@ -124,7 +124,7 @@ def safe_format(template, *args, **kwargs):
     kwargs = {k: _escape(v) for k, v in kwargs.items()}
     return safestr(template.format(*args, **kwargs))
 
-class Tag(object):
+class Tag():
 
     def __init__(self, **kwargs):
         self.description = None

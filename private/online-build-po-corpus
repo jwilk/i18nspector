@@ -37,7 +37,7 @@ import apt_pkg
 def is_po_path(path):
     return path.endswith(('.po', '.pot'))
 
-class Fetcher(object):
+class Fetcher():
 
     def __init__(self, urlbase):
         self._urlbase = urlbase

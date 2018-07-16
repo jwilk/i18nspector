@@ -111,7 +111,7 @@ class ArgumentTypeMismatch(Error):
 
 # --------------------------------------------------------------------------
 
-class FormatString(object):
+class FormatString():
 
     def __init__(self, s):
         self._argument_map = collections.defaultdict(list)
@@ -178,7 +178,7 @@ class FormatString(object):
 
 # --------------------------------------------------------------------------
 
-class Field(object):
+class Field():
 
     def __init__(self, parent, match):
         s = match.string[slice(*match.span())]
@@ -271,7 +271,7 @@ class Field(object):
             raise ConversionError(s)
         self.types = frozenset(tp)
 
-class NestedField(object):
+class NestedField():
 
     types = frozenset({'str', 'int', 'float'})
 

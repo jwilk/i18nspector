@@ -63,7 +63,7 @@ def default_encoding_patch():
 # - atypical comment parsing
 # - parsing of empty files: https://bitbucket.org/izi/polib/issues/59
 
-class Codecs(object):
+class Codecs():
 
     _iterlines = re.compile(r'[^\n]*(?:\n|\Z)').findall
     _atypical_comment = re.compile(r'#[^ .:,|~]').match

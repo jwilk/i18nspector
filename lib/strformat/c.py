@@ -152,21 +152,21 @@ class PrecisionRangeError(Error):
     message = 'precision too large'
 
 
-class VariableWidth(object):
+class VariableWidth():
 
     type = 'int'
 
     def __init__(self, parent):
         self.parent = parent
 
-class VariablePrecision(object):
+class VariablePrecision():
 
     type = 'int'
 
     def __init__(self, parent):
         self.parent = parent
 
-class FormatString(object):
+class FormatString():
 
     def __init__(self, s):
         self._items = items = []
@@ -267,7 +267,7 @@ class FormatString(object):
     def __len__(self):
         return len(self._items)
 
-class Conversion(object):
+class Conversion():
 
     type = None
     integer = None
