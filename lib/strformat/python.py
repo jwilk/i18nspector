@@ -153,7 +153,7 @@ class FormatString():
                 j, ch = next_si()
             else:
                 width = 0
-                while ch >= '0' and ch <= '9':
+                while '0' <= ch <= '9':
                     width *= 10
                     width += int(ch)
                     j, ch = next_si()
@@ -166,7 +166,7 @@ class FormatString():
                     j, ch = next_si()
                 else:
                     prec = 0
-                    while ch >= '0' and ch <= '9':
+                    while '0' <= ch <= '9':
                         prec *= 10
                         prec += int(ch)
                         j, ch = next_si()
