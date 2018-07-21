@@ -1,7 +1,7 @@
 /.coverage
 /dist
 /doc/*.1
-/doc/rtd/*.txt
-/doc/tags.txt
+/doc/rtd/*.rst
+/doc/tags.rst
 /tests/fuzzing/*/output
 __pycache__
