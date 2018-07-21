@@ -2,6 +2,7 @@
 Sphinx configuration file for readthedocs.org
 '''
 
+import io
 import os
 import re
 import subprocess as ipc
@@ -23,7 +24,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 here = os.path.dirname(__file__)
 path = os.path.join(here, os.pardir, 'manpage.rst')
-with open(path, 'rb') as file:
+with io.open(path, 'rt', encoding='UTF-8') as file:
     content = file.read()
 path = os.path.join(here, master_doc + source_suffix)
 match = _header_re.search(content)
@@ -31,7 +32,7 @@ section = int(match.group('section'))
 release = version = match.group('version')
 description = match.group('description')
 content = _header_re.sub('', content, count=1)
-with open(path, 'wb') as file:
+with io.open(path, 'wt', encoding='UTF-8') as file:
     file.write(content)
 del content
 
