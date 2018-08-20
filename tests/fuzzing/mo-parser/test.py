@@ -28,11 +28,13 @@ import afl
 
 sys.path[0] += '/../../..'
 
-import tests.tools as tools
+import tests.tools
 import lib.moparser as M
 
+temporary_file = tests.tools.temporary_file
+
 def parser_for_bytes(data):
-    with tools.temporary_file(suffix='.mo') as file:
+    with temporary_file(suffix='.mo') as file:
         file.write(data)
         file.flush()
         return M.Parser(file.name)
