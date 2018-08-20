@@ -305,7 +305,7 @@ class Conversion():
                     '%' + length + conversion,
                     '%' + plength + conversion
                 )
-            tp = i.int_types.get(plength or '')
+            tp = i.int_types.get(plength or '')  # pylint: disable=no-member
             assert tp is not None
             tp = tp[conversion in i.uint_cvt]
             if conversion == 'n':
