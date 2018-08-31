@@ -52,7 +52,7 @@ object-pascal = %d
 # https://www.freepascal.org/docs-html/rtl/sysutils/format.html
 
 perl = %d
-# http://perldoc.perl.org/functions/sprintf.html
+# https://perldoc.perl.org/functions/sprintf.html
 
 perl-brace = {var}
 # https://metacpan.org/pod/Locale::TextDomain
