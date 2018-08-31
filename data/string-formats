@@ -34,7 +34,7 @@ kde = %1
 # https://techbase.kde.org/Development/Tutorials/Localization/i18n
 
 kde-kuit = %1
-# http://api.kde.org/frameworks-api/frameworks5-apidocs/ki18n/html/prg_guide.html
+# https://api.kde.org/frameworks/ki18n/html/prg_guide.html
 
 librep = %d
 # http://librep.sourceforge.net/librep-manual.html#Formatted%20Output
