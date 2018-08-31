@@ -90,7 +90,7 @@ def chdir(new_cwd):
     finally:
         os.chdir(orig_cwd)
 
-default_mirror = 'http://deb.debian.org/debian'
+default_mirror = 'https://deb.debian.org/debian'
 default_dist = 'stable'
 default_areas = 'main'
 
