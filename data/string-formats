@@ -46,7 +46,7 @@ lua = %d
 # https://www.lua.org/manual/5.2/manual.html#pdf-string.format
 
 objc = %d
-# https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
+# https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
 
 object-pascal = %d
 # https://www.freepascal.org/docs-html/rtl/sysutils/format.html
