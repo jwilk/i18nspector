@@ -28,6 +28,9 @@ disable =
     too-many-return-statements,
     too-many-statements,
 
+[BASIC]
+no-docstring-rgx = .*
+
 [REPORTS]
 reports = no
 msg-template = {C}: {path}:{line}: {symbol} [{obj}] {msg}
