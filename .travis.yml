@@ -16,10 +16,10 @@ before_install:
 - pyflakes=pyflakes
 - if [[ $TRAVIS_PYTHON_VERSION = 3.3 ]]; then pyflakes='pyflakes<2'; fi
 install:
-- pip install $polib
-- pip install rply
-- pip install docutils
-- pip install pydiatra $pyflakes
+- python3 -m pip install $polib
+- python3 -m pip install rply
+- python3 -m pip install docutils
+- python3 -m pip install pydiatra $pyflakes
 script:
 - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
 - tests/run-tests -v
@@ -39,12 +39,12 @@ matrix:
     python: "3.4"
     cache: pip
     install:
-    - pip install polib
-    - pip install rply
-    - pip install pylint
-    - pip install pytz  # for private/update-timezones
-    - pip install cython
-    - pip install python-afl
+    - python3 -m pip install polib
+    - python3 -m pip install rply
+    - python3 -m pip install pylint
+    - python3 -m pip install pytz  # for private/update-timezones
+    - python3 -m pip install cython
+    - python3 -m pip install python-afl
     script:
     - private/run-pylint
   - <<: *pylint
