@@ -45,7 +45,7 @@ install: i18nspector
 	( find lib data -type f ! -name '*.py[co]' ) \
 	| xargs -t -I {} $(INSTALL) -p -D -m644 {} $(DESTDIR)$(basedir)/{}
 ifeq "$(DESTDIR)" ""
-	umask 022 && $(PYTHON) -m compileall $(basedir)/lib/
+	umask 022 && $(PYTHON) -m compileall -q $(basedir)/lib/
 endif
 ifeq "$(wildcard doc/*.1)" ""
 	# run "$(MAKE) -C doc" to build the manpage
