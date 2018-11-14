@@ -24,36 +24,34 @@ INSTALL = $(if $(shell command -v ginstall;),ginstall,install)
 PREFIX = /usr/local
 DESTDIR =
 
-exe = i18nspector
-
 bindir = $(PREFIX)/bin
-basedir = $(PREFIX)/share/$(exe)
+basedir = $(PREFIX)/share/i18nspector
 mandir = $(PREFIX)/share/man
 
 .PHONY: all
 all: ;
 
 .PHONY: install
-install:
+install: i18nspector
 	# binary:
 	$(INSTALL) -d -m755 $(DESTDIR)$(bindir)
 	python_exe=$$($(PYTHON) -c 'import sys; print(sys.executable)') && \
 	sed \
 		-e "1 s@^#!.*@#!$$python_exe@" \
 		-e "s#^basedir_fallback = .*#basedir_fallback = '$(basedir)/'#" \
-		$(exe) > $(DESTDIR)$(bindir)/$(exe)
-	chmod 0755 $(DESTDIR)$(bindir)/$(exe)
+		$(<) > $(DESTDIR)$(bindir)/$(<)
+	chmod 0755 $(DESTDIR)$(bindir)/$(<)
 	# library + data:
 	( find lib data -type f ! -name '*.py[co]' ) \
 	| xargs -t -I {} $(INSTALL) -p -D -m644 {} $(DESTDIR)$(basedir)/{}
 ifeq "$(DESTDIR)" ""
 	umask 022 && $(PYTHON) -m compileall $(basedir)/lib/
 endif
-ifeq "$(wildcard doc/$(exe).1)" ""
+ifeq "$(wildcard doc/*.1)" ""
 	# run "$(MAKE) -C doc" to build the manpage
 else
 	# manual page:
-	$(INSTALL) -p -D -m644 doc/$(exe).1 $(DESTDIR)$(mandir)/man1/$(exe).1
+	$(INSTALL) -p -D -m644 doc/$(<).1 $(DESTDIR)$(mandir)/man1/$(<).1
 endif
 
 .PHONY: test
