@@ -145,7 +145,7 @@ class Checker(metaclass=abc.ABCMeta):
         except polib4us.moparser.SyntaxError as exc:
             self.tag('invalid-mo-file', tags.safestr(exc))
             return
-        except IOError as exc:
+        except OSError as exc:
             message = str(exc)
             if exc.errno is not None:
                 self.tag('os-error', tags.safestr(exc.strerror))
