@@ -21,14 +21,7 @@
 import os
 import struct
 import sys
-
-try:
-    from unittest import mock
-except ImportError:
-    try:
-        import mock
-    except ImportError:
-        mock = None
+import unittest.mock
 
 import nose
 from nose.tools import (
@@ -63,13 +56,9 @@ def test_NL_ARGMAX():
     else:
         raise nose.SkipTest('Test specific to Linux with glibc')
 
-if mock is not None:
-    small_NL_ARGMAX = mock.patch('lib.strformat.c.NL_ARGMAX', 42)
-    # Setting NL_ARGMAX to a small number makes the *_index_out_of_range() tests
-    # much faster.
-else:
-    def small_NL_ARGMAX(func):
-        return func
+small_NL_ARGMAX = unittest.mock.patch('lib.strformat.c.NL_ARGMAX', 42)
+# Setting NL_ARGMAX to a small number makes the *_index_out_of_range() tests
+# much faster.
 
 def test_lone_percent():
     with assert_raises(M.Error):
