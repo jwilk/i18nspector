@@ -26,7 +26,6 @@
 import codecs
 import configparser
 import encodings.aliases as encoding_aliases
-import errno
 import functools
 import itertools
 import os
@@ -56,10 +55,8 @@ def charmap_encoding(encoding):
     path = os.path.join(paths.datadir, 'charmaps', encoding.upper())
     try:
         file = open(path, 'rb')
-    except IOError as exc:
-        if exc.errno == errno.ENOENT:
-            raise EncodingLookupError(encoding)
-        raise
+    except FileNotFoundError:
+        raise EncodingLookupError(encoding)
     with file:
         decoding_table = file.read()
     decoding_table = decoding_table.decode('UTF-8')
