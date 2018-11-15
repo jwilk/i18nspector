@@ -18,18 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import functools
 import struct
+import unittest.mock
 
-try:
-    from unittest import mock
-except ImportError:
-    try:
-        import mock
-    except ImportError:
-        mock = None
-
-import nose
 from nose.tools import (
     assert_equal,
     assert_is,
@@ -44,17 +35,9 @@ def test_SSIZE_MAX():
     with assert_raises(struct.error):
         struct.pack('=i', M.SSIZE_MAX + 1)
 
-if mock is not None:
-    small_SSIZE_MAX = mock.patch('lib.strformat.pybrace.SSIZE_MAX', 42)
-    # Setting SSIZE_ARGMAX to a small number makes it possible to test for
-    # a very large number of arguments without running out of memory.
-else:
-    def small_SSIZE_MAX(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            del args, kwargs
-            raise nose.SkipTest('mock module missing')
-        return wrapper
+small_SSIZE_MAX = unittest.mock.patch('lib.strformat.pybrace.SSIZE_MAX', 42)
+# Setting SSIZE_ARGMAX to a small number makes it possible to test for
+# a very large number of arguments without running out of memory.
 
 def test_lone_lcb():
     with assert_raises(M.Error):
