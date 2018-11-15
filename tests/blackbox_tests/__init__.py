@@ -19,7 +19,6 @@
 # SOFTWARE.
 
 import difflib
-import errno
 import inspect
 import io
 import multiprocessing as mp
@@ -329,18 +328,16 @@ def _parse_test_headers(path):
     # <path>.tags:
     try:
         file = open(path + '.tags', encoding='UTF-8')
-    except IOError as exc:
-        if exc.errno != errno.ENOENT:
-            raise
+    except FileNotFoundError:
+        pass
     else:
         with file:
             return _parse_test_header_file(file, path, comments_only=False)
     # <path>.gen:
     try:
         file = open(path + '.gen', encoding='UTF-8', errors='ignore')
-    except IOError as exc:
-        if exc.errno != errno.ENOENT:
-            raise
+    except FileNotFoundError:
+        pass
     else:
         with file:
             return _parse_test_header_file(file, path, comments_only=True)
