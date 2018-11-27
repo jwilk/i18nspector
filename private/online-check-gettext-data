@@ -33,14 +33,11 @@ def strip_plural_forms(s):
     # Remove superfluous parentheses around the plural formula:
     return re.sub(r'\bplural=\((.*?)\);$', r'plural=\1;', s)
 
-def urlopen(url):
-    return urllib.request.urlopen(url, cadefault=True)
-
 def do_plurals():
     regexp = re.compile(r'\s+{\s*"([a-zA-Z_]+)".*"(nplurals.*?)"')
     url = 'https://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/plural-table.c'
     okay = set()
-    with urlopen(url) as file:
+    with urllib.request.urlopen(url) as file:
         for line in file:
             line = line.decode('ASCII').rstrip()
             match = regexp.match(line)
@@ -75,7 +72,7 @@ blacklist = {
 def do_languages():
     url = 'https://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/msginit.c'
     okay = set()
-    with urlopen(url) as file:
+    with urllib.request.urlopen(url) as file:
         contents = file.read()
     match = re.compile(br'locales_with_principal_territory\s*\[\]\s*=\s*[{](.*?)[}]', re.DOTALL).search(contents)
     if match is None:
@@ -122,7 +119,7 @@ def do_languages():
 
 def do_string_formats():
     url = 'https://git.savannah.gnu.org/cgit/gettext.git/plain/gettext-tools/src/message.c'
-    with urlopen(url) as file:
+    with urllib.request.urlopen(url) as file:
         contents = file.read()
     match = re.compile(br'\sformat_language\s*\[NFORMATS\]\s*=\s*[{](.*?)[}]', re.DOTALL).search(contents)
     if match is None:
