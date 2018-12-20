@@ -1,8 +1,20 @@
 i18nspector (0.25.7) UNRELEASED; urgency=low
 
-  * 
+  + Fix “FutureWarning: Possible nested set” warnings.
+    Thanks to Helge Kreutzmann for the bug report.
+    https://bugs.debian.org/916928
+    https://bugs.python.org/issue30349
+  * Improve the build system:
+    + Remove the coverage file when cleaning.
+    + Use install(1) to install the executable.
+    + Use ginstall(1), instead of install(1), if it exists.
+    + Add checks against BSD make. (Only GNU make is supported.)
+    + Byte-compile Python code on install.
+  * Improve documentation:
+    + Use HTTPS for doc.qt.io.
+    + Use HTTPS for www.unicode.org.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 18 May 2018 22:20:14 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 20 Dec 2018 17:49:42 +0100
 
 i18nspector (0.25.6) unstable; urgency=low
 
