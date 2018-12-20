@@ -1,5 +1,6 @@
 i18nspector (0.25.7) UNRELEASED; urgency=low
 
+  * Drop support for Python < 3.3.3.
   + Fix “FutureWarning: Possible nested set” warnings.
     Thanks to Helge Kreutzmann for the bug report.
     https://bugs.debian.org/916928
