@@ -93,11 +93,10 @@ def check_deb(filename, *, options):
             real_root = os.path.join(tmpdir, '')
         else:
             real_root = os.path.join(tmpdir, 's', '')
-            with open(os.devnull) as bitbucket:
-                ipc.check_call(
-                    ['dpkg-source', '--no-copy', '--no-check', '-x', filename, real_root],
-                    stdout=bitbucket  # dpkg-source would be noisy without this...
-                )
+            ipc.check_call(
+                ['dpkg-source', '--no-copy', '--no-check', '-x', filename, real_root],
+                stdout=ipc.DEVNULL  # dpkg-source would be noisy without this...
+            )
         options = copy_options(options,
             ignore_tags=ignore_tags,
             fake_root=(real_root, os.path.join(filename, ''))
