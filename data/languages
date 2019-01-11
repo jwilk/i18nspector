@@ -860,6 +860,9 @@ principal-territory = MY
 
 [mt]
 names = Maltese
+characters =
+ Ċ Ġ ħ Ħ Ż
+ ċ ġ ħ ħ ż
 principal-territory = MT
 
 [mus]
