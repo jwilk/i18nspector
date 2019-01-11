@@ -20,6 +20,7 @@
 
 from nose.tools import (
     assert_equal,
+    assert_raises,
 )
 
 import lib.iconv as M
@@ -46,5 +47,10 @@ class test_tcvn(_test):
     u = 'Do bạch kim rất quý, sẽ để lắp vô xương'
     b = b'Do b\xB9ch kim r\xCAt qu\xFD, s\xCF \xAE\xD3 l\xBEp v\xAB x\xAD\xACng'
     e = 'TCVN-5712'
+
+def test_incomplete_char():
+    b = u'Ę'.encode('UTF-8')[:1]
+    with assert_raises(UnicodeDecodeError):
+        M.decode(b, 'UTF-8')
 
 # vim:ts=4 sts=4 sw=4 et
