@@ -160,7 +160,7 @@ class VersionAction(argparse.Action):
             option_strings=option_strings,
             dest=dest,
             nargs=0,
-            help="show program's version information and exit"
+            help='show version information and exit'
         )
 
     @staticmethod
