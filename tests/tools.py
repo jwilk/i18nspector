@@ -86,7 +86,7 @@ def fork_isolation(f):
             msg = msg.decode('UTF-8').rstrip('\n')
             pid, status = os.waitpid(pid, 0)
             if status == (EXIT_EXCEPTION << 8):
-                raise IsolatedException('\n\n' + msg)
+                raise IsolatedException() from Exception('\n\n' + msg)
             elif status == (EXIT_SKIP_TEST << 8):
                 raise nose.SkipTest(msg)
             elif status == 0 and msg == '':
