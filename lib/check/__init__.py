@@ -115,7 +115,7 @@ class Checker(metaclass=abc.ABCMeta):
         # prevent such disaster, fail early if the file doesn't exit.
         try:
             os.stat(self.path)
-        except EnvironmentError as exc:
+        except OSError as exc:
             self.tag('os-error', tags.safestr(exc.strerror))
             return
         if self.options.file_type is None:
