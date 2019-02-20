@@ -32,7 +32,7 @@ script:
 - i18nspector --version
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 i18nspector | grep -A 10 -w I18NSPECTOR
-matrix:
+jobs:
   include:
   - &pylint
     env: PYLINT=y
