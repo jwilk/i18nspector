@@ -314,6 +314,8 @@ class Evaluator(BaseEvaluator):
     def _visit_num(self, node):
         return self._check_overflow(node.n)
 
+    _visit_constant = _visit_num
+
     def _visit_name(self, node):
         return self._check_overflow(self._ctxt.n)
 
@@ -510,6 +512,8 @@ class CodomainEvaluator(BaseEvaluator):
             return
         return (n, n)
 
+    _visit_constant = _visit_num
+
     def _visit_name(self, node):
         return (0, self._ctxt.max - 1)
 
@@ -666,6 +670,8 @@ class PeriodEvaluator(BaseEvaluator):
         if n < 0 or n >= self._ctxt.max:
             return
         return (0, 1)
+
+    _visit_constant = _visit_num
 
     def _visit_name(self, node):  # pylint: disable=unused-argument
         pass
