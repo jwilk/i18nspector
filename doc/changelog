@@ -1,8 +1,12 @@
 i18nspector (0.25.8) UNRELEASED; urgency=low
 
-  * 
+  * Fix compatibility with Python 3.8.
+  * Add writing system information for Maltese.
+  * Rephrase help messages for --help, --version.
+  * Improve error handling.
+  * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Fri, 04 Jan 2019 21:59:08 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 21 Feb 2019 22:10:32 +0100
 
 i18nspector (0.25.7) unstable; urgency=low
 
