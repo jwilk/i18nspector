@@ -39,7 +39,7 @@ from lib import paths as pathmod
 from lib import tags
 from lib import terminal
 
-__version__ = '0.25.8'
+__version__ = '0.25.9'
 
 def initialize_terminal():
     if sys.stdout.isatty():
