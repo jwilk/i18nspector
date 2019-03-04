@@ -12,6 +12,7 @@ disable =
     len-as-condition,
     locally-disabled,
     locally-enabled,
+    no-else-raise,
     no-else-return,
     no-self-use,
     redefined-variable-type,
