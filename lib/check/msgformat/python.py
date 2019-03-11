@@ -61,7 +61,7 @@ class Checker(CheckerBase):
                 if len(exc.args) == 2:
                     [s, *args] = exc.args
                 else:
-                    [s, a1, a2] = exc.args
+                    [s, a1, a2] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
                     if a1 == a2:
                         args = ['duplicate', a1]
                     else:
@@ -72,19 +72,19 @@ class Checker(CheckerBase):
                     *args
                 )
             except backend.RedundantPrecision as exc:
-                [s, a] = exc.args
+                [s, a] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
                 self.tag('python-format-string-redundant-precision',
                     prefix,
                     a, 'in', s
                 )
             except backend.RedundantLength as exc:
-                [s, a] = exc.args
+                [s, a] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
                 self.tag('python-format-string-redundant-length',
                     prefix,
                     a, 'in', s
                 )
             except backend.ObsoleteConversion as exc:
-                [s, c1, c2] = exc.args
+                [s, c1, c2] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
                 args = [c1, '=>', c2]
                 if s != c1:
                     args += ['in', s]

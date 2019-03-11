@@ -83,7 +83,7 @@ class Checker(CheckerBase):
                 if len(exc.args) == 2:
                     [s, *args] = exc.args
                 else:
-                    [s, a1, a2] = exc.args
+                    [s, a1, a2] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
                     if a1 == a2:
                         args = ['duplicate', a1]
                     else:
@@ -94,7 +94,7 @@ class Checker(CheckerBase):
                     *args
                 )
             except backend.NonPortableConversion as exc:
-                [s, c1, c2] = exc.args
+                [s, c1, c2] = exc.args  # pylint: disable=unbalanced-tuple-unpacking
                 args = [c1, '=>', c2]
                 if s != c1:
                     args += ['in', s]
