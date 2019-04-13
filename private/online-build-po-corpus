@@ -141,7 +141,7 @@ def main():
                     try:
                         path, packages = line.rsplit('\t', 1)
                     except ValueError:
-                        raise RuntimeError('malfomed line: {!r}'.format(line))
+                        raise RuntimeError('malformed line: {!r}'.format(line))
                     if is_po_path(path):
                         packages = packages.rstrip('\n').split(',')
                         for pkg in packages:
