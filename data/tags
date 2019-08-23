@@ -783,7 +783,7 @@ description =
  or ``msgstr`` consumes more arguments than ``msgid``;
  or ``msgstr[``\ *N*\ ``]`` consumes more arguments than ``msgid`` or ``msgid_plural``.
  .
- Python, unlike C, requires that all unnamed arguments are consumed during conversion.
+ Python, unlike C, requires that all unnamed arguments must be consumed during conversion.
 references =
  https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
  https://www.gnu.org/software/gettext/manual/html_node/Python.html#Python
@@ -914,7 +914,7 @@ description =
  in the context of plural forms.
  The translator might want not to use the numeric argument in the singular form;
  but this is not possible if the argument is unnamed,
- because Python, unlike C, requires that all unnamed arguments are consumed during conversion.
+ because Python, unlike C, requires that all unnamed arguments must be consumed during conversion.
  Named arguments (such as ``%(n)d``) should be used instead.
 references =
  https://docs.python.org/2/library/stdtypes.html#string-formatting-operations
