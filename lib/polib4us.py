@@ -177,7 +177,7 @@ def detect_encoding_patch():
 # polib.POEntry.flags
 # ===================
 # Fix flag splitting.
-# polib (<< 1.0.4) incorrectly requires that the flag-splitting comma is
+# polib (<< 1.0.4) incorrectly requires that the flag-splitting comma must be
 # followed by a space.
 # https://bitbucket.org/izi/polib/issues/46
 
