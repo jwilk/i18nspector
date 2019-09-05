@@ -49,7 +49,7 @@ class test_tcvn(_test):
     e = 'TCVN-5712'
 
 def test_incomplete_char():
-    b = u'Ę'.encode('UTF-8')[:1]
+    b = 'Ę'.encode('UTF-8')[:1]
     with assert_raises(UnicodeDecodeError):
         M.decode(b, 'UTF-8')
 
