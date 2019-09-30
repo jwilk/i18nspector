@@ -173,7 +173,7 @@ class VersionAction(argparse.Action):
             # https://github.com/alex/rply/pull/58
             pass
         try:
-            import pkg_resources
+            import pkg_resources  # pylint: disable=import-outside-toplevel
             [dist, *rest] = pkg_resources.require('rply')
             del rest
         except ImportError:
