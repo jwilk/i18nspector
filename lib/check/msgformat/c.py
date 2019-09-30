@@ -31,7 +31,7 @@ from lib.strformat import c as backend
 
 class Checker(CheckerBase):
 
-    backend = backend
+    backend = backend  # pylint: disable=self-assigning-variable
 
     def check_msgids(self, message, msgid_fmts):
         if msgid_fmts.get(0) is not None:

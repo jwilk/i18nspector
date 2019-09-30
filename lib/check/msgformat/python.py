@@ -31,7 +31,7 @@ from lib.strformat import python as backend
 
 class Checker(CheckerBase):
 
-    backend = backend
+    backend = backend  # pylint: disable=self-assigning-variable
 
     def check_string(self, ctx, message, s):
         prefix = message_repr(message, template='{}:')
