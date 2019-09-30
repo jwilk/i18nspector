@@ -180,7 +180,7 @@ class Parser():
 __all__ = ['Parser', 'SyntaxError']
 
 def main():
-    import argparse
+    import argparse  # pylint: disable=import-outside-toplevel
     ap = argparse.ArgumentParser(description='msgunfmt(1) replacement')
     ap.add_argument('files', metavar='<file>', nargs='+')
     options = ap.parse_args()
