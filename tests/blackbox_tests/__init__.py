@@ -198,7 +198,7 @@ def run_i18nspector(options, path):
         # We cheat here a bit, because exec(3)ing is very expensive.
         # Let's load the needed Python modules, and use multiprocessing to
         # “emulate” the command execution.
-        import lib.cli
+        import lib.cli  # pylint: disable=import-outside-toplevel
         assert lib.cli  # make pyflakes happy
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
         commandline = [sys.executable, prog]
