@@ -78,7 +78,7 @@ def initialize():
     '''
     global _curses  # pylint: disable=global-statement
     try:
-        import curses as _curses  # pylint: disable=redefined-outer-name
+        import curses as _curses  # pylint: disable=redefined-outer-name,import-outside-toplevel
     except ImportError:
         return
     try:
