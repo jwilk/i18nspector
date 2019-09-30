@@ -55,6 +55,8 @@ def fork_isolation(f):
     # sys.exit() can't be used here, because nose catches all exceptions,
     # including SystemExit
 
+    # pylint:disable=consider-using-sys-exit
+
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
         readfd, writefd = os.pipe()
@@ -93,6 +95,8 @@ def fork_isolation(f):
                 pass
             else:
                 raise RuntimeError('unexpected isolated process status {}'.format(status))
+
+    # pylint:enable=consider-using-sys-exit
 
     return wrapper
 
