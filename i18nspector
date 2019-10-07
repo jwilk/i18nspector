@@ -58,7 +58,7 @@ def require_polib(*version):
         message = 'polib >= {ver} is required'.format(ver=version_str)
         error(message)
 
-require_python(3, 3, 3)
+require_python(3, 4)
 require_polib(1, 0, 0)
 
 # ----------------------------------------
