@@ -21,11 +21,15 @@
 import ast
 import importlib
 import inspect
+import operator
 import pkgutil
 
 from nose.tools import (
     assert_equal,
+    assert_false,
     assert_is_instance,
+    assert_raises,
+    assert_true,
 )
 
 import lib.check
@@ -97,5 +101,46 @@ def test_consistency():
             )
     for tag in sorted(source_tagnames | tagnames):
         yield test, tag
+
+class test_ordered_groups:
+
+    def t(self, group, *keys):
+        keys = [group[k] for k in keys]
+        operators = (
+            operator.lt,
+            operator.le,
+            operator.eq,
+            operator.ge,
+            operator.gt,
+            operator.ne,
+        )
+        for op in operators:
+            for i, x in enumerate(keys):
+                for j, y in enumerate(keys):
+                    assert_equal(op(x, y), op(i, j))
+                    if op is operator.eq:
+                        assert_false(op(x, j))
+                    elif op is operator.ne:
+                        assert_true(op(x, j))
+                    else:
+                        with assert_raises(TypeError):
+                            op(x, j)
+
+    def test_severities(self):
+        self.t(M.severities,
+            'pedantic',
+            'wishlist',
+            'minor',
+            'normal',
+            'important',
+            'serious',
+        )
+
+    def test_certainties(self):
+        self.t(M.certainties,
+            'wild-guess',
+            'possible',
+            'certain',
+        )
 
 # vim:ts=4 sts=4 sw=4 et
