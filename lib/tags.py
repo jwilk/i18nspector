@@ -166,12 +166,12 @@ class Tag():
         c = self.certainty
         C = certainties
         return {
-            S['pedantic']: 'P',
-            S['wishlist']: 'I',
-            S['minor']: 'IW'[c >= C['certain']],
-            S['normal']: 'IW'[c >= C['possible']],
-            S['important']: 'WE'[c >= C['possible']],
-            S['serious']: 'E',
+            S.pedantic: 'P',
+            S.wishlist: 'I',
+            S.minor: 'IW'[c >= C.certain],
+            S.normal: 'IW'[c >= C.possible],
+            S.important: 'WE'[c >= C.possible],
+            S.serious: 'E',
         }[s]
 
     def format(self, target, *extra, color=False):
