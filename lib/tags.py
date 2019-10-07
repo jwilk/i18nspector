@@ -23,6 +23,7 @@ tag support
 '''
 
 import configparser
+import enum
 import functools
 import os
 import re
@@ -32,65 +33,35 @@ from lib import paths
 from lib import terminal
 
 @functools.total_ordering
-class OrderedObject():
-
-    _parent = None
-
-    def __init__(self, name, value):
-        assert self._parent is not None
-        self._name = name
-        self._value = value
-
-    # pylint: disable=protected-access
+class OrderedEnum(enum.Enum):
 
     def __lt__(self, other):
-        if not isinstance(other, OrderedObject):
+        if not type(self) is type(other):
             return NotImplemented
-        if self._parent is not other._parent:
-            return NotImplemented
-        return self._value < other._value
+        return self.value < other.value  # pylint: disable=comparison-with-callable
 
     def __eq__(self, other):
-        if not isinstance(other, OrderedObject):
+        if not type(self) is type(other):
             return NotImplemented
-        if self._parent is not other._parent:
-            return NotImplemented
-        return self._value == other._value
-
-    # pylint: enable=protected-access
+        return self.value == other.value  # pylint: disable=comparison-with-callable
 
     def __hash__(self):
-        return hash(self._value)
+        return self.value
 
-    def __str__(self):
-        return str(self._name)
-
-class OrderedGroup():
-
-    def __init__(self, name, *items):
-        self._child_type = ct = type(name, (OrderedObject,), dict(_parent=self))
-        self._objects = dict(
-            (name, ct(name, value))
-            for value, name in enumerate(items)
-        )
-
-    def __getitem__(self, name):
-        return self._objects[name]
-
-severities = OrderedGroup('Severity',
+severities = OrderedEnum('Severity', [
     'pedantic',
     'wishlist',
     'minor',
     'normal',
     'important',
-    'serious'
-)
+    'serious',
+])
 
-certainties = OrderedGroup('Certainty',
+certainties = OrderedEnum('Certainty', [
     'wild-guess',
     'possible',
     'certain',
-)
+])
 
 class InvalidSeverity(misc.DataIntegrityError):
     pass

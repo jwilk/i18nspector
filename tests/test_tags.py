@@ -102,7 +102,7 @@ def test_consistency():
     for tag in sorted(source_tagnames | tagnames):
         yield test, tag
 
-class test_ordered_groups:
+class test_enums:
 
     def t(self, group, *keys):
         keys = [group[k] for k in keys]
