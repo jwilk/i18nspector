@@ -172,6 +172,9 @@ class VersionAction(argparse.Action):
             # __version__ is available only since rply 0.7.5:
             # https://github.com/alex/rply/pull/58
             pass
+        if sys.version_info >= (3, 8):
+            import importlib.metadata  # pylint: disable=import-outside-toplevel,import-error,no-name-in-module
+            return importlib.metadata.version('rply')  # pylint: disable=no-member
         try:
             import pkg_resources  # pylint: disable=import-outside-toplevel
             [dist, *rest] = pkg_resources.require('rply')
