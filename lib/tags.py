@@ -45,7 +45,7 @@ class OrderedEnum(enum.Enum):
             return NotImplemented
         return self.value == other.value  # pylint: disable=comparison-with-callable
 
-    def __hash__(self):
+    def __hash__(self):  # pylint: disable=invalid-hash-returned
         return self.value
 
 severities = OrderedEnum('Severity', [
