@@ -625,7 +625,7 @@ class test_plural_forms:
             (n0, expr0) = M.parse_plural_forms(s)
             del expr0
             assert_equal(n0, n)
-        (n1, expr1, ljunk1, rjunk1) = M.parse_plural_forms(s, strict=False)
+        (n1, expr1, ljunk1, rjunk1) = M.parse_plural_forms(s, strict=False)  # pylint: disable=unbalanced-tuple-unpacking
         del expr1
         assert_equal(n1, n)
         assert_equal(ljunk1, ljunk)
