@@ -30,6 +30,7 @@ import functools
 import itertools
 import os
 import unicodedata
+import sys
 
 from lib import iconv
 from lib import misc
@@ -129,6 +130,14 @@ def _read_encodings():
     return (e2c, c2e, extra_encodings)
 
 [_portable_encodings, _pycodec_to_encoding, _extra_encodings] = _read_encodings()
+_unmangle_encoding = {}
+if sys.version_info >= (3, 9):
+    # Python >= 3.9 replaces hyphens with underscores:
+    # https://bugs.python.org/issue39337
+    # We need to undo this damage.
+    for _key in set(_portable_encodings) | set(_extra_encodings):
+        assert _key not in _unmangle_encoding
+        _unmangle_encoding[_key.replace('-', '_')] = _key
 
 def _read_control_characters():
     path = os.path.join(paths.datadir, 'control-characters')
@@ -195,6 +204,7 @@ def is_ascii_compatible_encoding(encoding, *, missing_ok=True):
         raise EncodingLookupError(encoding)
 
 def _codec_search_function(encoding):
+    encoding = _unmangle_encoding.get(encoding, encoding)
     if _portable_encodings.get(encoding, False) is None:
         # portable according to gettext documentation
         # but not supported directly by Python
