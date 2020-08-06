@@ -1,4 +1,4 @@
-i18nspector (0.25.9) UNRELEASED; urgency=low
+i18nspector (0.25.9) unstable; urgency=low
 
   * Drop support for Python < 3.4.
   * Fix compatibility with Python 3.9.
@@ -6,7 +6,7 @@ i18nspector (0.25.9) UNRELEASED; urgency=low
   * Fix spelling and grammar in tag descriptions.
   * Improve the test suite.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 23 Jul 2020 21:08:35 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 06 Aug 2020 10:22:52 +0200
 
 i18nspector (0.25.8) unstable; urgency=low
 
