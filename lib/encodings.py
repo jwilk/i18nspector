@@ -138,6 +138,7 @@ if sys.version_info >= (3, 9):
     for _key in set(_portable_encodings) | set(_extra_encodings):
         assert _key not in _unmangle_encoding
         _unmangle_encoding[_key.replace('-', '_')] = _key
+    _key = None
     del _key
 
 def _read_control_characters():
