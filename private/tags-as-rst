@@ -44,7 +44,7 @@ def output_tags_rst(tags):
             for ref in tag.references:
                 match = re.match(r'\A(?P<name>[\w-]+)[(](?P<section>[0-9])[)]\Z', ref)
                 if match is not None:
-                    ref = r'**{name}**\ ({section})'.format(**match.groupdict())
+                    ref = r'**{name}**\ ({section})'.format_map(match.groupdict())
                 print(' |', ref)
             print()
         print('Severity, certainty:', end='\n\n')
