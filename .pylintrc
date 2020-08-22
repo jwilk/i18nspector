@@ -18,6 +18,7 @@ disable =
     no-else-raise,
     no-else-return,
     no-self-use,
+    raise-missing-from,
     redefined-variable-type,
     subprocess-popen-preexec-fn,
     superfluous-parens,
