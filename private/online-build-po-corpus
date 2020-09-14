@@ -126,7 +126,10 @@ def main():
         tarinfo.mode |= 0o644
         if tarinfo.mode & 0o100:
             tarinfo.mode |= 0o111
-        tarinfo.name = 'po-corpus-{dist}/{name}'.format(dist=dist, name=tarinfo.name)
+        prefix = 'po-corpus-{dist}/'.format(dist=dist)
+        tarinfo.name = prefix + tarinfo.name
+        if tarinfo.linkname:
+            tarinfo.linkname = prefix + tarinfo.linkname
         return tarinfo
     subprocess.check_call(['dpkg-source', '--version'], stdout=subprocess.DEVNULL)
     for area in areas:
