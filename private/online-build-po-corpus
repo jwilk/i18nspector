@@ -46,8 +46,10 @@ class Fetcher():
         self._files = []
         self._tmpdir = tempfile.TemporaryDirectory(prefix='i18nspector.private.')
 
-    def add(self, url, name):
-        url = urllib.parse.urljoin(self._urlbase, url)
+    def add(self, url, name, urlbase=None):
+        if urlbase is None:
+            urlbase = self._urlbase
+        url = urllib.parse.urljoin(urlbase, url)
         self._files += [apt_pkg.AcquireFile(
             self._acquire,
             uri=url,
@@ -99,6 +101,9 @@ def main():
     ap.add_argument('--mirror', metavar='URL', default=default_mirror,
         help='Debian mirror to use (default: {mirror})'.format(mirror=default_mirror)
     )
+    ap.add_argument('--contents-mirror', metavar='URL', default=None,
+        help='Debian mirror of Contents-* files to use (default: same as --mirror)'
+    )
     ap.add_argument('--distribution', metavar='DIST', default=default_dist,
         help='Debian distribution to use (default: {dist})'.format(dist=default_dist)
     )
@@ -117,6 +122,9 @@ def main():
             break
     tar = tarfile.open(output, mode=tarmode)
     mirror = options.mirror
+    cnts_mirror = options.contents_mirror
+    if cnts_mirror is None:
+        cnts_mirror = mirror
     dist = options.distribution
     areas = options.areas.split(',')
     def tarfilter(tarinfo):
@@ -134,8 +142,9 @@ def main():
     subprocess.check_call(['dpkg-source', '--version'], stdout=subprocess.DEVNULL)
     for area in areas:
         urlbase = '{mirror}/dists/{dist}/{area}/'.format(mirror=mirror, dist=dist, area=area)
+        cnts_urlbase = '{mirror}/dists/{dist}/{area}/'.format(mirror=cnts_mirror, dist=dist, area=area)
         with Fetcher(urlbase=urlbase) as fetcher:
-            fetcher.add('Contents-source.gz', 'Contents.gz')
+            fetcher.add('Contents-source.gz', 'Contents.gz', urlbase=cnts_urlbase)
             fetcher.add('source/Sources.xz', 'Sources.xz')
             [contents_path, sources_path] = fetcher.run()
             interesting_packages = set()
