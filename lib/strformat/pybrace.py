@@ -40,7 +40,7 @@ _simple_field_re = re.compile(_simple_field_pattern, re.VERBOSE)
 
 _field_re = re.compile(r'''
     (?P<literal> (?: [^{}] | [{]{2} | [}]{2} )+ ) |
-    (
+    (?:
         [{]
             (?:
                 (?P<name>''' + _field_name_pattern + r''') ?
