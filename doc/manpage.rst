@@ -7,7 +7,7 @@ checking tool for gettext POT, PO and MO files
 ----------------------------------------------
 
 :manual section: 1
-:version: i18nspector 0.25.10
+:version: i18nspector 0.26
 :date: |date|
 
 Synopsis
