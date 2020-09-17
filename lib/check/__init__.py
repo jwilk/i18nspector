@@ -44,6 +44,7 @@ from lib import tags
 from lib import xml
 
 from lib.check.msgformat import c as msgformat_c
+from lib.check.msgformat import perlbrace as msgformat_perlbrace
 from lib.check.msgformat import pybrace as msgformat_pybrace
 from lib.check.msgformat import python as msgformat_python
 from lib.check.msgrepr import message_repr
@@ -101,6 +102,7 @@ class Checker(metaclass=abc.ABCMeta):
         self.options = options
         self._message_format_checkers = {
             'c': msgformat_c.Checker(self),
+            'perl-brace': msgformat_perlbrace.Checker(self),
             'python': msgformat_python.Checker(self),
             'python-brace': msgformat_pybrace.Checker(self),
         }
