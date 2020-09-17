@@ -1,6 +1,12 @@
 i18nspector (0.26) UNRELEASED; urgency=low
 
-  * 
+  * Summary of tag changes:
+    + Added:
+      - perl-brace-format-string-error
+      - perl-brace-format-string-missing-argument
+      - perl-brace-format-string-unknown-argument
+
+  * Check for errors in Perl brace format strings.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 17 Sep 2020 08:54:40 +0200
 

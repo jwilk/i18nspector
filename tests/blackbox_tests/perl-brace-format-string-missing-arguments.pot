@@ -1,0 +1,23 @@
+# E: perl-brace-format-string-missing-argument msgid 'A quick brown fox jumps over the lazy dog.': N not in msgid while in msgid_plural
+# E: perl-brace-format-string-missing-argument msgid 'A quick brown fox jumps over the lazy dog.': X not in msgid while in msgid_plural
+
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Gizmo Enhancer 1.0\n"
+"Report-Msgid-Bugs-To: gizmoenhancer@jwilk.net\n"
+"POT-Creation-Date: 2012-11-01 14:42+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#, perl-brace-format
+msgid "A quick brown fox jumps over the lazy dog."
+msgid_plural "{N} quick brown foxes jump over the lazy {X}."
+msgstr[0] ""
+msgstr[1] ""
