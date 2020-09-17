@@ -20,4 +20,3 @@ msgid "A quick brown fox jumps over the lazy dog."
 msgid_plural "{N:s} quick brown foxes jump over the lazy dog."
 msgstr[0] ""
 msgstr[1] ""
-
