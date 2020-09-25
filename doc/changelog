@@ -7,8 +7,9 @@ i18nspector (0.26) UNRELEASED; urgency=low
       - perl-brace-format-string-unknown-argument
 
   * Check for errors in Perl brace format strings.
+    https://github.com/jwilk/i18nspector/issues/6
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 17 Sep 2020 08:54:40 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 25 Sep 2020 20:50:38 +0200
 
 i18nspector (0.25.9) unstable; urgency=low
 
