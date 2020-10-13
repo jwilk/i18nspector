@@ -141,12 +141,20 @@ def check_all(paths, *, options):
             for s in executor.map(check_file_opt, paths):
                 sys.stdout.write(s)
 
-def parse_jobs(s):
-    if s == 'auto':
+def get_cpu_count():
+    try:
+        sched_getaffinity = os.sched_getaffinity
+    except AttributeError:
         try:
             return multiprocessing.cpu_count()
         except NotImplementedError:
             return 1
+    else:
+        return len(sched_getaffinity(0))
+
+def parse_jobs(s):
+    if s == 'auto':
+        return get_cpu_count()
     n = int(s)
     if n <= 0:
         raise ValueError
