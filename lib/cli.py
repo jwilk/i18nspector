@@ -26,7 +26,6 @@ import argparse
 import concurrent.futures
 import functools
 import io
-import multiprocessing
 import os
 import subprocess as ipc
 import sys
@@ -145,10 +144,7 @@ def get_cpu_count():
     try:
         sched_getaffinity = os.sched_getaffinity
     except AttributeError:
-        try:
-            return multiprocessing.cpu_count()
-        except NotImplementedError:
-            return 1
+        return os.cpu_count() or 1
     else:
         return len(sched_getaffinity(0))
 
