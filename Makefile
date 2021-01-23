@@ -34,7 +34,7 @@ all: ;
 .PHONY: install
 install: i18nspector
 	# executable:
-	$(INSTALL) -d -m755 $(DESTDIR)$(bindir)
+	$(INSTALL) -d $(DESTDIR)$(bindir)
 	python_exe=$$($(PYTHON) -c 'import sys; print(sys.executable)') && \
 	sed \
 		-e "1 s@^#!.*@#!$$python_exe@" \
