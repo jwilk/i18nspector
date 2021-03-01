@@ -9,6 +9,7 @@ install:
 - python3 -m pip install rply
 - python3 -m pip install docutils
 - python3 -m pip install pydiatra $pyflakes
+- if [[ $TRAVIS_PYTHON_VERSION = 3.10-* ]]; then pip install --upgrade --no-deps --force-reinstall --no-binary ':all:' nose; fi
 script:
 - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
 - tests/run-tests -v
