@@ -165,6 +165,7 @@ class Tag():
         S = severities
         c = self.certainty
         C = certainties
+        # pylint: disable=no-member
         return {
             S.pedantic: 'P',
             S.wishlist: 'I',
@@ -173,6 +174,7 @@ class Tag():
             S.important: 'WE'[c >= C.possible],
             S.serious: 'E',
         }[s]
+        # pylint: enable=no-member
 
     def format(self, target, *extra, color=False):
         if color:
