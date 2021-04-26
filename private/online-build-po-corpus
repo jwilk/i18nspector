@@ -44,7 +44,7 @@ class Fetcher():
         self._progress = apt.progress.text.AcquireProgress()
         self._acquire = apt_pkg.Acquire(self._progress)
         self._files = []
-        self._tmpdir = tempfile.TemporaryDirectory(prefix='i18nspector.private.')
+        self._tmpdir = tempfile.TemporaryDirectory(prefix='i18nspector.private.')  # pylint: disable=consider-using-with
 
     def add(self, url, name, urlbase=None):
         if urlbase is None:
@@ -120,7 +120,7 @@ def main():
         if options.output.endswith('.' + ext):
             tarmode += ext
             break
-    tar = tarfile.open(output, mode=tarmode)
+    tar = tarfile.open(output, mode=tarmode)  # pylint: disable=consider-using-with
     mirror = options.mirror
     cnts_mirror = options.contents_mirror
     if cnts_mirror is None:

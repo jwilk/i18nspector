@@ -48,7 +48,7 @@ def main():
         os.pardir,
     )
     path = os.path.join(basedir, 'data', 'iso-codes')
-    sys.stdout = open(path + '.tmp', 'wt', encoding='UTF-8')
+    sys.stdout = open(path + '.tmp', 'wt', encoding='UTF-8')  # pylint: disable=consider-using-with
     print('''\
 # This file has been generated automatically by private/update-iso-codes.
 # Do not edit.

@@ -55,7 +55,7 @@ def charmap_encoding(encoding):
 
     path = os.path.join(paths.datadir, 'charmaps', encoding.upper())
     try:
-        file = open(path, 'rb')
+        file = open(path, 'rb')  # pylint: disable=consider-using-with
     except FileNotFoundError:
         raise EncodingLookupError(encoding)
     with file:

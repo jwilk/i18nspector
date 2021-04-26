@@ -34,7 +34,7 @@ def main():
         os.path.dirname(blackbox_tests.__file__),
         'coverage'
     )
-    sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')
+    sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')  # pylint: disable=consider-using-with
     print('Generated automatically by private/update-tag-coverage. '
         'Do not edit.\n')
     for tag in tags.iter_tags():

@@ -67,7 +67,7 @@ def main():
             assert 3 <= len(code) <= 6
             tzdata[code].add(offset)
     path = os.path.join(basedir, 'data', 'timezones')
-    sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')
+    sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')  # pylint: disable=consider-using-with
     print('''\
 # This file has been generated automatically by private/update-timezones.
 # Do not edit.

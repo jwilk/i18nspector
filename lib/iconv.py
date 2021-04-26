@@ -54,7 +54,7 @@ else:
 def _popen(*args):
     def set_lc_all_c():
         os.environ['LC_ALL'] = 'C'  # no coverage
-    return ipc.Popen(args,
+    return ipc.Popen(args,  # pylint: disable=consider-using-with
         stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
         preexec_fn=set_lc_all_c,
     )

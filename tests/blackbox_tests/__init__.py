@@ -327,7 +327,7 @@ def _parse_test_header_file(file, path, *, comments_only):
 def _parse_test_headers(path):
     # <path>.tags:
     try:
-        file = open(path + '.tags', encoding='UTF-8')
+        file = open(path + '.tags', encoding='UTF-8')  # pylint: disable=consider-using-with
     except FileNotFoundError:
         pass
     else:
@@ -335,7 +335,7 @@ def _parse_test_headers(path):
             return _parse_test_header_file(file, path, comments_only=False)
     # <path>.gen:
     try:
-        file = open(path + '.gen', encoding='UTF-8', errors='ignore')
+        file = open(path + '.gen', encoding='UTF-8', errors='ignore')  # pylint: disable=consider-using-with
     except FileNotFoundError:
         pass
     else:
