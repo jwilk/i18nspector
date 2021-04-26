@@ -219,11 +219,11 @@ def run_i18nspector(options, path):
         commandline += options
         commandline += [path]
         fixed_env = dict(os.environ, PYTHONIOENCODING='UTF-8')
-        child = ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env)
-        stdout, stderr = (
-            s.decode('UTF-8').splitlines()
-            for s in child.communicate()
-        )
+        with ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env) as child:
+            stdout, stderr = (
+                s.decode('UTF-8').splitlines()
+                for s in child.communicate()
+            )
         rc = child.poll()
     assert isinstance(rc, int)
     if rc == 0:
