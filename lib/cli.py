@@ -134,8 +134,8 @@ def check_all(paths, *, options):
         for path in paths:
             check_file(path, options=options)
     else:
-        executor = concurrent.futures.ProcessPoolExecutor(max_workers=options.jobs)
-        with executor:
+        Executor = concurrent.futures.ProcessPoolExecutor
+        with Executor(max_workers=options.jobs) as executor:
             check_file_opt = functools.partial(check_file_s, options=options)
             for s in executor.map(check_file_opt, paths):
                 sys.stdout.write(s)
