@@ -131,7 +131,7 @@ class Checker(metaclass=abc.ABCMeta):
         elif extension == '.pot':
             constructor = polib.pofile
             is_template = True
-        elif extension in ('.mo', '.gmo'):
+        elif extension in {'.mo', '.gmo'}:
             constructor = polib.mofile
             is_binary = True
         else:

@@ -80,7 +80,7 @@ def main():
             extension = os.path.splitext(path)[-1]
             if extension == '.po':
                 constructor = polib.pofile
-            elif extension in ('.mo', '.gmo'):
+            elif extension in {'.mo', '.gmo'}:
                 constructor = polib.mofile
             else:
                 raise NotImplementedError(repr(extension))
