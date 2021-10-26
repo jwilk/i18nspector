@@ -48,7 +48,7 @@ class OrderedEnum(enum.Enum):
     def __hash__(self):  # pylint: disable=invalid-hash-returned
         return self.value
 
-severities = OrderedEnum('Severity', [
+severities = OrderedEnum('Severity', [  # pylint: disable=too-many-function-args
     'pedantic',
     'wishlist',
     'minor',
@@ -57,7 +57,7 @@ severities = OrderedEnum('Severity', [
     'serious',
 ])
 
-certainties = OrderedEnum('Certainty', [
+certainties = OrderedEnum('Certainty', [  # pylint: disable=too-many-function-args
     'wild-guess',
     'possible',
     'certain',
