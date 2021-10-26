@@ -33,6 +33,7 @@ disable =
     too-many-public-methods,
     too-many-return-statements,
     too-many-statements,
+    use-sequence-for-iteration,
 
 [BASIC]
 no-docstring-rgx = .*
