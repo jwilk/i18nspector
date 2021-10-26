@@ -30,7 +30,8 @@ class Checker(metaclass=abc.ABCMeta):
     def __init__(self, parent):
         self.parent = parent
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def backend(self):
         pass
 
