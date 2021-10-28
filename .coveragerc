@@ -1,5 +1,11 @@
 [run]
 branch = true
+omit =
+  *_boot*.py
+  */lib/python*/*
+  */dist-packages/*
+  */tests/*
+source = lib
 
 [report]
 show_missing = true
