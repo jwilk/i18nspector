@@ -2,13 +2,11 @@
 import os
 import tempfile
 
-import pytest
-
 
 def pytest_sessionstart(session):
     envvar = 'XDG_CACHE_HOME'
     old_xdg_cache_home = os.environ.get(envvar, None)
-    xdg_temp_dir = tempfile.TemporaryDirectory(prefix='i18nspector.tests.')
+    xdg_temp_dir = tempfile.TemporaryDirectory(prefix='i18nspector.tests.')  # pylint: disable=consider-using-with
     os.environ[envvar] = xdg_temp_dir.name
 
     def cleanup():

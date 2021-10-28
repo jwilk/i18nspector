@@ -29,13 +29,10 @@ import shlex
 import signal
 import subprocess as ipc
 import sys
-import tempfile
 import traceback
 import unittest
 
 import pytest
-
-from .. import tools
 
 
 here = os.path.dirname(__file__)
@@ -162,6 +159,11 @@ class PoTestFile(pytest.File):
 
     In this implementation, only one test is yielded.
     """
+    # pylint: disable=abstract-method
+    # pylint gets confused about this subclassing and emits warnings about
+    # (unneeded) abstract methods not being defined.
+    # https://github.com/pytest-dev/pytest/issues/7591
+
     def collect(self):
         name = os.path.basename(self.fspath)
         yield PoTestItem.from_parent(self, name=name, filename=self.fspath)
@@ -169,6 +171,8 @@ class PoTestFile(pytest.File):
 
 class PoTestItem(pytest.Item):
     """Class that represents a single test."""
+    # pylint: disable=abstract-method
+
     def __init__(self, name, parent, filename):
         super().__init__(name, parent)
         self.filename = filename
@@ -184,7 +188,7 @@ class PoTestItem(pytest.Item):
         etags, options = self.parse_test_headers()
         assert_emit_tags(str(self.filename), etags, options=options)
 
-    def repr_failure(self, excinfo):
+    def repr_failure(self, excinfo, style=None):
         """Presentation of test failures for when self.runtest() raises an exception."""
         if isinstance(excinfo.value, PoTestFileException):
             return "\n".join(
@@ -402,7 +406,7 @@ def get_coverage():
     pytest.main(['--collect-only', '-p', 'no:terminal', directory], plugins=[pofile_recorder])
 
     coverage = set()
-    for name, item in pofile_recorder.collected:
+    for _, item in pofile_recorder.collected:
         if isinstance(item, PoTestItem):
             etags, _ = item.parse_test_headers()
             for t in etags:
@@ -414,4 +418,3 @@ def get_coverage():
     return coverage
 
 # vim:ts=4 sts=4 sw=4 et
-

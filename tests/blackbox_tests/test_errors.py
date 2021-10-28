@@ -1,5 +1,6 @@
 import inspect
 import os.path
+import unittest
 
 from .conftest import tagstring, etags_from_tagstring, assert_emit_tags
 from .. import tools

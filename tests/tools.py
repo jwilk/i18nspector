@@ -111,6 +111,8 @@ def collect_yielded(collect_func):
         @pytest.mark.parametrize("func, test_args",
                                 list(collect_func()))
         def yield_tester(self, func, test_args):
+            # pylint: disable=unused-argument
+            # self is unused here
             if isinstance(test_args, (tuple, list)):
                 func(*test_args)
             elif isinstance(test_args, (str, int, float)):

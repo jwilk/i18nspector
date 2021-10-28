@@ -24,8 +24,6 @@ import os
 import os.path
 import sys
 
-import pytest
-
 sys.path[0] += '/..'
 
 from lib import tags

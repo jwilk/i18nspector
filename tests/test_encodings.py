@@ -29,6 +29,12 @@ import lib.encodings as E
 from . import tools
 
 
+# methods using the tools.collect_yielded decorator don't have a 'self'
+# since they end up being run before 'self' exists. pylint doesn't
+# understand this unusual situation
+# pylint: disable=no-method-argument
+
+
 class test_is_portable_encoding:
 
     def test_found(self):

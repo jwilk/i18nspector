@@ -31,6 +31,12 @@ import lib.strformat.c as M
 from . import tools
 
 
+# methods using the tools.collect_yielded decorator don't have a 'self'
+# since they end up being run before 'self' exists. pylint doesn't
+# understand this unusual situation
+# pylint: disable=no-method-argument
+
+
 def test_INT_MAX():
     struct.pack('=i', M.INT_MAX)
     with pytest.raises(struct.error):

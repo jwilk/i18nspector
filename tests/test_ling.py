@@ -18,11 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import lib.encodings
-import lib.ling
 import unittest
 
 import pytest
+
+import lib.encodings
+import lib.ling
 
 from . import tools
 
@@ -90,7 +91,7 @@ class test_language_equality:
     def test_ne_other_type(self):
         l1 = T('el')
         assert l1 != 42
-        assert 42 != l1
+        assert 42 != l1   # pylint: disable=misplaced-comparison-constant
 
     def test_almost_equal(self):
         l1 = T('el')
@@ -241,8 +242,13 @@ class test_get_primary_languages:
         langs = L.get_primary_languages()
         assert 'ry' not in langs
 
+    # methods using the tools.collect_yielded decorator don't have a 'self'
+    # since they end up being run before 'self' exists. pylint doesn't
+    # understand this unusual situation
+
     @tools.collect_yielded
     def test_iso_639():
+        # pylint: disable=no-method-argument
         def t(lang_str):
             lang = L.parse_language(lang_str)
             assert lang.fix_codes() is None
@@ -329,7 +335,7 @@ class test_principal_territory:
     def test_not_found(self):
         lang = L.parse_language('ry')
         cc = lang.get_principal_territory_code()
-        assert cc == None
+        assert cc is None
 
 class test_unrepresentable_characters:
 

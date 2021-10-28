@@ -21,10 +21,9 @@
 import os
 import re
 
-import pytest
-
 import lib.tags
 from . import tools
+
 
 here = os.path.dirname(__file__)
 docdir = os.path.join(here, os.pardir, 'doc')
