@@ -20,53 +20,55 @@
 
 import struct
 
-from nose.tools import (
-    assert_equal,
-    assert_greater,
-    assert_is_instance,
-    assert_raises,
-    assert_sequence_equal,
-)
+import pytest
 
 import lib.strformat.python as M
+from . import tools
+
+
+# methods using the tools.collect_yielded decorator don't have a 'self'
+# since they end up being run before 'self' exists. pylint doesn't
+# understand this unusual situation
+# pylint: disable=no-method-argument
+
 
 def test_SSIZE_MAX():
     struct.pack('=i', M.SSIZE_MAX)
-    with assert_raises(struct.error):
+    with pytest.raises(struct.error):
         struct.pack('=i', M.SSIZE_MAX + 1)
 
 def test_lone_percent():
-    with assert_raises(M.Error):
+    with pytest.raises(M.Error):
         M.FormatString('%')
 
 def test_invalid_conversion_spec():
-    with assert_raises(M.Error):
+    with pytest.raises(M.Error):
         M.FormatString('%!')
 
 def test_add_argument():
     fmt = M.FormatString('%s')
-    with assert_raises(RuntimeError):
+    with pytest.raises(RuntimeError):
         fmt.add_argument(None, None)
-    with assert_raises(RuntimeError):
+    with pytest.raises(RuntimeError):
         fmt.add_argument('eggs', None)
 
 def test_text():
     fmt = M.FormatString('eggs%dbacon%dspam')
-    assert_equal(len(fmt), 5)
+    assert len(fmt) == 5
     fmt = list(fmt)
-    assert_equal(fmt[0], 'eggs')
-    assert_equal(fmt[2], 'bacon')
-    assert_equal(fmt[4], 'spam')
+    assert fmt[0] == 'eggs'
+    assert fmt[2] == 'bacon'
+    assert fmt[4] == 'spam'
 
 class test_map:
 
     def t(self, key):
         s = '%(' + key + ')s'
         fmt = M.FormatString(s)
-        assert_equal(len(fmt), 1)
-        assert_sequence_equal(fmt.seq_arguments, [])
+        assert len(fmt) == 1
+        assert fmt.seq_arguments == []
         [pkey] = fmt.map_arguments.keys()
-        assert_equal(key, pkey)
+        assert key == pkey
 
     def test_simple(self):
         self.t('eggs')
@@ -75,69 +77,82 @@ class test_map:
         self.t('eggs(ham)spam')
 
     def test_unbalanced_parens(self):
-        with assert_raises(M.Error):
+        with pytest.raises(M.Error):
             self.t('eggs(ham')
 
 class test_types:
 
-    def t(self, s, tp, warn_type=None):
+    @staticmethod
+    def t( s, tp, warn_type=None):
         fmt = M.FormatString(s)
         [conv] = fmt
-        assert_is_instance(conv, M.Conversion)
-        assert_equal(conv.type, tp)
-        assert_equal(len(fmt.map_arguments), 0)
+        assert isinstance(conv, M.Conversion)
+        assert conv.type == tp
+        assert len(fmt.map_arguments) == 0
         if tp == 'None':
-            assert_sequence_equal(fmt.seq_arguments, [])
+            assert fmt.seq_arguments == []
         else:
             [arg] = fmt.seq_arguments
-            assert_equal(arg.type, tp)
+            assert arg.type == tp
         if warn_type is None:
-            assert_equal(len(fmt.warnings), 0)
+            assert len(fmt.warnings) == 0
         else:
             [warning] = fmt.warnings
-            assert_is_instance(warning, warn_type)
+            assert isinstance(warning, warn_type)
 
-    def test_integer(self):
-        t = self.t
+    @tools.collect_yielded
+    def test_integer():
+        def t(*args):
+            test_types.t(*args)
         for c in 'oxXdi':
-            yield t, '%' + c, 'int'
-        yield t, '%u', 'int', M.ObsoleteConversion
+            yield t, ('%' + c, 'int')
+        yield t, ('%u', 'int', M.ObsoleteConversion)
 
-    def test_float(self):
-        t = self.t
+    @tools.collect_yielded
+    def test_float():
+        def t(*args):
+            test_types.t(*args)
         for c in 'eEfFgG':
-            yield t, '%' + c, 'float'
+            yield t, ('%' + c, 'float')
 
-    def test_str(self):
-        t = self.t
-        yield t, '%c', 'chr'
-        yield t, '%s', 'str'
+    @tools.collect_yielded
+    def test_str():
+        def t(*args):
+            test_types.t(*args)
+        yield t, ('%c', 'chr')
+        yield t, ('%s', 'str')
 
-    def test_repr(self):
-        t = self.t
+    @tools.collect_yielded
+    def test_repr():
+        def t(*args):
+            test_types.t(*args)
         for c in 'ra':
-            yield t, '%' + c, 'object'
+            yield t, ('%' + c, 'object')
 
-    def test_void(self):
-        yield self.t, '%%', 'None'
+    @tools.collect_yielded
+    def test_void():
+        def t(*args):
+            test_types.t(*args)
+        yield t, ('%%', 'None')
 
+@tools.collect_yielded
 def test_length():
     def t(l):
         fmt = M.FormatString('%' + l + 'd')
         [warning] = fmt.warnings
-        assert_is_instance(warning, M.RedundantLength)
+        assert isinstance(warning, M.RedundantLength)
     for l in 'hlL':
         yield t, l
 
 class test_indexing:
 
     def test_percent(self):
-        with assert_raises(M.ForbiddenArgumentKey):
+        with pytest.raises(M.ForbiddenArgumentKey):
             M.FormatString('%(eggs)%')
 
     def test_indexing_mixture(self):
         def t(s):
-            with assert_raises(M.ArgumentIndexingMixture):
+            with pytest.raises(M.ArgumentIndexingMixture):
                 M.FormatString(s)
         t('%s%(eggs)s')
         t('%(eggs)s%s')
@@ -149,7 +164,7 @@ class test_multiple_flags:
     def t(self, s):
         fmt = M.FormatString(s)
         [exc] = fmt.warnings
-        assert_is_instance(exc, M.RedundantFlag)
+        assert isinstance(exc, M.RedundantFlag)
 
     def test_duplicate(self):
         self.t('%--17d')
@@ -160,108 +175,114 @@ class test_multiple_flags:
     def test_plus_space(self):
         self.t('%+ d')
 
+@tools.collect_yielded
 def test_single_flag():
 
     def t(s, expected):
         fmt = M.FormatString(s)
-        assert_equal(len(fmt), 1)
+        assert len(fmt) == 1
         if expected:
-            assert_sequence_equal(fmt.warnings, [])
+            assert fmt.warnings == []
         else:
             [exc] = fmt.warnings
-            assert_is_instance(exc, M.RedundantFlag)
+            assert isinstance(exc, M.RedundantFlag)
 
     for c in 'dioxXeEfFgGcrsa%':
-        yield t, ('%#' + c), (c in 'oxXeEfFgG')
+        yield t, (('%#' + c), (c in 'oxXeEfFgG'))
         for flag in '0 +':
-            yield t, ('%' + flag + c), (c in 'dioxXeEfFgG')
-        yield t, ('%-' + c), True
+            yield t, (('%' + flag + c), (c in 'dioxXeEfFgG'))
+        yield t, (('%-' + c), True)
 
 class test_width:
 
-    def test_ok(self):
+    @tools.collect_yielded
+    def test_ok():
         def t(s):
             fmt = M.FormatString(s)
-            assert_equal(len(fmt), 1)
-            assert_sequence_equal(fmt.warnings, [])
+            assert len(fmt) == 1
+            assert fmt.warnings == []
         for c in 'dioxXeEfFgGcrsa%':
             yield t, ('%1' + c)
 
     def test_too_large(self):
         fmt = M.FormatString('%{0}d'.format(M.SSIZE_MAX))
-        assert_equal(len(fmt), 1)
-        assert_equal(len(fmt.seq_arguments), 1)
-        assert_equal(len(fmt.map_arguments), 0)
-        with assert_raises(M.WidthRangeError):
+        assert len(fmt) == 1
+        assert len(fmt.seq_arguments) == 1
+        assert len(fmt.map_arguments) == 0
+        with pytest.raises(M.WidthRangeError):
             M.FormatString('%{0}d'.format(M.SSIZE_MAX + 1))
 
     def test_variable(self):
         fmt = M.FormatString('%*s')
-        assert_equal(len(fmt), 1)
-        assert_equal(len(fmt.map_arguments), 0)
+        assert len(fmt) == 1
+        assert len(fmt.map_arguments) == 0
         [a1, a2] = fmt.seq_arguments
-        assert_equal(a1.type, 'int')
-        assert_equal(a2.type, 'str')
+        assert a1.type == 'int'
+        assert a2.type == 'str'
 
     def test_indexing_mixture(self):
         def t(s):
-            with assert_raises(M.ArgumentIndexingMixture):
+            with pytest.raises(M.ArgumentIndexingMixture):
                 M.FormatString(s)
         t('%*s%(eggs)s')
         t('%(eggs)s%*s')
 
 class test_precision:
 
-    def test_ok(self):
+    @tools.collect_yielded
+    def test_ok():
         def t(s):
             fmt = M.FormatString(s)
-            assert_equal(len(fmt), 1)
+            assert len(fmt) == 1
         for c in 'dioxXeEfFgGrsa':
             yield t, ('%.1' + c)
 
-    def test_redundant_0(self):
+    @tools.collect_yielded
+    def test_redundant_0():
         def t(s):
             fmt = M.FormatString(s)
-            assert_equal(len(fmt), 1)
+            assert len(fmt) == 1
             [warning] = fmt.warnings
-            assert_is_instance(warning, M.RedundantFlag)
+            assert isinstance(warning, M.RedundantFlag)
         for c in 'dioxX':
             yield t, ('%0.1' + c)
 
-    def test_non_redundant_0(self):
+    @tools.collect_yielded
+    def test_non_redundant_0():
         def t(s):
             fmt = M.FormatString(s)
-            assert_equal(len(fmt), 1)
-            assert_sequence_equal(fmt.warnings, [])
+            assert len(fmt) == 1
+            assert fmt.warnings == []
         for c in 'eEfFgG':
             yield t, ('%0.1' + c)
 
-    def test_unexpected(self):
+    @tools.collect_yielded
+    def test_unexpected():
         def t(s):
             fmt = M.FormatString(s)
-            assert_equal(len(fmt), 1)
+            assert len(fmt) == 1
             [warning] = fmt.warnings
-            assert_is_instance(warning, M.RedundantPrecision)
+            assert isinstance(warning, M.RedundantPrecision)
         for c in 'c%':
             yield t, ('%.1' + c)
 
     def test_too_large(self):
         fmt = M.FormatString('%.{0}f'.format(M.SSIZE_MAX))
-        assert_equal(len(fmt), 1)
-        with assert_raises(M.PrecisionRangeError):
+        assert len(fmt) == 1
+        with pytest.raises(M.PrecisionRangeError):
             M.FormatString('%.{0}f'.format(M.SSIZE_MAX + 1))
 
     def test_variable(self):
         fmt = M.FormatString('%.*f')
-        assert_equal(len(fmt), 1)
-        assert_equal(len(fmt.map_arguments), 0)
+        assert len(fmt) == 1
+        assert len(fmt.map_arguments) == 0
         [a1, a2] = fmt.seq_arguments
-        assert_equal(a1.type, 'int')
-        assert_equal(a2.type, 'float')
+        assert a1.type == 'int'
+        assert a2.type == 'float'
 
     def test_indexing_mixture(self):
         def t(s):
-            with assert_raises(M.ArgumentIndexingMixture):
+            with pytest.raises(M.ArgumentIndexingMixture):
                 M.FormatString(s)
         t('%.*f%(eggs)f')
         t('%(eggs)f%.*f')
@@ -271,26 +292,26 @@ class test_type_compatibility:
     def test_okay(self):
         def t(s, tp):
             fmt = M.FormatString(s)
-            assert_equal(len(fmt.seq_arguments), 0)
+            assert len(fmt.seq_arguments) == 0
             [args] = fmt.map_arguments.values()
-            assert_greater(len(args), 1)
+            assert len(args) > 1
             for arg in args:
-                assert_equal(arg.type, tp)
+                assert arg.type == tp
         t('%(eggs)d%(eggs)d', 'int')
         t('%(eggs)d%(eggs)i', 'int')
 
     def test_mismatch(self):
         def t(s):
-            with assert_raises(M.ArgumentTypeMismatch):
+            with pytest.raises(M.ArgumentTypeMismatch):
                 M.FormatString(s)
         t('%(eggs)d%(eggs)s')
 
 def test_seq_conversions():
     def t(s, n):
         fmt = M.FormatString(s)
-        assert_equal(len(fmt.seq_conversions), n)
+        assert len(fmt.seq_conversions) == n
         for arg in fmt.seq_conversions:
-            assert_is_instance(arg, M.Conversion)
+            assert isinstance(arg, M.Conversion)
     t('%d', 1)
     t('%d%d', 2)
     t('eggs%dham', 1)

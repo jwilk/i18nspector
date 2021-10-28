@@ -24,14 +24,7 @@ import stat
 import tempfile
 import time
 
-from nose.tools import (
-    assert_almost_equal,
-    assert_equal,
-    assert_is_instance,
-    assert_is_not_none,
-    assert_raises,
-    assert_true,
-)
+import pytest
 
 import lib.misc as M
 
@@ -40,11 +33,11 @@ from . import tools
 class test_unsorted:
 
     def t(self, lst, expected):
-        assert_is_instance(lst, list)
+        assert isinstance(lst, list)
         r = M.unsorted(lst)
-        assert_equal(r, expected)
+        assert r == expected
         r = M.unsorted(x for x in lst)
-        assert_equal(r, expected)
+        assert r == expected
 
     def test_0(self):
         self.t([], None)
@@ -71,7 +64,7 @@ class test_unsorted:
             while True:
                 yield 23
         r = M.unsorted(iterable())
-        assert_equal(r, (37, 23))
+        assert r == (37, 23)
 
 class test_check_sorted:
 
@@ -79,25 +72,24 @@ class test_check_sorted:
         M.check_sorted([17, 23, 37])
 
     def test_unsorted(self):
-        with assert_raises(M.DataIntegrityError) as cm:
+        with pytest.raises(M.DataIntegrityError) as cm:
             M.check_sorted([23, 37, 17])
-        assert_equal(str(cm.exception), '37 > 17')
+        assert str(cm.value) == '37 > 17'
 
 def test_sorted_vk():
     lst = ['eggs', 'spam', 'ham']
     d = dict(enumerate(lst))
-    assert_equal(
-        lst,
-        list(M.sorted_vk(d))
-    )
+    assert (
+        lst ==
+        list(M.sorted_vk(d)))
 
 class test_utc_now:
 
     def test_types(self):
         now = M.utc_now()
-        assert_is_instance(now, datetime.datetime)
-        assert_is_not_none(now.tzinfo)
-        assert_equal(now.tzinfo.utcoffset(now), datetime.timedelta(0))
+        assert isinstance(now, datetime.datetime)
+        assert now.tzinfo is not None
+        assert now.tzinfo.utcoffset(now) == datetime.timedelta(0)
 
     @tools.fork_isolation
     def test_tz_resistance(self):
@@ -108,18 +100,17 @@ class test_utc_now:
         now1 = t('Etc/GMT-4')
         now2 = t('Etc/GMT+2')
         tdelta = (now1 - now2).total_seconds()
-        assert_almost_equal(tdelta, 0, delta=0.75)
+        assert abs(tdelta - 0) <= 0.75
 
 class test_format_range:
 
     def t(self, x, y, max, expected):  # pylint: disable=redefined-builtin
-        assert_equal(
-            M.format_range(range(x, y), max=max),
-            expected
-        )
+        assert (
+            M.format_range(range(x, y), max=max) ==
+            expected)
 
     def test_max_is_lt_4(self):
-        with assert_raises(ValueError):
+        with pytest.raises(ValueError):
             self.t(5, 10, 3, None)
 
     def test_len_lt_max(self):
@@ -139,7 +130,7 @@ def test_throwaway_tempdir():
     with M.throwaway_tempdir('test'):
         d = tempfile.gettempdir()
         st = os.stat(d)
-        assert_equal(stat.S_IMODE(st.st_mode), 0o700)
-        assert_true(stat.S_ISDIR(st.st_mode))
+        assert stat.S_IMODE(st.st_mode) == 0o700
+        assert stat.S_ISDIR(st.st_mode)
 
 # vim:ts=4 sts=4 sw=4 et

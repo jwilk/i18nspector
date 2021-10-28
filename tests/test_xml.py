@@ -21,11 +21,7 @@
 import re
 import xml.etree.ElementTree as etree
 
-from nose.tools import (
-    assert_is_none,
-    assert_is_not_none,
-    assert_raises,
-)
+import pytest
 
 import lib.xml as M
 
@@ -44,7 +40,7 @@ class test_well_formed:
 class test_malformed:
 
     def t(self, s):
-        with assert_raises(M.SyntaxError):
+        with pytest.raises(M.SyntaxError):
             M.check_fragment(s)
 
     def test_non_xml_character(self):
@@ -73,7 +69,7 @@ class test_name_re():
     def test_good(self):
         def t(s):
             match = self.regexp.match(s)
-            assert_is_not_none(match)
+            assert match is not None
         t(':')
         t('_')
         t('e')
@@ -85,7 +81,7 @@ class test_name_re():
     def test_bad(self):
         def t(s):
             match = self.regexp.match(s)
-            assert_is_none(match)
+            assert match is None
         t('')
         t('0')
         t('-')

@@ -21,12 +21,14 @@
 # SOFTWARE.
 
 import os
+import os.path
 import sys
 
 sys.path[0] += '/..'
 
 from lib import tags
-from tests import blackbox_tests
+from tests.blackbox_tests import conftest as blackbox_tests
+
 
 def main():
     coverage = blackbox_tests.get_coverage()

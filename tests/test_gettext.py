@@ -20,16 +20,7 @@
 
 import datetime
 
-from nose.tools import (
-    assert_equal,
-    assert_false,
-    assert_is_instance,
-    assert_is_none,
-    assert_is_not_none,
-    assert_less,
-    assert_raises,
-    assert_true,
-)
+import pytest
 
 import lib.gettext as M
 
@@ -38,21 +29,21 @@ class test_header_fields:
     def test_nonempty(self):
         # XXX Update this number after editing data/header-fields:
         expected = 12
-        assert_equal(len(M.header_fields), expected)
+        assert len(M.header_fields) == expected
 
     def test_no_x(self):
         for field in M.header_fields:
-            assert_false(field.startswith('X-'))
+            assert not field.startswith('X-')
 
     def test_valid(self):
         for field in M.header_fields:
-            assert_true(M.is_valid_field_name(field))
+            assert M.is_valid_field_name(field)
 
 class test_header_parser:
 
     def t(self, message, expected):
         parsed = list(M.parse_header(message))
-        assert_equal(parsed, expected)
+        assert parsed == expected
 
     def test_ok(self):
         self.t(
@@ -91,8 +82,8 @@ class test_plural_exp:
     def t(self, s, n=None, fn=None):
         f = M.parse_plural_expression(s)
         if n is not None:
-            assert_is_not_none(fn)
-            assert_equal(f(n), fn)
+            assert fn is not None
+            assert f(n) == fn
 
     def test_const(self):
         n = 42
@@ -101,7 +92,7 @@ class test_plural_exp:
     def test_const_overflow(self):
         m = (1 << 32) - 1
         self.t(str(m), m, m)
-        with assert_raises(OverflowError):
+        with pytest.raises(OverflowError):
             self.t(str(m + 1), m + 1, False)
             self.t(str(m + 1), m + 42, False)
 
@@ -112,7 +103,7 @@ class test_plural_exp:
     def test_var_overflow(self):
         m = (1 << 32) - 1
         self.t('n', m, m)
-        with assert_raises(OverflowError):
+        with pytest.raises(OverflowError):
             self.t('n', m + 1, False)
         self.t('42', m + 1, 42)
 
@@ -122,7 +113,7 @@ class test_plural_exp:
     def test_add_overflow(self):
         m = (1 << 32) - 1
         self.t('n + 42', m - 42, m)
-        with assert_raises(OverflowError):
+        with pytest.raises(OverflowError):
             self.t('n + 42', m - 41, False)
             self.t('n + 42', m - 23, False)
 
@@ -130,7 +121,7 @@ class test_plural_exp:
         self.t('n - 23', 37, 14)
 
     def test_sub_overflow(self):
-        with assert_raises(OverflowError):
+        with pytest.raises(OverflowError):
             self.t('n - 23', 6, False)
 
     def test_mul(self):
@@ -140,7 +131,7 @@ class test_plural_exp:
         m = (1 << 32) - 1
         assert m % 17 == 0
         self.t('n * 17', m / 17, m)
-        with assert_raises(OverflowError):
+        with pytest.raises(OverflowError):
             self.t('n * 17', (m / 17) + 1, False)
             self.t('n * 2', (m + 1) / 2, False)
 
@@ -148,14 +139,14 @@ class test_plural_exp:
         self.t('105 / n', 17, 6)
 
     def test_div_by_0(self):
-        with assert_raises(ZeroDivisionError):
+        with pytest.raises(ZeroDivisionError):
             self.t('105 / n', 0, False)
 
     def test_mod(self):
         self.t('105 % n', 17, 3)
 
     def test_mod_by_0(self):
-        with assert_raises(ZeroDivisionError):
+        with pytest.raises(ZeroDivisionError):
             self.t('105 % n', 0, False)
 
     def test_and(self):
@@ -228,75 +219,75 @@ class test_plural_exp:
         self.t('(2 ? 3 : 7) ? 23 : 37')
 
     def test_badly_nested_conditional(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('2 ? (3 : 7 ? ) : 23')
 
     def test_unary_minus(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('-37')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('23 + (-37)')
 
     def test_unary_plus(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('+42')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('23 + (+37)')
 
     def test_func_call(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('n(42)')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('42(n)')
 
     def test_unbalanced_parentheses(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('(6 * 7')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 * 7)')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6) * (7')
 
     def test_dangling_binop(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 +')
 
     def test_junk_token(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 # 7')
 
     def test_shift(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 << 7')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 >> 7')
 
     def test_pow(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 ** 7')
 
     def test_floor_div(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 // 7')
 
     def test_tuple(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('()')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('(6, 7)')
 
     def test_starred(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('*42')
 
     def test_exotic_whitespace(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('6 *\xA07')
 
     def test_empty(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('')
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t(' ')
 
 class test_codomain:
@@ -308,9 +299,9 @@ class test_codomain:
         cd = f.codomain()
         if min_ is None:
             assert max_ is None
-            assert_is_none(cd)
+            assert cd is None
         else:
-            assert_equal(cd, (min_, max_))
+            assert cd == (min_, max_)
 
     def test_num(self):
         self.t('0', 0, 0)
@@ -530,9 +521,9 @@ class test_period:
         op = f.period()
         if offset is None:
             assert period is None
-            assert_is_none(op)
+            assert op is None
         else:
-            assert_equal(op, (offset, period))
+            assert op == (offset, period)
 
     def test_num(self):
         self.t('42', 0, 1)
@@ -619,20 +610,20 @@ class test_plural_forms:
 
     def t(self, s, *, n, ljunk='', rjunk=''):
         if ljunk or rjunk:
-            with assert_raises(self.error):
+            with pytest.raises(self.error):
                 M.parse_plural_forms(s)
         else:
             (n0, expr0) = M.parse_plural_forms(s)
             del expr0
-            assert_equal(n0, n)
+            assert n0 == n
         (n1, expr1, ljunk1, rjunk1) = M.parse_plural_forms(s, strict=False)  # pylint: disable=unbalanced-tuple-unpacking
         del expr1
-        assert_equal(n1, n)
-        assert_equal(ljunk1, ljunk)
-        assert_equal(rjunk1, rjunk)
+        assert n1 == n
+        assert ljunk1 == ljunk
+        assert rjunk1 == rjunk
 
     def test_nplurals_0(self):
-        with assert_raises(self.error):
+        with pytest.raises(self.error):
             self.t('nplurals=0; plural=0;', n=0)
 
     def test_nplurals_positive(self):
@@ -651,15 +642,15 @@ class test_fix_date_format:
 
     def t(self, old, expected):
         if expected is None:
-            with assert_raises(M.DateSyntaxError):
+            with pytest.raises(M.DateSyntaxError):
                 M.fix_date_format(old)
         else:
             new = M.fix_date_format(old)
-            assert_is_not_none(new)
-            assert_equal(new, expected)
+            assert new is not None
+            assert new == expected
 
     def tbp(self, old):
-        with assert_raises(M.BoilerplateDate):
+        with pytest.raises(M.BoilerplateDate):
             M.fix_date_format(old)
 
     def test_boilerplate(self):
@@ -710,10 +701,9 @@ class test_fix_date_format:
         self.t('2002-01-01 03:05', None)
 
     def test_tz_hint(self):
-        assert_equal(
-            M.fix_date_format('2002-01-01 03:05', tz_hint='+0900'),
-            '2002-01-01 03:05+0900',
-        )
+        assert (
+            M.fix_date_format('2002-01-01 03:05', tz_hint='+0900') ==
+            '2002-01-01 03:05+0900')
 
     def test_gmt_before_tz(self):
         self.t(
@@ -762,30 +752,30 @@ class test_parse_date:
     t = staticmethod(M.parse_date)
 
     def test_nonexistent(self):
-        with assert_raises(M.DateSyntaxError):
+        with pytest.raises(M.DateSyntaxError):
             self.t('2010-02-29 19:49+0200')
 
     def test_existent(self):
         d = self.t('2003-09-08 21:26+0200')
-        assert_equal(d.second, 0)
-        assert_is_instance(d, datetime.datetime)
-        assert_equal(str(d), '2003-09-08 21:26:00+02:00')
+        assert d.second == 0
+        assert isinstance(d, datetime.datetime)
+        assert str(d) == '2003-09-08 21:26:00+02:00'
 
     def test_epoch(self):
         d = self.t('2008-04-03 16:06+0300')
-        assert_less(M.epoch, d)
+        assert M.epoch < d
 
 class test_string_formats:
 
     def test_nonempty(self):
         # XXX Update this number after editing data/string-formats:
         expected = 28
-        assert_equal(len(M.string_formats), expected)
+        assert len(M.string_formats) == expected
 
     def test_lowercase(self):
         for s in M.string_formats:
-            assert_is_instance(s, str)
-            assert_true(s)
-            assert_equal(s, s.lower())
+            assert isinstance(s, str)
+            assert s
+            assert s == s.lower()
 
 # vim:ts=4 sts=4 sw=4 et

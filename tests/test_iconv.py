@@ -18,10 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nose.tools import (
-    assert_equal,
-    assert_raises,
-)
+import pytest
 
 import lib.iconv as M
 
@@ -32,11 +29,11 @@ class _test:
 
     def test_encode(self):
         b = M.encode(self.u, self.e)
-        assert_equal(b, self.b)
+        assert b == self.b
 
     def test_decode(self):
         u = M.decode(self.b, self.e)
-        assert_equal(u, self.u)
+        assert u == self.u
 
 class test_iso2(_test):
     u = 'Żrą łódź? Część miń!'
@@ -50,7 +47,7 @@ class test_tcvn(_test):
 
 def test_incomplete_char():
     b = 'Ę'.encode('UTF-8')[:1]
-    with assert_raises(UnicodeDecodeError):
+    with pytest.raises(UnicodeDecodeError):
         M.decode(b, 'UTF-8')
 
 # vim:ts=4 sts=4 sw=4 et

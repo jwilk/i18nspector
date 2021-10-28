@@ -24,26 +24,20 @@ import inspect
 import operator
 import pkgutil
 
-from nose.tools import (
-    assert_equal,
-    assert_false,
-    assert_is_instance,
-    assert_raises,
-    assert_true,
-)
+import pytest
 
 import lib.check
 import lib.tags as M
+from . import tools
 
 class test_escape:
 
     def t(self, s, expected):
         result = M.safe_format('{}', s)
-        assert_is_instance(result, M.safestr)
-        assert_equal(
-            result,
-            expected
-        )
+        assert isinstance(result, M.safestr)
+        assert (
+            result ==
+            expected)
 
     def test_safe(self):
         s = 'fox'
@@ -75,6 +69,7 @@ def ast_to_tagnames(node):
     if ok:
         yield node.args[0].s
 
+@tools.collect_yielded
 def test_consistency():
     source_tagnames = set()
     def visit_mod(modname):
@@ -117,13 +112,13 @@ class test_enums:
         for op in operators:
             for i, x in enumerate(keys):
                 for j, y in enumerate(keys):
-                    assert_equal(op(x, y), op(i, j))
+                    assert op(x, y) == op(i, j)
                     if op is operator.eq:
-                        assert_false(op(x, j))
+                        assert not op(x, j)
                     elif op is operator.ne:
-                        assert_true(op(x, j))
+                        assert op(x, j)
                     else:
-                        with assert_raises(TypeError):
+                        with pytest.raises(TypeError):
                             op(x, j)
 
     def test_severities(self):

@@ -18,40 +18,37 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nose.tools import (
-    assert_equal,
-    assert_raises,
-)
+import pytest
 
 import lib.strformat.perlbrace as M
 
 def test_lone_lcb():
-    with assert_raises(M.Error):
+    with pytest.raises(M.Error):
         M.FormatString('{')
 
 def test_lone_rcb():
     M.FormatString('}')
 
 def test_invalid_field():
-    with assert_raises(M.Error):
+    with pytest.raises(M.Error):
         M.FormatString('{@}')
 
 def test_text():
     fmt = M.FormatString('bacon')
-    assert_equal(len(fmt), 1)
+    assert len(fmt) == 1
     [fld] = fmt
-    assert_equal(fld, 'bacon')
+    assert fld == 'bacon'
 
 class test_named_arguments:
 
     def test_good(self):
         fmt = M.FormatString('{spam}')
-        assert_equal(len(fmt), 1)
+        assert len(fmt) == 1
         [fld] = fmt
-        assert_equal(fld, '{spam}')
+        assert fld == '{spam}'
 
     def test_bad(self):
-        with assert_raises(M.Error):
+        with pytest.raises(M.Error):
             M.FormatString('{3ggs}')
 
 # vim:ts=4 sts=4 sw=4 et
