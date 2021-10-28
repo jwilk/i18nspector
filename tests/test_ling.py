@@ -343,7 +343,7 @@ class test_principal_territory:
     def test_not_found(self):
         lang = L.parse_language('ry')
         cc = lang.get_principal_territory_code()
-        assert_equal(cc, None)
+        assert_is_none(cc)
 
 class test_unrepresentable_characters:
 
