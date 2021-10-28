@@ -9,6 +9,7 @@ jobs:
         include:
         - python: '3.4'
           polib: 'polib==1.0'
+          attrs: '"attrs<21"'
           os: ubuntu-18.04
         - python: '3.5'
           os: ubuntu-18.04
@@ -37,7 +38,7 @@ jobs:
         python3 -m pip install rply
     - name: run tests
       run: |
-        python3 -m pip install pytest
+        python3 -m pip install pytest ${{matrix.attrs || 'attrs'}}
         tests/run-tests -v
     - name: check docs
       run: |
