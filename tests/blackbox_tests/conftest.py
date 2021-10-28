@@ -165,8 +165,12 @@ class PoTestFile(pytest.File):
     # https://github.com/pytest-dev/pytest/issues/7591
 
     def collect(self):
-        name = os.path.basename(self.fspath)
-        yield PoTestItem.from_parent(self, name=name, filename=self.fspath)
+        # record the po file's basename and its full filesystem path as
+        # strings; pytest will happily use Path objects but the rest of
+        # stdlib on older Python versions only wants str not Path.
+        fname = str(self.fspath)
+        name = os.path.basename(fname)
+        yield PoTestItem.from_parent(self, name=name, filename=fname)
 
 
 class PoTestItem(pytest.Item):
@@ -186,7 +190,7 @@ class PoTestItem(pytest.Item):
         modes of i18nspector or other test harness failures.
         """
         etags, options = self.parse_test_headers()
-        assert_emit_tags(str(self.filename), etags, options=options)
+        assert_emit_tags(self.filename, etags, options=options)
 
     def repr_failure(self, excinfo, style=None):
         """Presentation of test failures for when self.runtest() raises an exception."""
