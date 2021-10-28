@@ -10,6 +10,7 @@ jobs:
         - python: '3.4'
           polib: 'polib==1.0'
           attrs: '"attrs<21"'
+          pytest-args: "--ignore tests/blackbox_tests"
           os: ubuntu-18.04
         - python: '3.5'
           os: ubuntu-18.04
@@ -39,7 +40,7 @@ jobs:
     - name: run tests
       run: |
         python3 -m pip install pytest ${{matrix.attrs || 'attrs'}}
-        tests/run-tests -v
+        tests/run-tests -v ${{matrix.pytest-args || ''}}
     - name: check docs
       run: |
         dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
