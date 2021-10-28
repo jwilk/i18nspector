@@ -1,4 +1,5 @@
 # Copyright © 2012-2019 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2021 Stuart Prescott <stuart@debian.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the “Software”), to deal
@@ -23,8 +24,9 @@ import os
 import sys
 import tempfile
 import traceback
+import unittest
 
-import nose
+import pytest
 
 temporary_file = functools.partial(
     tempfile.NamedTemporaryFile,
@@ -52,8 +54,8 @@ def fork_isolation(f):
     EXIT_SKIP_TEST = 102
 
     exit = os._exit  # pylint: disable=redefined-builtin,protected-access
-    # sys.exit() can't be used here, because nose catches all exceptions,
-    # including SystemExit
+    # sys.exit() can't be used here, because the test harness catches all
+    # exceptions, including SystemExit
 
     # pylint:disable=consider-using-sys-exit
 
@@ -66,7 +68,7 @@ def fork_isolation(f):
             os.close(readfd)
             try:
                 f(*args, **kwargs)
-            except nose.SkipTest as exc:
+            except unittest.SkipTest as exc:
                 s = str(exc).encode('UTF-8')
                 with os.fdopen(writefd, 'wb') as fp:
                     fp.write(s)
@@ -90,7 +92,7 @@ def fork_isolation(f):
             if status == (EXIT_EXCEPTION << 8):
                 raise IsolatedException() from Exception('\n\n' + msg)
             elif status == (EXIT_SKIP_TEST << 8):
-                raise nose.SkipTest(msg)
+                raise unittest.SkipTest(msg)
             elif status == 0 and msg == '':
                 pass
             else:
@@ -99,6 +101,35 @@ def fork_isolation(f):
     # pylint:enable=consider-using-sys-exit
 
     return wrapper
+
+
+def collect_yielded(collect_func):
+    # figure out if this is a function or method being wrapped
+    # as the wrapper needs a slightly different signature
+    if collect_func.__name__ != collect_func.__qualname__:
+        # method
+        @pytest.mark.parametrize("func, test_args",
+                                list(collect_func()))
+        def yield_tester(self, func, test_args):
+            if isinstance(test_args, (tuple, list)):
+                func(*test_args)
+            elif isinstance(test_args, (str, int, float)):
+                func(test_args)
+            else:
+                raise ValueError("args must be either a tuple or a str")
+    else:
+        # function
+        @pytest.mark.parametrize("func, test_args",
+                                list(collect_func()))
+        def yield_tester(func, test_args):
+            if isinstance(test_args, (tuple, list)):
+                func(*test_args)
+            elif isinstance(test_args, (str, int, float)):
+                func(test_args)
+            else:
+                raise ValueError("args must be either a tuple or a str")
+    return yield_tester
+
 
 basedir = os.path.join(
     os.path.dirname(__file__),

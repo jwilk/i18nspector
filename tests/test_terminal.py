@@ -23,17 +23,13 @@ import os
 import pty
 import sys
 
-from nose.tools import (
-    assert_equal,
-)
-
 import lib.terminal as T
 
 from . import tools
 
 def test_strip_delay():
     def t(s, r=b''):
-        assert_equal(T._strip_delay(s), r)  # pylint: disable=protected-access
+        assert T._strip_delay(s) == r  # pylint: disable=protected-access
     t(b'$<1>')
     t(b'$<2/>')
     t(b'$<3*>')
@@ -56,7 +52,7 @@ def assert_tseq_equal(s, expected):
         # but not their subclasses. We don't want detailed comparisons,
         # because diff could contain control characters.
         pass
-    assert_equal(S(expected), S(s))
+    assert S(expected) == S(s)
 
 def test_dummy():
     t = assert_tseq_equal

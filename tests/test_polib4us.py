@@ -20,11 +20,6 @@
 
 import polib
 
-from nose.tools import (
-    assert_list_equal,
-    assert_true,
-)
-
 import lib.polib4us as M
 
 from . import tools
@@ -50,7 +45,7 @@ msgstr "b"
                 file.write(s)
                 file.flush()
                 po = polib.pofile(file.name)
-                assert_true(po[-1].obsolete)
+                assert po[-1].obsolete
         t()
         M.install_patches()
         t()
@@ -60,9 +55,8 @@ def test_flag_splitting():
     M.install_patches()
     e = polib.POEntry()
     e.flags = ['fuzzy,c-format']
-    assert_list_equal(
-        e.flags,
-        ['fuzzy', 'c-format']
-    )
+    assert (
+        e.flags ==
+        ['fuzzy', 'c-format'])
 
 # vim:ts=4 sts=4 sw=4 et

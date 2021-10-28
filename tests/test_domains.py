@@ -18,12 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nose.tools import (
-    assert_false,
-    assert_is,
-    assert_raises,
-    assert_true,
-)
+import pytest
 
 import lib.domains as M
 
@@ -32,9 +27,9 @@ class test_special_domains:
     def t(self, domain, special=True):
         result = M.is_special_domain(domain)
         if special:
-            assert_true(result)
+            assert result
         else:
-            assert_false(result)
+            assert not result
 
     def test_ok(self):
         self.t('test.jwilk.net', False)
@@ -68,9 +63,9 @@ class test_special_domain_emails:
     def t(self, email, special=True):
         result = M.is_email_in_special_domain(email)
         if special:
-            assert_true(result)
+            assert result
         else:
-            assert_false(result)
+            assert not result
 
     def test_valid(self):
         self.t('jwilk@test.jwilk.net', False)
@@ -79,14 +74,14 @@ class test_special_domain_emails:
         self.t('jwilk@example.net')
 
     def test_no_at(self):
-        with assert_raises(ValueError):
+        with pytest.raises(ValueError):
             self.t('jwilk%jwilk.net')
 
 class test_dotless_domains:
 
     def t(self, domain, dotless=True):
         result = M.is_dotless_domain(domain)
-        assert_is(result, dotless)
+        assert result is dotless
 
     def test_dotless(self):
         self.t('net')
@@ -99,7 +94,7 @@ class test_dotless_emails:
 
     def t(self, email, dotless=True):
         result = M.is_email_in_dotless_domain(email)
-        assert_is(result, dotless)
+        assert result is dotless
 
     def test_dotless(self):
         self.t('jwilk@net')
@@ -108,7 +103,7 @@ class test_dotless_emails:
         self.t('jwilk@example.net', False)
 
     def test_no_at(self):
-        with assert_raises(ValueError):
+        with pytest.raises(ValueError):
             self.t('jwilk%jwilk.net')
 
 # vim:ts=4 sts=4 sw=4 et

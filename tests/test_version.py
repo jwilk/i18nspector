@@ -20,10 +20,6 @@
 
 import os
 
-from nose.tools import (
-    assert_equal,
-)
-
 from lib.cli import __version__
 
 here = os.path.dirname(__file__)
@@ -34,7 +30,7 @@ def test_changelog():
     with open(path, 'rt', encoding='UTF-8') as file:
         line = file.readline()
     changelog_version = line.split()[1].strip('()')
-    assert_equal(changelog_version, __version__)
+    assert changelog_version == __version__
 
 def test_manpage():
     path = os.path.join(docdir, 'manpage.rst')
@@ -44,6 +40,6 @@ def test_manpage():
             if line.startswith(':version:'):
                 manpage_version = line.split()[-1]
                 break
-    assert_equal(manpage_version, __version__)
+    assert manpage_version == __version__
 
 # vim:ts=4 sts=4 sw=4 et

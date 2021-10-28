@@ -21,11 +21,10 @@
 import os
 import re
 
-from nose.tools import (
-    assert_not_equal,
-)
+import pytest
 
 import lib.tags
+from . import tools
 
 here = os.path.dirname(__file__)
 docdir = os.path.join(here, os.pardir, 'doc')
@@ -52,32 +51,39 @@ rename_re = re.compile(
     r'([\w-]+) [(]from ([\w-]+)[)]'
 )
 
-def test_tags():
-    path = os.path.join(docdir, 'changelog')
-    with open(path, 'rt', encoding='UTF-8') as file:
-        changelog = file.read()
-    summaries = summary_re.findall(changelog)
-    changelog_tags = set()
+
+@tools.collect_yielded
+def test_tag_paramerisation():
     def add(info, tag):
         del info
         if tag in changelog_tags:
             raise AssertionError('changelog adds tag twice: ' + tag)
         changelog_tags.add(tag)
+
     def remove(info, tag):
         del info
         if tag not in changelog_tags:
             raise AssertionError('changelog removes non-existent tag: ' + tag)
         changelog_tags.remove(tag)
+
     def rename(info, removed_tag, added_tag):
-        assert_not_equal(removed_tag, added_tag)
+        assert removed_tag != added_tag
         remove(info, removed_tag)
         add(info, added_tag)
+
     def check(info, tag):
         del info
         if tag not in changelog_tags:
             raise AssertionError('tag not in changelog: ' + tag)
         if tag not in data_tags:
             raise AssertionError('changelog adds unknown tag: ' + tag)
+
+    path = os.path.join(docdir, 'changelog')
+    with open(path, 'rt', encoding='UTF-8') as file:
+        changelog = file.read()
+    summaries = summary_re.findall(changelog)
+    changelog_tags = set()
+
     for summary in reversed(summaries):
         match = summary_details_re.match(summary)
         for key, lines in match.groupdict().items():
@@ -86,16 +92,17 @@ def test_tags():
             lines = [l[8:] for l in lines.splitlines()]
             if key == 'added':
                 for tag in lines:
-                    yield add, 'add', tag
+                    yield add, ('add', tag)
             elif key == 'renamed':
                 for line in lines:
                     added_tag, removed_tag = rename_re.match(line).groups()
-                    yield rename, 'rename', removed_tag, added_tag
+                    yield rename, ('rename', removed_tag, added_tag)
             else:
                 assert False
     data_tags = frozenset(tag.name for tag in lib.tags.iter_tags())
     for tag in sorted(changelog_tags | data_tags):
-        yield check, 'check', tag
+        yield check, ('check', tag)
+
 
 def test_trailing_whitespace():
     path = os.path.join(docdir, 'changelog')

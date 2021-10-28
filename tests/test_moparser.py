@@ -20,10 +20,7 @@
 
 import random
 
-from nose.tools import (
-    assert_equal,
-    assert_raises,
-)
+import pytest
 
 import lib.moparser as M
 
@@ -38,21 +35,21 @@ def parser_for_bytes(data):
 class test_magic:
 
     def test_value(self):
-        assert_equal(M.little_endian_magic, b'\xDE\x12\x04\x95')
-        assert_equal(M.big_endian_magic, b'\x95\x04\x12\xDE')
+        assert M.little_endian_magic == b'\xDE\x12\x04\x95'
+        assert M.big_endian_magic == b'\x95\x04\x12\xDE'
 
     def test_short(self):
         for j in range(0, 3):
             data = M.little_endian_magic[:j]
-            with assert_raises(M.SyntaxError) as cm:
+            with pytest.raises(M.SyntaxError) as cm:
                 parser_for_bytes(data)
-            assert_equal(str(cm.exception), 'unexpected magic')
+            assert str(cm.value) == 'unexpected magic'
 
     def test_full(self):
         for magic in {M.little_endian_magic, M.big_endian_magic}:
-            with assert_raises(M.SyntaxError) as cm:
+            with pytest.raises(M.SyntaxError) as cm:
                 parser_for_bytes(magic)
-            assert_equal(str(cm.exception), 'truncated file')
+            assert str(cm.value) == 'truncated file'
 
     def test_random(self):
         while True:
@@ -62,8 +59,8 @@ class test_magic:
             if random_magic in {M.little_endian_magic, M.big_endian_magic}:
                 continue
             break
-        with assert_raises(M.SyntaxError) as cm:
+        with pytest.raises(M.SyntaxError) as cm:
             parser_for_bytes(random_magic)
-        assert_equal(str(cm.exception), 'unexpected magic')
+        assert str(cm.value) == 'unexpected magic'
 
 # vim:ts=4 sts=4 sw=4 et
