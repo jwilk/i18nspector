@@ -20,7 +20,9 @@
 
 import datetime
 
-from nose.tools import (
+import lib.gettext as M
+
+from .tools import (
     assert_equal,
     assert_false,
     assert_is_instance,
@@ -30,8 +32,6 @@ from nose.tools import (
     assert_raises,
     assert_true,
 )
-
-import lib.gettext as M
 
 class test_header_fields:
 

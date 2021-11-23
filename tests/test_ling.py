@@ -20,7 +20,12 @@
 
 import unittest
 
-from nose.tools import (
+import lib.encodings
+import lib.ling
+
+from . import tools
+
+from .tools import (
     assert_equal,
     assert_false,
     assert_in,
@@ -32,11 +37,6 @@ from nose.tools import (
     assert_raises,
     assert_true,
 )
-
-import lib.encodings
-import lib.ling
-
-from . import tools
 
 L = lib.ling
 T = lib.ling.Language

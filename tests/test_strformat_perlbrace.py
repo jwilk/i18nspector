@@ -18,12 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nose.tools import (
+import lib.strformat.perlbrace as M
+
+from .tools import (
     assert_equal,
     assert_raises,
 )
-
-import lib.strformat.perlbrace as M
 
 def test_lone_lcb():
     with assert_raises(M.Error):

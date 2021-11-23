@@ -23,11 +23,11 @@ import os
 import pty
 import sys
 
-from nose.tools import (
+import lib.terminal as T
+
+from .tools import (
     assert_equal,
 )
-
-import lib.terminal as T
 
 from . import tools
 

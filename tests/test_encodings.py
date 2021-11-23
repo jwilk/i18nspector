@@ -22,7 +22,11 @@ import curses.ascii
 import sys
 import unittest
 
-from nose.tools import (
+import lib.encodings as E
+
+from . import tools
+
+from .tools import (
     assert_equal,
     assert_false,
     assert_is_none,
@@ -30,10 +34,6 @@ from nose.tools import (
     assert_raises,
     assert_true,
 )
-
-import lib.encodings as E
-
-from . import tools
 
 class test_is_portable_encoding:
 

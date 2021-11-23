@@ -25,6 +25,25 @@ import tempfile
 import traceback
 import unittest
 
+from nose.tools import (  # pylint: disable=unused-import
+    assert_almost_equal,
+    assert_equal,
+    assert_false,
+    assert_greater,
+    assert_in,
+    assert_is,
+    assert_is_instance,
+    assert_is_none,
+    assert_is_not_none,
+    assert_less,
+    assert_list_equal,
+    assert_not_equal,
+    assert_not_in,
+    assert_raises,
+    assert_sequence_equal,
+    assert_true,
+)
+
 temporary_file = functools.partial(
     tempfile.NamedTemporaryFile,
     prefix='i18nspector.tests.',

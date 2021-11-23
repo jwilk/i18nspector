@@ -18,14 +18,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nose.tools import (
+import lib.domains as M
+
+from .tools import (
     assert_false,
     assert_is,
     assert_raises,
     assert_true,
 )
-
-import lib.domains as M
 
 class test_special_domains:
 

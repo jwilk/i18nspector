@@ -20,15 +20,15 @@
 
 import struct
 
-from nose.tools import (
+import lib.strformat.python as M
+
+from .tools import (
     assert_equal,
     assert_greater,
     assert_is_instance,
     assert_raises,
     assert_sequence_equal,
 )
-
-import lib.strformat.python as M
 
 def test_SSIZE_MAX():
     struct.pack('=i', M.SSIZE_MAX)

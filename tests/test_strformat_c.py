@@ -23,15 +23,15 @@ import struct
 import sys
 import unittest.mock
 
-from nose.tools import (
+import lib.strformat.c as M
+
+from .tools import (
     assert_equal,
     assert_greater,
     assert_is_instance,
     assert_raises,
     assert_sequence_equal,
 )
-
-import lib.strformat.c as M
 
 def test_INT_MAX():
     struct.pack('=i', M.INT_MAX)

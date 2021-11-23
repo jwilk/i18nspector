@@ -20,11 +20,11 @@
 
 import os
 
-from nose.tools import (
+from lib.cli import __version__
+
+from .tools import (
     assert_equal,
 )
-
-from lib.cli import __version__
 
 here = os.path.dirname(__file__)
 docdir = os.path.join(here, os.pardir, 'doc')

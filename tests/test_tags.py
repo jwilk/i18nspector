@@ -24,16 +24,16 @@ import inspect
 import operator
 import pkgutil
 
-from nose.tools import (
+import lib.check
+import lib.tags as M
+
+from .tools import (
     assert_equal,
     assert_false,
     assert_is_instance,
     assert_raises,
     assert_true,
 )
-
-import lib.check
-import lib.tags as M
 
 class test_escape:
 

@@ -18,12 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from nose.tools import (
+import lib.iconv as M
+
+from .tools import (
     assert_equal,
     assert_raises,
 )
-
-import lib.iconv as M
 
 class _test:
     u = None

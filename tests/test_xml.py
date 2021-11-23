@@ -21,13 +21,13 @@
 import re
 import xml.etree.ElementTree as etree
 
-from nose.tools import (
+import lib.xml as M
+
+from .tools import (
     assert_is_none,
     assert_is_not_none,
     assert_raises,
 )
-
-import lib.xml as M
 
 class test_well_formed:
 

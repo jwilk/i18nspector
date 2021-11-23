@@ -20,12 +20,12 @@
 
 import polib
 
-from nose.tools import (
+import lib.polib4us as M
+
+from .tools import (
     assert_list_equal,
     assert_true,
 )
-
-import lib.polib4us as M
 
 from . import tools
 

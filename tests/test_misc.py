@@ -24,7 +24,9 @@ import stat
 import tempfile
 import time
 
-from nose.tools import (
+import lib.misc as M
+
+from .tools import (
     assert_almost_equal,
     assert_equal,
     assert_is_instance,
@@ -32,8 +34,6 @@ from nose.tools import (
     assert_raises,
     assert_true,
 )
-
-import lib.misc as M
 
 from . import tools
 

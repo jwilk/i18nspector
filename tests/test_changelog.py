@@ -21,11 +21,11 @@
 import os
 import re
 
-from nose.tools import (
+import lib.tags
+
+from .tools import (
     assert_not_equal,
 )
-
-import lib.tags
 
 here = os.path.dirname(__file__)
 docdir = os.path.join(here, os.pardir, 'doc')
