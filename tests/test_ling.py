@@ -18,7 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import nose
+import unittest
+
 from nose.tools import (
     assert_equal,
     assert_false,
@@ -419,16 +420,16 @@ def test_glibc_supported():
         except L.FixingLanguageCodesFailed:
             # FIXME: some ISO-639-3 codes are not recognized yet
             if len(l.split('_')[0]) == 3:
-                raise nose.SkipTest('expected failure')
+                raise unittest.SkipTest('expected failure')
             reason = locales_to_skip.get(l)
             if reason is not None:
-                raise nose.SkipTest(reason)
+                raise unittest.SkipTest(reason)
             raise
         assert_equal(str(lang), l)
     try:
         file = open('/usr/share/i18n/SUPPORTED', encoding='ASCII')  # pylint: disable=consider-using-with
     except OSError as exc:
-        raise nose.SkipTest(exc)
+        raise unittest.SkipTest(exc)
     locales = set()
     with file:
         for line in file:
@@ -466,7 +467,7 @@ def test_poedit():
         poedit_ll = L.parse_language(poedit_ll)
         with assert_raises(LookupError):
             L.get_language_for_name(name)
-        raise nose.SkipTest('expected failure')
+        raise unittest.SkipTest('expected failure')
     yield t, 'Abkhazian', 'ab'
     yield t, 'Afar', 'aa'
     yield t, 'Afrikaans', 'af'

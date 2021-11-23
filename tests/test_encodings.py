@@ -20,8 +20,8 @@
 
 import curses.ascii
 import sys
+import unittest
 
-import nose
 from nose.tools import (
     assert_equal,
     assert_false,
@@ -164,7 +164,7 @@ class test_extra_encoding:
         except LookupError:
             pass
         else:
-            raise nose.SkipTest(
+            raise unittest.SkipTest(
                 'python{ver[0]}.{ver[1]} supports the {enc} encoding'.format(
                     ver=sys.version_info,
                     enc=encoding
@@ -193,7 +193,7 @@ class test_extra_encoding:
         except LookupError:
             pass
         else:
-            raise nose.SkipTest(
+            raise unittest.SkipTest(
                 'python{ver[0]}.{ver[1]} supports the {enc} encoding'.format(
                     ver=sys.version_info,
                     enc=encoding

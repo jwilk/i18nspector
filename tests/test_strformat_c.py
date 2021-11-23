@@ -23,7 +23,6 @@ import struct
 import sys
 import unittest.mock
 
-import nose
 from nose.tools import (
     assert_equal,
     assert_greater,
@@ -54,7 +53,7 @@ def test_NL_ARGMAX():
             os.sysconf('SC_NL_ARGMAX')
         )
     else:
-        raise nose.SkipTest('Test specific to Linux with glibc')
+        raise unittest.SkipTest('Test specific to Linux with glibc')
 
 small_NL_ARGMAX = unittest.mock.patch('lib.strformat.c.NL_ARGMAX', 42)
 # Setting NL_ARGMAX to a small number makes the *_index_out_of_range() tests

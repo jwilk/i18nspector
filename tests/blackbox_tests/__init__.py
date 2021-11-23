@@ -31,7 +31,6 @@ import sys
 import traceback
 import unittest
 
-import nose
 import nose.plugins
 
 from .. import tools
@@ -283,7 +282,7 @@ def assert_emit_tags(path, etags, *, options=()):
     expected_failure = os.path.basename(path).startswith('xfail-')
     if stdout != etags:
         if expected_failure:
-            raise nose.SkipTest('expected failure')
+            raise unittest.SkipTest('expected failure')
         str_etags = [str(x) for x in etags]
         message = ['Tags differ:', '']
         diff = list(
@@ -386,7 +385,7 @@ E: os-error Permission denied
 ''')
 def test_os_error_permission_denied():
     if os.getuid() == 0:
-        raise nose.SkipTest('this test must not be run as root')
+        raise unittest.SkipTest('this test must not be run as root')
     with tools.temporary_directory() as tmpdir:
         path = os.path.join(tmpdir, 'denied.po')
         with open(path, 'wb'):

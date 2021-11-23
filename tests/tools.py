@@ -23,8 +23,7 @@ import os
 import sys
 import tempfile
 import traceback
-
-import nose
+import unittest
 
 temporary_file = functools.partial(
     tempfile.NamedTemporaryFile,
@@ -66,7 +65,7 @@ def fork_isolation(f):
             os.close(readfd)
             try:
                 f(*args, **kwargs)
-            except nose.SkipTest as exc:
+            except unittest.SkipTest as exc:
                 s = str(exc).encode('UTF-8')
                 with os.fdopen(writefd, 'wb') as fp:
                     fp.write(s)
@@ -90,7 +89,7 @@ def fork_isolation(f):
             if status == (EXIT_EXCEPTION << 8):
                 raise IsolatedException() from Exception('\n\n' + msg)
             elif status == (EXIT_SKIP_TEST << 8):
-                raise nose.SkipTest(msg)
+                raise unittest.SkipTest(msg)
             elif status == 0 and msg == '':
                 pass
             else:
