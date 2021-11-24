@@ -25,24 +25,26 @@ import tempfile
 import traceback
 import unittest
 
-from nose.tools import (  # pylint: disable=unused-import
-    assert_almost_equal,
-    assert_equal,
-    assert_false,
-    assert_greater,
-    assert_in,
-    assert_is,
-    assert_is_instance,
-    assert_is_none,
-    assert_is_not_none,
-    assert_less,
-    assert_list_equal,
-    assert_not_equal,
-    assert_not_in,
-    assert_raises,
-    assert_sequence_equal,
-    assert_true,
-)
+tc = unittest.TestCase('__hash__')
+
+assert_almost_equal = tc.assertAlmostEqual
+assert_equal = tc.assertEqual
+assert_false = tc.assertFalse
+assert_greater = tc.assertGreater
+assert_in = tc.assertIn
+assert_is = tc.assertIs
+assert_is_instance = tc.assertIsInstance
+assert_is_none = tc.assertIsNone
+assert_is_not_none = tc.assertIsNotNone
+assert_less = tc.assertLess
+assert_list_equal = tc.assertListEqual
+assert_not_equal = tc.assertNotEqual
+assert_not_in = tc.assertNotIn
+assert_raises = tc.assertRaises
+assert_sequence_equal = tc.assertSequenceEqual
+assert_true = tc.assertTrue
+
+del tc
 
 temporary_file = functools.partial(
     tempfile.NamedTemporaryFile,
