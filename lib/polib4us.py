@@ -87,8 +87,7 @@ class Codecs():
             if line[:2] in {'', '# '} or line.isspace():
                 pending_comments += [line]
             else:
-                for comment_line in pending_comments:
-                    yield comment_line
+                yield from pending_comments
                 pending_comments = []
                 yield line
                 empty = False
