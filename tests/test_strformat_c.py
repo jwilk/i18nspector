@@ -102,36 +102,36 @@ class test_types:
 
     def test_integer(self):
         def t(s, tp, warn_type=None):
-            integer = not suffix
-            self.t(s, tp + suffix, warn_type, integer)
+            if s[-1] == 'n':
+                tp += ' *'
+                integer = False
+            else:
+                integer = True
+            return (self.t, s, tp, warn_type, integer)
         for c in 'din':
-            suffix = ''
-            if c == 'n':
-                suffix = ' *'
-            yield t, ('%hh' + c), 'signed char'
-            yield t, ('%h' + c), 'short int'
-            yield t, ('%' + c), 'int'
-            yield t, ('%l' + c), 'long int'
-            yield t, ('%ll' + c), 'long long int'
-            yield t, ('%L' + c), 'long long int', M.NonPortableConversion
-            yield t, ('%q' + c), 'long long int', M.NonPortableConversion
-            yield t, ('%j' + c), 'intmax_t'
-            yield t, ('%z' + c), 'ssize_t'
-            yield t, ('%Z' + c), 'ssize_t', M.NonPortableConversion
-            yield t, ('%t' + c), 'ptrdiff_t'
+            yield t('%hh' + c, 'signed char')
+            yield t('%h' + c, 'short int')
+            yield t('%' + c, 'int')
+            yield t('%l' + c, 'long int')
+            yield t('%ll' + c, 'long long int')
+            yield t('%L' + c, 'long long int', M.NonPortableConversion)
+            yield t('%q' + c, 'long long int', M.NonPortableConversion)
+            yield t('%j' + c, 'intmax_t')
+            yield t('%z' + c, 'ssize_t')
+            yield t('%Z' + c, 'ssize_t', M.NonPortableConversion)
+            yield t('%t' + c, 'ptrdiff_t')
         for c in 'ouxX':
-            suffix = ''
-            yield t, ('%hh' + c), 'unsigned char'
-            yield t, ('%h' + c), 'unsigned short int'
-            yield t, ('%' + c), 'unsigned int'
-            yield t, ('%l' + c), 'unsigned long int'
-            yield t, ('%ll' + c), 'unsigned long long int'
-            yield t, ('%L' + c), 'unsigned long long int', M.NonPortableConversion
-            yield t, ('%q' + c), 'unsigned long long int', M.NonPortableConversion
-            yield t, ('%j' + c), 'uintmax_t'
-            yield t, ('%z' + c), 'size_t'
-            yield t, ('%Z' + c), 'size_t', M.NonPortableConversion
-            yield t, ('%t' + c), '[unsigned ptrdiff_t]'
+            yield t('%hh' + c, 'unsigned char')
+            yield t('%h' + c, 'unsigned short int')
+            yield t('%' + c, 'unsigned int')
+            yield t('%l' + c, 'unsigned long int')
+            yield t('%ll' + c, 'unsigned long long int')
+            yield t('%L' + c, 'unsigned long long int', M.NonPortableConversion)
+            yield t('%q' + c, 'unsigned long long int', M.NonPortableConversion)
+            yield t('%j' + c, 'uintmax_t')
+            yield t('%z' + c, 'size_t')
+            yield t('%Z' + c, 'size_t', M.NonPortableConversion)
+            yield t('%t' + c, '[unsigned ptrdiff_t]')
 
     def test_double(self):
         t = self.t
