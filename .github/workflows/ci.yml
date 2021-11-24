@@ -15,11 +15,14 @@ jobs:
         - python: '3.8'
           os: ubuntu-20.04
         - python: '3.9'
+          pytest: pytest==3.0
           os: ubuntu-20.04
         - python: '3.10'
+          pytest: pytest
           os: ubuntu-20.04
         - python: '3.11-dev'
           os: ubuntu-22.04
+          pytest: pytest
     runs-on: ${{matrix.os}}
     steps:
     - uses: actions/checkout@v2
@@ -33,13 +36,14 @@ jobs:
         python3 -m pip install rply
     - name: run tests
       run: |
-        # work-around for <https://github.com/nose-devs/nose/issues/1115>:
-        pip install 'setuptools<58'
-        # work-around for <https://github.com/nose-devs/nose/issues/1099>:
-        python3 -m pip install --no-binary ':all:' nose
-        # work-around for <https://github.com/nose-devs/nose/issues/1116>:
-        sed -i -e 's/ from unittest import _TextTestResult$/ from unittest import TextTestResult as _TextTestResult/' ${{env.pythonLocation}}/lib/python*/site-packages/nose/result.py
+        python3 -m pip install nose
         tests/run-tests -v
+      if: ${{! matrix.pytest}}
+    - name: run tests
+      run: |
+        python3 -m pip install ${{matrix.pytest}}
+        python3 -m pytest -v
+      if: ${{matrix.pytest}}
     - name: check docs
       run: |
         dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
