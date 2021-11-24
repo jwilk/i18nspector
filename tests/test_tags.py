@@ -33,6 +33,7 @@ from .tools import (
     assert_is_instance,
     assert_raises,
     assert_true,
+    collect_yielded,
 )
 
 class test_escape:
@@ -74,6 +75,7 @@ def ast_to_tagnames(node):
     if ok:
         yield node.args[0].s
 
+@collect_yielded
 def test_consistency():
     source_tagnames = set()
     def visit_mod(modname):

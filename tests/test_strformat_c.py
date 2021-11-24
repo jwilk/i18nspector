@@ -31,6 +31,7 @@ from .tools import (
     assert_is_instance,
     assert_raises,
     assert_sequence_equal,
+    collect_yielded,
 )
 
 def test_INT_MAX():
@@ -99,6 +100,7 @@ class test_types:
             assert_is_instance(warning, warn_type)
         assert_equal(conv.integer, integer)
 
+    @collect_yielded
     def test_integer(self):
         def t(s, tp, warn_type=None):
             if s[-1] == 'n':
@@ -132,6 +134,7 @@ class test_types:
             yield t('%Z' + c, 'size_t', M.NonPortableConversion)
             yield t('%t' + c, '[unsigned ptrdiff_t]')
 
+    @collect_yielded
     def test_double(self):
         t = self.t
         for c in 'aefgAEFG':
@@ -139,6 +142,7 @@ class test_types:
             yield t, ('%l' + c), 'double', M.NonPortableConversion
             yield t, ('%L' + c), 'long double'
 
+    @collect_yielded
     def test_char(self):
         t = self.t
         yield t, '%c', 'char'
@@ -148,12 +152,14 @@ class test_types:
         yield t, '%ls', 'const wchar_t *'
         yield t, '%S', 'const wchar_t *', M.NonPortableConversion
 
+    @collect_yielded
     def test_void(self):
         t = self.t
         yield t, '%p', 'void *'
         yield t, '%m', 'void'
         yield t, '%%', 'void'
 
+    @collect_yielded
     def test_c99_macros(self):
         # pylint: disable=undefined-loop-variable
         def _t(s, tp):
@@ -181,6 +187,7 @@ class test_invalid_length:
 
     _lengths = ['hh', 'h', 'l', 'll', 'q', 'j', 'z', 't', 'L']
 
+    @collect_yielded
     def test_double(self):
         t = self.t
         for c in 'aefgAEFG':
@@ -189,6 +196,7 @@ class test_invalid_length:
                     continue
                 yield t, ('%' + l + c)
 
+    @collect_yielded
     def test_char(self):
         t = self.t
         for c in 'cs':
@@ -197,6 +205,7 @@ class test_invalid_length:
                     yield t, '%' + l + c
                 yield t, ('%' + l + c.upper())
 
+    @collect_yielded
     def test_void(self):
         t = self.t
         for c in 'pm%':
@@ -277,18 +286,22 @@ class test_expected_flag:
         fmt = M.FormatString(s)
         assert_equal(len(fmt), 1)
 
+    @collect_yielded
     def test_hash(self):
         for c in 'oxXaAeEfFgG':
             yield self.t, ('%#' + c)
 
+    @collect_yielded
     def test_zero(self):
         for c in 'diouxXaAeEfFgG':
             yield self.t, ('%0' + c)
 
+    @collect_yielded
     def test_apos(self):
         for c in 'diufFgG':
             yield self.t, ("%'" + c)
 
+    @collect_yielded
     def test_other(self):
         for flag in '- +I':
             for c in 'diouxXaAeEfFgGcCsSpm':
@@ -300,18 +313,22 @@ class test_unexpected_flag:
         with assert_raises(M.FlagError):
             M.FormatString(s)
 
+    @collect_yielded
     def test_hash(self):
         for c in 'dicCsSnpm%':
             yield self.t, ('%#' + c)
 
+    @collect_yielded
     def test_zero(self):
         for c in 'cCsSnpm%':
             yield self.t, ('%0' + c)
 
+    @collect_yielded
     def test_apos(self):
         for c in 'oxXaAeEcCsSnpm%':
             yield self.t, ("%'" + c)
 
+    @collect_yielded
     def test_other(self):
         for c in '%n':
             for flag in '- +I':
@@ -319,6 +336,7 @@ class test_unexpected_flag:
 
 class test_width:
 
+    @collect_yielded
     def test_ok(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -389,6 +407,7 @@ class test_width:
 
 class test_precision:
 
+    @collect_yielded
     def test_ok(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -396,6 +415,7 @@ class test_precision:
         for c in 'diouxXaAeEfFgGsS':
             yield t, ('%.1' + c)
 
+    @collect_yielded
     def test_redundant_0(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -405,6 +425,7 @@ class test_precision:
         for c in 'diouxX':
             yield t, ('%0.1' + c)
 
+    @collect_yielded
     def test_non_redundant_0(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -413,6 +434,7 @@ class test_precision:
         for c in 'aAeEfFgG':
             yield t, ('%0.1' + c)
 
+    @collect_yielded
     def test_unexpected(self):
         def t(s):
             with assert_raises(M.PrecisionError):

@@ -36,6 +36,7 @@ from .tools import (
     assert_not_in,
     assert_raises,
     assert_true,
+    collect_yielded,
 )
 
 L = lib.ling
@@ -253,6 +254,7 @@ class test_get_primary_languages:
         langs = L.get_primary_languages()
         assert_not_in('ry', langs)
 
+    @collect_yielded
     def test_iso_639(self):
         def t(lang_str):
             lang = L.parse_language(lang_str)
@@ -412,6 +414,7 @@ class test_unrepresentable_characters:
         result = lang.get_unrepresentable_characters(encoding)
         assert_not_equal(result, [])
 
+@collect_yielded
 def test_glibc_supported():
     def t(l):
         lang = L.parse_language(l)
@@ -455,6 +458,7 @@ def test_glibc_supported():
     for l in sorted(locales):
         yield t, l
 
+@collect_yielded
 def test_poedit():
     # https://github.com/vslavik/poedit/blob/v1.8.1-oss/src/language_impl_legacy.h
     # There won't be any new names in this table,

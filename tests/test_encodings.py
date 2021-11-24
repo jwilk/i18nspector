@@ -33,6 +33,7 @@ from .tools import (
     assert_not_in,
     assert_raises,
     assert_true,
+    collect_yielded,
 )
 
 class test_is_portable_encoding:
@@ -58,6 +59,7 @@ class test_propose_portable_encoding:
         portable_encoding = E.propose_portable_encoding(encoding)
         assert_equal(portable_encoding, encoding)
 
+    @collect_yielded
     def test_found(self):
         def t(encoding, expected_portable_encoding):
             portable_encoding = E.propose_portable_encoding(encoding)
@@ -72,6 +74,7 @@ class test_propose_portable_encoding:
 
 class test_ascii_compatibility:
 
+    @collect_yielded
     def test_portable(self):
         def t(encoding):
             assert_true(E.is_ascii_compatible_encoding(encoding))
@@ -79,6 +82,7 @@ class test_ascii_compatibility:
         for encoding in E.get_portable_encodings():
             yield t, encoding
 
+    @collect_yielded
     def test_incompatible(self):
         def t(encoding):
             assert_false(E.is_ascii_compatible_encoding(encoding))
@@ -91,6 +95,7 @@ class test_ascii_compatibility:
         with assert_raises(E.EncodingLookupError):
             E.is_ascii_compatible_encoding(encoding, missing_ok=False)
 
+    @collect_yielded
     def test_non_text(self):
         t = self._test_missing
         yield t, 'base64_codec'

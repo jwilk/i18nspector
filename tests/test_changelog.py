@@ -25,6 +25,7 @@ import lib.tags
 
 from .tools import (
     assert_not_equal,
+    collect_yielded,
 )
 
 here = os.path.dirname(__file__)
@@ -52,6 +53,7 @@ rename_re = re.compile(
     r'([\w-]+) [(]from ([\w-]+)[)]'
 )
 
+@collect_yielded
 def test_tags():
     path = os.path.join(docdir, 'changelog')
     with open(path, 'rt', encoding='UTF-8') as file:

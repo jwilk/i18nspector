@@ -21,9 +21,74 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import inspect
 import os
+import sys
+import unittest
+
+import pytest
 
 import tests.tools
+
+if sys.version_info < (3, 6):
+    raise RuntimeError('Python >= 3.6 is required for pytest support')
+
+def _make_method(fn, args):
+    def _test_item(self):
+        del self
+        return fn(*args)
+    return _test_item
+
+def _make_skip_func(exc):
+    def test(self=None):
+        raise exc
+    return test
+
+if int(pytest.__version__.split('.', 1)[0]) < 6:
+    # pytest before 6.0 doesn't like "[" in the test name
+    # https://github.com/pytest-dev/pytest/commit/8b9b81c3c04399d0
+    def _mangle_test_name(s):
+        return s.replace('[', '(').replace(']', ')')
+else:
+    _mangle_test_name = str
+
+def _collect_yielded(generator):
+    genargs = list(inspect.signature(generator).parameters.keys())
+    if genargs == ['self']:
+        class YieldTestDescriptor():
+            def __set_name__(self, owner, name):
+                try:
+                    args_lst = list(generator(owner()))
+                except unittest.SkipTest as exc:
+                    skip_method = _make_skip_func(exc)
+                    setattr(owner, name, skip_method)
+                    return
+                for args in args_lst:
+                    fn, *args = args
+                    aname = name + repr(args)
+                    aname = _mangle_test_name(aname)
+                    assert getattr(owner, aname, None) is None
+                    setattr(owner, aname, _make_method(fn, args))
+        return YieldTestDescriptor()
+    elif genargs == []:
+        class Test():
+            pass
+        try:
+            args_lst = list(generator())
+        except unittest.SkipTest as exc:
+            return _make_skip_func(exc)
+        for args in args_lst:
+            fn, *args = args
+            aname = 'test' + repr(args)
+            aname = _mangle_test_name(aname)
+            assert getattr(Test, aname , None) is None
+            setattr(Test, aname, _make_method(fn, args))
+        Test.__module__ = generator.__module__
+        Test.__name__ = generator.__name__
+        Test.__qualname__ = generator.__qualname__
+        return Test
+    else:
+        raise RuntimeError
 
 def pytest_sessionstart(session):
     envvar = 'XDG_CACHE_HOME'
@@ -37,5 +102,6 @@ def pytest_sessionstart(session):
         else:
             os.environ[envvar] = old_xdg_cache_home
     session.config.add_cleanup(cleanup)
+    tests.tools.collect_yielded = _collect_yielded
 
 # vim:ts=4 sts=4 sw=4 et

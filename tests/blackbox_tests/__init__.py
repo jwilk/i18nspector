@@ -369,6 +369,7 @@ def _get_test_filenames():
                 continue
             yield os.path.join(root, filename)
 
+@tools.collect_yielded
 def test_file():
     for filename in _get_test_filenames():
         path = os.path.relpath(filename, start=here)

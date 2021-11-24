@@ -46,6 +46,13 @@ assert_true = tc.assertTrue
 
 del tc
 
+def _collect_yielded(generator):
+    # Convert test generator to something the test harness understands.
+    # For nose, we don't need to do anything.
+    # For pytest, see the tests.conftest module.
+    return generator
+collect_yielded = _collect_yielded
+
 temporary_file = functools.partial(
     tempfile.NamedTemporaryFile,
     prefix='i18nspector.tests.',

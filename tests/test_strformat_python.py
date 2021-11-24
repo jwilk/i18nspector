@@ -28,6 +28,7 @@ from .tools import (
     assert_is_instance,
     assert_raises,
     assert_sequence_equal,
+    collect_yielded,
 )
 
 def test_SSIZE_MAX():
@@ -97,30 +98,36 @@ class test_types:
             [warning] = fmt.warnings
             assert_is_instance(warning, warn_type)
 
+    @collect_yielded
     def test_integer(self):
         t = self.t
         for c in 'oxXdi':
             yield t, '%' + c, 'int'
         yield t, '%u', 'int', M.ObsoleteConversion
 
+    @collect_yielded
     def test_float(self):
         t = self.t
         for c in 'eEfFgG':
             yield t, '%' + c, 'float'
 
+    @collect_yielded
     def test_str(self):
         t = self.t
         yield t, '%c', 'chr'
         yield t, '%s', 'str'
 
+    @collect_yielded
     def test_repr(self):
         t = self.t
         for c in 'ra':
             yield t, '%' + c, 'object'
 
+    @collect_yielded
     def test_void(self):
         yield self.t, '%%', 'None'
 
+@collect_yielded
 def test_length():
     def t(l):
         fmt = M.FormatString('%' + l + 'd')
@@ -160,6 +167,7 @@ class test_multiple_flags:
     def test_plus_space(self):
         self.t('%+ d')
 
+@collect_yielded
 def test_single_flag():
 
     def t(s, expected):
@@ -179,6 +187,7 @@ def test_single_flag():
 
 class test_width:
 
+    @collect_yielded
     def test_ok(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -212,6 +221,7 @@ class test_width:
 
 class test_precision:
 
+    @collect_yielded
     def test_ok(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -219,6 +229,7 @@ class test_precision:
         for c in 'dioxXeEfFgGrsa':
             yield t, ('%.1' + c)
 
+    @collect_yielded
     def test_redundant_0(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -228,6 +239,7 @@ class test_precision:
         for c in 'dioxX':
             yield t, ('%0.1' + c)
 
+    @collect_yielded
     def test_non_redundant_0(self):
         def t(s):
             fmt = M.FormatString(s)
@@ -236,6 +248,7 @@ class test_precision:
         for c in 'eEfFgG':
             yield t, ('%0.1' + c)
 
+    @collect_yielded
     def test_unexpected(self):
         def t(s):
             fmt = M.FormatString(s)
