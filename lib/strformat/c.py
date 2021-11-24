@@ -77,11 +77,11 @@ class _info:
     t = ptrdiff_t | [unsigned ptrdiff_t]
     = int | unsigned int
     '''
-    int_types = dict(
-        (key, tuple(str.strip(v) for v in values.split('|')))
+    int_types = {
+        key: tuple(str.strip(v) for v in values.split('|'))
         for line in int_types.strip().splitlines()
         for key, values in [map(str.strip, line.split('='))]
-    )
+    }
     # FIXME: The printf(3) manpage says that the type for signed integer with
     # “z“ size is ssize_t.
     # But SUSv3 says it's a signed integer type corresponding to size_t,
