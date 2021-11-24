@@ -72,8 +72,8 @@ def fork_isolation(f):
     EXIT_SKIP_TEST = 102
 
     exit = os._exit  # pylint: disable=redefined-builtin,protected-access
-    # sys.exit() can't be used here, because nose catches all exceptions,
-    # including SystemExit
+    # sys.exit() can't be used here, because the test harness catches
+    # all exceptions, including SystemExit
 
     # pylint:disable=consider-using-sys-exit
 
