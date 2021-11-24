@@ -33,6 +33,6 @@ from tests import blackbox_tests
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory(prefix='i18nspector.tests.') as tmpdir:
         os.environ['XDG_CACHE_HOME'] = tmpdir
-        nose.main(addplugins=[blackbox_tests.Plugin()])
+        nose.main(addplugins=[blackbox_tests.nose_plugin()])
 
 # vim:ts=4 sts=4 sw=4 et

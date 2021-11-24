@@ -31,8 +31,6 @@ import sys
 import traceback
 import unittest
 
-import nose.plugins
-
 from .. import tools
 
 here = os.path.dirname(__file__)
@@ -135,26 +133,32 @@ def get_signal_name(n):
 test_file_extensions = ('.mo', '.po', '.pot', '.pop')
 # .pop is a special extension to trigger unknown-file-type
 
-class Plugin(nose.plugins.Plugin):
+def nose_plugin():
 
-    name = 'po-plugin'
-    enabled = True
+    import nose.plugins  # pylint: disable=import-outside-toplevel
 
-    def options(self, parser, env):
-        pass
+    class Plugin(nose.plugins.Plugin):
 
-    def wantFile(self, path):
-        if path.endswith(test_file_extensions):
-            if path.startswith(os.path.join(os.path.abspath(here), '')):
-                return True
+        name = 'po-plugin'
+        enabled = True
 
-    def loadTestsFromFile(self, path):
-        if self.wantFile(path):
-            yield TestCase(path)
+        def options(self, parser, env):
+            pass
 
-    def wantFunction(self, func):
-        if getattr(func, 'redundant', False):
-            return False
+        def wantFile(self, path):
+            if path.endswith(test_file_extensions):
+                if path.startswith(os.path.join(os.path.abspath(here), '')):
+                    return True
+
+        def loadTestsFromFile(self, path):
+            if self.wantFile(path):
+                yield TestCase(path)
+
+        def wantFunction(self, func):
+            if getattr(func, 'redundant', False):
+                return False
+
+    return Plugin()
 
 class TestCase(unittest.TestCase):
 
