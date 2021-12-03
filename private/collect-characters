@@ -36,7 +36,7 @@ def init_polib():
 def main():
     init_polib()
     ap = argparse.ArgumentParser()
-    ap.add_argument('files', metavar='<file>', nargs='*')
+    ap.add_argument('files', metavar='<file>', nargs='+')
     ap.add_argument('--skip-ascii', action='store_true', help='skip ASCII characters')
     ap.add_argument('--stdin', action='store_true', help='read filenames from stdin')
     options = ap.parse_args()
