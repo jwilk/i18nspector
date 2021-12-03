@@ -34,7 +34,7 @@ def get_iso_codes_dir():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('languages', metavar='<lang>', nargs='+')
+    ap.add_argument('languages', metavar='LANG', nargs='+')
     options = ap.parse_args()
     languages = set(options.languages)
     path = get_iso_codes_dir() + '/iso_639-2.json'
