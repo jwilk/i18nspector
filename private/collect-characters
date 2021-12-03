@@ -22,6 +22,7 @@
 
 import argparse
 import collections
+import functools
 import itertools
 import os
 import sys
@@ -48,9 +49,9 @@ def main():
     char_counter = collections.Counter()
     char_files = collections.defaultdict(set)
     n_files = 0
+    eprint = functools.partial(print, file=sys.stderr, flush=True)
     for path in files:
-        print(path, end=' ... ', file=sys.stderr)
-        sys.stderr.flush()
+        eprint(path, end=' ... ')
         try:
             extension = os.path.splitext(path)[-1]
             if extension == '.po':
@@ -67,10 +68,9 @@ def main():
                         char_files[ch].add(path)
             file = None
         except Exception as exc:  # pylint: disable=broad-except
-            print('error:', exc, file=sys.stderr)
+            eprint('error:', exc)
         else:
-            print('ok', file=sys.stderr)
-        sys.stderr.flush()
+            eprint('ok')
         n_files += 1
     for n, ch in sorted(((n, ch) for ch, n in char_counter.items()), reverse=True):
         if options.skip_ascii and ord(ch) < 0x80:
