@@ -22,6 +22,7 @@
 
 import argparse
 import collections
+import functools
 import itertools
 import os
 import re
@@ -73,9 +74,9 @@ def main():
             files,
             (l.rstrip() for l in sys.stdin)
         )
+    eprint = functools.partial(print, file=sys.stderr, flush=True)
     for path in files:
-        print(path, end=' ... ', file=sys.stderr)
-        sys.stderr.flush()
+        eprint(path, end=' ... ')
         try:
             extension = os.path.splitext(path)[-1]
             if extension == '.po':
@@ -90,8 +91,7 @@ def main():
                     if msg.msgstr_plural:
                         break
                 else:
-                    print('skip', file=sys.stderr)
-                    sys.stderr.flush()
+                    eprint('skip')
                     continue
             for k, v in file.metadata.items():
                 if (not is_sane_field_name(k)) and (not options.insane):
@@ -107,10 +107,9 @@ def main():
                     test_cases[k, v] = path
             file = None
         except Exception as exc:  # pylint: disable=broad-except
-            print('error:', exc, file=sys.stderr)
+            eprint('error:', exc)
         else:
-            print('ok', file=sys.stderr)
-        sys.stderr.flush()
+            eprint('ok')
     for key, values in sorted(metadata.items()):
         print('{key!r}:'.format(key=key))
         for value, n in values.most_common():
