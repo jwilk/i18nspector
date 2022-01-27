@@ -90,8 +90,6 @@ class _info:
     # https://www.gnu.org/software/libc/manual/html_node/Integer-Conversions.html
     portable_int_lengths = dict(
         L='ll',
-        # The use of “L” with integer conversions is not documented
-        # in the printf(3) manpage. https://bugs.debian.org/757151
         q='ll',
         Z='z',
     )
