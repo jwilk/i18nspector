@@ -61,15 +61,15 @@ def _popen(*args):
 
 def encode(input: str, encoding=default_encoding, errors='strict'):
     if not isinstance(input, str):
-        raise TypeError('input must be str, not {tp}'.format(tp=type(input).__name__))
+        raise TypeError(f'input must be str, not {type(input).__name__}')
     if not isinstance(encoding, str):
-        raise TypeError('encoding must be str, not {tp}'.format(tp=type(encoding).__name__))
+        raise TypeError(f'encoding must be str, not {type(encoding).__name__}')
     if not isinstance(errors, str):
-        raise TypeError('errors must be str, not {tp}'.format(tp=type(errors).__name__))
+        raise TypeError(f'errors must be str, not {type(errors).__name__}')
     if len(input) == 0:
         return b''
     if errors != 'strict':
-        raise NotImplementedError('error handler {e!r} is not implemented'.format(e=errors))
+        raise NotImplementedError(f'error handler {errors!r} is not implemented')
     return _encode(input, encoding=encoding)
 
 def _encode_dl(input: str, *, encoding):
@@ -121,7 +121,7 @@ def _encode_dl(input: str, *, encoding):
                         os.strerror(errno.EILSEQ),
                     )
                 raise OSError(rc, os.strerror(rc))
-            assert inbytesleft.value == 0, '{n} bytes left'.format(n=inbytesleft.value)
+            assert inbytesleft.value == 0, f'{inbytesleft.value} bytes left'
             output_len -= outbytesleft.value
             return outbuf[:output_len]
     finally:
@@ -148,15 +148,15 @@ _encode = _encode_dl if _iconv is not None else _encode_cli
 
 def decode(input: bytes, encoding=default_encoding, errors='strict'):
     if not isinstance(input, bytes):
-        raise TypeError('input must be bytes, not {tp}'.format(tp=type(input).__name__))
+        raise TypeError(f'input must be bytes, not {type(input).__name__}')
     if not isinstance(encoding, str):
-        raise TypeError('encoding must be str, not {tp}'.format(tp=type(encoding).__name__))
+        raise TypeError(f'encoding must be str, not {type(encoding).__name__}')
     if not isinstance(errors, str):
-        raise TypeError('errors must be str, not {tp}'.format(tp=type(errors).__name__))
+        raise TypeError(f'errors must be str, not {type(errors).__name__}')
     if len(input) == 0:
         return ''
     if errors != 'strict':
-        raise NotImplementedError('error handler {e!r} is not implemented'.format(e=errors))
+        raise NotImplementedError(f'error handler {errors!r} is not implemented')
     return _decode(input, encoding=encoding)
 
 def _decode_dl(input: bytes, *, encoding):
@@ -211,7 +211,7 @@ def _decode_dl(input: bytes, *, encoding):
                         os.strerror(errno.EILSEQ),
                     )
                 raise OSError(rc, os.strerror(rc))
-            assert inbytesleft.value == 0, '{n} bytes left'.format(n=inbytesleft.value)
+            assert inbytesleft.value == 0, f'{inbytesleft.value} bytes left'
             output_len -= outbytesleft.value
             assert output_len % ctypes.sizeof(ctypes.c_wchar) == 0
             unicode_output_len = output_len // ctypes.sizeof(ctypes.c_wchar)

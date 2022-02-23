@@ -90,7 +90,7 @@ class Parser():
         [revision] = self._read_ints(at=4)
         major_revision, minor_revision = divmod(revision, 1 << 16)
         if major_revision > 1:
-            raise SyntaxError('unexpected major revision number: {n}'.format(n=major_revision))
+            raise SyntaxError(f'unexpected major revision number: {major_revision}')
         [n_strings] = self._read_ints(at=8)
         possible_hidden_strings = False
         if minor_revision > 1:

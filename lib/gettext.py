@@ -182,8 +182,8 @@ def fix_date_format(s, *, tz_hint=None):
         zone = tz_hint
     else:
         raise DateSyntaxError
-    s = '{} {}{}'.format(date, time, zone)
-    assert len(s) == 21, 'len({!r}) != 21'.format(s)
+    s = f'{date} {time}{zone}'
+    assert len(s) == 21, f'len({s!r}) != 21'
     parse_date(s)  # just check syntax
     return s
 

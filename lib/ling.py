@@ -198,7 +198,7 @@ class Language():
         return s
 
     def __repr__(self):
-        return '<Language {}>'.format(self)
+        return f'<Language {self}>'
 
 def _read_iso_codes():
     # ISO language/territory codes:
@@ -237,7 +237,7 @@ def _read_primary_languages():
                 continue
             if key.startswith('characters@'):
                 continue
-            raise misc.DataIntegrityError('unknown key: {}'.format(key))
+            raise misc.DataIntegrityError(f'unknown key: {key}')
         for name in section['names'].splitlines():
             name = _munch_language_name(name)
             if name:
@@ -340,7 +340,7 @@ def _get_characters(language, modifier=None, strict=True):
         return
     section_name = 'characters'
     if modifier is not None:
-        section_name += '@{}'.format(modifier)
+        section_name += f'@{modifier}'
     result = section.get(section_name)
     if result is None:
         return

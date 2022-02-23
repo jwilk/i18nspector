@@ -252,7 +252,7 @@ class FormatString():
                     if conv is not arg:
                         return
                 else:
-                    assert False, 'type(arg) == {!r}'.format(type(arg))  # no coverage
+                    assert False, f'type(arg) == {type(arg)!r}'  # no coverage
         if conv is None:
             return
         if not conv.integer:
@@ -401,7 +401,7 @@ class Conversion():
             except IndexError:
                 raise ArgumentNumberingMixture(s)
             except OverflowError as exc:
-                raise ArgumentRangeError(s, '{}$'.format(exc))
+                raise ArgumentRangeError(s, f'{exc}$')
             width = ...
         if width is not None:
             if conversion in '%n':
@@ -426,7 +426,7 @@ class Conversion():
             except IndexError:
                 raise ArgumentNumberingMixture(s)
             except OverflowError as exc:
-                raise ArgumentRangeError(s, '{}$'.format(exc))
+                raise ArgumentRangeError(s, f'{exc}$')
             precision = ...
         if precision is not None:
             if conversion in i.int_cvt + i.float_cvt + i.str_cvt:
@@ -462,6 +462,6 @@ class Conversion():
             except IndexError:
                 raise ArgumentNumberingMixture(s)
             except OverflowError as exc:
-                raise ArgumentRangeError(s, '{}$'.format(exc))
+                raise ArgumentRangeError(s, f'{exc}$')
 
 # vim:ts=4 sts=4 sw=4 et

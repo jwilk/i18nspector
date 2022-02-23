@@ -115,14 +115,14 @@ class Checker(CheckerBase):
         dst_args = dst_fmt.seq_arguments
         if len(dst_args) != len(src_args):
             self.tag('python-format-string-argument-number-mismatch', prefix,
-                len(dst_args), tags.safestr('({})'.format(dst_loc)), '!=',
-                len(src_args), tags.safestr('({})'.format(src_loc)),
+                len(dst_args), tags.safestr(f'({dst_loc})'), '!=',
+                len(src_args), tags.safestr(f'({src_loc})'),
             )
         for src_arg, dst_arg in zip(src_args, dst_args):
             if src_arg.type != dst_arg.type:
                 self.tag('python-format-string-argument-type-mismatch', prefix,
-                    tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_loc)), '!=',
-                    tags.safestr(src_arg.type), tags.safestr('({})'.format(src_loc)),
+                    tags.safestr(dst_arg.type), tags.safestr(f'({dst_loc})'), '!=',
+                    tags.safestr(src_arg.type), tags.safestr(f'({src_loc})'),
                 )
         # named arguments:
         src_args = src_fmt.map_arguments
@@ -132,8 +132,8 @@ class Checker(CheckerBase):
             dst_arg = dst_args[key][0]
             if src_arg.type != dst_arg.type:
                 self.tag('python-format-string-argument-type-mismatch', prefix,
-                    tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_loc)), '!=',
-                    tags.safestr(src_arg.type), tags.safestr('({})'.format(src_loc)),
+                    tags.safestr(dst_arg.type), tags.safestr(f'({dst_loc})'), '!=',
+                    tags.safestr(src_arg.type), tags.safestr(f'({src_loc})'),
                 )
         for key in sorted(dst_args.keys() - src_args.keys()):
             self.tag('python-format-string-unknown-argument', prefix, key,

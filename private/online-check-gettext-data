@@ -48,7 +48,7 @@ def do_plurals():
             gettext_plural_forms = strip_plural_forms(gettext_plural_forms)
             our_plural_forms = language.get_plural_forms() or []
             if gettext_plural_forms not in our_plural_forms:
-                print('[{}]'.format(language))
+                print(f'[{language}]')
                 if our_plural_forms:
                     if len(our_plural_forms) == 1:
                         print('# plural-forms =', *our_plural_forms)
@@ -61,7 +61,7 @@ def do_plurals():
             else:
                 okay.add(str(language))
     n_okay = len(okay)
-    print('# No plural-forms changes required for {} languages'.format(n_okay))
+    print(f'# No plural-forms changes required for {n_okay} languages')
     print()
 
 blacklist = {
@@ -93,7 +93,7 @@ def do_languages():
                 if our_cc is not None:
                     okay.add(language)
                 continue
-            print('[{}]'.format(language))
+            print(f'[{language}]')
             if our_cc is not None:
                 print('# WAS: principal-territory =', our_cc)
             if ling.lookup_territory_code(gettext_cc) is None:
@@ -110,11 +110,11 @@ def do_languages():
         if cc is None:
             continue
         if language not in data:
-            print('# WAS: [{}]'.format(language))
+            print(f'# WAS: [{language}]')
             print('# WAS: principal-territory =', cc)
             print()
     n_okay = len(okay)
-    print('# No principal-territory changes required for {} languages'.format(n_okay))
+    print(f'# No principal-territory changes required for {n_okay} languages')
     print()
 
 def do_string_formats():
@@ -137,11 +137,11 @@ def do_string_formats():
     print('[formats]')
     for fmt in difference:
         if fmt in our_formats:
-            print('# MISSING: {fmt} = ...'.format(fmt=fmt))
+            print(f'# MISSING: {fmt} = ...')
         else:
-            print('{fmt} = # TODO'.format(fmt=fmt))
+            print(f'{fmt} = # TODO')
     n_okay = len(our_formats - difference)
-    print('# No changes required for {} string formats'.format(n_okay))
+    print(f'# No changes required for {n_okay} string formats')
     print()
 
 def main():

@@ -60,7 +60,7 @@ class Checker(check.Checker):
             tag = tags.get_tag(tagname)
         except KeyError:
             raise misc.DataIntegrityError(
-                'attempted to emit an unknown tag: {tag!r}'.format(tag=tagname)
+                f'attempted to emit an unknown tag: {tagname!r}'
             )
         s = tag.format(self.fake_path, *extra, color=True)
         print(s)
@@ -190,12 +190,12 @@ class VersionAction(argparse.Action):
         return dist.version
 
     def __call__(self, parser, namespace, values, option_string=None):
-        print('{prog} {0}'.format(__version__, prog=parser.prog))
+        print(f'{parser.prog} {__version__}')
         print('+ Python {0}.{1}.{2}'.format(*sys.version_info))
-        print('+ polib {0}'.format(check.polib.__version__))
+        print(f'+ polib {check.polib.__version__}')
         rply_version = self._get_rply_version()
         if rply_version is not None:
-            print('+ rply {0}'.format(rply_version))
+            print(f'+ rply {rply_version}')
         parser.exit()
 
 def main():

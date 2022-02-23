@@ -48,7 +48,7 @@ def output_tags_rst(tags):
                 print(' |', ref)
             print()
         print('Severity, certainty:', end='\n\n')
-        print(' {}, {}'.format(tag.severity.name, tag.certainty.name))
+        print(f' {tag.severity.name}, {tag.certainty.name}')
         print()
 
 def main():

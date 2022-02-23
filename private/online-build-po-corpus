@@ -81,7 +81,7 @@ def validate_package_name(pkg):
     if _package_name_re.match(pkg):
         pass
     else:
-        raise RuntimeError('invalid package name: {pkg!r}'.format(pkg=pkg))
+        raise RuntimeError(f'invalid package name: {pkg!r}')
 
 @contextlib.contextmanager
 def chdir(new_cwd):
@@ -99,16 +99,16 @@ default_areas = 'main'
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--mirror', metavar='URL', default=default_mirror,
-        help='Debian mirror to use (default: {mirror})'.format(mirror=default_mirror)
+        help=f'Debian mirror to use (default: {default_mirror})'
     )
     ap.add_argument('--contents-mirror', metavar='URL', default=None,
         help='Debian mirror of Contents-* files to use (default: same as --mirror)'
     )
     ap.add_argument('--distribution', metavar='DIST', default=default_dist,
-        help='Debian distribution to use (default: {dist})'.format(dist=default_dist)
+        help=f'Debian distribution to use (default: {default_dist})'
     )
     ap.add_argument('--areas', metavar='AREA[,AREA...]', default=default_areas,
-        help='archive areas to use (default: {areas})'.format(areas=default_areas)
+        help=f'archive areas to use (default: {default_areas})'
     )
     ap.add_argument('--output', metavar='TARFILE', required=True,
         help='output tar file'
@@ -134,15 +134,15 @@ def main():
         tarinfo.mode |= 0o644
         if tarinfo.mode & 0o100:
             tarinfo.mode |= 0o111
-        prefix = 'po-corpus-{dist}/'.format(dist=dist)
+        prefix = f'po-corpus-{dist}/'
         tarinfo.name = prefix + tarinfo.name
         if tarinfo.linkname:
             tarinfo.linkname = prefix + tarinfo.linkname
         return tarinfo
     subprocess.check_call(['dpkg-source', '--version'], stdout=subprocess.DEVNULL)
     for area in areas:
-        urlbase = '{mirror}/dists/{dist}/{area}/'.format(mirror=mirror, dist=dist, area=area)
-        cnts_urlbase = '{mirror}/dists/{dist}/{area}/'.format(mirror=cnts_mirror, dist=dist, area=area)
+        urlbase = f'{mirror}/dists/{dist}/{area}/'
+        cnts_urlbase = f'{cnts_mirror}/dists/{dist}/{area}/'
         with Fetcher(urlbase=urlbase) as fetcher:
             fetcher.add('Contents-source.gz', 'Contents.gz', urlbase=cnts_urlbase)
             fetcher.add('source/Sources.xz', 'Sources.xz')
@@ -153,7 +153,7 @@ def main():
                     try:
                         path, packages = line.rsplit('\t', 1)
                     except ValueError:
-                        raise RuntimeError('malformed line: {!r}'.format(line))
+                        raise RuntimeError(f'malformed line: {line!r}')
                     if is_po_path(path):
                         packages = packages.rstrip('\n').split(',')
                         for pkg in packages:
@@ -174,18 +174,18 @@ def main():
                         name not in names
                     )
                     if not ok:
-                        raise RuntimeError('Package {pkg}: bad Files line: {line!r}'.format(pkg=pkg, line=line))
+                        raise RuntimeError(f'Package {pkg}: bad Files line: {line!r}')
                     names.add(name)
                     if name.endswith('.dsc'):
                         if dscname is not None:
-                            raise RuntimeError('Package {pkg}: duplicate .dsc file'.format(pkg=pkg))
+                            raise RuntimeError(f'Package {pkg}: duplicate .dsc file')
                         dscname = name
                 if dscname is None:
-                    raise RuntimeError('Package {pkg}: missing .dsc file'.format(pkg=pkg))
+                    raise RuntimeError(f'Package {pkg}: missing .dsc file')
                 names = list(names)
                 names.sort(key=dscname.__eq__)
                 pkgdir = para['Directory']
-                pkgurlbase = '{mirror}/{dir}/'.format(mirror=mirror, dir=pkgdir)
+                pkgurlbase = f'{mirror}/{pkgdir}/'
                 with Fetcher(urlbase=pkgurlbase) as pkgfetcher:
                     for name in names:
                         pkgfetcher.add(name, name)

@@ -236,7 +236,7 @@ class FormatString():
 class Conversion():
 
     def __init__(self, parent, s, *, key, flags, width, var_width, prec, var_prec, length, conv):
-        assert s[-1] == conv, '{0} != {1}'.format(s[-1], conv)
+        assert s[-1] == conv, f'{s[-1]} != {conv}'
         i = _info
         for flag, count in flags.items():
             if count != 1:

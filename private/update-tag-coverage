@@ -39,12 +39,12 @@ def main():
         'Do not edit.\n')
     for tag in tags.iter_tags():
         check = 'X' if tag.name in coverage else ' '
-        print('[{check}] {tag}'.format(check=check, tag=tag.name))
+        print(f'[{check}] {tag.name}')
     sys.stdout.close()
     os.rename(path + '.tmp', path)
     rc = 0
     for tag in sorted(set(coverage) - {t.name for t in tags.iter_tags()}):
-        print('update-coverage: error: unknown tag {tag}'.format(tag=tag), file=sys.stderr)
+        print(f'update-coverage: error: unknown tag {tag}', file=sys.stderr)
         rc = 1
     sys.exit(rc)
 

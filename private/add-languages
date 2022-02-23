@@ -30,7 +30,7 @@ import json
 def get_iso_codes_dir():
     prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])
     prefix = prefix.decode('ASCII').strip()
-    return '{prefix}/share/iso-codes/json'.format(prefix=prefix)
+    return f'{prefix}/share/iso-codes/json'
 
 def main():
     ap = argparse.ArgumentParser()
@@ -59,9 +59,9 @@ def main():
             s.strip()
             for s in item.get('name').split(';')
         ]
-        print('[{}]'.format(requested))
+        print(f'[{requested}]')
         if lang != requested:
-            print('# XXX mapping {} => {}'.format(requested, lang))
+            print(f'# XXX mapping {requested} => {lang}')
         if len(names) == 1:
             print('names =', *names)
         else:
@@ -70,7 +70,7 @@ def main():
                 print('', name)
         print()
     for lang in sorted(languages):
-        print('# Unknown language code: {}'.format(lang))
+        print(f'# Unknown language code: {lang}')
     sys.exit(len(languages) > 0)
 
 if __name__ == '__main__':

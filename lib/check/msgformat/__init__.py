@@ -86,7 +86,7 @@ class Checker(metaclass=abc.ABCMeta):
                 msgid_plural_fmt = msgid_fmts.get(1)
                 d.src_loc = 'msgid_plural'
                 d.src_fmt = msgid_plural_fmt
-                d.dst_loc = 'msgstr[{}]'.format(i)
+                d.dst_loc = f'msgstr[{i}]'
                 d.dst_fmt = self.check_string(ctx, message, s)
                 if d.dst_fmt is None:
                     continue

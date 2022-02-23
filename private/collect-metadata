@@ -111,15 +111,15 @@ def main():
         else:
             eprint('ok')
     for key, values in sorted(metadata.items()):
-        print('{key!r}:'.format(key=key))
+        print(f'{key!r}:')
         for value, n in values.most_common():
             if options.all_test_cases:
-                print(' {n:6} {value!r}'.format(n=n, value=value))
+                print(f' {n:6} {value!r}')
                 for path in sorted(test_cases[key, value]):
-                    print('        + {path!r}'.format(path=path))
+                    print(f'        + {path!r}')
             else:
                 path = test_cases[key, value]
-                print(' {n:6} {value!r}; test-case: {path!r}'.format(n=n, value=value, path=path))
+                print(f' {n:6} {value!r}; test-case: {path!r}')
 
 if __name__ == '__main__':
     main()

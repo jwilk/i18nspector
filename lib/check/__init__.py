@@ -159,7 +159,7 @@ class Checker(metaclass=abc.ABCMeta):
                     message = message[len(self.path)+1:]
                 match = re.match(r'^\(line ([0-9]+)\)(?:: (.+))?$', message)
                 if match is not None:
-                    lineno_part = 'line {}'.format(match.group(1))
+                    lineno_part = f'line {match.group(1)}'
                     message = match.group(2)
                     if message is not None:
                         lineno_part += ':'
@@ -304,7 +304,7 @@ class Checker(metaclass=abc.ABCMeta):
                 self.tag('invalid-language', orig_meta_language)
                 meta_language = None
             if language_source_quality <= 0 and (
-                '/{lang}/'.format(lang=meta_language) in self.path or
+                f'/{meta_language}/' in self.path or
                 '/{lang}/'.format(lang=str(meta_language).replace('_', '-')) in self.path
             ):
                 # For LibreOffice, PO basename does not designate translation
@@ -319,7 +319,7 @@ class Checker(metaclass=abc.ABCMeta):
                 language_source = 'Language header field'
             elif language != meta_language:
                 self.tag('language-disparity',
-                    language, tags.safestr('({})'.format(language_source)),
+                    language, tags.safestr(f'({language_source})'),
                     '!=',
                     meta_language, tags.safestr('(Language header field)')
                 )
@@ -344,7 +344,7 @@ class Checker(metaclass=abc.ABCMeta):
                     language_source = 'X-Poedit-Language header field'
                 elif language.language_code != poedit_language.language_code:
                     self.tag('language-disparity',
-                        language, tags.safestr('({})'.format(language_source)),
+                        language, tags.safestr(f'({language_source})'),
                         '!=',
                         poedit_language, tags.safestr('(X-Poedit-Language header field)')
                     )
@@ -449,7 +449,7 @@ class Checker(metaclass=abc.ABCMeta):
             for i in range(codomain_limit):
                 fi = expr(i)
                 if fi >= n:
-                    message = tags.safe_format('f({}) = {} >= {}'.format(i, fi, n))
+                    message = tags.safe_format(f'f({i}) = {fi} >= {n}')
                     if has_plurals:
                         self.tag('codomain-error-in-plural-forms', message)
                     else:
@@ -498,7 +498,7 @@ class Checker(metaclass=abc.ABCMeta):
                         break
         for rng in uncov_rngs:
             rng = misc.format_range(rng, max=5)
-            message = tags.safestr('f(x) != {}'.format(rng))
+            message = tags.safestr(f'f(x) != {rng}')
             if has_plurals:
                 self.tag('codomain-error-in-plural-forms', message)
             else:
@@ -760,7 +760,7 @@ class Checker(metaclass=abc.ABCMeta):
             unusual_chars = set(find_unusual_characters(msgstr))
             if unusual_chars:
                 unusual_char_names = ', '.join(
-                    'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                    f'U+{ord(ch):04X} {encinfo.get_character_name(ch)}'
                     for ch in sorted(unusual_chars)
                 )
                 self.tag('unusual-character-in-header-entry', tags.safestr(unusual_char_names))
@@ -857,7 +857,7 @@ class Checker(metaclass=abc.ABCMeta):
                     if not uc:
                         continue
                     names = ', '.join(
-                        'U+{:04X} {}'.format(ord(ch), encinfo.get_character_name(ch))
+                        f'U+{ord(ch):04X} {encinfo.get_character_name(ch)}'
                         for ch in sorted(uc)
                     )
                     self.tag('unusual-character-in-translation',
@@ -1001,7 +1001,7 @@ class Checker(metaclass=abc.ABCMeta):
             self.tag('redundant-message-flag',
                 message_repr(message, template='{}:'),
                 possible_format_flags[fmt],
-                tags.safe_format('(implied by {flag})'.format(flag=positive_format_flags[fmt]))
+                tags.safe_format(f'(implied by {positive_format_flags[fmt]})')
             )
         return info
 
@@ -1012,7 +1012,7 @@ class Checker(metaclass=abc.ABCMeta):
             except KeyError:
                 continue
             checker.check_message(ctx, message, flags)
-        if re.match(r'\Atype: Content of: (<{xmlname}>)+\Z'.format(xmlname=xml.name_re), message.comment or ''):
+        if re.match(fr'\Atype: Content of: (<{xml.name_re}>)+\Z', message.comment or ''):
             self._check_message_xml_format(ctx, message, flags)
 
     def _check_message_xml_format(self, ctx, message, flags):

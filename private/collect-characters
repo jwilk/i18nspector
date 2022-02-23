@@ -76,7 +76,7 @@ def main():
         if options.skip_ascii and ord(ch) < 0x80:
             continue
         filecov = len(char_files[ch]) / n_files
-        print('{n:6} [{fc:6.1%}] {ch!r}'.format(n=n, fc=filecov, ch=ch))
+        print(f'{n:6} [{filecov:6.1%}] {ch!r}')
 
 if __name__ == '__main__':
     main()

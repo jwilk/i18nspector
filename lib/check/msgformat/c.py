@@ -110,8 +110,8 @@ class Checker(CheckerBase):
         dst_args = dst_fmt.arguments
         if len(dst_args) > len(src_args):
             self.tag('c-format-string-excess-arguments', prefix,
-                len(dst_args), tags.safestr('({})'.format(dst_loc)), '>',
-                len(src_args), tags.safestr('({})'.format(src_loc)),
+                len(dst_args), tags.safestr(f'({dst_loc})'), '>',
+                len(src_args), tags.safestr(f'({src_loc})'),
             )
         elif len(dst_args) < len(src_args):
             if omitted_int_conv_ok:
@@ -119,16 +119,16 @@ class Checker(CheckerBase):
                 omitted_int_conv_ok = src_fmt.get_last_integer_conversion(n=n_args_omitted)
             if not omitted_int_conv_ok:
                 self.tag('c-format-string-missing-arguments', prefix,
-                    len(dst_args), tags.safestr('({})'.format(dst_loc)), '<',
-                    len(src_args), tags.safestr('({})'.format(src_loc)),
+                    len(dst_args), tags.safestr(f'({dst_loc})'), '<',
+                    len(src_args), tags.safestr(f'({src_loc})'),
                 )
         for src_arg, dst_arg in zip(src_args, dst_args):
             src_arg = src_arg[0]
             dst_arg = dst_arg[0]
             if src_arg.type != dst_arg.type:
                 self.tag('c-format-string-argument-type-mismatch', prefix,
-                    tags.safestr(dst_arg.type), tags.safestr('({})'.format(dst_loc)), '!=',
-                    tags.safestr(src_arg.type), tags.safestr('({})'.format(src_loc)),
+                    tags.safestr(dst_arg.type), tags.safestr(f'({dst_loc})'), '!=',
+                    tags.safestr(src_arg.type), tags.safestr(f'({src_loc})'),
                 )
 
 __all__ = ['Checker']

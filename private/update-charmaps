@@ -35,7 +35,7 @@ def generate_charmap(encoding):
     encoding = encoding.upper()
     eprint = functools.partial(print, file=sys.stderr, flush=True)
     eprint(encoding, '...', end=' ')
-    path = '{base}/data/charmaps/{enc}'.format(base=basedir, enc=encoding)
+    path = f'{basedir}/data/charmaps/{encoding}'
     n = 0
     us = []
     for b in range(0x100):

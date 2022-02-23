@@ -40,7 +40,7 @@ def get_iso_codes_version():
 def get_iso_codes_dir():
     prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])
     prefix = prefix.decode('ASCII').strip()
-    return '{prefix}/share/iso-codes/json'.format(prefix=prefix)
+    return f'{prefix}/share/iso-codes/json'
 
 def main():
     basedir = os.path.join(
@@ -78,7 +78,7 @@ def generate_iso_639():
             continue
         for l in l2b, l2t:
             if len(l) != 3:
-                raise Panic('len({!r}) != 3'.format(l))
+                raise Panic(f'len({l!r}) != 3')
         if l2b != l2t:
             l2t_to_2b[l2t] = l2b
     iso_639 = {}
@@ -86,14 +86,14 @@ def generate_iso_639():
     for item in data['639-3']:
         code = item['alpha_3']
         if len(code) != 3:
-            raise Panic('len({!r}) != 3'.format(code))
+            raise Panic(f'len({code!r}) != 3')
         code1 = item.get('alpha_2')
         code2 = item.get('terminology')
         if code2 is None:
             # We're not interested in languages that are not in 639-2 (yet?).
             continue
         if code2 != code:
-            raise Panic('{!r} != {!r}'.format(code, code2))
+            raise Panic(f'{code!r} != {code2!r}')
         scope = item['scope']
         if scope == 'S':
             # Not a real language, ignore.
@@ -101,15 +101,15 @@ def generate_iso_639():
         elif scope in {'M', 'I'}:
             pass
         else:
-            raise Panic('unknown scope: {!r}'.format(scope))
+            raise Panic(f'unknown scope: {scope!r}')
         reference_name = item['name']
         if reference_name in iso_639:
-            raise Panic('duplicate reference name: {!r}'.format(reference_name))
+            raise Panic(f'duplicate reference name: {reference_name!r}')
         if code1 is not None:
             if len(code1) == 2:
                 codelist = [code1, code]
             else:
-                raise Panic('len({!r}) != 2'.format(code1))
+                raise Panic(f'len({code1!r}) != 2')
         else:
             codelist = [code]
         try:
@@ -125,7 +125,7 @@ def generate_iso_639():
         if not aliases:
             iso_639_rev[code] = ''
     for alias, code in sorted(iso_639_rev.items()):
-        print('{} = {}'.format(alias, code).rstrip())
+        print(f'{alias} = {code}'.rstrip())
     print()
 
 def generate_iso_3166():
@@ -139,7 +139,7 @@ def generate_iso_3166():
         iso_3166.add(cc)
     print('[territory-codes]')
     for cc in sorted(iso_3166):
-        print('{} ='.format(cc))
+        print(f'{cc} =')
     print()
     print('# vim\72ft=dosini')
 

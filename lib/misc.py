@@ -81,7 +81,7 @@ def format_range(rng, *, max):  # pylint: disable=redefined-builtin
 
 @contextlib.contextmanager
 def throwaway_tempdir(context):
-    with tempfile.TemporaryDirectory(prefix='i18nspector.{}.'.format(context)) as new_tempdir:
+    with tempfile.TemporaryDirectory(prefix=f'i18nspector.{context}.') as new_tempdir:
         original_tempdir = tempfile.tempdir
         try:
             tempfile.tempdir = new_tempdir
