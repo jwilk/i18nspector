@@ -79,7 +79,7 @@ def tagstring(s):
 class ETag():
 
     _ellipsis = '<...>'
-    _split = re.compile('({})'.format(re.escape(_ellipsis))).split
+    _split = re.compile(f'({re.escape(_ellipsis)})').split
 
     def __init__(self, code, path, rest):
         self._s = s = '{code}: {path}: {rest}'.format(
@@ -92,7 +92,7 @@ class ETag():
             '.*' if chunk == self._ellipsis else re.escape(chunk)
             for chunk in self._split(s)
         )
-        self._regexp = re.compile('^{}$'.format(regexp))
+        self._regexp = re.compile(f'^{regexp}$')
 
     def __eq__(self, other):
         if isinstance(other, str):
@@ -229,9 +229,9 @@ def run_i18nspector(options, path):
     if rc == 0:
         return stdout
     if rc < 0:
-        message = ['command was interrupted by signal {sig}'.format(sig=get_signal_name(-rc))]  # pylint: disable=invalid-unary-operand-type
+        message = [f'command was interrupted by signal {get_signal_name(-rc)}']  # pylint: disable=invalid-unary-operand-type
     else:
-        message = ['command exited with status {rc}'.format(rc=rc)]
+        message = [f'command exited with status {rc}']
     message += ['']
     if stdout:
         message += ['stdout:']

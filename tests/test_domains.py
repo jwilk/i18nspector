@@ -60,8 +60,8 @@ class test_special_domains:
     def test_example(self):
         self.t('example')
         for tld in 'com', 'net', 'org':
-            self.t('example.{tld}'.format(tld=tld))
-            self.t('eggs.example.{tld}'.format(tld=tld))
+            self.t(f'example.{tld}')
+            self.t(f'eggs.example.{tld}')
 
 class test_special_domain_emails:
 

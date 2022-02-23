@@ -188,12 +188,12 @@ class test_width:
             yield t, ('%1' + c)
 
     def test_too_large(self):
-        fmt = M.FormatString('%{0}d'.format(M.SSIZE_MAX))
+        fmt = M.FormatString(f'%{M.SSIZE_MAX}d')
         assert_equal(len(fmt), 1)
         assert_equal(len(fmt.seq_arguments), 1)
         assert_equal(len(fmt.map_arguments), 0)
         with assert_raises(M.WidthRangeError):
-            M.FormatString('%{0}d'.format(M.SSIZE_MAX + 1))
+            M.FormatString(f'%{M.SSIZE_MAX + 1}d')
 
     def test_variable(self):
         fmt = M.FormatString('%*s')
@@ -246,10 +246,10 @@ class test_precision:
             yield t, ('%.1' + c)
 
     def test_too_large(self):
-        fmt = M.FormatString('%.{0}f'.format(M.SSIZE_MAX))
+        fmt = M.FormatString(f'%.{M.SSIZE_MAX}f')
         assert_equal(len(fmt), 1)
         with assert_raises(M.PrecisionRangeError):
-            M.FormatString('%.{0}f'.format(M.SSIZE_MAX + 1))
+            M.FormatString(f'%.{M.SSIZE_MAX + 1}f')
 
     def test_variable(self):
         fmt = M.FormatString('%.*f')

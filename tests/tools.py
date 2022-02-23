@@ -94,7 +94,7 @@ def fork_isolation(f):
             elif status == 0 and msg == '':
                 pass
             else:
-                raise RuntimeError('unexpected isolated process status {}'.format(status))
+                raise RuntimeError(f'unexpected isolated process status {status}')
 
     # pylint:enable=consider-using-sys-exit
 

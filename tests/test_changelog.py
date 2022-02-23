@@ -108,6 +108,6 @@ def test_trailing_whitespace():
                 continue
             line = line.rstrip('\n')
             if line[-1:].isspace():
-                raise AssertionError('trailing whitespace at line {0}'.format(n))
+                raise AssertionError(f'trailing whitespace at line {n}')
 
 # vim:ts=4 sts=4 sw=4 et

@@ -424,7 +424,7 @@ class test_codomain:
         else:
             w = y - x + 1
             assert w >= 2
-            s = '{x} + ({var})%{w}'.format(x=x, w=w, var=var)
+            s = f'{x} + ({var})%{w}'
         self.t(s, x, y)
         return s
 
@@ -433,7 +433,7 @@ class test_codomain:
         for x in range(4):
             for y in range(x, 5):
                 sr = self.r(x, y, var='n/3')
-                s = '{l} {cmp} {r}'.format(l=sl, cmp=ccmp, r=sr)
+                s = f'{sl} {ccmp} {sr}'
                 vals = {
                     int(pycmp(i, j))
                     for i in range(1, 4)
@@ -441,7 +441,7 @@ class test_codomain:
                 }
                 self.t(s, min(vals), max(vals))
         n = 42
-        s = '{l} {cmp} {r}'.format(l=n, cmp=ccmp, r=n)
+        s = f'{n} {ccmp} {n}'
         self.t(s, pycmp(n, n), pycmp(n, n))
 
     def test_lt(self):
@@ -472,7 +472,7 @@ class test_codomain:
             sl = self.r(lx, ly, var='n%3')
             for rx, ry in ranges:
                 sr = self.r(rx, ry, var='n/3')
-                s = '{l} {op} {r}'.format(l=sl, op=cop, r=sr)
+                s = f'{sl} {cop} {sr}'
                 vals = {
                     int(pyop(i, j))
                     for i in range(lx, ly + 1)
@@ -559,20 +559,20 @@ class test_period:
     def test_const_cmp(self):
         for op in {'!=', '==', '<', '<=', '>', '>='}:
             shift = self._cmp_shift(op)
-            self.t('n {op} {i}'.format(op=op, i=37), 37 + shift, 1)
+            self.t(f'n {op} {37}', 37 + shift, 1)
 
     def test_const_cmp_overflow(self):
         ops = {'!=', '==', '<', '<=', '>', '>='}
         m = (1 << 32) - 1
         for op in ops:
             shift = self._cmp_shift(op)
-            self.t('n {op} {m}'.format(op=op, m=(m - 1)), m - 1 + shift, 1)
+            self.t(f'n {op} {(m - 1)}', m - 1 + shift, 1)
             if shift:
-                self.t('n {op} {m}'.format(op=op, m=m), None)
+                self.t(f'n {op} {m}', None)
             else:
-                self.t('n {op} {m}'.format(op=op, m=m), m, 1)
-            self.t('n {op} {m}'.format(op=op, m=(m + 1)), None)
-            self.t('n {op} {m}'.format(op=op, m=(m + 42)), None)
+                self.t(f'n {op} {m}', m, 1)
+            self.t(f'n {op} {(m + 1)}', None)
+            self.t(f'n {op} {(m + 42)}', None)
 
     def test_compare(self):
         self.t('n < (n % 37)', None)
@@ -637,7 +637,7 @@ class test_plural_forms:
 
     def test_nplurals_positive(self):
         for n in 1, 2, 10, 42:
-            self.t('nplurals={}; plural=0;'.format(n), n=n)
+            self.t(f'nplurals={n}; plural=0;', n=n)
 
     def test_missing_trailing_semicolon(self):
         self.t('nplurals=1; plural=0', n=1)

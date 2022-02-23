@@ -162,7 +162,7 @@ class test_types:
         def t(s, tp):
             return (
                 _t,
-                '%<{macro}>'.format(macro=s.format(c=c, n=n)),
+                f'%<{s.format(c=c, n=n)}>',
                 ('u' if unsigned else '') + tp.format(n=n)
             )
         # pylint: enable=undefined-loop-variable
@@ -236,7 +236,7 @@ class test_numeration:
             M.FormatString('%0$d')
         def fs(n):
             s = ''.join(
-                '%{0}$d'.format(i)
+                f'%{i}$d'
                 for i in range(1, n + 1)
             )
             return M.FormatString(s)
@@ -334,11 +334,11 @@ class test_width:
                 M.FormatString('%1' + c)
 
     def test_too_large(self):
-        fmt = M.FormatString('%{0}d'.format(M.INT_MAX))
+        fmt = M.FormatString(f'%{M.INT_MAX}d')
         assert_equal(len(fmt), 1)
         assert_equal(len(fmt.arguments), 1)
         with assert_raises(M.WidthRangeError):
-            M.FormatString('%{0}d'.format(M.INT_MAX + 1))
+            M.FormatString(f'%{M.INT_MAX + 1}d')
 
     def test_variable(self):
         fmt = M.FormatString('%*s')
@@ -349,7 +349,7 @@ class test_width:
         assert_equal(a2.type, 'const char *')
 
     def _test_index(self, i):
-        fmt = M.FormatString('%2$*{0}$s'.format(i))
+        fmt = M.FormatString(f'%2$*{i}$s')
         assert_equal(len(fmt), 1)
         assert_equal(len(fmt.arguments), 2)
         [a1], [a2] = fmt.arguments
@@ -369,9 +369,9 @@ class test_width:
             M.FormatString('%1$*0$s')
         def fs(n):
             s = ''.join(
-                '%{0}$d'.format(i)
+                f'%{i}$d'
                 for i in range(2, n)
-            ) + '%1$*{0}$s'.format(n)
+            ) + f'%1$*{n}$s'
             return M.FormatString(s)
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX - 1)
@@ -422,10 +422,10 @@ class test_precision:
             yield t, ('%.1' + c)
 
     def test_too_large(self):
-        fmt = M.FormatString('%.{0}f'.format(M.INT_MAX))
+        fmt = M.FormatString(f'%.{M.INT_MAX}f')
         assert_equal(len(fmt), 1)
         with assert_raises(M.PrecisionRangeError):
-            M.FormatString('%.{0}f'.format(M.INT_MAX + 1))
+            M.FormatString(f'%.{M.INT_MAX + 1}f')
 
     def test_variable(self):
         fmt = M.FormatString('%.*f')
@@ -436,7 +436,7 @@ class test_precision:
         assert_equal(a2.type, 'double')
 
     def _test_index(self, i):
-        fmt = M.FormatString('%2$.*{0}$f'.format(i))
+        fmt = M.FormatString(f'%2$.*{i}$f')
         assert_equal(len(fmt), 1)
         assert_equal(len(fmt.arguments), 2)
         [a1], [a2] = fmt.arguments
@@ -456,9 +456,9 @@ class test_precision:
             M.FormatString('%1$.*0$f')
         def fs(n):
             s = ''.join(
-                '%{0}$d'.format(i)
+                f'%{i}$d'
                 for i in range(2, n)
-            ) + '%1$.*{0}$f'.format(n)
+            ) + f'%1$.*{n}$f'
             return M.FormatString(s)
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX - 1)
