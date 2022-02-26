@@ -70,7 +70,7 @@ def _collect_yielded(generator):
                     assert getattr(owner, aname, None) is None
                     setattr(owner, aname, _make_method(fn, args))
         return YieldTestDescriptor()
-    elif genargs == []:
+    elif genargs == []:  # pylint: disable=use-implicit-booleaness-not-comparison
         class Test():
             pass
         try:
