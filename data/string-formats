@@ -8,7 +8,7 @@ boost = %d
 # https://www.boost.org/doc/libs/1_68_0/libs/format/doc/format.html
 
 c = %d
-# http://man7.org/linux/man-pages/man3/printf.3.html
+# https://man7.org/linux/man-pages/man3/printf.3.html
 
 csharp = {0}
 # https://docs.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting
