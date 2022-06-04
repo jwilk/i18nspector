@@ -43,7 +43,7 @@ def main():
     sys.stdout.close()
     os.rename(path + '.tmp', path)
     rc = 0
-    for tag in sorted(set(coverage) - set(t.name for t in tags.iter_tags())):
+    for tag in sorted(set(coverage) - {t.name for t in tags.iter_tags()}):
         print('update-coverage: error: unknown tag {tag}'.format(tag=tag), file=sys.stderr)
         rc = 1
     sys.exit(rc)
