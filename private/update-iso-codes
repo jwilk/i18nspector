@@ -141,7 +141,7 @@ def generate_iso_3166():
     for cc in sorted(iso_3166):
         print('{} ='.format(cc))
     print()
-    print('# vi''m:ft=dosini')
+    print('# vim\72ft=dosini')
 
 if __name__ == '__main__':
     main()

@@ -81,7 +81,7 @@ def main():
     for code, offsets in sorted(tzdata.items()):
         print('{code} = {offsets}'.format(code=code, offsets=' '.join(sorted(offsets))))
     print()
-    print('# vi''m:ft=dosini')
+    print('# vim\72ft=dosini')
     sys.stdout.close()
     os.rename(path + '.tmp', path)
 
