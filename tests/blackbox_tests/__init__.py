@@ -258,6 +258,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
         __file__=prog,
     )
     (sys.stdout, sys.stderr) = (io_stdout, io_stderr)
+    stdout = stderr = ''
     try:
         try:
             exec(code, gvars)  # pylint: disable=exec-used
