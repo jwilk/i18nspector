@@ -936,6 +936,13 @@ class Checker(metaclass=abc.ABCMeta):
                         known_flag = True
                         format_flags[tp][string_format] = flag
                         break
+            elif flag == 'markdown-text':
+                # supported by:
+                # * po4a >= 0.58:
+                #   https://github.com/mquinson/po4a/commit/08f93cbe0cc0bcf1
+                # * weblate >= 4.0:
+                #   https://github.com/WeblateOrg/weblate/commit/8832525871c07779
+                pass
             else:
                 known_flag = False
             if not known_flag:
