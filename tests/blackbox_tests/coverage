@@ -81,6 +81,9 @@ Generated automatically by private/update-tag-coverage. Do not edit.
 [X] non-portable-encoding
 [X] os-error
 [X] partially-translated-message
+[X] perl-brace-format-string-error
+[X] perl-brace-format-string-missing-argument
+[X] perl-brace-format-string-unknown-argument
 [X] python-brace-format-string-argument-type-mismatch
 [X] python-brace-format-string-error
 [X] python-brace-format-string-missing-argument
