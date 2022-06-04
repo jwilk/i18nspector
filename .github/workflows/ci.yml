@@ -73,6 +73,19 @@ jobs:
       run: |
         cd /
         man 1 i18nspector | grep -A 10 -w I18NSPECTOR
+    - name: set up APT
+      run: |
+        printf 'Apt::Install-Recommends "false";\n' | sudo tee -a /etc/apt/apt.conf
+        sudo apt-get update
+    - name: APT install gettext
+      run: |
+        sudo apt-get install gettext
+    - name: ensure data is up-to-date
+      run: |
+        private/update-blackbox-tests
+        private/update-charmaps
+        private/update-tag-coverage
+        git diff --exit-code
 
   pylint:
     strategy:
