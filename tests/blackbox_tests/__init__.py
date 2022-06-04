@@ -109,11 +109,11 @@ class ETag():
 # ----------------------------------------
 
 def _get_signal_names():
-    data = dict(
-        (name, getattr(signal, name))
+    data = {
+        name: getattr(signal, name)
         for name in dir(signal)
         if re.compile('^SIG[A-Z0-9]*$').match(name)
-    )
+    }
     try:
         if data['SIGABRT'] == data['SIGIOT']:
             del data['SIGIOT']
