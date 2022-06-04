@@ -63,8 +63,7 @@ class test_escape:
 
 def ast_to_tagnames(node):
     for child in ast.iter_child_nodes(node):
-        for t in ast_to_tagnames(child):
-            yield t
+        yield from ast_to_tagnames(child)
     ok = (
         isinstance(node, ast.Call) and
         isinstance(node.func, ast.Attribute) and
