@@ -24,7 +24,6 @@ polib monkey-patching
 
 import ast
 import codecs
-import contextlib
 import inspect
 import re
 
@@ -44,7 +43,7 @@ def install_patches():
 __all__ = ['install_patches']
 
 def register_patch(patch):
-    patches.append(contextlib.contextmanager(patch))
+    patches.append(patch)
 
 # polib.default_encoding
 # ======================
