@@ -181,13 +181,7 @@ class Tag():
             color_on, color_off = self.get_colors()
         else:
             color_on = color_off = ''
-        s = '{prio}: {target}: {on}{tag}{off}'.format(
-            prio=self.get_priority(),
-            target=target,
-            tag=self.name,
-            on=color_on,
-            off=color_off,
-        )
+        s = f'{self.get_priority()}: {target}: {color_on}{self.name}{color_off}'
         if extra:
             s += ' ' + ' '.join(map(_escape, extra))
         return s

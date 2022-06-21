@@ -52,13 +52,13 @@ class Checker(CheckerBase):
             self.tag('c-format-string-error',
                 prefix,
                 tags.safestr(exc.message),
-                tags.safestr('{1}$'.format(*exc.args)),
+                tags.safestr(f'{exc.args[1]}$'),
             )
         except backend.ArgumentTypeMismatch as exc:
             self.tag('c-format-string-error',
                 prefix,
                 tags.safestr(exc.message),
-                tags.safestr('{1}$'.format(*exc.args)),
+                tags.safestr(f'{exc.args[1]}$'),
                 tags.safestr(', '.join(sorted(x for x in exc.args[2]))),
             )
         except backend.FlagError as exc:

@@ -93,10 +93,10 @@ def test_consistency():
         if tag not in tagnames:
             raise AssertionError(
                 'tag missing in data/tags:\n\n'
-                '[{tag}]\n'
+                f'[{tag}]\n'
                 'severity = wishlist\n'
                 'certainty = wild-guess\n'
-                'description = TODO'.format(tag=tag)
+                'description = TODO'
             )
     for tag in sorted(source_tagnames | tagnames):
         yield test, tag

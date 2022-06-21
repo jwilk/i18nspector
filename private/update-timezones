@@ -68,18 +68,18 @@ def main():
             tzdata[code].add(offset)
     path = os.path.join(basedir, 'data', 'timezones')
     sys.stdout = open(path + '.tmp', 'wt', encoding='ASCII')  # pylint: disable=consider-using-with
-    print('''\
+    tzdata_version = get_tzdata_version()
+    today = datetime.date.today()
+    print(f'''\
 # This file has been generated automatically by private/update-timezones.
 # Do not edit.
-# Timezone database version: {version}
+# Timezone database version: {tzdata_version}
 # Last update: {today}
-'''.format(
-        version=get_tzdata_version(),
-        today=datetime.date.today(),
-    ))
+''')
     print('[timezones]')
     for code, offsets in sorted(tzdata.items()):
-        print('{code} = {offsets}'.format(code=code, offsets=' '.join(sorted(offsets))))
+        offsets = ' '.join(sorted(offsets))
+        print(f'{code} = {offsets}')
     print()
     print('# vim\72ft=dosini')
     sys.stdout.close()

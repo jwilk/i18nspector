@@ -305,7 +305,7 @@ class Checker(metaclass=abc.ABCMeta):
                 meta_language = None
             if language_source_quality <= 0 and (
                 f'/{meta_language}/' in self.path or
-                '/{lang}/'.format(lang=str(meta_language).replace('_', '-')) in self.path
+                f'/{meta_language}/'.replace('_', '-') in self.path
             ):
                 # For LibreOffice, PO basename does not designate translation
                 # language, but one of the path components does.

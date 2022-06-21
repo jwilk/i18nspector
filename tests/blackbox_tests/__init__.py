@@ -82,11 +82,7 @@ class ETag():
     _split = re.compile(f'({re.escape(_ellipsis)})').split
 
     def __init__(self, code, path, rest):
-        self._s = s = '{code}: {path}: {rest}'.format(
-            code=code,
-            path=path,
-            rest=rest,
-        )
+        self._s = s = f'{code}: {path}: {rest}'
         self.tag = rest.split(None, 1)[0]
         regexp = ''.join(
             '.*' if chunk == self._ellipsis else re.escape(chunk)

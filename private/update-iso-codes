@@ -49,12 +49,14 @@ def main():
     )
     path = os.path.join(basedir, 'data', 'iso-codes')
     sys.stdout = open(path + '.tmp', 'wt', encoding='UTF-8')  # pylint: disable=consider-using-with
-    print('''\
+    iso_codes_version = get_iso_codes_version()
+    today = datetime.date.today()
+    print(f'''\
 # This file has been generated automatically by private/update-iso-codes.
 # Do not edit.
-# iso-codes version: {version}
+# iso-codes version: {iso_codes_version}
 # Last update: {today}
-'''.format(version=get_iso_codes_version(), today=datetime.date.today()))
+''')
     generate_iso_639()
     generate_iso_3166()
     sys.stdout.close()

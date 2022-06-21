@@ -48,7 +48,7 @@ def check_sorted(iterable, exception=DataIntegrityError):
     '''
     cx = unsorted(iterable)
     if cx is not None:
-        raise exception('{0!r} > {1!r}'.format(*cx))
+        raise exception(f'{cx[0]!r} > {cx[1]!r}')
 
 def sorted_vk(d):
     '''
