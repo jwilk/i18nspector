@@ -191,7 +191,7 @@ class VersionAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         print(f'{parser.prog} {__version__}')
-        print('+ Python {0}.{1}.{2}'.format(*sys.version_info))
+        print('+ Python {0}.{1}.{2}'.format(*sys.version_info))  # pylint: disable=consider-using-f-string
         print(f'+ polib {check.polib.__version__}')
         rply_version = self._get_rply_version()
         if rply_version is not None:

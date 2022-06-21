@@ -28,6 +28,8 @@ checking tool for gettext POT, PO and MO files
 import os
 import sys
 
+# pylint: disable=consider-using-f-string
+
 # ----------------------------------------
 
 def error(message):
