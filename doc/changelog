@@ -5,6 +5,7 @@ i18nspector (0.27) UNRELEASED; urgency=low
     https://github.com/jwilk/i18nspector/issues/11
   * Drop support for Python < 3.6.
   * Make “-j auto” take CPU affinity into account.
+  * Stop using deprecated abc.abstractproperty().
   * Improve documentation:
     + Update Docutils homepage URL.
 
