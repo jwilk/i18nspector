@@ -1,7 +1,7 @@
 Add more ``Plural-Forms``. Document how the current ``Plural-Forms`` were
 obtained.
 
- * http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html?id=l10n/pluralforms
+ * https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html?id=l10n/pluralforms
  * https://unicode.org/cldr/trac/browser/trunk/common/supplemental/plurals.xml
 
 Complain about incorrect locale codes:
