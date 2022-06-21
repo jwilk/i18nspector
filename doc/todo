@@ -191,8 +191,8 @@ Improve C format string checks:
 SHIFT_JIS and JOHAB encodings are broken in Python; or at least they
 are not compatible with glibc. Implement a work-around. Test-case::
 
-    assert b'\\'.decode('SHIFT_JIS') == '\N{YEN SIGN}'
-    assert b'\\'.decode('JOHAB') == '\N{WON SIGN}'
+   assert b'\\'.decode('SHIFT_JIS') == '\N{YEN SIGN}'
+   assert b'\\'.decode('JOHAB') == '\N{WON SIGN}'
 
 Timezone abbreviations not only are not unique, but also can change their
 meaning over time.
