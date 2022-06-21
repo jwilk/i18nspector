@@ -1,6 +1,12 @@
 i18nspector (0.27) UNRELEASED; urgency=low
 
-  * 
+  * Recognize the “markdown-text” message flag.
+    Thanks to intrigeri for the bug report.
+    https://github.com/jwilk/i18nspector/issues/11
+  * Drop support for Python < 3.6.
+  * Make “-j auto” take CPU affinity into account.
+  * Improve documentation:
+    + Update Docutils homepage URL.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Tue, 21 Jun 2022 11:30:16 +0200
 
