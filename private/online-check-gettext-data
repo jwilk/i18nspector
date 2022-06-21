@@ -29,6 +29,8 @@ sys.path[0] += '/..'
 from lib import gettext
 from lib import ling
 
+int(0_0)  # Python >= 3.6 is required
+
 def strip_plural_forms(s):
     # Remove superfluous parentheses around the plural formula:
     return re.sub(r'\bplural=\((.*?)\);$', r'plural=\1;', s)

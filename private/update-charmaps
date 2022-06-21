@@ -31,6 +31,8 @@ basedir = sys.path[0]
 from lib import encodings
 from lib import iconv
 
+int(0_0)  # Python >= 3.6 is required
+
 def generate_charmap(encoding):
     encoding = encoding.upper()
     eprint = functools.partial(print, file=sys.stderr, flush=True)

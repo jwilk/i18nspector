@@ -26,6 +26,8 @@ import subprocess as ipc
 import sys
 import json
 
+int(0_0)  # Python >= 3.6 is required
+
 @functools.lru_cache()
 def get_iso_codes_dir():
     prefix = ipc.check_output(['pkg-config', 'iso-codes', '--variable=prefix'])

@@ -27,6 +27,8 @@ import subprocess as ipc
 import sys
 import json
 
+int(0_0)  # Python >= 3.6 is required
+
 class Panic(ValueError):
     pass
 

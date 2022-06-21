@@ -35,6 +35,8 @@ basedir = sys.path[0]
 
 from lib import gettext
 
+int(0_0)  # Python >= 3.6 is required
+
 def get_tzdata_version():
     version = pytz.OLSON_VERSION
     if os.path.exists('/etc/debian_version'):

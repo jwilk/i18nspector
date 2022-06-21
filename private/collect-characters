@@ -29,6 +29,8 @@ import sys
 
 import polib
 
+int(0_0)  # Python >= 3.6 is required
+
 def init_polib():
     # don't assume UTF-8 encoding
     polib.default_encoding = 'ASCII'

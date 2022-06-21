@@ -28,6 +28,8 @@ sys.path[0] += '/..'
 
 from lib import tags as tagmod
 
+int(0_0)  # Python >= 3.6 is required
+
 def output_tags_rst(tags):
     print('''\
 .. This file has been generated automatically by private/tags-as-rst.

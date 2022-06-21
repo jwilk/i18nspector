@@ -28,6 +28,8 @@ sys.path[0] += '/..'
 from lib import tags
 from tests import blackbox_tests
 
+int(0_0)  # Python >= 3.6 is required
+
 def main():
     coverage = blackbox_tests.get_coverage()
     path = os.path.join(
