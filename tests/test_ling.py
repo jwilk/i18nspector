@@ -439,6 +439,8 @@ def test_glibc_supported():
             if (locale + '.').startswith('iw_IL.'):
                 # iw_IL is obsolete
                 continue
+            if locale.startswith('C.'):
+                continue
             locales.add(locale)
     misnamed_locales = {
         # glibc 2.21 had two misnamed locales:
