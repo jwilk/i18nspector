@@ -1,4 +1,4 @@
-i18nspector (0.27) UNRELEASED; urgency=low
+i18nspector (0.27) unstable; urgency=low
 
   * Recognize the “markdown-text” message flag.
     Thanks to intrigeri for the bug report.
@@ -9,7 +9,7 @@ i18nspector (0.27) UNRELEASED; urgency=low
   * Improve documentation:
     + Update Docutils homepage URL.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 21 Jun 2022 11:30:16 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 22 Jun 2022 22:09:41 +0200
 
 i18nspector (0.26) unstable; urgency=low
 
