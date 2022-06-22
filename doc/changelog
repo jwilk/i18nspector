@@ -1,3 +1,9 @@
+i18nspector (0.27.1) UNRELEASED; urgency=low
+
+  * 
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 22 Jun 2022 22:36:53 +0200
+
 i18nspector (0.27) unstable; urgency=low
 
   * Recognize the “markdown-text” message flag.
