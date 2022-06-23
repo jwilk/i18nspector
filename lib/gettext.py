@@ -135,7 +135,7 @@ def _read_timezones():
 
 _timezones = _read_timezones()
 
-_tz_re = '|'.join(re.escape(tz) for tz in _timezones)
+_tz_re = str.join('|', (re.escape(tz) for tz in _timezones))
 _parse_date = re.compile(r'''
     ^
     ( [0-9]{4}-[0-9]{2}-[0-9]{2} )  # YYYY-MM-DD

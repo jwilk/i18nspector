@@ -58,8 +58,8 @@ class Checker(CheckerBase):
             dst_arg = dst_args[key][0]
             if not (src_arg.types & dst_arg.types):
                 self.tag('python-brace-format-string-argument-type-mismatch', prefix,
-                    tags.safestr(', '.join(dst_arg.types)), tags.safestr(f'({dst_loc})'), '!=',
-                    tags.safestr(', '.join(src_arg.types)), tags.safestr(f'({src_loc})'),
+                    tags.safestr(str.join(', ', dst_arg.types)), tags.safestr(f'({dst_loc})'), '!=',
+                    tags.safestr(str.join(', ', src_arg.types)), tags.safestr(f'({src_loc})'),
                 )
         for key in sorted(dst_args.keys() - src_args.keys(), key=sort_key):
             self.tag('python-brace-format-string-unknown-argument', prefix, key,

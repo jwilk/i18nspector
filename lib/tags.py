@@ -141,7 +141,7 @@ class Tag():
             yield cls._strip_leading_dot(s)
 
     def _set_description(self, value):
-        value = '\n'.join(self._parse_multiline(value))
+        value = str.join('\n', self._parse_multiline(value))
         self.description = value
 
     def _set_references(self, value):
@@ -183,7 +183,7 @@ class Tag():
             color_on = color_off = ''
         s = f'{self.get_priority()}: {target}: {color_on}{self.name}{color_off}'
         if extra:
-            s += ' ' + ' '.join(map(_escape, extra))
+            s += ' ' + str.join(' ', map(_escape, extra))
         return s
 
 def _read_tags():

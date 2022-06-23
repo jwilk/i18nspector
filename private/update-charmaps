@@ -55,7 +55,7 @@ def generate_charmap(encoding):
         return
     assert len(us) == 0x100
     with open(path, 'wb') as file:
-        us = ''.join(us)
+        us = str.join('', us)
         assert len(us) == 0x100
         file.write(us.encode('UTF-8'))
     eprint('ok')

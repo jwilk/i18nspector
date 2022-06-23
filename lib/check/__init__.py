@@ -214,7 +214,7 @@ class Checker(metaclass=abc.ABCMeta):
                 r'<EMAIL@ADDRESS>',
                 r'(?<=>), YEAR\b',
             }
-        regex = re.compile('|'.join(regexs))
+        regex = re.compile(str.join('|', regexs))
         for line in ctx.file.header.splitlines():
             match = regex.search(line)
             if match is None:
@@ -395,7 +395,7 @@ class Checker(metaclass=abc.ABCMeta):
             plural_forms_hint = 'nplurals=INTEGER; plural=EXPRESSION;'
         elif correct_plural_forms:
             plural_forms_hint = tags.safe_format(
-                ' or '.join('{}' for s in correct_plural_forms),
+                str.join(' or ', ('{}' for s in correct_plural_forms)),
                 *correct_plural_forms
             )
         else:
@@ -730,7 +730,7 @@ class Checker(metaclass=abc.ABCMeta):
                 break
             if entry.occurrences:
                 self.tag('empty-msgid-message-with-source-code-references',
-                    *(':'.join((path, line)) for path, line in entry.occurrences)
+                    *(str.join(':', (path, line)) for path, line in entry.occurrences)
                 )
             if entry.msgid_plural is not None:
                 self.tag('empty-msgid-message-with-plural-forms')
@@ -759,10 +759,10 @@ class Checker(metaclass=abc.ABCMeta):
                 self.tag('distant-header-entry')
             unusual_chars = set(find_unusual_characters(msgstr))
             if unusual_chars:
-                unusual_char_names = ', '.join(
+                unusual_char_names = str.join(', ', (
                     f'U+{ord(ch):04X} {encinfo.get_character_name(ch)}'
                     for ch in sorted(unusual_chars)
-                )
+                ))
                 self.tag('unusual-character-in-header-entry', tags.safestr(unusual_char_names))
             seen_header_entry = True
         seen_conflict_marker = False
@@ -856,10 +856,10 @@ class Checker(metaclass=abc.ABCMeta):
                     uc = msgstr_uc - msgid_uc - found_unusual_characters
                     if not uc:
                         continue
-                    names = ', '.join(
+                    names = str.join(', ', (
                         f'U+{ord(ch):04X} {encinfo.get_character_name(ch)}'
                         for ch in sorted(uc)
-                    )
+                    ))
                     self.tag('unusual-character-in-translation',
                         message_repr(message, template='{}:'),
                         tags.safestr(names)

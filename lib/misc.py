@@ -77,7 +77,7 @@ def format_range(rng, *, max):  # pylint: disable=redefined-builtin
         else:
             result[-2:] = ['...', str(last)]
             break
-    return ', '.join(map(str, result))
+    return str.join(', ', map(str, result))
 
 @contextlib.contextmanager
 def throwaway_tempdir(context):

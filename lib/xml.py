@@ -30,7 +30,7 @@ SyntaxError = xml.parsers.expat.ExpatError  # pylint: disable=redefined-builtin
 
 _xe = (
     'i18nspector.' +
-    ''.join(random.choice(string.ascii_lowercase) for x in range(12))
+    str.join('', (random.choice(string.ascii_lowercase) for x in range(12)))
 )
 
 _source = '''\

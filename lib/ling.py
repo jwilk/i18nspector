@@ -32,7 +32,7 @@ from lib import paths
 
 def _munch_language_name(s):
     # Normalize whitespace:
-    s = ' '.join(s.split())
+    s = str.join(' ', s.split())
     # Normalize capitalization:
     s = s.lower()
     # Strip accent marks etc.:
@@ -166,7 +166,7 @@ class Language():
             # If iconv(1) is used to implement an encoding, there's a huge
             # overhead per encode() call. To reduce number of such calls,
             # optimize the common case of all characters being representable.
-            ''.join(characters).encode(encoding)
+            str.join('', characters).encode(encoding)
         except UnicodeEncodeError:
             pass
         else:
@@ -281,7 +281,7 @@ def get_language_for_name(name):
             except LookupError:
                 pass
     if ',' in _name:
-        subname = ' '.join(map(str.strip, _name.split(',', 1)[::-1]))
+        subname = str.join(' ', map(str.strip, _name.split(',', 1)[::-1]))
         try:
             return parse(_name_to_code[subname])
         except LookupError:

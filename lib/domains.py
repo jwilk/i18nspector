@@ -39,7 +39,7 @@ _regexps = [
     # RFC 6762, §3 <https://tools.ietf.org/html/rfc6762#section-3>:
     '(.+[.])local',
 ]
-_regexps = '|'.join(_regexps)
+_regexps = str.join('|', _regexps)
 _is_special = re.compile(f'^({_regexps})$').match
 
 def is_special_domain(domain):

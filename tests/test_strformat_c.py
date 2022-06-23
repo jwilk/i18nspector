@@ -235,10 +235,10 @@ class test_numeration:
         with assert_raises(M.ArgumentRangeError):
             M.FormatString('%0$d')
         def fs(n):
-            s = ''.join(
+            s = str.join('', (
                 f'%{i}$d'
                 for i in range(1, n + 1)
-            )
+            ))
             return M.FormatString(s)
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX)
@@ -368,10 +368,10 @@ class test_width:
         with assert_raises(M.ArgumentRangeError):
             M.FormatString('%1$*0$s')
         def fs(n):
-            s = ''.join(
+            s = str.join('', (
                 f'%{i}$d'
                 for i in range(2, n)
-            ) + f'%1$*{n}$s'
+            )) + f'%1$*{n}$s'
             return M.FormatString(s)
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX - 1)
@@ -455,10 +455,10 @@ class test_precision:
         with assert_raises(M.ArgumentRangeError):
             M.FormatString('%1$.*0$f')
         def fs(n):
-            s = ''.join(
+            s = str.join('', (
                 f'%{i}$d'
                 for i in range(2, n)
-            ) + f'%1$.*{n}$f'
+            )) + f'%1$.*{n}$f'
             return M.FormatString(s)
         fmt = fs(M.NL_ARGMAX)
         assert_equal(len(fmt), M.NL_ARGMAX - 1)

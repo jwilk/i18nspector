@@ -84,10 +84,10 @@ class ETag():
     def __init__(self, code, path, rest):
         self._s = s = f'{code}: {path}: {rest}'
         self.tag = rest.split(None, 1)[0]
-        regexp = ''.join(
+        regexp = str.join('', (
             '.*' if chunk == self._ellipsis else re.escape(chunk)
             for chunk in self._split(s)
-        )
+        ))
         self._regexp = re.compile(f'^{regexp}$')
 
     def __eq__(self, other):
@@ -239,7 +239,7 @@ def run_i18nspector(options, path):
         message += ['| ' + s for s in stderr]
     else:
         message += ['stderr: (empty)']
-    raise SubprocessError('\n'.join(message))
+    raise SubprocessError(str.join('\n', message))
 
 def _mp_run_i18nspector(prog, options, path, queue):
     with open(prog, 'rt', encoding='UTF-8') as file:
@@ -267,7 +267,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
         raise
     except:  # pylint: disable=bare-except
         exctp, exc, tb = sys.exc_info()
-        stderr += ''.join(
+        stderr += str.join('',
             traceback.format_exception(exctp, exc, tb)
         )
         queue.put([stdout, stderr])
@@ -290,7 +290,7 @@ def assert_emit_tags(path, etags, *, options=()):
             difflib.unified_diff(str_etags, stdout, n=9999)
         )
         message += diff[3:]
-        raise AssertionError('\n'.join(message))
+        raise AssertionError(str.join('\n', message))
     elif expected_failure:
         raise AssertionError('unexpected success')
 

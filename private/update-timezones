@@ -80,7 +80,7 @@ def main():
 ''')
     print('[timezones]')
     for code, offsets in sorted(tzdata.items()):
-        offsets = ' '.join(sorted(offsets))
+        offsets = str.join(' ', sorted(offsets))
         print(f'{code} = {offsets}')
     print()
     print('# vim\72ft=dosini')

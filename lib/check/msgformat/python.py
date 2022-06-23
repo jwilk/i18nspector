@@ -44,7 +44,7 @@ class Checker(CheckerBase):
                 prefix,
                 tags.safestr(exc.message),
                 tags.safestr(key),
-                tags.safestr(', '.join(sorted(x for x in types))),
+                tags.safestr(str.join(', ', sorted(x for x in types))),
             )
         except backend.Error as exc:
             self.tag('python-format-string-error',

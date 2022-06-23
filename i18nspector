@@ -41,12 +41,12 @@ def error(message):
         import optparse  # pylint: disable=deprecated-module,import-outside-toplevel
         ap = optparse.OptionParser()
         prog = ap.get_prog_name()
-    message = ''.join((prog, ': error: ', message, '\n'))
+    message = str.join('', (prog, ': error: ', message, '\n'))
     ap.exit(1, message)
 
 def require_python(*version):
     if sys.version_info < version:
-        version_str = '.'.join(map(str, version))
+        version_str = str.join('.', map(str, version))
         message = 'Python >= %s is required' % version_str
         error(message)
 
@@ -56,7 +56,7 @@ def require_polib(*version):
         int(x) for x in polib.__version__.split('.')
     )
     if polib_version < version:
-        version_str = '.'.join(map(str, version))
+        version_str = str.join('.', map(str, version))
         message = 'polib >= {ver} is required'.format(ver=version_str)
         error(message)
 
