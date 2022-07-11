@@ -23,15 +23,13 @@
 
 import inspect
 import os
-import sys
 import unittest
 
 import pytest
 
 import tests.tools
 
-if sys.version_info < (3, 6):
-    raise RuntimeError('Python >= 3.6 is required for pytest support')
+int(0_0)  # Python >= 3.6 is required
 
 def _make_method(fn, args):
     def _test_item(self):
