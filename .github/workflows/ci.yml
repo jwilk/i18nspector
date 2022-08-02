@@ -34,6 +34,7 @@ jobs:
       run: |
         python3 -m pip install ${{matrix.polib || 'polib'}}
         python3 -m pip install rply
+        python3 -m pip install pyicu
     - name: run tests
       run: |
         python3 -m pip install nose
@@ -119,6 +120,7 @@ jobs:
         python3 -m pip install pytest
         python3 -m pip install polib
         python3 -m pip install rply
+        python3 -m pip install pyicu
         python3 -m pip install pytz  # for private/update-timezones
         python3 -m pip install python-afl
     - name: run pylint

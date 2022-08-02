@@ -32,7 +32,10 @@ import os
 import unicodedata
 import sys
 
-from lib import iconv
+try:
+    from lib import icuconv as xconv
+except ImportError:
+    from lib import iconv as xconv
 from lib import misc
 from lib import paths
 
@@ -73,14 +76,14 @@ def charmap_encoding(encoding):
         name=encoding,
     )
 
-def iconv_encoding(encoding):
+def xconv_encoding(encoding):
 
     def encode(input, errors='strict'):
-        output = iconv.encode(input, encoding=encoding, errors=errors)
+        output = xconv.encode(input, encoding=encoding, errors=errors)
         return output, len(input)
 
     def decode(input, errors='strict'):
-        output = iconv.decode(bytes(input), encoding=encoding, errors=errors)
+        output = xconv.decode(bytes(input), encoding=encoding, errors=errors)
         return output, len(input)
 
     return codecs.CodecInfo(
@@ -219,7 +222,7 @@ def _codec_search_function(encoding):
     try:
         return charmap_encoding(encoding)
     except EncodingLookupError:
-        return iconv_encoding(encoding)
+        return xconv_encoding(encoding)
 
 @functools.lru_cache(maxsize=1)
 def install_extra_encodings():
