@@ -216,4 +216,11 @@ Add support for xgettext message syntax check flags:
 
  * https://git.savannah.gnu.org/cgit/gettext.git/commit/?id=d9fc3d2a3f43
 
+Investigate possible bugs in PO editors:
+
+ * Virtaal (0.7.1) leaves stray previous msgid.
+   https://bugs.debian.org/809522
+
+ * Lokalize (1.4) leaves stray previous msgid.
+
 .. vim:ft=rst ts=3 sts=3 sw=3
