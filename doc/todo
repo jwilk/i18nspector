@@ -199,7 +199,7 @@ meaning over time.
 
  * https://mm.icann.org/pipermail/tz/2014-June/021089.html
 
-Check for capitalization inconsistencies.
+Check for capitalization inconsistencies between msgid and msgstr.
 
 Language codes for some locales supported by glibc aren't recognized::
 
