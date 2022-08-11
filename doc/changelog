@@ -1,4 +1,4 @@
-i18nspector (0.27.1) UNRELEASED; urgency=low
+i18nspector (0.27.1) unstable; urgency=low
 
   * Use uppercase for metavars in the help message.
   * Improve the test suite.
@@ -8,7 +8,7 @@ i18nspector (0.27.1) UNRELEASED; urgency=low
     + Skip glibc-supported C.* locales.
       https://github.com/jwilk/i18nspector/issues/13
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 16 Jul 2022 17:16:26 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 11 Aug 2022 21:53:57 +0200
 
 i18nspector (0.27) unstable; urgency=low
 
