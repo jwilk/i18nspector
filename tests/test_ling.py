@@ -417,9 +417,6 @@ def test_glibc_supported():
         try:
             lang.fix_codes()
         except L.FixingLanguageCodesFailed:
-            # FIXME: some ISO-639-3 codes are not recognized yet
-            if len(l.split('_')[0]) == 3:
-                raise nose.SkipTest('expected failure')
             reason = locales_to_skip.get(l)
             if reason is not None:
                 raise nose.SkipTest(reason)

@@ -64,36 +64,36 @@ def load_json(path):
     with open(path, 'rt', encoding='UTF-8') as file:
         return json.load(file)
 
+def check_length(s, n):
+    if s is None:
+        return
+    if len(s) != n:
+        raise Panic('len({!r}) != {n}'.format(s, n))
+
 def generate_iso_639():
     # =======================
     # ISO 639: language codes
     # =======================
-    l2t_to_2b = {}
-    iso_639 = {}
-    data = load_json(get_iso_codes_dir() + '/iso_639-2.json')
-    for item in data['639-2']:
-        l2t = item['alpha_3']
-        l2b = item.get('bibliographic', l2t)
-        if l2b == l2t == 'qaa-qtz':
-            continue
-        for l in l2b, l2t:
-            if len(l) != 3:
-                raise Panic('len({!r}) != 3'.format(l))
-        if l2b != l2t:
-            l2t_to_2b[l2t] = l2b
-    iso_639 = {}
     data = load_json(get_iso_codes_dir() + '/iso_639-3.json')
+    codes = {}
+    refnames = set()
     for item in data['639-3']:
-        code = item['alpha_3']
-        if len(code) != 3:
-            raise Panic('len({!r}) != 3'.format(code))
-        code1 = item.get('alpha_2')
-        code2 = item.get('terminology')
-        if code2 is None:
-            # We're not interested in languages that are not in 639-2 (yet?).
-            continue
-        if code2 != code:
-            raise Panic('{!r} != {!r}'.format(code, code2))
+        code2 = item.get('alpha_2')
+        if code2 == 'sh':
+            # “sh” is deprecated
+            code2 = None
+        check_length(code2, 2)
+        code3t = item['alpha_3']
+        code3b = item.get('bibliographic')
+        code = code2 or code3t
+        for c in code3t, code3b:
+            check_length(c, 3)
+            if c is None:
+                continue
+            if c == code:
+                codes[c] = ''
+            else:
+                codes[c] = code
         scope = item['scope']
         if scope == 'S':
             # Not a real language, ignore.
@@ -102,29 +102,12 @@ def generate_iso_639():
             pass
         else:
             raise Panic('unknown scope: {!r}'.format(scope))
-        reference_name = item['name']
-        if reference_name in iso_639:
-            raise Panic('duplicate reference name: {!r}'.format(reference_name))
-        if code1 is not None:
-            if len(code1) == 2:
-                codelist = [code1, code]
-            else:
-                raise Panic('len({!r}) != 2'.format(code1))
-        else:
-            codelist = [code]
-        try:
-            codelist += [l2t_to_2b[code]]
-        except KeyError:
-            pass
-        iso_639[reference_name] = codelist
+        name = item['name']
+        if name in refnames:
+            raise Panic('duplicate reference name: {!r}'.format(name))
+        refnames.add(name)
     print('[language-codes]')
-    iso_639_rev = {}
-    for code, *aliases in iso_639.values():
-        for alias in aliases:
-            iso_639_rev[alias] = code
-        if not aliases:
-            iso_639_rev[code] = ''
-    for alias, code in sorted(iso_639_rev.items()):
+    for alias, code in sorted(codes.items()):
         print('{} = {}'.format(alias, code).rstrip())
     print()
 
