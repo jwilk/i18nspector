@@ -223,4 +223,6 @@ Investigate possible bugs in PO editors:
 
  * Lokalize (1.4) leaves stray previous msgid.
 
+Use Public Suffix List to check for domains in non-existent TLDs.
+
 .. vim:ft=rst ts=3 sts=3 sw=3
