@@ -157,13 +157,13 @@ class Checker(metaclass=abc.ABCMeta):
                 message_parts = []
                 if message.startswith(self.path + ' '):
                     message = message[len(self.path)+1:]
-                match = re.match(r'^\(line ([0-9]+)\)(?:: (.+))?$', message)
+                match = re.fullmatch(r'\(line ([0-9]+)\)(?:: (.+))?', message)
                 if match is not None:
                     lineno_part = f'line {match.group(1)}'
                     message = match.group(2)
                     if message is not None:
                         lineno_part += ':'
-                        if re.match(r'^[a-z]+( [a-z]+)*$', message):
+                        if re.fullmatch(r'[a-z]+( [a-z]+)*', message):
                             message = tags.safestr(message)
                     message_parts += [tags.safestr(lineno_part)]
                 if message is not None:

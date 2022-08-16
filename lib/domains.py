@@ -40,7 +40,7 @@ _regexps = [
     '(.+[.])local',
 ]
 _regexps = str.join('|', _regexps)
-_is_special = re.compile(f'^({_regexps})$').match
+_is_special = re.compile(f'({_regexps})').fullmatch
 
 def is_special_domain(domain):
     domain = domain.lower()
