@@ -149,8 +149,6 @@ class test_indexing:
         t('%s%(eggs)s')
         t('%(eggs)s%s')
 
-# TODO: "u" should be everywhere, where "d" is
-
 class test_multiple_flags:
 
     def t(self, s):
