@@ -149,7 +149,7 @@ class test_indexing:
         t('%s%(eggs)s')
         t('%(eggs)s%s')
 
-class test_multiple_flags:
+class test_redundant_flag:
 
     def t(self, s):
         fmt = M.FormatString(s)
