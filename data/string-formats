@@ -37,7 +37,7 @@ kde-kuit = %1
 # https://api.kde.org/frameworks/ki18n/html/prg_guide.html
 
 librep = %d
-# http://librep.sourceforge.net/librep-manual.html#Formatted%20Output
+# https://librep.sourceforge.net/librep-manual.html#Formatted%20Output
 
 lisp = ~A
 # http://www.lispworks.com/documentation/HyperSpec/Body/22_c.htm
