@@ -116,6 +116,7 @@ class Tag():
         try:
             self.severity = severities[value]
         except KeyError as exc:
+            # pylint: disable=unbalanced-tuple-unpacking
             [key] = exc.args
             raise InvalidSeverity(key)
 
@@ -123,6 +124,7 @@ class Tag():
         try:
             self.certainty = certainties[value]
         except KeyError as exc:
+            # pylint: disable=unbalanced-tuple-unpacking
             [key] = exc.args
             raise InvalidCertainty(key)
 
