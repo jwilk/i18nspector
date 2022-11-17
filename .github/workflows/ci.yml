@@ -20,7 +20,7 @@ jobs:
         - python: '3.10'
           pytest: pytest
           os: ubuntu-20.04
-        - python: '3.11-dev'
+        - python: '3.11'
           os: ubuntu-22.04
           pytest: pytest
     runs-on: ${{matrix.os}}
