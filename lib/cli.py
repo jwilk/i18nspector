@@ -45,11 +45,7 @@ def initialize_terminal():
         terminal.initialize()
     if sys.stdout.errors != 'strict':
         return
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer,
-        encoding=sys.stdout.encoding,
-        errors='backslashreplace',
-        line_buffering=sys.stdout.line_buffering,
-    )
+    sys.stdout.reconfigure(errors='backslashreplace')
 
 class Checker(check.Checker):
 

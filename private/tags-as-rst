@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import io
 import re
 import sys
 
@@ -57,7 +56,7 @@ def output_tags_rst(tags):
         print()
 
 def main():
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='UTF-8')
+    sys.stdout.reconfigure(encoding='UTF-8')
     output_tags_rst(tagmod.iter_tags())
 
 if __name__ == '__main__':
