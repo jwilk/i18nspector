@@ -7,10 +7,8 @@ jobs:
     strategy:
       matrix:
         include:
-        - python: '3.6'
-          polib: 'polib==1.0'
-          os: ubuntu-20.04
         - python: '3.7'
+          polib: 'polib==1.0'
           os: ubuntu-20.04
         - python: '3.8'
           os: ubuntu-20.04
@@ -94,8 +92,6 @@ jobs:
     strategy:
       matrix:
         include:
-        - python: '3.6'
-          os: ubuntu-20.04
         - python: '3.7'
           os: ubuntu-20.04
         - python: '3.8'
