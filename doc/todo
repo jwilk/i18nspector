@@ -225,4 +225,7 @@ Investigate possible bugs in PO editors:
 
 Use Public Suffix List to check for domains in non-existent TLDs.
 
+Use ``/usr/share/lintian/data/obsolete-sites/obsolete-sites``
+to check for defunct domains.
+
 .. vim:ft=rst ts=3 sts=3 sw=3
