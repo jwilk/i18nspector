@@ -9,7 +9,7 @@ jobs:
         include:
         - python: '3.6'
           polib: 'polib==1.0'
-          os: ubuntu-18.04
+          os: ubuntu-20.04
         - python: '3.7'
           os: ubuntu-20.04
         - python: '3.8'
@@ -95,7 +95,7 @@ jobs:
       matrix:
         include:
         - python: '3.6'
-          os: ubuntu-18.04
+          os: ubuntu-20.04
         - python: '3.7'
           os: ubuntu-20.04
         - python: '3.8'
