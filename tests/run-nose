@@ -29,7 +29,7 @@ import nose
 
 sys.path[:0] = [str(pathlib.Path(__file__).parent.parent)]
 
-from tests import blackbox_tests
+from tests import blackbox_tests  # pylint: disable=wrong-import-position
 
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory(prefix='i18nspector.tests.') as tmpdir:
