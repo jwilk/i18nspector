@@ -275,7 +275,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
         )
         queue.put([stdout, stderr])
         sys.exit(1)
-        raise  # hi, pydiatra!
+        raise  # hi, pydiatra! pylint: disable=unreachable
     else:
         queue.put([stdout, stderr])
         sys.exit(0)
