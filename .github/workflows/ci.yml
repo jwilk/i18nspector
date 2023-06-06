@@ -112,7 +112,7 @@ jobs:
     - name: install deps
       run: |
         # work-around for <https://github.com/nose-devs/nose/issues/1115>:
-        pip install --upgrade 'setuptools<58'
+        python3 -m pip install --upgrade 'setuptools<58'
         python3 -m pip install wheel
         # work-around for <https://github.com/nose-devs/nose/issues/1099>:
         python3 -m pip install --no-build-isolation --no-binary ':all:' nose
