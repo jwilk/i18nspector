@@ -474,7 +474,7 @@ description =
  that uses a reserved domain name,
  or a partially qualified domain name.
 references =
- https://www.rfc-editor.org/rfc/rfc2606.html
+ https://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml
 
 [invalid-last-translator]
 severity = normal
@@ -485,7 +485,7 @@ description =
  or a partially qualified domain name.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- https://www.rfc-editor.org/rfc/rfc2606.html
+ https://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml
 
 [invalid-mime-version]
 severity = pedantic
@@ -520,7 +520,7 @@ description =
  or a partially qualified domain name.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- https://www.rfc-editor.org/rfc/rfc2606.html
+ https://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml
 
 [language-disparity]
 severity = normal
