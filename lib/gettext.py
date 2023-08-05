@@ -56,7 +56,7 @@ header_fields = _read_header_fields()
 # ==========================
 
 is_valid_field_name = re.compile(r'^[\x21-\x39\x3B-\x7E]+$').match
-# https://tools.ietf.org/html/rfc5322#section-3.6.8
+# https://www.rfc-editor.org/rfc/rfc5322.html#section-3.6.8
 
 def parse_header(s):
     lines = s.split('\n')

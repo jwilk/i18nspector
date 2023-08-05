@@ -100,7 +100,7 @@ description =
  i18nspector assumes ASCII encoding.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
- https://tools.ietf.org/html/rfc2045#section-5
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-5
 
 [c-format-string-argument-type-mismatch]
 severity = serious
@@ -435,7 +435,7 @@ description =
  It should be ``8bit``.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- https://tools.ietf.org/html/rfc2045#section-6.1
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-6.1
 
 [invalid-content-type]
 severity = important
@@ -445,7 +445,7 @@ description =
  It should be in the form ``text/plain; charset=``\ *encoding*.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
- https://tools.ietf.org/html/rfc2045#section-5
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-5
 
 [invalid-date]
 severity = normal
@@ -474,7 +474,7 @@ description =
  that uses a reserved domain name,
  or a partially qualified domain name.
 references =
- https://tools.ietf.org/html/rfc2606
+ https://www.rfc-editor.org/rfc/rfc2606.html
 
 [invalid-last-translator]
 severity = normal
@@ -485,7 +485,7 @@ description =
  or a partially qualified domain name.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- https://tools.ietf.org/html/rfc2606
+ https://www.rfc-editor.org/rfc/rfc2606.html
 
 [invalid-mime-version]
 severity = pedantic
@@ -494,7 +494,7 @@ description =
  Value of the MIME-Version header field is invalid.
  It should be ``1.0``.
 references =
- https://tools.ietf.org/html/rfc2045#section-4
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-4
 
 [invalid-mo-file]
 severity = serious
@@ -520,7 +520,7 @@ description =
  or a partially qualified domain name.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- https://tools.ietf.org/html/rfc2606
+ https://www.rfc-editor.org/rfc/rfc2606.html
 
 [language-disparity]
 severity = normal
@@ -569,7 +569,7 @@ description =
  It should be set to ``8bit``.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html
- https://tools.ietf.org/html/rfc2045#section-6.1
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-6.1
 
 [no-content-type-header-field]
 severity = important
@@ -582,7 +582,7 @@ description =
  i18nspector assumes ASCII encoding.
 references =
  https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#index-encoding-of-PO-files
- https://tools.ietf.org/html/rfc2045#section-5
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-5
 
 [no-date-header-field]
 severity = minor
@@ -626,7 +626,7 @@ description =
  The MIME-Version header field doesn't exist.
  It should be to set to ``1.0``.
 references =
- https://tools.ietf.org/html/rfc2045#section-4
+ https://www.rfc-editor.org/rfc/rfc2045.html#section-4
 
 [no-package-name-in-project-id-version]
 severity = minor

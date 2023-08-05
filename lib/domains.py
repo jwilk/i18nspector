@@ -27,16 +27,16 @@ special-use domain names
 import re
 
 _regexps = [
-    # RFC 1035, §3.5 <https://tools.ietf.org/html/rfc1035#section-3.5>:
+    # RFC 1035, §3.5 <https://www.rfc-editor.org/rfc/rfc1035.html#section-3.5>:
     '.+[.]in-addr[.]arpa',
-    # RFC 3596, §2.5 <https://tools.ietf.org/html/rfc3596#section-2.5>:
+    # RFC 3596, §2.5 <https://www.rfc-editor.org/rfc/rfc3596.html#section-2.5>:
     '.+[.]ip6[.]arpa',
-    # RFC 6761, §6 <https://tools.ietf.org/html/rfc6761#section-6>:
+    # RFC 6761, §6 <https://www.rfc-editor.org/rfc/rfc6761.html#section-6>:
     '(.+[.])?test',
     '(.+[.])?localhost',
     '(.+[.])?invalid',
     '(.+[.])?example([.](com|net|org))?',
-    # RFC 6762, §3 <https://tools.ietf.org/html/rfc6762#section-3>:
+    # RFC 6762, §3 <https://www.rfc-editor.org/rfc/rfc6762.html#section-3>:
     '(.+[.])local',
 ]
 _regexps = str.join('|', _regexps)
@@ -56,7 +56,7 @@ def is_dotless_domain(domain):
 def is_email_in_dotless_domain(email):
     # Technically, e-mail addresses in dotless domains are not forbidden.
     # But in practice they are almost certainly mistakes.
-    # See also: RFC 7085 <https://tools.ietf.org/html/rfc7085>
+    # See also: RFC 7085 <https://www.rfc-editor.org/rfc/rfc7085.html>
     _, domain = email.rsplit('@', 1)
     return is_dotless_domain(domain)
 
