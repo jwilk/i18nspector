@@ -1010,8 +1010,8 @@ names = Pali
 [pl]
 names = Polish
 characters =
- ą ć ę ó ł ń ó ś ż ź
- Ą Ć Ę Ó Ł Ń Ó Ś Ż Ź
+ ą ć ę ó ł ń ó ś ź ż
+ Ą Ć Ę Ó Ł Ń Ó Ś Ź Ż
 plural-forms = nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 principal-territory = PL
 
