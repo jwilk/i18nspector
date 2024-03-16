@@ -49,7 +49,8 @@ def main():
         '--with-coverage',
         '--cover-package=lib',
         '--cover-erase',
-    ] + modules
+        *modules
+    ]
     path = os.path.join(
         'tests',
         'coverage'
