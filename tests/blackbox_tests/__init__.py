@@ -247,7 +247,7 @@ def run_i18nspector(options, path):
 def _mp_run_i18nspector(prog, options, path, queue):
     with open(prog, 'rt', encoding='UTF-8') as file:
         code = file.read()
-    sys.argv = [prog] + list(options) + [path]
+    sys.argv = [prog, *options, path]
     orig_stdout = sys.stdout
     orig_stderr = sys.stderr
     code = compile(code, prog, 'exec')
