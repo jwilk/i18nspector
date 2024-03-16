@@ -33,12 +33,12 @@ _xe = (
     str.join('', (random.choice(string.ascii_lowercase) for x in range(12)))
 )
 
-_source = '''\
+_source = f'''\
 <!DOCTYPE i18nspector SYSTEM "i18nspector.dtd" [
-  <!ENTITY {xe} SYSTEM "{xe}">
+  <!ENTITY {_xe} SYSTEM "{_xe}">
 ]>
-<i18nspector>&{xe};</i18nspector>
-'''.format(xe=_xe).encode('ASCII')
+<i18nspector>&{_xe};</i18nspector>
+'''.encode('ASCII')
 
 def check_fragment(s):
     '''
