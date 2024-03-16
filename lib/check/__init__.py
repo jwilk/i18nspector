@@ -481,7 +481,7 @@ class Checker(metaclass=abc.ABCMeta):
             (x, y) = codomain
             uncov_rngs = []
             if x > 0:
-                uncov_rngs += [range(0, x)]
+                uncov_rngs += [range(x)]
             if y + 1 < n:
                 uncov_rngs += [range(y + 1, n)]
         if (not uncov_rngs) and (ctx.plural_preimage is not None):

@@ -465,7 +465,7 @@ class test_codomain:
     def t_bool(self, cop, pyop):
         ranges = [
             (x, y)
-            for x in range(0, 3)
+            for x in range(3)
             for y in range(x, 3)
         ]
         for lx, ly in ranges:

@@ -42,7 +42,7 @@ class test_magic:
         assert_equal(M.big_endian_magic, b'\x95\x04\x12\xDE')
 
     def test_short(self):
-        for j in range(0, 3):
+        for j in range(3):
             data = M.little_endian_magic[:j]
             with assert_raises(M.SyntaxError) as cm:
                 parser_for_bytes(data)
@@ -57,7 +57,7 @@ class test_magic:
     def test_random(self):
         while True:
             random_magic = bytes(
-                random.randrange(0, 0x100) for i in range(0, 4)
+                random.randrange(0, 0x100) for i in range(4)
             )
             if random_magic in {M.little_endian_magic, M.big_endian_magic}:
                 continue

@@ -121,7 +121,7 @@ class test_get_character_name:
             assert_equal(name, 'LATIN CAPITAL LETTER ' + u)
 
     def test_c0(self):
-        for i, curses_name in zip(range(0, 0x20), curses.ascii.controlnames):
+        for i, curses_name in zip(range(0x20), curses.ascii.controlnames):
             u = chr(i)
             name = E.get_character_name(u)
             expected_name = 'control character ' + curses_name
@@ -139,7 +139,7 @@ class test_get_character_name:
 
     def test_uniqueness(self):
         names = set()
-        for i in range(0, 0x100):
+        for i in range(0x100):
             u = chr(i)
             name = E.get_character_name(u)
             assert_not_in(name, names)
