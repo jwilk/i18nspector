@@ -39,7 +39,7 @@ def _printable_prefix(s, r=re.compile('[ -\x7E]+')):
 class Error(Exception):
     message = 'invalid placeholder specification'
 
-class FormatString():
+class FormatString:
 
     def __init__(self, s):
         self._items = items = []

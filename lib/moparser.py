@@ -40,7 +40,7 @@ big_endian_magic = little_endian_magic[::-1]
 class SyntaxError(Exception):  # pylint: disable=redefined-builtin
     pass
 
-class Parser():
+class Parser:
 
     def __init__(self, path, *, encoding=None, check_for_duplicates=False, klass=None):
         self._encoding = encoding

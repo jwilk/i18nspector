@@ -95,7 +95,7 @@ def safe_format(template, *args, **kwargs):
     kwargs = {k: _escape(v) for k, v in kwargs.items()}
     return safestr(template.format(*args, **kwargs))
 
-class Tag():
+class Tag:
 
     def __init__(self, **kwargs):
         self.description = None

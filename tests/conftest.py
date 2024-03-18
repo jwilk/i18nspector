@@ -53,7 +53,7 @@ else:
 def _collect_yielded(generator):
     genargs = list(inspect.signature(generator).parameters.keys())
     if genargs == ['self']:
-        class YieldTestDescriptor():
+        class YieldTestDescriptor:
             def __set_name__(self, owner, name):
                 try:
                     args_lst = list(generator(owner()))
@@ -69,7 +69,7 @@ def _collect_yielded(generator):
                     setattr(owner, aname, _make_method(fn, args))
         return YieldTestDescriptor()
     elif genargs == []:  # pylint: disable=use-implicit-booleaness-not-comparison
-        class Test():
+        class Test:
             pass
         try:
             args_lst = list(generator())

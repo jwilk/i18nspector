@@ -73,7 +73,7 @@ def tagstring(s):
 
 # ----------------------------------------
 
-class ETag():
+class ETag:
 
     _ellipsis = '<...>'
     _split = re.compile(f'({re.escape(_ellipsis)})').split

@@ -67,7 +67,7 @@ class test_malformed:
         etree.fromstring(s)
         self.t(s)
 
-class test_name_re():
+class test_name_re:
     regexp = re.compile(fr'\A{M.name_re}\Z')
 
     def test_good(self):

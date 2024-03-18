@@ -86,14 +86,14 @@ class RedundantLength(Error):
 
 # --------------------------------------------------------------------------
 
-class VariableWidth():
+class VariableWidth:
 
     type = 'int'
 
     def __init__(self, parent):
         self.parent = parent
 
-class VariablePrecision():
+class VariablePrecision:
 
     type = 'int'
 
@@ -102,7 +102,7 @@ class VariablePrecision():
 
 # --------------------------------------------------------------------------
 
-class FormatString():
+class FormatString:
 
     def __init__(self, s):
         self._items = items = []
@@ -233,7 +233,7 @@ class FormatString():
 
 # --------------------------------------------------------------------------
 
-class Conversion():
+class Conversion:
 
     def __init__(self, parent, s, *, key, flags, width, var_width, prec, var_prec, length, conv):
         assert s[-1] == conv, f'{s[-1]} != {conv}'

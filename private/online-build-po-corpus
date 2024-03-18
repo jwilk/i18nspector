@@ -39,7 +39,7 @@ int(0_0)  # Python >= 3.6 is required
 def is_po_path(path):
     return path.endswith(('.po', '.pot'))
 
-class Fetcher():
+class Fetcher:
 
     def __init__(self, urlbase):
         self._urlbase = urlbase

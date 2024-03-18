@@ -51,7 +51,7 @@ class FixingLanguageCodesFailed(LanguageError):
 class FixingLanguageEncodingFailed(LanguageError):
     pass
 
-class Language():
+class Language:
 
     def __init__(self, language_code, territory_code=None, encoding=None, modifier=None):
         self.language_code = language_code
