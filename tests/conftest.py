@@ -79,7 +79,7 @@ def _collect_yielded(generator):
             fn, *args = args
             aname = 'test' + repr(args)
             aname = _mangle_test_name(aname)
-            assert getattr(Test, aname , None) is None
+            assert getattr(Test, aname, None) is None
             setattr(Test, aname, _make_method(fn, args))
         Test.__module__ = generator.__module__
         Test.__name__ = generator.__name__
