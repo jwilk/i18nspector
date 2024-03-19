@@ -156,7 +156,7 @@ class Checker(metaclass=abc.ABCMeta):
             )
 
     def check_msgids(self, message, msgid_fmts):
-        pass  # no coverage
+        pass
 
     @abc.abstractmethod
     def check_string(self, ctx, message, s):
