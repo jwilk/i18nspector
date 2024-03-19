@@ -96,7 +96,7 @@ def parse_plural_expression(s):
 
 _parse_plural_forms = re.compile(r'nplurals=([1-9][0-9]*);[ \t]*plural=([^;]+);?').search
 
-def parse_plural_forms(s, strict=True):
+def parse_plural_forms(s, *, strict=True):
     match = _parse_plural_forms(s)
     if match is None:
         raise PluralFormsSyntaxError

@@ -151,7 +151,7 @@ class Language:
             result = _get_plural_forms(code)
         return result
 
-    def get_unrepresentable_characters(self, encoding, strict=False):
+    def get_unrepresentable_characters(self, encoding, *, strict=False):
         characters = None
         if self.territory_code is not None:
             code = self._simple_format()
@@ -181,7 +181,7 @@ class Language:
                     break
         return result
 
-    def _simple_format(self, territory=True):
+    def _simple_format(self, *, territory=True):
         s = self.language_code
         if territory and self.territory_code is not None:
             s += '_' + self.territory_code
@@ -333,7 +333,7 @@ def _get_principal_territory_code(language):
         return
     return section.get('principal-territory')
 
-def _get_characters(language, modifier=None, strict=True):
+def _get_characters(language, modifier=None, *, strict=True):
     try:
         section = _primary_languages[language]
     except KeyError:

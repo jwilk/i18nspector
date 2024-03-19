@@ -161,14 +161,14 @@ def _read_control_characters():
 
 _control_character_names = dict(_read_control_characters())
 
-def get_portable_encodings(python=True):
+def get_portable_encodings(*, python=True):
     return (
         encoding
         for encoding, codec in _portable_encodings.items()
         if (not python) or (codec is not None)
     )
 
-def is_portable_encoding(encoding, python=True):
+def is_portable_encoding(encoding, *, python=True):
     encoding = encoding.lower()
     if encoding.startswith('iso_'):
         encoding = 'iso-' + encoding[4:]
@@ -177,7 +177,7 @@ def is_portable_encoding(encoding, python=True):
     else:
         return encoding in _portable_encodings
 
-def propose_portable_encoding(encoding, python=True):
+def propose_portable_encoding(encoding, *, python=True):
     del python  # never used; only encodings supported by Python are proposed
     try:
         pycodec = codecs.lookup(encoding)
