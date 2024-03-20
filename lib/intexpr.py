@@ -394,35 +394,40 @@ class CodomainEvaluator(BaseEvaluator):
     # ====================
 
     def _visit_gte(self, node, x, y):
-        assert (x is not None) and (y is not None)
+        assert x is not None
+        assert y is not None
         return (
             x[0] >= y[1],
             x[1] >= y[0],
         )
 
     def _visit_gt(self, node, x, y):
-        assert (x is not None) and (y is not None)
+        assert x is not None
+        assert y is not None
         return (
             x[0] > y[1],
             x[1] > y[0],
         )
 
     def _visit_lte(self, node, x, y):
-        assert (x is not None) and (y is not None)
+        assert x is not None
+        assert y is not None
         return (
             x[1] <= y[0],
             x[0] <= y[1],
         )
 
     def _visit_lt(self, node, x, y):
-        assert (x is not None) and (y is not None)
+        assert x is not None
+        assert y is not None
         return (
             x[1] < y[0],
             x[0] < y[1],
         )
 
     def _visit_eq(self, node, x, y):
-        assert (x is not None) and (y is not None)
+        assert x is not None
+        assert y is not None
         if x[0] == x[1] == y[0] == y[1]:
             return (1, 1)
         if x[0] <= y[0] <= x[1]:
@@ -432,7 +437,8 @@ class CodomainEvaluator(BaseEvaluator):
         return (0, 0)
 
     def _visit_noteq(self, node, x, y):
-        assert (x is not None) and (y is not None)
+        assert x is not None
+        assert y is not None
         if x[0] == x[1] == y[0] == y[1]:
             return (0, 0)
         if x[0] <= y[0] <= x[1]:
@@ -459,7 +465,8 @@ class CodomainEvaluator(BaseEvaluator):
             elif x[0] >= 1:
                 pass
             else:
-                assert (x[0] == 0) and (x[1] > 0)
+                assert x[0] == 0
+                assert x[1] > 0
                 r = (0, 1)
         return r
 
@@ -478,7 +485,8 @@ class CodomainEvaluator(BaseEvaluator):
             elif x == (0, 0):
                 pass
             else:
-                assert (x[0] == 0) and (x[1] > 0)
+                assert x[0] == 0
+                assert x[1] > 0
                 r = (0, 1)
         return r
 
