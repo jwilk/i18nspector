@@ -29,8 +29,8 @@ import encodings.aliases as encoding_aliases
 import functools
 import itertools
 import os
-import unicodedata
 import sys
+import unicodedata
 
 from lib import iconv
 from lib import misc

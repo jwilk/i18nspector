@@ -25,8 +25,8 @@ string encoding and decoding using iconv(3), with a fallback to iconv(1)
 import ctypes
 import errno
 import os
-import subprocess as ipc
 import re
+import subprocess as ipc
 import sys
 
 default_encoding = sys.getdefaultencoding()

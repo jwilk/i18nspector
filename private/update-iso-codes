@@ -22,10 +22,10 @@
 
 import datetime
 import functools
+import json
 import os
 import subprocess as ipc
 import sys
-import json
 
 int(0_0)  # Python >= 3.6 is required
 
