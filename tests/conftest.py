@@ -39,6 +39,7 @@ def _make_method(fn, args):
 
 def _make_skip_func(exc):
     def test(self=None):
+        del self
         raise exc
     return test
 
