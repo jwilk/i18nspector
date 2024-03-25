@@ -36,12 +36,12 @@ from lib import terminal
 class OrderedEnum(enum.Enum):
 
     def __lt__(self, other):
-        if not type(self) is type(other):
+        if type(self) is not type(other):
             return NotImplemented
         return self.value < other.value  # pylint: disable=comparison-with-callable
 
     def __eq__(self, other):
-        if not type(self) is type(other):
+        if type(self) is not type(other):
             return NotImplemented
         return self.value == other.value  # pylint: disable=comparison-with-callable
 
