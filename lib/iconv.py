@@ -56,7 +56,7 @@ def _popen(*args):
         os.environ['LC_ALL'] = 'C'  # no coverage
     return ipc.Popen(args,  # pylint: disable=consider-using-with
         stdin=ipc.PIPE, stdout=ipc.PIPE, stderr=ipc.PIPE,
-        preexec_fn=set_lc_all_c,
+        preexec_fn=set_lc_all_c,  # FIXME: not thread-safe
     )
 
 def encode(input: str, encoding=default_encoding, errors='strict'):
