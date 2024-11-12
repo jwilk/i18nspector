@@ -134,7 +134,7 @@ def create_parser(lexer):
     def expr_int(p):
         [tok] = p
         n = int(tok.getstr())
-        return ast.Num(n)
+        return ast.Constant(n)
     # pylint: enable=unused-variable
     with misc.throwaway_tempdir('rply'):
         # Use private temporary directory
@@ -311,10 +311,8 @@ class Evaluator(BaseEvaluator):
     # constants, variables
     # ====================
 
-    def _visit_num(self, node):
-        return self._check_overflow(node.n)
-
-    _visit_constant = _visit_num
+    def _visit_constant(self, node):
+        return self._check_overflow(node.value)
 
     def _visit_name(self, node):
         return self._check_overflow(self._ctxt.n)
@@ -514,13 +512,11 @@ class CodomainEvaluator(BaseEvaluator):
     # constants, variables
     # ====================
 
-    def _visit_num(self, node):
-        n = node.n
+    def _visit_constant(self, node):
+        n = node.value
         if (n < 0) or (n >= self._ctxt.max):
             return
         return (n, n)
-
-    _visit_constant = _visit_num
 
     def _visit_name(self, node):
         return (0, self._ctxt.max - 1)
@@ -552,10 +548,10 @@ class PeriodEvaluator(BaseEvaluator):
         const_mod = (
             isinstance(node.op, ast.Mod) and
             isinstance(node.left, ast.Name) and
-            isinstance(node.right, ast.Num)
+            isinstance(node.right, ast.Constant)
         )
         if const_mod:
-            n = node.right.n
+            n = node.right.value
             if (n <= 0) or (n >= self._ctxt.max):
                 return
             return (0, n)
@@ -591,10 +587,10 @@ class PeriodEvaluator(BaseEvaluator):
         [right] = node.comparators
         const_cmp = (
             isinstance(node.left, ast.Name) and
-            isinstance(right, ast.Num)
+            isinstance(right, ast.Constant)
         )
         if const_cmp:
-            n = right.n
+            n = right.value
             if (n < 0) or (n >= self._ctxt.max):
                 return
             # (n <cmp> N) is constant starting with either N or N+1,
@@ -673,13 +669,11 @@ class PeriodEvaluator(BaseEvaluator):
     # constants, variables
     # ====================
 
-    def _visit_num(self, node):
-        n = node.n
+    def _visit_constant(self, node):
+        n = node.value
         if n < 0 or n >= self._ctxt.max:
             return
         return (0, 1)
-
-    _visit_constant = _visit_num
 
     def _visit_name(self, node):  # pylint: disable=unused-argument
         pass
