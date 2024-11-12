@@ -24,6 +24,9 @@ jobs:
         - python: '3.12'
           os: ubuntu-22.04
           pytest: pytest
+        - python: '3.13'
+          os: ubuntu-24.04
+          pytest: pytest
     runs-on: ${{matrix.os}}
     steps:
     - uses: actions/checkout@v4
@@ -104,6 +107,8 @@ jobs:
           os: ubuntu-22.04
         - python: '3.12'
           os: ubuntu-22.04
+        - python: '3.13'
+          os: ubuntu-24.04
     runs-on: ${{matrix.os}}
     steps:
     - uses: actions/checkout@v4
