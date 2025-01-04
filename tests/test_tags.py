@@ -69,11 +69,14 @@ def ast_to_tagnames(node):
         isinstance(node, ast.Call) and
         isinstance(node.func, ast.Attribute) and
         node.func.attr == 'tag' and
-        node.args and
-        isinstance(node.args[0], ast.Str)
+        node.args
     )
     if ok:
-        yield node.args[0].s
+        try:
+            value = ast.literal_eval(node.args[0])
+        except ValueError:
+            return
+        yield value
 
 @collect_yielded
 def test_consistency():
