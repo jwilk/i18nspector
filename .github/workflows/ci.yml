@@ -46,7 +46,9 @@ jobs:
     - name: run tests
       run: |
         python3 -m pip install ${{matrix.pytest}}
-        python3 -m pytest -v
+        werror='-Werror'
+        python3 -m pytest -Werror --version || werror=''
+        python3 -m pytest $werror -v
       if: ${{matrix.pytest}}
     - name: check docs
       run: |
