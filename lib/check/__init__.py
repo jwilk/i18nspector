@@ -74,7 +74,7 @@ def checks_header_fields(*fields):
     header_fields_with_dedicated_checks.update(fields)
     return identity
 
-class Checker(metaclass=abc.ABCMeta):
+class Checker(abc.ABC):
 
     _patched_environment = None
 
