@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# encoding=UTF-8
 
 # Copyright © 2013-2023 Jakub Wilk <jwilk@jwilk.net>
 #
@@ -26,6 +27,10 @@ import sys
 import tempfile
 
 import nose
+
+# pylint: disable-next=multiple-statements
+async def _(): return f'{await "# Python >= 3.7 is required #"}'
+del _
 
 sys.path[:0] = [str(pathlib.Path(__file__).parent.parent)]
 
