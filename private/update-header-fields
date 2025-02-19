@@ -25,6 +25,8 @@ import os
 import subprocess as ipc
 import tempfile
 
+type(...)  # Python 3 is required
+
 xgettexts = {'xgettext', 'pygettext'}
 
 def main():
