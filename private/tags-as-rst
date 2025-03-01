@@ -28,10 +28,9 @@ sys.path[0] += '/..'
 
 from lib import tags as tagmod
 
-# pylint: disable=multiple-statements
+# pylint: disable-next=multiple-statements
 async def _(): return f'{await "# Python >= 3.7 is required #"}'
 del _
-# pylint: enable=multiple-statements
 
 def output_tags_rst(tags):
     print('''\
