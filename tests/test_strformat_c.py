@@ -161,7 +161,6 @@ class test_types:
 
     @collect_yielded
     def test_c99_macros(self):
-        # pylint: disable=undefined-loop-variable
         def _t(s, tp):
             return self.t(s, tp, integer=True)
         def t(s, tp):
@@ -170,7 +169,6 @@ class test_types:
                 f'%<{s.format(c=c, n=n)}>',
                 ('u' if unsigned else '') + tp.format(n=n)
             )
-        # pylint: enable=undefined-loop-variable
         for c in 'diouxX':
             unsigned = c not in 'di'
             for n in {8, 16, 32, 64}:
