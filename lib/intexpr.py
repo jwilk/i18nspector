@@ -317,8 +317,6 @@ class Evaluator(BaseEvaluator):
     def _visit_name(self, node):
         return self._check_overflow(self._ctxt.n)
 
-    # pylint: enable=unused-argument
-
 class CodomainEvaluator(BaseEvaluator):
 
     def __init__(self, node, *, bits):
@@ -520,8 +518,6 @@ class CodomainEvaluator(BaseEvaluator):
 
     def _visit_name(self, node):
         return (0, self._ctxt.max - 1)
-
-    # pylint: enable=unused-argument
 
 def gcd(x, y):
     while y:
