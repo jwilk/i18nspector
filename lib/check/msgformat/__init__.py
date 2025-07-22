@@ -25,7 +25,7 @@ message format checks
 import abc
 import types
 
-class Checker(metaclass=abc.ABCMeta):
+class Checker(abc.ABC):
 
     def __init__(self, parent):
         self.parent = parent
