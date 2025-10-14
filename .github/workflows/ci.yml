@@ -77,7 +77,7 @@ jobs:
         MANWIDTH: 80
       run: |
         cd /
-        man 1 i18nspector | grep -A 10 -w I18NSPECTOR
+        man 1 i18nspector | grep -A 10 -iw I18NSPECTOR
     - name: set up APT
       run: |
         printf 'Apt::Install-Recommends "false";\n' | sudo tee -a /etc/apt/apt.conf
