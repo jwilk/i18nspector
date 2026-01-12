@@ -69,10 +69,10 @@ python-brace = {0} {var}
 # https://docs.python.org/3/library/string.html#formatstrings
 
 qt = %1
-# https://doc.qt.io/qt-5/qstring.html#arg
+# https://doc.qt.io/qt-6/qstring.html#arg
 
 qt-plural = %n
-# https://doc.qt.io/qt-5/i18n-source-translation.html#handling-plurals
+# https://doc.qt.io/qt-6/i18n-source-translation.html#handle-plural-forms
 
 scheme = ~A
 # https://people.csail.mit.edu/jaffer/slib/Format-Specification.html
