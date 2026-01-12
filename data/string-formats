@@ -40,7 +40,7 @@ librep = %d
 # https://librep.sourceforge.net/librep-manual.html#Formatted%20Output
 
 lisp = ~A
-# http://www.lispworks.com/documentation/HyperSpec/Body/22_c.htm
+# https://www.lispworks.com/documentation/HyperSpec/Body/22_c.htm
 
 lua = %d
 # https://www.lua.org/manual/5.2/manual.html#pdf-string.format
