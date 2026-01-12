@@ -84,7 +84,7 @@ smalltalk = %1
 # https://www.gnu.org/software/smalltalk/manual-base/html_node/CharacterArray_002dstring-processing.html
 
 tcl = %d
-# https://www.tcl.tk/man/tcl8.6/TclCmd/format.htm
+# https://www.tcl-lang.org/man/tcl8.6/TclCmd/format.htm
 
 ycp = %1
 # https://doc.opensuse.org/projects/YaST/SLES11/tdg/sformat.html
