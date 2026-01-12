@@ -48,6 +48,7 @@ jobs:
     - name: run tests
       run: |
         python3 -m pip install ${{matrix.pytest}}
+        sed -i -e 's#[^ ]*[.]load_setuptools_entrypoints(#None and &#' $(find ${{env.pythonLocation}}/lib/python*/site-packages/_pytest/ -name '*.py')
         werror='-Werror'
         python3 -m pytest -Werror --version || werror=''
         python3 -m pytest $werror -v
