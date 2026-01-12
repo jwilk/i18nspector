@@ -136,11 +136,11 @@ Add support for pygettext's ``docstring`` flag.
 
 Check .desktop files:
 
- * https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s04.html
+ * https://specifications.freedesktop.org/desktop-entry/latest/localized-keys.html
 
 Check Shared Mime Info files:
 
- * https://specifications.freedesktop.org/shared-mime-info-spec/shared-mime-info-spec-latest.html
+ * https://specifications.freedesktop.org/shared-mime-info/latest/
 
 Figure out what to do with software that call ``gettext("")`` intentionally.
 Test-case:
