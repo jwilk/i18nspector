@@ -24,7 +24,7 @@ gfc-internal = %d
 
 java = {0}
 # https://docs.oracle.com/javase/7/docs/api/java/text/MessageFormat.html
-# https://ssl.icu-project.org/apiref/icu4j/com/ibm/icu/text/MessageFormat.html
+# https://unicode-org.github.io/icu-docs/apidoc/released/icu4j/com/ibm/icu/text/MessageFormat.html
 
 javascript = %d
 # https://www.gnu.org/software/gettext/manual/html_node/javascript_002dformat.html
