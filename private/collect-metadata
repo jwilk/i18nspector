@@ -58,6 +58,7 @@ def extract_address(s):
 def main():
     init_polib()
     ap = argparse.ArgumentParser()
+    ap.color = False
     ap.add_argument('files', metavar='FILE', nargs='+')
     ap.add_argument('-F', '--field', help='only this field')
     ap.add_argument('--insane', action='store_true', help='allow insane field names')

@@ -182,6 +182,7 @@ __all__ = ['Parser', 'SyntaxError']
 def main():
     import argparse  # pylint: disable=import-outside-toplevel
     ap = argparse.ArgumentParser(description='msgunfmt(1) replacement')
+    ap.color = False
     ap.add_argument('files', metavar='FILE', nargs='+')
     options = ap.parse_args()
     for path in options.files:

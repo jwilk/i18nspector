@@ -197,6 +197,7 @@ class VersionAction(argparse.Action):
 def main():
     initialize_terminal()
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.color = False
     ap.add_argument('--version', action=VersionAction)
     ap.add_argument('-l', '--language', metavar='LANG', help='assume this language')
     ap.add_argument('--unpack-deb', action='store_true', help='allow unpacking Debian packages')

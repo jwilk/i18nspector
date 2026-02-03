@@ -101,6 +101,7 @@ default_areas = 'main'
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.color = False
     ap.add_argument('--mirror', metavar='URL', default=default_mirror,
         help=f'Debian mirror to use (default: {default_mirror})'
     )
