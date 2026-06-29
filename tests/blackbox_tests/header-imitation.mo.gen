@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # E: broken-encoding '<...>' cannot be decoded as ASCII
 # P: no-language-header-field
 # I: unable-to-determine-language
@@ -12,4 +12,7 @@
 # P: no-language-team-header-field
 
 set -e -u -x
-exec msgfmt --endian=little "${here}/xfail-header-imitation.po" -o "${target}"
+set -o pipefail
+perl -pe 's/s\205/zz/' < "${here}/xfail-header-imitation.po" \
+| msgfmt --endian=little - -o - \
+| perl -pe 's/zz/s\205/' > "${target}"
