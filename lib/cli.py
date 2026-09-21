@@ -26,6 +26,7 @@ import argparse
 import concurrent.futures
 import functools
 import io
+import multiprocessing
 import os
 import subprocess as ipc
 import sys
@@ -131,7 +132,8 @@ def check_all(paths, *, options):
             check_file(path, options=options)
     else:
         Executor = concurrent.futures.ProcessPoolExecutor
-        with Executor(max_workers=options.jobs) as executor:
+        mp_context = multiprocessing.get_context('fork')
+        with Executor(max_workers=options.jobs, mp_context=mp_context) as executor:
             check_file_opt = functools.partial(check_file_s, options=options)
             for s in executor.map(check_file_opt, paths):
                 sys.stdout.write(s)
