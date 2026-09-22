@@ -32,6 +32,13 @@ import nose
 async def _(): return f'{await "# Python >= 3.7 is required #"}'
 del _
 
+nose.config.Config.srcDirs = property(
+    # default srcDirs is ('lib', 'src'),
+    # which make "lib" incorrectly added to sys.path
+    fget=(lambda *args: ()),
+    fset=(lambda *args: None),
+)
+
 sys.path[:0] = [str(pathlib.Path(__file__).parent.parent)]
 
 from tests import blackbox_tests  # pylint: disable=wrong-import-position
