@@ -132,7 +132,9 @@ def check_all(paths, *, options):
             check_file(path, options=options)
     else:
         Executor = concurrent.futures.ProcessPoolExecutor
-        mp_context = multiprocessing.get_context('fork')
+        mp_context = multiprocessing.get_context()
+        if mp_context.get_start_method() == 'forkserver':
+            mp_context = multiprocessing.get_context('fork')
         with Executor(max_workers=options.jobs, mp_context=mp_context) as executor:
             check_file_opt = functools.partial(check_file_s, options=options)
             for s in executor.map(check_file_opt, paths):
