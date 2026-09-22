@@ -191,7 +191,7 @@ def queue_get(queue, process):
             else:
                 raise
 
-def run_i18nspector(options, path):
+def run_i18nspector(options, *paths):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
         # We cheat here a bit, because exec(3)ing is very expensive.
@@ -203,7 +203,7 @@ def run_i18nspector(options, path):
         queue = mp.Queue()
         child = mp.Process(
             target=_mp_run_i18nspector,
-            args=(prog, options, path, queue)
+            args=(prog, options, paths, queue)
         )
         child.start()
         [stdout, stderr] = (
@@ -215,7 +215,7 @@ def run_i18nspector(options, path):
     else:
         commandline = shlex.split(commandline)
         commandline += options
-        commandline += [path]
+        commandline += paths
         fixed_env = dict(os.environ, PYTHONIOENCODING='UTF-8')
         with ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env) as child:
             stdout, stderr = (
@@ -243,10 +243,10 @@ def run_i18nspector(options, path):
         message += ['stderr: (empty)']
     raise SubprocessError(str.join('\n', message))
 
-def _mp_run_i18nspector(prog, options, path, queue):
+def _mp_run_i18nspector(prog, options, paths, queue):
     with open(prog, 'rt', encoding='UTF-8') as file:
         code = file.read()
-    sys.argv = [prog, *options, path]
+    sys.argv = [prog, *options, *paths]
     orig_stdout = sys.stdout
     orig_stderr = sys.stderr
     code = compile(code, prog, 'exec')
