@@ -399,6 +399,16 @@ def test_os_error_permission_denied():
         expected = etags_from_tagstring(this(), path)
         assert_emit_tags(path, expected)
 
+def test_j():
+    paths = [
+        path
+        for path in _get_test_filenames()
+        if '/okay-' in path
+    ]
+    assert len(paths) >= 2
+    stdout = run_i18nspector(('-j', '2'), *paths)
+    tools.assert_equal(stdout, [])
+
 # ----------------------------------------
 
 def get_coverage():
