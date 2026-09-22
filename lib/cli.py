@@ -236,6 +236,10 @@ def main():
     Checker.patch_environment()
     check_all(files, options=options)
 
-__all__ = ['main']
+def mp_main():
+    initialize_terminal()
+    Checker.patch_environment()
+
+__all__ = ['main', 'mp_main']
 
 # vim:ts=4 sts=4 sw=4 et

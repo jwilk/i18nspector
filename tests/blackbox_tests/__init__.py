@@ -255,6 +255,7 @@ def _mp_run_i18nspector(prog, options, path, queue):
     io_stderr = io.StringIO()
     gvars = dict(
         __file__=prog,
+        __name__='__main__',
     )
     (sys.stdout, sys.stderr) = (io_stdout, io_stderr)
     stdout = stderr = ''
