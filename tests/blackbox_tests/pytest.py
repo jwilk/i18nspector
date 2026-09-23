@@ -23,12 +23,14 @@
 
 from . import (
     test_file,
+    test_j,
     test_os_error_no_such_file,
     test_os_error_permission_denied,
 )
 
 __all__ = [
     'test_file',
+    'test_j',
     'test_os_error_no_such_file',
     'test_os_error_permission_denied',
 ]
