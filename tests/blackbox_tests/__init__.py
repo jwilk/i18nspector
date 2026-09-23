@@ -200,7 +200,6 @@ def run_i18nspector(options, path):
         import lib.cli  # pylint: disable=import-outside-toplevel
         assert lib.cli  # make pyflakes happy
         prog = os.path.join(here, os.pardir, os.pardir, 'i18nspector')
-        commandline = [sys.executable, prog]
         queue = mp.Queue()
         child = mp.Process(
             target=_mp_run_i18nspector,
