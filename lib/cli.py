@@ -127,7 +127,8 @@ def check_file_s(path, *, options):
     return io_stdout.getvalue()
 
 def check_all(paths, *, options):
-    if (len(paths) <= 1) or (options.jobs <= 1):
+    n_jobs = min(options.jobs, len(paths))
+    if n_jobs <= 1:
         for path in paths:
             check_file(path, options=options)
     else:
@@ -135,7 +136,7 @@ def check_all(paths, *, options):
         mp_context = multiprocessing.get_context()
         if mp_context.get_start_method() == 'forkserver':
             mp_context = multiprocessing.get_context('fork')
-        with Executor(max_workers=options.jobs, mp_context=mp_context) as executor:
+        with Executor(max_workers=n_jobs, mp_context=mp_context) as executor:
             check_file_opt = functools.partial(check_file_s, options=options)
             for s in executor.map(check_file_opt, paths):
                 sys.stdout.write(s)
