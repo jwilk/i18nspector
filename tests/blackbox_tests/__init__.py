@@ -192,7 +192,7 @@ def queue_get(queue, process):
             else:
                 raise
 
-def run_i18nspector(options, *paths):
+def run_i18nspector(*args):
     commandline = os.environ.get('I18NSPECTOR_COMMANDLINE')
     if commandline is None:
         # We cheat here a bit, because exec(3)ing is very expensive.
@@ -204,7 +204,7 @@ def run_i18nspector(options, *paths):
         queue = mp.Queue()
         child = mp.Process(
             target=_mp_run_i18nspector,
-            args=(prog, options, paths, queue)
+            args=(prog, args, queue)
         )
         child.start()
         [stdout, stderr] = (
@@ -215,8 +215,7 @@ def run_i18nspector(options, *paths):
         rc = child.exitcode
     else:
         commandline = shlex.split(commandline)
-        commandline += options
-        commandline += paths
+        commandline += args
         fixed_env = dict(os.environ, PYTHONIOENCODING='UTF-8')
         with ipc.Popen(commandline, stdout=ipc.PIPE, stderr=ipc.PIPE, env=fixed_env) as child:
             stdout, stderr = (
@@ -244,8 +243,8 @@ def run_i18nspector(options, *paths):
         message += ['stderr: (empty)']
     raise SubprocessError(str.join('\n', message))
 
-def _mp_run_i18nspector(prog, options, paths, queue):
-    sys.argv = [prog, *options, *paths]
+def _mp_run_i18nspector(prog, args, queue):
+    sys.argv = [prog, *args]
     orig_stdout = sys.stdout
     orig_stderr = sys.stderr
     io_stdout = io.StringIO()
@@ -276,7 +275,7 @@ def _mp_run_i18nspector(prog, options, paths, queue):
 
 def assert_emit_tags(path, etags, *, options=()):
     etags = list(etags)
-    stdout = run_i18nspector(options, path)
+    stdout = run_i18nspector(*options, path)
     expected_failure = os.path.basename(path).startswith('xfail-')
     if stdout != etags:
         if expected_failure:
@@ -400,7 +399,7 @@ def test_j():
         if '/okay-' in path
     ]
     assert len(paths) >= 2
-    stdout = run_i18nspector(('-j', '2'), *paths)
+    stdout = run_i18nspector('-j', '2', *paths)
     tools.assert_equal(stdout, [])
 
 # ----------------------------------------
