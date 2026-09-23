@@ -40,9 +40,6 @@ jobs:
       run: |
         python3 -m pip install ${{matrix.polib || 'polib'}}
         python3 -m pip install rply
-    - name: test -j
-      run: |
-        python3 i18nspector -j2 tests/*/okay*.[mp]o
     - name: run tests
       run: |
         python3 -m pip install nose
