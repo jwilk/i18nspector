@@ -26,6 +26,7 @@ import os
 import re
 import shlex
 import signal
+import runpy
 import subprocess as ipc
 import sys
 import traceback
@@ -244,23 +245,16 @@ def run_i18nspector(options, *paths):
     raise SubprocessError(str.join('\n', message))
 
 def _mp_run_i18nspector(prog, options, paths, queue):
-    with open(prog, 'rt', encoding='UTF-8') as file:
-        code = file.read()
     sys.argv = [prog, *options, *paths]
     orig_stdout = sys.stdout
     orig_stderr = sys.stderr
-    code = compile(code, prog, 'exec')
     io_stdout = io.StringIO()
     io_stderr = io.StringIO()
-    gvars = dict(
-        __file__=prog,
-        __name__='__main__',
-    )
     (sys.stdout, sys.stderr) = (io_stdout, io_stderr)
     stdout = stderr = ''
     try:
         try:
-            exec(code, gvars)  # pylint: disable=exec-used
+            runpy.run_path(prog, run_name='__main__')
         finally:
             (sys.stdout, sys.stderr) = (orig_stdout, orig_stderr)
             stdout = io_stdout.getvalue()
