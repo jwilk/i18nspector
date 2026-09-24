@@ -41,24 +41,24 @@ jobs:
         python3 -m pip install ${{matrix.polib || 'polib'}}
         python3 -m pip install rply
     - name: install nose
+      if: ${{! matrix.pytest}}
       run: |
         python3 -m pip install nose
-      if: ${{! matrix.pytest}}
     - name: run tests
+      if: ${{! matrix.pytest}}
       run: |
         tests/run-nose -v
-      if: ${{! matrix.pytest}}
     - name: install pytest
+      if: ${{matrix.pytest}}
       run: |
         python3 -m pip install ${{matrix.pytest}}
         sed -i -e 's#[^ ]*[.]load_setuptools_entrypoints(#None and &#' $(find ${{env.pythonLocation}}/lib/python*/site-packages/_pytest/ -name '*.py')
-      if: ${{matrix.pytest}}
     - name: run tests
+      if: ${{matrix.pytest}}
       run: |
         werror='-Werror'
         python3 -m pytest -Werror --version || werror=''
         python3 -m pytest $werror -v
-      if: ${{matrix.pytest}}
     - name: check docs
       run: |
         dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
