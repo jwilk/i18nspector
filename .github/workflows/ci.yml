@@ -40,15 +40,21 @@ jobs:
       run: |
         python3 -m pip install ${{matrix.polib || 'polib'}}
         python3 -m pip install rply
-    - name: run tests
+    - name: install nose
       run: |
         python3 -m pip install nose
-        tests/run-nose -v
       if: ${{! matrix.pytest}}
     - name: run tests
       run: |
+        tests/run-nose -v
+      if: ${{! matrix.pytest}}
+    - name: install pytest
+      run: |
         python3 -m pip install ${{matrix.pytest}}
         sed -i -e 's#[^ ]*[.]load_setuptools_entrypoints(#None and &#' $(find ${{env.pythonLocation}}/lib/python*/site-packages/_pytest/ -name '*.py')
+      if: ${{matrix.pytest}}
+    - name: run tests
+      run: |
         werror='-Werror'
         python3 -m pytest -Werror --version || werror=''
         python3 -m pytest $werror -v
