@@ -123,6 +123,7 @@ jobs:
         private/update-blackbox-tests
         private/update-charmaps
         private/update-tag-coverage
+        git add -N .
         git diff --exit-code
 
   nose:
