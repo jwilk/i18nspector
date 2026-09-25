@@ -34,7 +34,7 @@ del _
 
 nose.config.Config.srcDirs = property(
     # default srcDirs is ('lib', 'src'),
-    # which make "lib" incorrectly added to sys.path
+    # which makes "lib" incorrectly added to sys.path
     fget=(lambda *args: ()),
     fset=(lambda *args: None),
 )
