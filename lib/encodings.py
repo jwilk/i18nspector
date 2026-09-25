@@ -29,6 +29,7 @@ import encodings.aliases as encoding_aliases
 import functools
 import itertools
 import os
+import re
 import sys
 import unicodedata
 
@@ -119,7 +120,7 @@ def _read_encodings():
             pycodec = codecs.lookup(encoding)
             e2c[encoding] = pycodec
             c2e.setdefault(pycodec.name, encoding)
-        elif extra == 'not-python':
+        elif re.fullmatch('not-python|python-3[.][0-9]+', extra):
             pass
         else:
             raise misc.DataIntegrityError
