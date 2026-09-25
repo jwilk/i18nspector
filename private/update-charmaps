@@ -21,7 +21,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import configparser
 import functools
+import os
 import sys
 
 # pylint: disable=wrong-import-position
@@ -29,7 +31,7 @@ import sys
 sys.path[0] += '/..'
 basedir = sys.path[0]
 
-from lib import encodings
+from lib import paths
 from lib import iconv
 
 int(0_0)  # Python >= 3.6 is required
@@ -62,14 +64,18 @@ def generate_charmap(encoding):
         file.write(us.encode('UTF-8'))
     eprint('ok')
 
+def get_nonpython_encodings():
+    path = os.path.join(paths.datadir, 'encodings')
+    cp = configparser.ConfigParser(interpolation=None, default_section='')
+    cp.read(path, encoding='UTF-8')
+    for encoding, mark in cp['portable-encodings'].items():
+        if mark == 'not-python':
+            yield encoding
+    yield from cp['extra-encodings']
+
 def main():
-    # pylint: disable=protected-access
-    for encoding, codec in encodings._portable_encodings.items():
-        if codec is None:
-            generate_charmap(encoding)
-    for encoding in encodings._extra_encodings:
+    for encoding in get_nonpython_encodings():
         generate_charmap(encoding)
-    # pylint: enable=protected-access
 
 if __name__ == '__main__':
     main()
